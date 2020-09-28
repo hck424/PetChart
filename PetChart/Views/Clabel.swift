@@ -11,12 +11,6 @@ import UIKit
 
 class Clabel: UILabel {
     
-    @IBInspectable var localizeText: String? {
-        didSet {
-            if localizeText != nil { setNeedsLayout()}
-        }
-    }
-    
     @IBInspectable var insetTB :CGFloat = 0.0 {
         didSet {
             if insetTB > 0 { setNeedsLayout() }
@@ -27,7 +21,6 @@ class Clabel: UILabel {
             if insetLR > 0 { setNeedsLayout() }
         }
     }
-    
     
     @IBInspectable var borderWidth: CGFloat = 0.0 {
         didSet {
@@ -54,10 +47,6 @@ class Clabel: UILabel {
     override func draw(_ rect: CGRect) {
         
         super.draw(rect)
-        
-        if let local = localizeText {
-            self.text = NSLocalizedString(local, comment: "")
-        }
         
         self.clipsToBounds = true
         var raduis:CGFloat = 0.0

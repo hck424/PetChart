@@ -7,18 +7,24 @@
 
 import UIKit
 import CoreData
+import Firebase
 
 @main
+
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
     var window: UIWindow?
-
+    
+    func mainTabbarCtrl() -> MainTabBarController? {
+        return self.window?.rootViewController as? MainTabBarController
+    }
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         window = UIWindow.init(frame: UIScreen.main.bounds)
+        FirebaseApp.configure()
+        
         let dfs = UserDefaults.standard;
         let showTutorial = dfs.object(forKey: IsShowTutorial)
-        if let _ = showTutorial {
+        if showTutorial == nil {
             self.callTutorialVc()
             dfs.setValue("Y", forKey: IsShowTutorial)
             dfs.synchronize()
@@ -26,17 +32,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         else {
             self.callMainVc()
         }
-
+        
         return true
     }
-
+    
     func callTutorialVc() {
         let vc: TutorialViewController = TutorialViewController.init()
         window?.rootViewController = vc;
         window?.makeKeyAndVisible()
     }
     func callMainVc() {
-        
+        let mainTabVc = MainTabBarController.init()
+        window?.rootViewController = mainTabVc
+        window?.makeKeyAndVisible()
     }
 
     // MARK: - Core Data stack

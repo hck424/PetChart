@@ -3,11 +3,33 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		001E61C4CEF479BC8EF861E8 /* Pods_PetChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB4856BCA868CCC4B601D2FF /* Pods_PetChart.framework */; };
+		E993C487251EEB94007E8C7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E993C486251EEB94007E8C7E /* GoogleService-Info.plist */; };
+		E993C48D251EEBCF007E8C7E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993C48B251EEBCF007E8C7E /* HomeViewController.swift */; };
+		E993C48E251EEBCF007E8C7E /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E993C48C251EEBCF007E8C7E /* HomeViewController.xib */; };
+		E993C492251EEBDE007E8C7E /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993C490251EEBDE007E8C7E /* ChartViewController.swift */; };
+		E993C493251EEBDE007E8C7E /* ChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E993C491251EEBDE007E8C7E /* ChartViewController.xib */; };
+		E993C497251EEC09007E8C7E /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993C495251EEC09007E8C7E /* CommunityViewController.swift */; };
+		E993C498251EEC09007E8C7E /* CommunityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E993C496251EEC09007E8C7E /* CommunityViewController.xib */; };
+		E999D5B52520214D0087D8AE /* CNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5B42520214D0087D8AE /* CNavigationBar.swift */; };
+		E999D5D625202A190087D8AE /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5D525202A190087D8AE /* Utility.swift */; };
+		E999D5DB2520490F0087D8AE /* CButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5D82520490F0087D8AE /* CButton.swift */; };
+		E999D5DC2520490F0087D8AE /* Clabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5D92520490F0087D8AE /* Clabel.swift */; };
+		E999D5DD2520490F0087D8AE /* ShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5DA2520490F0087D8AE /* ShadowView.swift */; };
+		E999D5E125204A110087D8AE /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5DF25204A110087D8AE /* LoginViewController.swift */; };
+		E999D5E225204A110087D8AE /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E999D5E025204A110087D8AE /* LoginViewController.xib */; };
+		E999D5E925204DF20087D8AE /* CTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5E825204DF20087D8AE /* CTextField.swift */; };
+		E999D5F725207C610087D8AE /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5F625207C610087D8AE /* AlertView.swift */; };
+		E999D5FA25207C6D0087D8AE /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E999D5F925207C6D0087D8AE /* AlertView.xib */; };
+		E9C09F12251EFB1D00D0120C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C09F11251EFB1D00D0120C /* Extension.swift */; };
+		E9C09F23251F0B2A00D0120C /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C09F22251F0B2A00D0120C /* BaseNavigationController.swift */; };
 		E9D5AB47251ED941005B7ECB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5AB46251ED941005B7ECB /* Constants.swift */; };
+		E9D5AB4A251EE12A005B7ECB /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5AB49251EE12A005B7ECB /* MainTabBarController.swift */; };
+		E9D5AB50251EE177005B7ECB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5AB4F251EE177005B7ECB /* BaseViewController.swift */; };
 		E9D794E3251ECFF800D79E7E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D794E2251ECFF800D79E7E /* AppDelegate.swift */; };
 		E9D794EA251ECFF800D79E7E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D794E8251ECFF800D79E7E /* Main.storyboard */; };
 		E9D794ED251ECFF800D79E7E /* PetChart.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = E9D794EB251ECFF800D79E7E /* PetChart.xcdatamodeld */; };
@@ -18,7 +40,30 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		779C4A5FB6DFEB7A51C424C1 /* Pods-PetChart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.debug.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.debug.xcconfig"; sourceTree = "<group>"; };
+		DB4856BCA868CCC4B601D2FF /* Pods_PetChart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetChart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E993C486251EEB94007E8C7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		E993C48B251EEBCF007E8C7E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		E993C48C251EEBCF007E8C7E /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
+		E993C490251EEBDE007E8C7E /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
+		E993C491251EEBDE007E8C7E /* ChartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartViewController.xib; sourceTree = "<group>"; };
+		E993C495251EEC09007E8C7E /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
+		E993C496251EEC09007E8C7E /* CommunityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommunityViewController.xib; sourceTree = "<group>"; };
+		E999D5B42520214D0087D8AE /* CNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNavigationBar.swift; sourceTree = "<group>"; };
+		E999D5D525202A190087D8AE /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
+		E999D5D82520490F0087D8AE /* CButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CButton.swift; sourceTree = "<group>"; };
+		E999D5D92520490F0087D8AE /* Clabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Clabel.swift; sourceTree = "<group>"; };
+		E999D5DA2520490F0087D8AE /* ShadowView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ShadowView.swift; sourceTree = "<group>"; };
+		E999D5DF25204A110087D8AE /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
+		E999D5E025204A110087D8AE /* LoginViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		E999D5E825204DF20087D8AE /* CTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTextField.swift; sourceTree = "<group>"; };
+		E999D5F625207C610087D8AE /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
+		E999D5F925207C6D0087D8AE /* AlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
+		E9C09F11251EFB1D00D0120C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		E9C09F22251F0B2A00D0120C /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		E9D5AB46251ED941005B7ECB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		E9D5AB49251EE12A005B7ECB /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
+		E9D5AB4F251EE177005B7ECB /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
 		E9D794DF251ECFF800D79E7E /* PetChart.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PetChart.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9D794E2251ECFF800D79E7E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9D794E9251ECFF800D79E7E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -28,6 +73,7 @@
 		E9D794F3251ECFF800D79E7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9D79505251ED15A00D79E7E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		E9D79506251ED15A00D79E7E /* TutorialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TutorialViewController.xib; sourceTree = "<group>"; };
+		F06A3C1ED321CEC909CB5924 /* Pods-PetChart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.release.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +81,46 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				001E61C4CEF479BC8EF861E8 /* Pods_PetChart.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		04955DA415CFD1BB368548F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DB4856BCA868CCC4B601D2FF /* Pods_PetChart.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		B298DAAF0E55AF5829076E7B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				779C4A5FB6DFEB7A51C424C1 /* Pods-PetChart.debug.xcconfig */,
+				F06A3C1ED321CEC909CB5924 /* Pods-PetChart.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		E999D5E625204A450087D8AE /* Logoin */ = {
+			isa = PBXGroup;
+			children = (
+				E999D5DF25204A110087D8AE /* LoginViewController.swift */,
+				E999D5E025204A110087D8AE /* LoginViewController.xib */,
+			);
+			name = Logoin;
+			sourceTree = "<group>";
+		};
 		E9D794D6251ECFF800D79E7E = {
 			isa = PBXGroup;
 			children = (
 				E9D794E1251ECFF800D79E7E /* PetChart */,
 				E9D794E0251ECFF800D79E7E /* Products */,
+				B298DAAF0E55AF5829076E7B /* Pods */,
+				04955DA415CFD1BB368548F9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,11 +135,12 @@
 		E9D794E1251ECFF800D79E7E /* PetChart */ = {
 			isa = PBXGroup;
 			children = (
+				E993C486251EEB94007E8C7E /* GoogleService-Info.plist */,
 				E9D794EE251ECFF800D79E7E /* Assets.xcassets */,
+				E9D794E2251ECFF800D79E7E /* AppDelegate.swift */,
 				E9D794FD251ED09100D79E7E /* Common */,
 				E9D794FC251ED07800D79E7E /* Views */,
 				E9D794FB251ED06B00D79E7E /* Controllers */,
-				E9D794E2251ECFF800D79E7E /* AppDelegate.swift */,
 				E9D794E8251ECFF800D79E7E /* Main.storyboard */,
 				E9D794F0251ECFF800D79E7E /* LaunchScreen.storyboard */,
 				E9D794F3251ECFF800D79E7E /* Info.plist */,
@@ -77,6 +153,16 @@
 			isa = PBXGroup;
 			children = (
 				E9D79504251ED13D00D79E7E /* Tutorial */,
+				E9D5AB49251EE12A005B7ECB /* MainTabBarController.swift */,
+				E9D5AB4F251EE177005B7ECB /* BaseViewController.swift */,
+				E9C09F22251F0B2A00D0120C /* BaseNavigationController.swift */,
+				E993C48B251EEBCF007E8C7E /* HomeViewController.swift */,
+				E993C48C251EEBCF007E8C7E /* HomeViewController.xib */,
+				E993C490251EEBDE007E8C7E /* ChartViewController.swift */,
+				E993C491251EEBDE007E8C7E /* ChartViewController.xib */,
+				E993C495251EEC09007E8C7E /* CommunityViewController.swift */,
+				E993C496251EEC09007E8C7E /* CommunityViewController.xib */,
+				E999D5E625204A450087D8AE /* Logoin */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -84,6 +170,11 @@
 		E9D794FC251ED07800D79E7E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				E999D5D82520490F0087D8AE /* CButton.swift */,
+				E999D5D92520490F0087D8AE /* Clabel.swift */,
+				E999D5DA2520490F0087D8AE /* ShadowView.swift */,
+				E999D5B42520214D0087D8AE /* CNavigationBar.swift */,
+				E999D5E825204DF20087D8AE /* CTextField.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -92,6 +183,10 @@
 			isa = PBXGroup;
 			children = (
 				E9D5AB46251ED941005B7ECB /* Constants.swift */,
+				E9C09F11251EFB1D00D0120C /* Extension.swift */,
+				E999D5D525202A190087D8AE /* Utility.swift */,
+				E999D5F625207C610087D8AE /* AlertView.swift */,
+				E999D5F925207C6D0087D8AE /* AlertView.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -112,9 +207,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9D794F6251ECFF800D79E7E /* Build configuration list for PBXNativeTarget "PetChart" */;
 			buildPhases = (
+				674BBA5E1005B3945C0740BD /* [CP] Check Pods Manifest.lock */,
 				E9D794DB251ECFF800D79E7E /* Sources */,
 				E9D794DC251ECFF800D79E7E /* Frameworks */,
 				E9D794DD251ECFF800D79E7E /* Resources */,
+				11D6E49E4413C4D5ED93FB6B /* [CP] Embed Pods Frameworks */,
+				8EE0AF103E4E552068BBA3F0 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -162,14 +260,79 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E993C498251EEC09007E8C7E /* CommunityViewController.xib in Resources */,
 				E9D794F2251ECFF800D79E7E /* LaunchScreen.storyboard in Resources */,
 				E9D794EF251ECFF800D79E7E /* Assets.xcassets in Resources */,
+				E993C493251EEBDE007E8C7E /* ChartViewController.xib in Resources */,
+				E993C487251EEB94007E8C7E /* GoogleService-Info.plist in Resources */,
 				E9D79508251ED15A00D79E7E /* TutorialViewController.xib in Resources */,
 				E9D794EA251ECFF800D79E7E /* Main.storyboard in Resources */,
+				E999D5FA25207C6D0087D8AE /* AlertView.xib in Resources */,
+				E993C48E251EEBCF007E8C7E /* HomeViewController.xib in Resources */,
+				E999D5E225204A110087D8AE /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		11D6E49E4413C4D5ED93FB6B /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		674BBA5E1005B3945C0740BD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PetChart-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		8EE0AF103E4E552068BBA3F0 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E9D794DB251ECFF800D79E7E /* Sources */ = {
@@ -177,9 +340,24 @@
 			buildActionMask = 2147483647;
 			files = (
 				E9D794ED251ECFF800D79E7E /* PetChart.xcdatamodeld in Sources */,
+				E999D5F725207C610087D8AE /* AlertView.swift in Sources */,
 				E9D79507251ED15A00D79E7E /* TutorialViewController.swift in Sources */,
+				E993C497251EEC09007E8C7E /* CommunityViewController.swift in Sources */,
+				E9D5AB4A251EE12A005B7ECB /* MainTabBarController.swift in Sources */,
 				E9D794E3251ECFF800D79E7E /* AppDelegate.swift in Sources */,
+				E9C09F12251EFB1D00D0120C /* Extension.swift in Sources */,
 				E9D5AB47251ED941005B7ECB /* Constants.swift in Sources */,
+				E999D5E925204DF20087D8AE /* CTextField.swift in Sources */,
+				E999D5D625202A190087D8AE /* Utility.swift in Sources */,
+				E999D5B52520214D0087D8AE /* CNavigationBar.swift in Sources */,
+				E999D5DC2520490F0087D8AE /* Clabel.swift in Sources */,
+				E999D5DB2520490F0087D8AE /* CButton.swift in Sources */,
+				E9C09F23251F0B2A00D0120C /* BaseNavigationController.swift in Sources */,
+				E999D5DD2520490F0087D8AE /* ShadowView.swift in Sources */,
+				E999D5E125204A110087D8AE /* LoginViewController.swift in Sources */,
+				E993C492251EEBDE007E8C7E /* ChartViewController.swift in Sources */,
+				E993C48D251EEBCF007E8C7E /* HomeViewController.swift in Sources */,
+				E9D5AB50251EE177005B7ECB /* BaseViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,17 +501,20 @@
 		};
 		E9D794F7251ECFF800D79E7E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 779C4A5FB6DFEB7A51C424C1 /* Pods-PetChart.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = 6QB33R9MCL;
 				INFOPLIST_FILE = PetChart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.SangChnage.PetChart;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.gagamel.PetChart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -342,17 +523,20 @@
 		};
 		E9D794F8251ECFF800D79E7E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F06A3C1ED321CEC909CB5924 /* Pods-PetChart.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = 6QB33R9MCL;
 				INFOPLIST_FILE = PetChart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = kr.SangChnage.PetChart;
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = kr.gagamel.PetChart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

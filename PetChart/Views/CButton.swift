@@ -21,11 +21,6 @@ func imageFromColor(color: UIColor) -> UIImage {
 
 class CButton: UIButton {
     public var data: Any?
-    @IBInspectable var localizeText: String? {
-        didSet {
-            if localizeText != nil { setNeedsLayout()}
-        }
-    }
     
     @IBInspectable var borderWidth: CGFloat = 0.0 {
         didSet {
@@ -50,9 +45,6 @@ class CButton: UIButton {
     }
     
     override func draw(_ rect: CGRect) {
-        if let local = localizeText {
-            self.setTitle(NSLocalizedString(local, comment: ""), for: .normal)
-        }
         
         self.clipsToBounds = true
         var raduis:CGFloat = 0.0

@@ -13,6 +13,9 @@ class BaseNavigationController: UINavigationController {
         super.viewDidLoad()
         self.delegate = self
     }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 }
 extension BaseNavigationController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {

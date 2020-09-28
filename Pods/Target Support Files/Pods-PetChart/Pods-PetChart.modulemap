@@ -1,0 +1,6 @@
+framework module Pods_PetChart {
+  umbrella header "Pods-PetChart-umbrella.h"
+
+  export *
+  module * { export * }
+}
