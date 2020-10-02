@@ -24,7 +24,7 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQO-Re-erh">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tQO-Re-erh" customClass="CButton" customModule="PetChart" customModuleProvider="target">
                     <rect key="frame" x="147" y="74" width="120" height="120"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     <constraints>
@@ -32,6 +32,9 @@
                         <constraint firstAttribute="height" constant="120" id="Fdj-sz-Lg0"/>
                     </constraints>
                     <state key="normal" image="btn_imgadd"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="halfCornerRadius" value="YES"/>
+                    </userDefinedRuntimeAttributes>
                     <connections>
                         <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="bQK-od-ah5"/>
                     </connections>
@@ -151,7 +154,7 @@
     </objects>
     <designables>
         <designable name="Oed-iU-VbA">
-            <size key="intrinsicContentSize" width="39" height="19.5"/>
+            <size key="intrinsicContentSize" width="39" height="29.5"/>
         </designable>
     </designables>
     <resources>

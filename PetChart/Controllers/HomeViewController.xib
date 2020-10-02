@@ -2,19 +2,18 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
                 <outlet property="btnMypetName" destination="w5y-nh-j1o" id="hRr-BV-mN8"/>
-                <outlet property="btnPetAdd" destination="nVf-Ms-Ruh" id="Gwb-EX-SCe"/>
                 <outlet property="btnProfile" destination="js6-eP-eAM" id="sGP-qC-1Fb"/>
                 <outlet property="cornerBgView" destination="Xiy-QQ-5Xi" id="OUk-U8-qvu"/>
-                <outlet property="emptyView" destination="wkb-5s-g9E" id="zhk-au-dLY"/>
+                <outlet property="svContaner" destination="5o2-Nx-de6" id="KMe-1s-xpb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -58,55 +57,9 @@
                                                 </button>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5o2-Nx-de6">
                                                     <rect key="frame" x="0.0" y="71" width="414" height="618"/>
-                                                    <subviews>
-                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wkb-5s-g9E" userLabel="emptyView">
-                                                            <rect key="frame" x="0.0" y="0.0" width="414" height="618"/>
-                                                            <subviews>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_petadd" translatesAutoresizingMaskIntoConstraints="NO" id="Dwi-rR-4RG">
-                                                                    <rect key="frame" x="162" y="72" width="90" height="90"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="width" secondItem="Dwi-rR-4RG" secondAttribute="height" multiplier="1:1" id="YGU-jR-htK"/>
-                                                                        <constraint firstAttribute="height" constant="90" id="mVu-fv-ywa"/>
-                                                                    </constraints>
-                                                                </imageView>
-                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내 반려동물을 등록해주세요!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0H-aD-erf">
-                                                                    <rect key="frame" x="20" y="172" width="374" height="16"/>
-                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                    <color key="textColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <nil key="highlightedColor"/>
-                                                                </label>
-                                                                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nVf-Ms-Ruh" customClass="CButton" customModule="PetChart" customModuleProvider="target">
-                                                                    <rect key="frame" x="20" y="212" width="374" height="36"/>
-                                                                    <color key="backgroundColor" red="0.91372549020000005" green="0.37254901959999998" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
-                                                                    <constraints>
-                                                                        <constraint firstAttribute="height" constant="36" id="Ppe-U4-LZn"/>
-                                                                    </constraints>
-                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
-                                                                    <state key="normal" title="+ 반려동물 추가하기"/>
-                                                                    <userDefinedRuntimeAttributes>
-                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="halfCornerRadius" value="YES"/>
-                                                                    </userDefinedRuntimeAttributes>
-                                                                    <connections>
-                                                                        <action selector="onclickedButtonActins:" destination="-1" eventType="touchUpInside" id="5XZ-6V-WCy"/>
-                                                                    </connections>
-                                                                </button>
-                                                            </subviews>
-                                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                            <constraints>
-                                                                <constraint firstItem="Dwi-rR-4RG" firstAttribute="centerX" secondItem="wkb-5s-g9E" secondAttribute="centerX" id="0YV-p0-w0k"/>
-                                                                <constraint firstItem="I0H-aD-erf" firstAttribute="leading" secondItem="wkb-5s-g9E" secondAttribute="leading" constant="20" id="0op-el-OYB"/>
-                                                                <constraint firstItem="nVf-Ms-Ruh" firstAttribute="leading" secondItem="wkb-5s-g9E" secondAttribute="leading" constant="20" id="4Qn-hH-S8u"/>
-                                                                <constraint firstAttribute="trailing" secondItem="nVf-Ms-Ruh" secondAttribute="trailing" constant="20" id="8ws-qH-6yp"/>
-                                                                <constraint firstAttribute="trailing" secondItem="I0H-aD-erf" secondAttribute="trailing" constant="20" id="BsW-Ts-fWB"/>
-                                                                <constraint firstItem="I0H-aD-erf" firstAttribute="top" secondItem="Dwi-rR-4RG" secondAttribute="bottom" constant="10" id="PQi-Qn-Xva"/>
-                                                                <constraint firstItem="Dwi-rR-4RG" firstAttribute="top" secondItem="wkb-5s-g9E" secondAttribute="top" constant="72" id="Vda-Uv-ds5"/>
-                                                                <constraint firstItem="nVf-Ms-Ruh" firstAttribute="top" secondItem="I0H-aD-erf" secondAttribute="bottom" constant="24" id="k6W-D4-fx6"/>
-                                                            </constraints>
-                                                        </view>
-                                                    </subviews>
                                                 </stackView>
                                             </subviews>
-                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="5o2-Nx-de6" firstAttribute="top" secondItem="w5y-nh-j1o" secondAttribute="bottom" id="Zfz-kC-SYm"/>
                                                 <constraint firstAttribute="bottom" secondItem="5o2-Nx-de6" secondAttribute="bottom" id="d7S-CK-LbS"/>
@@ -166,9 +119,5 @@
     </objects>
     <resources>
         <image name="btn_imgadd" width="120" height="120"/>
-        <image name="ico_petadd" width="59" height="56"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>

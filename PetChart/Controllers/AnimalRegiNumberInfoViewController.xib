@@ -50,6 +50,9 @@
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="halfCornerRadius" value="YES"/>
                             </userDefinedRuntimeAttributes>
+                            <connections>
+                                <action selector="onClickedButton:" destination="-1" eventType="touchUpInside" id="Zdb-rQ-7jh"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>

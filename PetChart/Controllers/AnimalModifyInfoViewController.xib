@@ -1,22 +1,593 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13142" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12042"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
-        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AnimalModifyInfoViewController" customModuleProvider="target">
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AnimalModifyInfoViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
+                <outlet property="bottomContainer" destination="tDp-Qj-bkN" id="I7R-hE-Tw8"/>
+                <outlet property="btnAfeterNeutral" destination="Bfk-Qu-Kr1" id="e5a-Ks-d2x"/>
+                <outlet property="btnArrowItem" destination="juC-n3-r3t" id="whh-l8-1Dv"/>
+                <outlet property="btnCalendar" destination="9YF-FU-dUH" id="chI-gj-WuR"/>
+                <outlet property="btnCat" destination="l1r-dV-H9H" id="bjT-et-fou"/>
+                <outlet property="btnDog" destination="YND-HV-aMo" id="27W-uX-9no"/>
+                <outlet property="btnEmptyRegiNumber" destination="0Rl-Kx-YA5" id="kks-Ii-d2D"/>
+                <outlet property="btnFemale" destination="8pN-DV-5Df" id="a70-Qe-zEj"/>
+                <outlet property="btnMale" destination="exk-gI-GtU" id="jPQ-Vq-KIH"/>
+                <outlet property="btnOther" destination="G6I-Nt-jWL" id="rGA-hH-GXf"/>
+                <outlet property="btnPreNeutral" destination="td2-B6-hys" id="Cem-SA-lHu"/>
+                <outlet property="btnPrevent" destination="1Qe-12-AVD" id="10V-ia-3vd"/>
+                <outlet property="btnProfile" destination="O5b-eK-ofX" id="Cvl-gX-3zP"/>
+                <outlet property="btnSafety" destination="dum-ye-9p5" id="qQH-9n-Rq9"/>
+                <outlet property="tfBirthDay" destination="i2Z-gr-ZQ3" id="uPg-8e-Jie"/>
+                <outlet property="tfItem" destination="lfI-78-rIq" id="yoZ-Kf-UNq"/>
+                <outlet property="tfName" destination="rDd-WI-iuT" id="H73-9E-mkM"/>
+                <outlet property="tfPrevent" destination="QIk-lk-lZS" id="wer-Ek-USa"/>
+                <outlet property="tfRegiNumber" destination="zAa-ia-8wA" id="Mpv-8L-Ory"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
-            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+            <subviews>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Tp-jz-NW8">
+                    <rect key="frame" x="0.0" y="44" width="414" height="770"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-20" translatesAutoresizingMaskIntoConstraints="NO" id="Ueq-se-qZh">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="1028"/>
+                            <subviews>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dkj-Z4-Nej">
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="224"/>
+                                    <subviews>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="O5b-eK-ofX" customClass="CButton" customModule="PetChart" customModuleProvider="target">
+                                            <rect key="frame" x="147" y="30" width="120" height="120"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="120" id="6dn-Sg-tre"/>
+                                                <constraint firstAttribute="width" secondItem="O5b-eK-ofX" secondAttribute="height" multiplier="1:1" id="7vx-6W-PXX"/>
+                                            </constraints>
+                                            <state key="normal" image="btn_imgadd"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="halfCornerRadius" value="YES"/>
+                                            </userDefinedRuntimeAttributes>
+                                            <connections>
+                                                <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="Aj0-ZM-pOs"/>
+                                            </connections>
+                                        </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="프로필사진 (선택)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S2Y-BU-PSK">
+                                            <rect key="frame" x="161" y="158" width="92.5" height="16"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="16" id="3xz-O2-eRp"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="O5b-eK-ofX" firstAttribute="top" secondItem="dkj-Z4-Nej" secondAttribute="top" constant="30" id="Lo5-mg-gF1"/>
+                                        <constraint firstItem="S2Y-BU-PSK" firstAttribute="centerX" secondItem="dkj-Z4-Nej" secondAttribute="centerX" id="WHH-0c-qM2"/>
+                                        <constraint firstItem="O5b-eK-ofX" firstAttribute="centerX" secondItem="dkj-Z4-Nej" secondAttribute="centerX" id="WlI-Dr-Nc8"/>
+                                        <constraint firstItem="S2Y-BU-PSK" firstAttribute="top" secondItem="O5b-eK-ofX" secondAttribute="bottom" constant="8" id="YPI-Vd-9PN"/>
+                                        <constraint firstAttribute="bottom" secondItem="S2Y-BU-PSK" secondAttribute="bottom" constant="50" id="ZL2-c8-HuD"/>
+                                    </constraints>
+                                </view>
+                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OlL-RX-Kc7">
+                                    <rect key="frame" x="0.0" y="204" width="414" height="824"/>
+                                    <subviews>
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="N8o-F9-Qis">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="824"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5Sg-Pp-Oaf">
+                                                    <rect key="frame" x="20" y="20" width="374" height="61"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="반려동물 이름을 알려주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zgA-cP-oco">
+                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="낭낭이" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="rDd-WI-iuT" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="16" width="374" height="45"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="45" id="4k2-kO-Vjo"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
+                                                                    <real key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
+                                                                    <real key="value" value="0.0"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="borderBottom" value="YES"/>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                    <real key="value" value="1"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                    <color key="value" red="0.86274509799999999" green="0.86274509799999999" blue="0.86274509799999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                            <connections>
+                                                                <outlet property="delegate" destination="-1" id="zGk-yT-1Xz"/>
+                                                            </connections>
+                                                        </textField>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YXj-me-5HS">
+                                                    <rect key="frame" x="20" y="111" width="374" height="62"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="생년월일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P59-Lr-rUf">
+                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UX0-cn-QYx">
+                                                            <rect key="frame" x="0.0" y="16" width="374" height="45"/>
+                                                            <subviews>
+                                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="yyyy-MM-dd" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="i2Z-gr-ZQ3" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="329" height="45"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="45" id="1c2-9I-eqI"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
+                                                                            <real key="value" value="5"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
+                                                                            <real key="value" value="0.0"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </textField>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9YF-FU-dUH">
+                                                                    <rect key="frame" x="329" y="0.0" width="45" height="45"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="45" id="FMR-0l-MSc"/>
+                                                                    </constraints>
+                                                                    <state key="normal" image="fill_1"/>
+                                                                    <connections>
+                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="e5I-8M-6yO"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YTk-Xs-48u">
+                                                            <rect key="frame" x="0.0" y="61" width="374" height="1"/>
+                                                            <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="FpA-a1-J5i"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ieu-5g-Jpk">
+                                                    <rect key="frame" x="20" y="203" width="374" height="66"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="반려동물 성별" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMk-1N-oUZ">
+                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="16" id="gKK-zh-LG0"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="oym-NS-Z4x">
+                                                            <rect key="frame" x="0.0" y="26" width="374" height="40"/>
+                                                            <subviews>
+                                                                <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="exk-gI-GtU" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="183" height="40"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <state key="normal" title="남아">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="KiK-kT-2Eg"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8pN-DV-5Df" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
+                                                                    <rect key="frame" x="191" y="0.0" width="183" height="40"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <state key="normal" title="여아">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="98C-UO-8SN"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="5Q7-jo-LiD"/>
+                                                            </constraints>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="CTq-x0-1fn">
+                                                    <rect key="frame" x="20" y="299" width="374" height="99"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="반려동물 종류" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBg-Lx-YFI">
+                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="16" id="jnY-LT-sjM"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="ZkP-Bm-EYu">
+                                                            <rect key="frame" x="0.0" y="31" width="374" height="68"/>
+                                                            <subviews>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YND-HV-aMo" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="119.5" height="68"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="68" id="vOa-p8-au8"/>
+                                                                    </constraints>
+                                                                    <state key="normal" image="ico_dog"/>
+                                                                    <connections>
+                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="G7n-3g-uSw"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l1r-dV-H9H" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
+                                                                    <rect key="frame" x="127.5" y="0.0" width="119" height="68"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="68" id="Sma-sJ-4Wi"/>
+                                                                    </constraints>
+                                                                    <state key="normal" image="ico_cat"/>
+                                                                    <connections>
+                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="I1n-xV-fqt"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G6I-Nt-jWL" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
+                                                                    <rect key="frame" x="254.5" y="0.0" width="119.5" height="68"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="68" id="8fn-C8-hAI"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <state key="normal" title="기타">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="NZa-zJ-zhW"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="Odi-SK-fLd">
+                                                    <rect key="frame" x="20" y="428" width="374" height="62"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="반려동물 품종" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEd-PW-afh">
+                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HnJ-vK-Ucw">
+                                                            <rect key="frame" x="0.0" y="16" width="374" height="45"/>
+                                                            <subviews>
+                                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="선택해 주세요." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lfI-78-rIq" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="329" height="45"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="45" id="dIg-5s-HL2"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
+                                                                            <real key="value" value="5"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
+                                                                            <real key="value" value="0.0"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </textField>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="juC-n3-r3t">
+                                                                    <rect key="frame" x="329" y="0.0" width="45" height="45"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="45" id="phH-Yz-qw3"/>
+                                                                    </constraints>
+                                                                    <state key="normal" image="triangle"/>
+                                                                    <connections>
+                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="KeW-rS-deM"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zo7-33-9EI">
+                                                            <rect key="frame" x="0.0" y="61" width="374" height="1"/>
+                                                            <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="IgJ-R2-LiY"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="BTa-qM-vSA">
+                                                    <rect key="frame" x="20" y="520" width="374" height="62"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="기초 예방접종 여부" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ed9-Ql-Ytp">
+                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fAY-JR-jeq">
+                                                            <rect key="frame" x="0.0" y="16" width="374" height="45"/>
+                                                            <subviews>
+                                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="선택해 주세요." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="QIk-lk-lZS" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="329" height="45"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="45" id="ayc-bt-Uoi"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
+                                                                            <real key="value" value="5"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
+                                                                            <real key="value" value="0.0"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                </textField>
+                                                                <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Qe-12-AVD">
+                                                                    <rect key="frame" x="329" y="0.0" width="45" height="45"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="45" id="hrL-pG-oaK"/>
+                                                                    </constraints>
+                                                                    <state key="normal" image="triangle"/>
+                                                                    <connections>
+                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="auB-oG-T56"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cDA-xr-bC6">
+                                                            <rect key="frame" x="0.0" y="61" width="374" height="1"/>
+                                                            <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="1" id="9qt-ce-SX5"/>
+                                                            </constraints>
+                                                        </view>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GTs-ec-Yos">
+                                                    <rect key="frame" x="20" y="612" width="374" height="66"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="중성화 여부" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zfB-rm-CH8">
+                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
+                                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="16" id="EiI-ia-K4h"/>
+                                                            </constraints>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="BON-JI-UUx">
+                                                            <rect key="frame" x="0.0" y="26" width="374" height="40"/>
+                                                            <subviews>
+                                                                <button opaque="NO" tag="200" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="td2-B6-hys" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="183" height="40"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <state key="normal" title="중성화 전">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="oJQ-UP-CRC"/>
+                                                                    </connections>
+                                                                </button>
+                                                                <button opaque="NO" tag="201" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Bfk-Qu-Kr1" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
+                                                                    <rect key="frame" x="191" y="0.0" width="183" height="40"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <state key="normal" title="중성화 완료">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="jNj-QR-wfd"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="mpq-MN-RCx"/>
+                                                            </constraints>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="uwQ-MR-Gid">
+                                                    <rect key="frame" x="20" y="708" width="374" height="66"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rcU-Gu-9Ca">
+                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="등록번호" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TMV-Ad-QqB">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="45" height="16"/>
+                                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="16" id="6qt-TT-cDe"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ddB-aY-kEx">
+                                                                    <rect key="frame" x="45" y="0.0" width="30" height="16"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="30" id="Jga-E3-FQZ"/>
+                                                                    </constraints>
+                                                                    <state key="normal" image="ico_info"/>
+                                                                </button>
+                                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FIs-5s-Ot1">
+                                                                    <rect key="frame" x="75" y="0.0" width="299" height="16"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                    <nil key="textColor"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                            </subviews>
+                                                        </stackView>
+                                                        <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="H3K-sD-IlY">
+                                                            <rect key="frame" x="0.0" y="26" width="374" height="40"/>
+                                                            <subviews>
+                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="반려동물 등록번호를 입력해주세요." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="zAa-ia-8wA" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="286" height="40"/>
+                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                                    <userDefinedRuntimeAttributes>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
+                                                                            <real key="value" value="3"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
+                                                                            <real key="value" value="0.0"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="borderBottom" value="YES"/>
+                                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                                            <color key="value" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                                            <real key="value" value="1"/>
+                                                                        </userDefinedRuntimeAttribute>
+                                                                    </userDefinedRuntimeAttributes>
+                                                                    <connections>
+                                                                        <outlet property="delegate" destination="-1" id="fZw-nb-BLt"/>
+                                                                    </connections>
+                                                                </textField>
+                                                                <button opaque="NO" tag="400" contentMode="scaleToFill" horizontalCompressionResistancePriority="749" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Rl-Kx-YA5" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
+                                                                    <rect key="frame" x="294" y="0.0" width="80" height="40"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="width" constant="80" id="5sD-cI-XWA"/>
+                                                                    </constraints>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                                    <state key="normal" title="없음">
+                                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    </state>
+                                                                    <connections>
+                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="4Rh-hV-Zju"/>
+                                                                    </connections>
+                                                                </button>
+                                                            </subviews>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="40" id="4NH-bX-2GS"/>
+                                                            </constraints>
+                                                        </stackView>
+                                                    </subviews>
+                                                </stackView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="23z-6P-Q5l">
+                                                    <rect key="frame" x="20" y="804" width="374" height="0.0"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
+                                        </stackView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="N8o-F9-Qis" secondAttribute="trailing" id="C0s-IQ-HWe"/>
+                                        <constraint firstItem="N8o-F9-Qis" firstAttribute="top" secondItem="OlL-RX-Kc7" secondAttribute="top" id="INc-We-uzu"/>
+                                        <constraint firstItem="N8o-F9-Qis" firstAttribute="leading" secondItem="OlL-RX-Kc7" secondAttribute="leading" id="mBO-TL-YIS"/>
+                                        <constraint firstAttribute="bottom" secondItem="N8o-F9-Qis" secondAttribute="bottom" id="n3V-WA-QH3"/>
+                                    </constraints>
+                                </view>
+                            </subviews>
+                            <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                        </stackView>
+                    </subviews>
+                    <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="Ueq-se-qZh" firstAttribute="leading" secondItem="0Tp-jz-NW8" secondAttribute="leading" id="TWe-DG-e3d"/>
+                        <constraint firstAttribute="trailing" secondItem="Ueq-se-qZh" secondAttribute="trailing" id="Yc3-Sg-Uy8"/>
+                        <constraint firstItem="Ueq-se-qZh" firstAttribute="top" secondItem="0Tp-jz-NW8" secondAttribute="top" id="kUb-M9-lV6"/>
+                        <constraint firstItem="Ueq-se-qZh" firstAttribute="width" secondItem="0Tp-jz-NW8" secondAttribute="width" id="lgO-mx-hTM"/>
+                        <constraint firstAttribute="bottom" secondItem="Ueq-se-qZh" secondAttribute="bottom" id="nnt-vh-pHc"/>
+                        <constraint firstItem="Ueq-se-qZh" firstAttribute="height" secondItem="0Tp-jz-NW8" secondAttribute="height" priority="2" id="q2m-fu-NVd"/>
+                    </constraints>
+                </scrollView>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="1XL-Vr-1tM">
+                    <rect key="frame" x="0.0" y="814" width="414" height="82"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OOz-nJ-dGv">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="48"/>
+                            <color key="backgroundColor" red="0.91372549020000005" green="0.37254901959999998" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="999" constant="48" id="yAu-NJ-Y65"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <state key="normal" title="저장">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="Et8-5l-s7g"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dum-ye-9p5">
+                            <rect key="frame" x="0.0" y="48" width="414" height="34"/>
+                            <color key="backgroundColor" red="0.91372549020000005" green="0.37254901959999998" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="999" constant="34" id="e8d-UI-P0E"/>
+                            </constraints>
+                        </button>
+                    </subviews>
+                </stackView>
+            </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstItem="0Tp-jz-NW8" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="8Uc-O1-e2M"/>
+                <constraint firstItem="1XL-Vr-1tM" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="9ow-AM-HPh"/>
+                <constraint firstItem="1XL-Vr-1tM" firstAttribute="top" secondItem="0Tp-jz-NW8" secondAttribute="bottom" id="AdY-17-MzY"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="1XL-Vr-1tM" secondAttribute="trailing" id="ZUr-FQ-zog"/>
+                <constraint firstItem="0Tp-jz-NW8" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="b7F-OQ-pRe"/>
+                <constraint firstAttribute="bottom" secondItem="1XL-Vr-1tM" secondAttribute="bottom" id="tDp-Qj-bkN"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="0Tp-jz-NW8" secondAttribute="trailing" id="vBT-DW-3y1"/>
+            </constraints>
+            <point key="canvasLocation" x="164" y="62"/>
         </view>
     </objects>
+    <designables>
+        <designable name="QIk-lk-lZS">
+            <size key="intrinsicContentSize" width="86.5" height="29.5"/>
+        </designable>
+        <designable name="i2Z-gr-ZQ3">
+            <size key="intrinsicContentSize" width="89" height="29.5"/>
+        </designable>
+        <designable name="lfI-78-rIq">
+            <size key="intrinsicContentSize" width="86.5" height="29.5"/>
+        </designable>
+        <designable name="rDd-WI-iuT">
+            <size key="intrinsicContentSize" width="39" height="29.5"/>
+        </designable>
+        <designable name="zAa-ia-8wA">
+            <size key="intrinsicContentSize" width="207" height="25.5"/>
+        </designable>
+    </designables>
+    <resources>
+        <image name="btn_imgadd" width="120" height="120"/>
+        <image name="fill_1" width="18" height="18"/>
+        <image name="ico_cat" width="41" height="46"/>
+        <image name="ico_dog" width="36" height="47"/>
+        <image name="ico_info" width="17" height="18"/>
+        <image name="triangle" width="12" height="11"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>

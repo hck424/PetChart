@@ -7,7 +7,25 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		001E61C4CEF479BC8EF861E8 /* Pods_PetChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DB4856BCA868CCC4B601D2FF /* Pods_PetChart.framework */; };
+		353D39E0FF33E17BCFC84F2A /* Pods_PetChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43253CBBFD45190799B14C02 /* Pods_PetChart.framework */; };
+		E9573CA72524CAD800583C6F /* MrStep3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9573CA52524CAD800583C6F /* MrStep3ViewController.swift */; };
+		E9573CA82524CAD800583C6F /* MrStep3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9573CA62524CAD800583C6F /* MrStep3ViewController.xib */; };
+		E95E13F625260A030073DC93 /* AnimalRegiNumberInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E13F425260A030073DC93 /* AnimalRegiNumberInfoViewController.swift */; };
+		E95E13F725260A030073DC93 /* AnimalRegiNumberInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E13F525260A030073DC93 /* AnimalRegiNumberInfoViewController.xib */; };
+		E95E141C25260E780073DC93 /* SelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E141B25260E780073DC93 /* SelectedButton.swift */; };
+		E95E142025261EC70073DC93 /* AnimalModifyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E141E25261EC70073DC93 /* AnimalModifyInfoViewController.swift */; };
+		E95E142125261EC70073DC93 /* AnimalModifyInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E141F25261EC70073DC93 /* AnimalModifyInfoViewController.xib */; };
+		E95FB73E2523210E00BDC5FE /* MrStep1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95FB73C2523210E00BDC5FE /* MrStep1ViewController.xib */; };
+		E95FB73F2523210E00BDC5FE /* MrStep1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FB73D2523210E00BDC5FE /* MrStep1ViewController.swift */; };
+		E95FB765252325A700BDC5FE /* MrStep2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FB763252325A700BDC5FE /* MrStep2ViewController.swift */; };
+		E95FB766252325A700BDC5FE /* MrStep2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95FB764252325A700BDC5FE /* MrStep2ViewController.xib */; };
+		E9640EEF2522D78100EEF156 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9640EEE2522D78100EEF156 /* NetworkManager.swift */; };
+		E9640EF22522D78B00EEF156 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9640EF12522D78B00EEF156 /* ApiManager.swift */; };
+		E968793A2525EFB900D1DF1A /* AddAnimalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96879382525EFB900D1DF1A /* AddAnimalInfoViewController.swift */; };
+		E968793B2525EFB900D1DF1A /* AddAnimalInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96879392525EFB900D1DF1A /* AddAnimalInfoViewController.xib */; };
+		E98AF4AF25244220002C855B /* CDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98AF4AC25244220002C855B /* CDateFormatter.swift */; };
+		E98AF4B625244465002C855B /* CDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98AF4AA25244220002C855B /* CDatePickerView.swift */; };
+		E98AF4FF2524466B002C855B /* CDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E98AF4FE2524466B002C855B /* CDatePickerView.xib */; };
 		E993C487251EEB94007E8C7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E993C486251EEB94007E8C7E /* GoogleService-Info.plist */; };
 		E993C48D251EEBCF007E8C7E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993C48B251EEBCF007E8C7E /* HomeViewController.swift */; };
 		E993C48E251EEBCF007E8C7E /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E993C48C251EEBCF007E8C7E /* HomeViewController.xib */; };
@@ -25,6 +43,10 @@
 		E999D5E925204DF20087D8AE /* CTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5E825204DF20087D8AE /* CTextField.swift */; };
 		E999D5F725207C610087D8AE /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5F625207C610087D8AE /* AlertView.swift */; };
 		E999D5FA25207C6D0087D8AE /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E999D5F925207C6D0087D8AE /* AlertView.xib */; };
+		E9A9F2472521B3910049E041 /* FbController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9F2462521B3910049E041 /* FbController.swift */; };
+		E9A9F2502521B7BD0049E041 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9F24F2521B7BD0049E041 /* UserInfo.swift */; };
+		E9A9F2542521C0E40049E041 /* KakaoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9F2532521C0E40049E041 /* KakaoController.swift */; };
+		E9A9F2572521C0EE0049E041 /* NaverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9F2562521C0EE0049E041 /* NaverController.swift */; };
 		E9C09F12251EFB1D00D0120C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C09F11251EFB1D00D0120C /* Extension.swift */; };
 		E9C09F23251F0B2A00D0120C /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C09F22251F0B2A00D0120C /* BaseNavigationController.swift */; };
 		E9D5AB47251ED941005B7ECB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5AB46251ED941005B7ECB /* Constants.swift */; };
@@ -37,11 +59,44 @@
 		E9D794F2251ECFF800D79E7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D794F0251ECFF800D79E7E /* LaunchScreen.storyboard */; };
 		E9D79507251ED15A00D79E7E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D79505251ED15A00D79E7E /* TutorialViewController.swift */; };
 		E9D79508251ED15A00D79E7E /* TutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9D79506251ED15A00D79E7E /* TutorialViewController.xib */; };
+		E9EF796F2525851700F2922F /* EmptyPetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EF796E2525851700F2922F /* EmptyPetCell.swift */; };
+		E9EF79732525853700F2922F /* EmptyPetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EF79722525853700F2922F /* EmptyPetCell.xib */; };
+		E9EF79872525927200F2922F /* AddAnimalNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EF79852525927200F2922F /* AddAnimalNameViewController.swift */; };
+		E9EF79882525927200F2922F /* AddAnimalNameViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EF79862525927200F2922F /* AddAnimalNameViewController.xib */; };
+		E9EF798F2525985000F2922F /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EF798E2525985000F2922F /* Animal.swift */; };
+		E9EF799525259F9700F2922F /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EF799425259F9700F2922F /* CameraViewController.swift */; };
+		E9EF799C25259FFA00F2922F /* CameraOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EF799B25259FFA00F2922F /* CameraOverlayView.swift */; };
+		E9EF799F2525A00600F2922F /* CameraOverlayView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EF799E2525A00600F2922F /* CameraOverlayView.xib */; };
+		E9EF79C62525B53400F2922F /* AddAnminalKindViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EF79C42525B53400F2922F /* AddAnminalKindViewController.swift */; };
+		E9EF79C72525B53400F2922F /* AddAnminalKindViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EF79C52525B53400F2922F /* AddAnminalKindViewController.xib */; };
+		E9EF79CB2525BDF500F2922F /* AddAnimalItemSelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EF79C92525BDF500F2922F /* AddAnimalItemSelectViewController.swift */; };
+		E9EF79CC2525BDF500F2922F /* AddAnimalItemSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EF79CA2525BDF500F2922F /* AddAnimalItemSelectViewController.xib */; };
+		E9EF79D02525E23C00F2922F /* AddAnimalBirthDayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EF79CE2525E23C00F2922F /* AddAnimalBirthDayViewController.swift */; };
+		E9EF79D12525E23C00F2922F /* AddAnimalBirthDayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EF79CF2525E23C00F2922F /* AddAnimalBirthDayViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		779C4A5FB6DFEB7A51C424C1 /* Pods-PetChart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.debug.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.debug.xcconfig"; sourceTree = "<group>"; };
-		DB4856BCA868CCC4B601D2FF /* Pods_PetChart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetChart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		43253CBBFD45190799B14C02 /* Pods_PetChart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetChart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9D1289E7D5706541A0DEC79A /* Pods-PetChart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.debug.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.debug.xcconfig"; sourceTree = "<group>"; };
+		D56D95B30D28A1F007217B56 /* Pods-PetChart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.release.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.release.xcconfig"; sourceTree = "<group>"; };
+		E9573CA52524CAD800583C6F /* MrStep3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrStep3ViewController.swift; sourceTree = "<group>"; };
+		E9573CA62524CAD800583C6F /* MrStep3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MrStep3ViewController.xib; sourceTree = "<group>"; };
+		E95E13F425260A030073DC93 /* AnimalRegiNumberInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalRegiNumberInfoViewController.swift; sourceTree = "<group>"; };
+		E95E13F525260A030073DC93 /* AnimalRegiNumberInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimalRegiNumberInfoViewController.xib; sourceTree = "<group>"; };
+		E95E141B25260E780073DC93 /* SelectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedButton.swift; sourceTree = "<group>"; };
+		E95E141E25261EC70073DC93 /* AnimalModifyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalModifyInfoViewController.swift; sourceTree = "<group>"; };
+		E95E141F25261EC70073DC93 /* AnimalModifyInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimalModifyInfoViewController.xib; sourceTree = "<group>"; };
+		E95FB73C2523210E00BDC5FE /* MrStep1ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MrStep1ViewController.xib; sourceTree = "<group>"; };
+		E95FB73D2523210E00BDC5FE /* MrStep1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MrStep1ViewController.swift; sourceTree = "<group>"; };
+		E95FB763252325A700BDC5FE /* MrStep2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrStep2ViewController.swift; sourceTree = "<group>"; };
+		E95FB764252325A700BDC5FE /* MrStep2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MrStep2ViewController.xib; sourceTree = "<group>"; };
+		E9640EEE2522D78100EEF156 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		E9640EF12522D78B00EEF156 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		E96879382525EFB900D1DF1A /* AddAnimalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalInfoViewController.swift; sourceTree = "<group>"; };
+		E96879392525EFB900D1DF1A /* AddAnimalInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAnimalInfoViewController.xib; sourceTree = "<group>"; };
+		E98AF4AA25244220002C855B /* CDatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDatePickerView.swift; sourceTree = "<group>"; };
+		E98AF4AC25244220002C855B /* CDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDateFormatter.swift; sourceTree = "<group>"; };
+		E98AF4FE2524466B002C855B /* CDatePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CDatePickerView.xib; sourceTree = "<group>"; };
 		E993C486251EEB94007E8C7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E993C48B251EEBCF007E8C7E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E993C48C251EEBCF007E8C7E /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
@@ -59,6 +114,11 @@
 		E999D5E825204DF20087D8AE /* CTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTextField.swift; sourceTree = "<group>"; };
 		E999D5F625207C610087D8AE /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		E999D5F925207C6D0087D8AE /* AlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
+		E9A9F2462521B3910049E041 /* FbController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbController.swift; sourceTree = "<group>"; };
+		E9A9F24F2521B7BD0049E041 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		E9A9F2532521C0E40049E041 /* KakaoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoController.swift; sourceTree = "<group>"; };
+		E9A9F2562521C0EE0049E041 /* NaverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverController.swift; sourceTree = "<group>"; };
+		E9A9F2602521E70F0049E041 /* PetChart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PetChart.entitlements; sourceTree = "<group>"; };
 		E9C09F11251EFB1D00D0120C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		E9C09F22251F0B2A00D0120C /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		E9D5AB46251ED941005B7ECB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -73,7 +133,20 @@
 		E9D794F3251ECFF800D79E7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9D79505251ED15A00D79E7E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		E9D79506251ED15A00D79E7E /* TutorialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TutorialViewController.xib; sourceTree = "<group>"; };
-		F06A3C1ED321CEC909CB5924 /* Pods-PetChart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.release.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.release.xcconfig"; sourceTree = "<group>"; };
+		E9EF796E2525851700F2922F /* EmptyPetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPetCell.swift; sourceTree = "<group>"; };
+		E9EF79722525853700F2922F /* EmptyPetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyPetCell.xib; sourceTree = "<group>"; };
+		E9EF79852525927200F2922F /* AddAnimalNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalNameViewController.swift; sourceTree = "<group>"; };
+		E9EF79862525927200F2922F /* AddAnimalNameViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAnimalNameViewController.xib; sourceTree = "<group>"; };
+		E9EF798E2525985000F2922F /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
+		E9EF799425259F9700F2922F /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		E9EF799B25259FFA00F2922F /* CameraOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraOverlayView.swift; sourceTree = "<group>"; };
+		E9EF799E2525A00600F2922F /* CameraOverlayView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CameraOverlayView.xib; sourceTree = "<group>"; };
+		E9EF79C42525B53400F2922F /* AddAnminalKindViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnminalKindViewController.swift; sourceTree = "<group>"; };
+		E9EF79C52525B53400F2922F /* AddAnminalKindViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAnminalKindViewController.xib; sourceTree = "<group>"; };
+		E9EF79C92525BDF500F2922F /* AddAnimalItemSelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalItemSelectViewController.swift; sourceTree = "<group>"; };
+		E9EF79CA2525BDF500F2922F /* AddAnimalItemSelectViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAnimalItemSelectViewController.xib; sourceTree = "<group>"; };
+		E9EF79CE2525E23C00F2922F /* AddAnimalBirthDayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalBirthDayViewController.swift; sourceTree = "<group>"; };
+		E9EF79CF2525E23C00F2922F /* AddAnimalBirthDayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAnimalBirthDayViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -81,17 +154,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				001E61C4CEF479BC8EF861E8 /* Pods_PetChart.framework in Frameworks */,
+				353D39E0FF33E17BCFC84F2A /* Pods_PetChart.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		04955DA415CFD1BB368548F9 /* Frameworks */ = {
+		71624BCF5D1874C7B5ABBA1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				DB4856BCA868CCC4B601D2FF /* Pods_PetChart.framework */,
+				43253CBBFD45190799B14C02 /* Pods_PetChart.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -99,19 +172,58 @@
 		B298DAAF0E55AF5829076E7B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				779C4A5FB6DFEB7A51C424C1 /* Pods-PetChart.debug.xcconfig */,
-				F06A3C1ED321CEC909CB5924 /* Pods-PetChart.release.xcconfig */,
+				9D1289E7D5706541A0DEC79A /* Pods-PetChart.debug.xcconfig */,
+				D56D95B30D28A1F007217B56 /* Pods-PetChart.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		E95E13F1252609A30073DC93 /* AddPetAnimal */ = {
+			isa = PBXGroup;
+			children = (
+				E9EF79852525927200F2922F /* AddAnimalNameViewController.swift */,
+				E9EF79862525927200F2922F /* AddAnimalNameViewController.xib */,
+				E9EF79C42525B53400F2922F /* AddAnminalKindViewController.swift */,
+				E9EF79C52525B53400F2922F /* AddAnminalKindViewController.xib */,
+				E9EF79C92525BDF500F2922F /* AddAnimalItemSelectViewController.swift */,
+				E9EF79CA2525BDF500F2922F /* AddAnimalItemSelectViewController.xib */,
+				E9EF79CE2525E23C00F2922F /* AddAnimalBirthDayViewController.swift */,
+				E9EF79CF2525E23C00F2922F /* AddAnimalBirthDayViewController.xib */,
+				E96879382525EFB900D1DF1A /* AddAnimalInfoViewController.swift */,
+				E96879392525EFB900D1DF1A /* AddAnimalInfoViewController.xib */,
+				E95E13F425260A030073DC93 /* AnimalRegiNumberInfoViewController.swift */,
+				E95E13F525260A030073DC93 /* AnimalRegiNumberInfoViewController.xib */,
+				E95E141E25261EC70073DC93 /* AnimalModifyInfoViewController.swift */,
+				E95E141F25261EC70073DC93 /* AnimalModifyInfoViewController.xib */,
+			);
+			name = AddPetAnimal;
 			sourceTree = "<group>";
 		};
 		E999D5E625204A450087D8AE /* Logoin */ = {
 			isa = PBXGroup;
 			children = (
+				E95FB73D2523210E00BDC5FE /* MrStep1ViewController.swift */,
+				E95FB73C2523210E00BDC5FE /* MrStep1ViewController.xib */,
+				E95FB763252325A700BDC5FE /* MrStep2ViewController.swift */,
+				E95FB764252325A700BDC5FE /* MrStep2ViewController.xib */,
+				E9573CA52524CAD800583C6F /* MrStep3ViewController.swift */,
+				E9573CA62524CAD800583C6F /* MrStep3ViewController.xib */,
 				E999D5DF25204A110087D8AE /* LoginViewController.swift */,
 				E999D5E025204A110087D8AE /* LoginViewController.xib */,
+				E9A9F2462521B3910049E041 /* FbController.swift */,
+				E9A9F2532521C0E40049E041 /* KakaoController.swift */,
+				E9A9F2562521C0EE0049E041 /* NaverController.swift */,
 			);
 			name = Logoin;
+			sourceTree = "<group>";
+		};
+		E9A9F24E2521B7BD0049E041 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				E9A9F24F2521B7BD0049E041 /* UserInfo.swift */,
+				E9EF798E2525985000F2922F /* Animal.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		E9D794D6251ECFF800D79E7E = {
@@ -120,7 +232,7 @@
 				E9D794E1251ECFF800D79E7E /* PetChart */,
 				E9D794E0251ECFF800D79E7E /* Products */,
 				B298DAAF0E55AF5829076E7B /* Pods */,
-				04955DA415CFD1BB368548F9 /* Frameworks */,
+				71624BCF5D1874C7B5ABBA1B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -135,6 +247,8 @@
 		E9D794E1251ECFF800D79E7E /* PetChart */ = {
 			isa = PBXGroup;
 			children = (
+				E9A9F2602521E70F0049E041 /* PetChart.entitlements */,
+				E9A9F24E2521B7BD0049E041 /* Models */,
 				E993C486251EEB94007E8C7E /* GoogleService-Info.plist */,
 				E9D794EE251ECFF800D79E7E /* Assets.xcassets */,
 				E9D794E2251ECFF800D79E7E /* AppDelegate.swift */,
@@ -156,8 +270,8 @@
 				E9D5AB49251EE12A005B7ECB /* MainTabBarController.swift */,
 				E9D5AB4F251EE177005B7ECB /* BaseViewController.swift */,
 				E9C09F22251F0B2A00D0120C /* BaseNavigationController.swift */,
-				E993C48B251EEBCF007E8C7E /* HomeViewController.swift */,
-				E993C48C251EEBCF007E8C7E /* HomeViewController.xib */,
+				E95E13F1252609A30073DC93 /* AddPetAnimal */,
+				E9EF796D252583F500F2922F /* Home */,
 				E993C490251EEBDE007E8C7E /* ChartViewController.swift */,
 				E993C491251EEBDE007E8C7E /* ChartViewController.xib */,
 				E993C495251EEC09007E8C7E /* CommunityViewController.swift */,
@@ -175,6 +289,7 @@
 				E999D5DA2520490F0087D8AE /* ShadowView.swift */,
 				E999D5B42520214D0087D8AE /* CNavigationBar.swift */,
 				E999D5E825204DF20087D8AE /* CTextField.swift */,
+				E95E141B25260E780073DC93 /* SelectedButton.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -187,6 +302,14 @@
 				E999D5D525202A190087D8AE /* Utility.swift */,
 				E999D5F625207C610087D8AE /* AlertView.swift */,
 				E999D5F925207C6D0087D8AE /* AlertView.xib */,
+				E9640EEE2522D78100EEF156 /* NetworkManager.swift */,
+				E9640EF12522D78B00EEF156 /* ApiManager.swift */,
+				E98AF4AC25244220002C855B /* CDateFormatter.swift */,
+				E98AF4AA25244220002C855B /* CDatePickerView.swift */,
+				E98AF4FE2524466B002C855B /* CDatePickerView.xib */,
+				E9EF799425259F9700F2922F /* CameraViewController.swift */,
+				E9EF799B25259FFA00F2922F /* CameraOverlayView.swift */,
+				E9EF799E2525A00600F2922F /* CameraOverlayView.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -200,6 +323,17 @@
 			name = Tutorial;
 			sourceTree = "<group>";
 		};
+		E9EF796D252583F500F2922F /* Home */ = {
+			isa = PBXGroup;
+			children = (
+				E993C48B251EEBCF007E8C7E /* HomeViewController.swift */,
+				E993C48C251EEBCF007E8C7E /* HomeViewController.xib */,
+				E9EF796E2525851700F2922F /* EmptyPetCell.swift */,
+				E9EF79722525853700F2922F /* EmptyPetCell.xib */,
+			);
+			name = Home;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -207,12 +341,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9D794F6251ECFF800D79E7E /* Build configuration list for PBXNativeTarget "PetChart" */;
 			buildPhases = (
-				674BBA5E1005B3945C0740BD /* [CP] Check Pods Manifest.lock */,
+				BB311AA373430807E826EF18 /* [CP] Check Pods Manifest.lock */,
 				E9D794DB251ECFF800D79E7E /* Sources */,
 				E9D794DC251ECFF800D79E7E /* Frameworks */,
 				E9D794DD251ECFF800D79E7E /* Resources */,
-				11D6E49E4413C4D5ED93FB6B /* [CP] Embed Pods Frameworks */,
-				8EE0AF103E4E552068BBA3F0 /* [CP] Copy Pods Resources */,
+				954F39FEC32F92EAFF74AECC /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -261,22 +394,35 @@
 			buildActionMask = 2147483647;
 			files = (
 				E993C498251EEC09007E8C7E /* CommunityViewController.xib in Resources */,
+				E95E142125261EC70073DC93 /* AnimalModifyInfoViewController.xib in Resources */,
+				E9EF79D12525E23C00F2922F /* AddAnimalBirthDayViewController.xib in Resources */,
+				E9EF79732525853700F2922F /* EmptyPetCell.xib in Resources */,
 				E9D794F2251ECFF800D79E7E /* LaunchScreen.storyboard in Resources */,
+				E95FB766252325A700BDC5FE /* MrStep2ViewController.xib in Resources */,
+				E968793B2525EFB900D1DF1A /* AddAnimalInfoViewController.xib in Resources */,
+				E98AF4FF2524466B002C855B /* CDatePickerView.xib in Resources */,
 				E9D794EF251ECFF800D79E7E /* Assets.xcassets in Resources */,
+				E9EF79C72525B53400F2922F /* AddAnminalKindViewController.xib in Resources */,
+				E9573CA82524CAD800583C6F /* MrStep3ViewController.xib in Resources */,
 				E993C493251EEBDE007E8C7E /* ChartViewController.xib in Resources */,
 				E993C487251EEB94007E8C7E /* GoogleService-Info.plist in Resources */,
+				E95E13F725260A030073DC93 /* AnimalRegiNumberInfoViewController.xib in Resources */,
 				E9D79508251ED15A00D79E7E /* TutorialViewController.xib in Resources */,
+				E95FB73E2523210E00BDC5FE /* MrStep1ViewController.xib in Resources */,
+				E9EF79CC2525BDF500F2922F /* AddAnimalItemSelectViewController.xib in Resources */,
 				E9D794EA251ECFF800D79E7E /* Main.storyboard in Resources */,
 				E999D5FA25207C6D0087D8AE /* AlertView.xib in Resources */,
 				E993C48E251EEBCF007E8C7E /* HomeViewController.xib in Resources */,
 				E999D5E225204A110087D8AE /* LoginViewController.xib in Resources */,
+				E9EF799F2525A00600F2922F /* CameraOverlayView.xib in Resources */,
+				E9EF79882525927200F2922F /* AddAnimalNameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		11D6E49E4413C4D5ED93FB6B /* [CP] Embed Pods Frameworks */ = {
+		954F39FEC32F92EAFF74AECC /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -293,7 +439,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		674BBA5E1005B3945C0740BD /* [CP] Check Pods Manifest.lock */ = {
+		BB311AA373430807E826EF18 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -315,23 +461,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8EE0AF103E4E552068BBA3F0 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -339,25 +468,48 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E98AF4B625244465002C855B /* CDatePickerView.swift in Sources */,
+				E9EF796F2525851700F2922F /* EmptyPetCell.swift in Sources */,
 				E9D794ED251ECFF800D79E7E /* PetChart.xcdatamodeld in Sources */,
+				E9EF799525259F9700F2922F /* CameraViewController.swift in Sources */,
 				E999D5F725207C610087D8AE /* AlertView.swift in Sources */,
+				E98AF4AF25244220002C855B /* CDateFormatter.swift in Sources */,
 				E9D79507251ED15A00D79E7E /* TutorialViewController.swift in Sources */,
+				E9EF79CB2525BDF500F2922F /* AddAnimalItemSelectViewController.swift in Sources */,
 				E993C497251EEC09007E8C7E /* CommunityViewController.swift in Sources */,
 				E9D5AB4A251EE12A005B7ECB /* MainTabBarController.swift in Sources */,
 				E9D794E3251ECFF800D79E7E /* AppDelegate.swift in Sources */,
 				E9C09F12251EFB1D00D0120C /* Extension.swift in Sources */,
+				E9EF79C62525B53400F2922F /* AddAnminalKindViewController.swift in Sources */,
 				E9D5AB47251ED941005B7ECB /* Constants.swift in Sources */,
+				E9EF798F2525985000F2922F /* Animal.swift in Sources */,
+				E9EF79872525927200F2922F /* AddAnimalNameViewController.swift in Sources */,
+				E95E13F625260A030073DC93 /* AnimalRegiNumberInfoViewController.swift in Sources */,
 				E999D5E925204DF20087D8AE /* CTextField.swift in Sources */,
 				E999D5D625202A190087D8AE /* Utility.swift in Sources */,
+				E95E141C25260E780073DC93 /* SelectedButton.swift in Sources */,
+				E968793A2525EFB900D1DF1A /* AddAnimalInfoViewController.swift in Sources */,
 				E999D5B52520214D0087D8AE /* CNavigationBar.swift in Sources */,
+				E9A9F2472521B3910049E041 /* FbController.swift in Sources */,
+				E9640EF22522D78B00EEF156 /* ApiManager.swift in Sources */,
+				E9640EEF2522D78100EEF156 /* NetworkManager.swift in Sources */,
 				E999D5DC2520490F0087D8AE /* Clabel.swift in Sources */,
+				E95FB73F2523210E00BDC5FE /* MrStep1ViewController.swift in Sources */,
 				E999D5DB2520490F0087D8AE /* CButton.swift in Sources */,
 				E9C09F23251F0B2A00D0120C /* BaseNavigationController.swift in Sources */,
+				E9EF799C25259FFA00F2922F /* CameraOverlayView.swift in Sources */,
 				E999D5DD2520490F0087D8AE /* ShadowView.swift in Sources */,
+				E9573CA72524CAD800583C6F /* MrStep3ViewController.swift in Sources */,
 				E999D5E125204A110087D8AE /* LoginViewController.swift in Sources */,
 				E993C492251EEBDE007E8C7E /* ChartViewController.swift in Sources */,
 				E993C48D251EEBCF007E8C7E /* HomeViewController.swift in Sources */,
+				E9A9F2572521C0EE0049E041 /* NaverController.swift in Sources */,
+				E9A9F2502521B7BD0049E041 /* UserInfo.swift in Sources */,
 				E9D5AB50251EE177005B7ECB /* BaseViewController.swift in Sources */,
+				E9A9F2542521C0E40049E041 /* KakaoController.swift in Sources */,
+				E95FB765252325A700BDC5FE /* MrStep2ViewController.swift in Sources */,
+				E95E142025261EC70073DC93 /* AnimalModifyInfoViewController.swift in Sources */,
+				E9EF79D02525E23C00F2922F /* AddAnimalBirthDayViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -434,7 +586,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -489,7 +641,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -501,10 +653,11 @@
 		};
 		E9D794F7251ECFF800D79E7E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 779C4A5FB6DFEB7A51C424C1 /* Pods-PetChart.debug.xcconfig */;
+			baseConfigurationReference = 9D1289E7D5706541A0DEC79A /* Pods-PetChart.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PetChart/PetChart.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = 6QB33R9MCL;
@@ -514,6 +667,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = kr.gagamel.PetChart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
@@ -523,10 +677,11 @@
 		};
 		E9D794F8251ECFF800D79E7E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F06A3C1ED321CEC909CB5924 /* Pods-PetChart.release.xcconfig */;
+			baseConfigurationReference = D56D95B30D28A1F007217B56 /* Pods-PetChart.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = PetChart/PetChart.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.0;
 				DEVELOPMENT_TEAM = 6QB33R9MCL;
@@ -536,6 +691,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0.0;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
 				PRODUCT_BUNDLE_IDENTIFIER = kr.gagamel.PetChart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;

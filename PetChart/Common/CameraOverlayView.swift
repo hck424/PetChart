@@ -6,15 +6,28 @@
 //
 
 import UIKit
+protocol CameraOverlayViewDelegate {
+    func cameraOverlayViewCancelAction()
+    func cameraOverlayViewShotAction()
+}
 
-class CameraOverlayView: UIView {
+@IBDesignable class CameraOverlayView: UIView {
 
-    /*
-    // Only override draw() if you perform custom drawing.
-    // An empty implementation adversely affects performance during animation.
-    override func draw(_ rect: CGRect) {
-        // Drawing code
+    @IBOutlet weak var btnClose: UIButton!
+    @IBInspectable @IBOutlet weak var btnShot: CButton!
+    var delegate: CameraOverlayViewDelegate?
+    
+    override class func awakeFromNib() {
+        super.awakeFromNib()
     }
-    */
-
+    
+    @IBAction func onClickedButtonActions(_ sender: UIButton) {
+        
+        if sender == btnClose {
+            delegate?.cameraOverlayViewCancelAction()
+        }
+        else if sender == btnShot {
+            delegate?.cameraOverlayViewShotAction()
+        }
+    }
 }

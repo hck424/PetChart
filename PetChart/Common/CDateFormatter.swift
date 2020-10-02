@@ -7,6 +7,13 @@
 
 import UIKit
 
-class CDateFormatter: NSDateFormatter {
-
+class CDateFormatter: DateFormatter {
+    override init() {
+        super.init()
+        self.calendar = Calendar(identifier: .gregorian)
+        self.locale = Locale(identifier: "en_US_POSIX")    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
 }

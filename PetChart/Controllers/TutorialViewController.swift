@@ -43,7 +43,7 @@ class TutorialViewController: UIViewController {
          
             UserDefaults.standard .setValue("Y", forKey: IsShowTutorial)
             UserDefaults.standard.synchronize()
-            appDelegate().callMainVc()
+            AppDelegate.instance()?.callMainVc()
         }
     }
 }

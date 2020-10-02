@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import Toast_Swift
 
 class BaseViewController: UIViewController {
-
     override func viewDidLoad() {
         super.viewDidLoad()
     }
  
+    @objc func actionPopViewCtrl() {
+        self.navigationController?.popViewController(animated: true)
+    }
 }

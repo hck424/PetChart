@@ -6,6 +6,12 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseAuth
+import FBSDKLoginKit
+import AuthenticationServices
+import CryptoSwift
+
 @IBDesignable
 class LoginViewController: BaseViewController {
     @IBOutlet weak var lbTitle: UILabel!
@@ -22,9 +28,13 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var btnApple: CButton!
     @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var bottomScrollView: NSLayoutConstraint!
+    
+    var user: UserInfo? = nil
+    var currentNonce: String? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+    
         bgCorner.layer.cornerRadius = 20
         bgCorner.layer.maskedCorners = [CACornerMask.layerMinXMinYCorner, CACornerMask.layerMaxXMinYCorner]
         
@@ -76,23 +86,46 @@ class LoginViewController: BaseViewController {
             
         }
         else if sender == btnKakao {
-            
+            KakaoController().login(viewcontorller: self) { (user: UserInfo?, error: Error?) in
+                print("kakao: \(String(describing: user?.accessToken!))")
+            }
         }
         else if sender == btnNaver {
-            
+            NaverController().login(viewcontorller: self) { (user: UserInfo?, error: Error?) in
+                print("naver: \(String(describing: user?.accessToken!))")
+            }
         }
         else if sender == btnFacebook {
-            
+            FbController().login(viewcontorller: self) { (user: UserInfo?, error: Error?) in
+                print("facebook: \(String(describing: user?.accessToken))")
+            }
         }
         else if sender == btnApple {
+            let request = createAppIdRequest()
+            let autorizationController = ASAuthorizationController(authorizationRequests: [request])
+            autorizationController.delegate = self
+            autorizationController.presentationContextProvider = self
+            autorizationController.performRequests()
             
         }
         else if sender == btnFindPassword {
             
         }
         else if sender == btnJoinEmail {
-            
+            let vc = MrStep1ViewController.init(nibName: "MrStep1ViewController", bundle: nil)
+            self.navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    
+    func createAppIdRequest() -> ASAuthorizationAppleIDRequest {
+        let provider = ASAuthorizationAppleIDProvider()
+        let request = provider.createRequest()
+        request.requestedScopes = [.fullName, .email]
+        let nonce = randomNonceString()
+        request.nonce = sha256(nonce)
+        
+        currentNonce = nonce
+        return request
     }
     @objc func notificationHandler(_ notification: Notification) {
             
@@ -113,5 +146,100 @@ class LoginViewController: BaseViewController {
                 self.view.layoutIfNeeded()
             }
         }
+    }
+    
+    private func randomNonceString(length: Int = 32) -> String {
+        precondition(length > 0)
+        let charset: Array<Character> =
+            Array("0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._")
+        var result = ""
+        var remainingLength = length
+        
+        while remainingLength > 0 {
+            let randoms: [UInt8] = (0 ..< 16).map { _ in
+                var random: UInt8 = 0
+                let errorCode = SecRandomCopyBytes(kSecRandomDefault, 1, &random)
+                if errorCode != errSecSuccess {
+                    fatalError("Unable to generate nonce. SecRandomCopyBytes failed with OSStatus \(errorCode)")
+                }
+                return random
+            }
+            
+            randoms.forEach { random in
+                if remainingLength == 0 {
+                    return
+                }
+                
+                if random < charset.count {
+                    result.append(charset[Int(random)])
+                    remainingLength -= 1
+                }
+            }
+        }
+        return result
+    }
+    
+    func sha256(_ input: String) -> String {
+      let inputData = Data(input.utf8)
+      let hashedData = inputData.sha256()
+      let hashString = hashedData.compactMap {
+        return String(format: "%02x", $0)
+      }.joined()
+
+      return hashString
+    }
+}
+
+extension LoginViewController: ASAuthorizationControllerDelegate {
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
+        if let appleIdCredential = authorization.credential as? ASAuthorizationAppleIDCredential {
+            guard let none = currentNonce else {
+                fatalError("Invalid state: A login callbak was recevied, but no loin request was sent")
+                return
+            }
+            guard let appIdToken = appleIdCredential.identityToken else {
+                print("Unable to fetch idntify token")
+                return
+            }
+            
+            guard let idToken = String(data: appIdToken, encoding: .utf8) else {
+                print("Unable to serialize token string from data:\(appIdToken.description)")
+                return
+            }
+            self.user = UserInfo()
+            self.user?.accessToken = idToken
+            print ("user appid token : \(idToken)")
+            
+            // Initialize a Firebase credential.
+            
+            let credential = OAuthProvider.credential(withProviderID: "apple.com",
+                                                      idToken: idToken,
+                                                      rawNonce: none)
+            // Sign in with Firebase.
+            Auth.auth().signIn(with: credential) { (authResult, error) in
+                if let error = error {
+                    // Error. If error.code == .MissingOrInvalidNonce, make sure
+                    // you're sending the SHA256-hashed nonce as a hex string with
+                    // your request to Apple.
+                    print(error.localizedDescription)
+                    return
+                }
+                else {
+                    self.user?.userId = authResult?.user.uid
+                    self.user?.email = authResult?.user.email
+                    self.user?.name = authResult?.user.displayName
+                }
+            }
+        }
+        
+    }
+
+    func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
+        print(error)
+    }
+}
+extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {
+    func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
+        return (self.view.window)!
     }
 }

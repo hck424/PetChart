@@ -7,15 +7,20 @@ target 'PetChart' do
 
   # Pods for PetChart
 
-pod 'KakaoSDK'
-pod 'naveridlogin-sdk-ios'
 pod 'Firebase/Analytics'
 pod 'Firebase/Auth'
 pod 'Firebase/Crashlytics'
+#pod 'FirebaseUI'
 
-pod 'GoogleSignIn'
-#pod 'FBSDKCoreKit'
-#pod 'FBSDKLoginKit'
-#pod 'FBSDKShareKit'
+pod 'KakaoSDK'
+pod 'naveridlogin-sdk-ios'
 
+pod 'FBSDKCoreKit'
+pod 'FBSDKLoginKit'
+pod 'FBSDKShareKit'
+
+pod 'CryptoSwift'
+pod 'SwiftKeychainWrapper'
+pod 'Toast-Swift', '~> 5.0.1'
+pod 'Mantis', '~> 1.4.1'
 end

@@ -6,8 +6,7 @@
 //
 
 import UIKit
-@IBDesignable
-class CTextField: UITextField {
+@IBDesignable class CTextField: UITextField {
     var subLayer: CALayer?
     
     @IBInspectable var insetTB :CGFloat = 0.0 {

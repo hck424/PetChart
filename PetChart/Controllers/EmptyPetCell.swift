@@ -24,7 +24,7 @@ class EmptyPetCell: UIView {
     }
     
     class func initWithFromNib() -> EmptyPetCell {
-        let xib: EmptyPetCell =  Bundle.main.loadNibNamed("AddPetCell", owner: nil, options: nil)?.first as! EmptyPetCell
+        let xib: EmptyPetCell =  Bundle.main.loadNibNamed("EmptyPetCell", owner: nil, options: nil)?.first as! EmptyPetCell
         return xib
     }
 }

@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -12,10 +13,10 @@
             <connections>
                 <outlet property="bgCornerView" destination="mdU-eR-3h7" id="rsq-vB-p7w"/>
                 <outlet property="bottomContainer" destination="mIS-t0-deb" id="qFh-0G-Apq"/>
-                <outlet property="btnFemail" destination="esJ-xn-kbC" id="wLT-O1-Idn"/>
-                <outlet property="btnMen" destination="KLm-Hp-yrn" id="Ive-MJ-Qic"/>
+                <outlet property="btnFemale" destination="esJ-xn-kbC" id="cFN-FW-1Eu"/>
+                <outlet property="btnMale" destination="KLm-Hp-yrn" id="ajx-ix-Lde"/>
                 <outlet property="btnOk" destination="P5H-hj-to8" id="KGU-UC-Npb"/>
-                <outlet property="btnSafty" destination="WPl-gK-YL2" id="ArP-9p-0ts"/>
+                <outlet property="btnSafety" destination="WPl-gK-YL2" id="Rpb-8l-Qzq"/>
                 <outlet property="tfName" destination="Nwd-Kw-pd4" id="bP2-gm-Dyu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,7 +26,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="invalid_name" translatesAutoresizingMaskIntoConstraints="NO" id="b0D-Qy-w0H">
+                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="join_step1" translatesAutoresizingMaskIntoConstraints="NO" id="b0D-Qy-w0H">
                     <rect key="frame" x="58" y="74" width="259" height="25"/>
                 </imageView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="GJx-om-Yry">
@@ -52,7 +53,7 @@
                                                         <constraint firstAttribute="height" constant="45" id="csm-sr-HkR"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                                     <userDefinedRuntimeAttributes>
                                                         <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
                                                             <real key="value" value="5"/>
@@ -84,12 +85,12 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="QfQ-jB-Rbz">
-                                                    <rect key="frame" x="0.0" y="15.666666666666686" width="170" height="50"/>
+                                                    <rect key="frame" x="0.0" y="15.666666666666686" width="150" height="50"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KLm-Hp-yrn">
-                                                            <rect key="frame" x="0.0" y="0.0" width="80" height="50"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="70" height="50"/>
                                                             <constraints>
-                                                                <constraint firstAttribute="width" constant="80" id="Pnj-gE-qrF"/>
+                                                                <constraint firstAttribute="width" constant="70" id="Pnj-gE-qrF"/>
                                                             </constraints>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <inset key="titleEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -102,10 +103,7 @@
                                                             </connections>
                                                         </button>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="esJ-xn-kbC">
-                                                            <rect key="frame" x="90" y="0.0" width="80" height="50"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="80" id="xLW-Nz-ih6"/>
-                                                            </constraints>
+                                                            <rect key="frame" x="80" y="0.0" width="70" height="50"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="30" maxY="0.0"/>
                                                             <inset key="titleEdgeInsets" minX="7" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -120,6 +118,7 @@
                                                     </subviews>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="2ny-Su-DKd"/>
+                                                        <constraint firstItem="KLm-Hp-yrn" firstAttribute="width" secondItem="esJ-xn-kbC" secondAttribute="width" id="mCO-Oe-giO"/>
                                                     </constraints>
                                                 </stackView>
                                             </subviews>
@@ -173,6 +172,7 @@
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+            <gestureRecognizers/>
             <constraints>
                 <constraint firstItem="b0D-Qy-w0H" firstAttribute="centerX" secondItem="fnl-2z-Ty3" secondAttribute="centerX" id="57u-ln-Dtb"/>
                 <constraint firstItem="GJx-om-Yry" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="KIZ-bm-tbw"/>
@@ -181,16 +181,24 @@
                 <constraint firstAttribute="bottom" secondItem="GJx-om-Yry" secondAttribute="bottom" id="mIS-t0-deb"/>
                 <constraint firstItem="GJx-om-Yry" firstAttribute="top" secondItem="b0D-Qy-w0H" secondAttribute="bottom" constant="30" id="rx3-5f-yuM"/>
             </constraints>
+            <connections>
+                <outletCollection property="gestureRecognizers" destination="Z0D-7p-ARO" appends="YES" id="GfC-Bw-DNz"/>
+            </connections>
             <point key="canvasLocation" x="-201" y="78"/>
         </view>
+        <tapGestureRecognizer id="Z0D-7p-ARO">
+            <connections>
+                <action selector="tapGestureHandler:" destination="-1" id="Qgr-Fp-2nu"/>
+            </connections>
+        </tapGestureRecognizer>
     </objects>
     <designables>
         <designable name="Nwd-Kw-pd4">
-            <size key="intrinsicContentSize" width="39" height="19.666666666666668"/>
+            <size key="intrinsicContentSize" width="39" height="29.666666666666668"/>
         </designable>
     </designables>
     <resources>
-        <image name="invalid_name" width="259" height="63"/>
+        <image name="join_step1" width="259" height="63"/>
         <image name="radio_off" width="16" height="16"/>
         <image name="radio_on" width="16" height="16"/>
         <systemColor name="systemBackgroundColor">

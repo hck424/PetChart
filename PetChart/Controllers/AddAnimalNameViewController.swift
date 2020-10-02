@@ -6,11 +6,11 @@
 //
 
 import UIKit
-
+@IBDesignable
 class AddAnimalNameViewController: BaseViewController {
 
-    @IBOutlet weak var btnAdd: UIButton!
-    @IBOutlet weak var tfPetName: CTextField!
+    @IBInspectable @IBOutlet weak var btnAdd: CButton!
+    @IBInspectable @IBOutlet weak var tfPetName: CTextField!
     @IBOutlet weak var btnOk: UIButton!
     @IBOutlet weak var btnSafety: UIButton!
     @IBOutlet weak var cornerBgView: UIView!
@@ -54,9 +54,11 @@ class AddAnimalNameViewController: BaseViewController {
         if sender == btnAdd {
             let alert = UIAlertController.init(title: nil, message: nil, preferredStyle:.actionSheet)
             alert.addAction(UIAlertAction.init(title: "카메라", style: .default, handler: { (action) in
+                self.showCamera(UIImagePickerController.SourceType.camera)
                 alert.dismiss(animated: false, completion: nil)
             }))
             alert.addAction(UIAlertAction.init(title: "캘러리", style: .default, handler: { (action) in
+                self.showCamera(UIImagePickerController.SourceType.photoLibrary)
                 alert.dismiss(animated: false, completion: nil)
             }))
             alert.addAction(UIAlertAction.init(title: "취소", style: .cancel, handler: { (action) in
@@ -73,9 +75,17 @@ class AddAnimalNameViewController: BaseViewController {
             animal?.name = tfPetName.text
             animal?.profileImage = profileImg
             
+            let vc = AddAnminalKindViewController.init(nibName: "AddAnminalKindViewController", bundle: nil)
+            vc.animal = animal
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
+    func showCamera(_ sourceType: UIImagePickerController.SourceType) {
+        let vc = CameraViewController.init()
+        vc.delegate = self
+        vc.sourceType = sourceType
+        self.navigationController?.pushViewController(vc, animated: false)
+    }
     @objc func notificationHandler(_ notification: Notification) {
             
         let heightKeyboard = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue.size.height
@@ -96,3 +106,14 @@ class AddAnimalNameViewController: BaseViewController {
         }
     }
 }
+
+extension AddAnimalNameViewController: CameraViewControllerDelegate {
+    func didFinishImagePicker(origin: UIImage?, crop: UIImage?) {
+        self.profileImg = crop
+        self.btnAdd.setImage(self.profileImg, for: .normal)
+        self.btnAdd.borderColor = RGB(217, 217, 217)
+        self.btnAdd.borderWidth = 2.0
+        self.btnAdd.setNeedsDisplay()
+    }
+}
+

@@ -86,7 +86,7 @@ class AlertView: UIView {
     }
     func show() {
         self.backgroundColor = UIColor.clear
-        let window = appDelegate().window
+        let window = AppDelegate.instance()?.window
         
         if let view:UIView = window?.viewWithTag(TAG_ALERT_VIEW) {
             view.removeFromSuperview()
