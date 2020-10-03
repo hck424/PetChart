@@ -142,7 +142,7 @@ class ChartViewController: BaseViewController {
     }
     
     func showChartDetailVC(categroy:String?, type:PetHealth, selData:Dictionary<String, Any>?) {
-        let vc = ChartDetailViewController.init()
+        let vc = ChartCategoryViewController.init()
         vc.vcTitle = categroy
         vc.type = type
         vc.data = selData

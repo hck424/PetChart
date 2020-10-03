@@ -149,3 +149,9 @@ enum PetHealth: String {
         return nil
     }
 }
+
+enum GraphType: Int {
+    case day
+    case week
+    case month
+}
