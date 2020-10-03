@@ -37,6 +37,21 @@
 		E9640EF22522D78B00EEF156 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9640EF12522D78B00EEF156 /* ApiManager.swift */; };
 		E968793A2525EFB900D1DF1A /* AddAnimalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96879382525EFB900D1DF1A /* AddAnimalInfoViewController.swift */; };
 		E968793B2525EFB900D1DF1A /* AddAnimalInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96879392525EFB900D1DF1A /* AddAnimalInfoViewController.xib */; };
+		E97C262025288353001FFC7F /* SharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C261F25288353001FFC7F /* SharedData.swift */; };
+		E97C262425288A75001FFC7F /* ChartRecordEatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C262225288A75001FFC7F /* ChartRecordEatViewController.swift */; };
+		E97C262525288A75001FFC7F /* ChartRecordEatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97C262325288A75001FFC7F /* ChartRecordEatViewController.xib */; };
+		E97C262925288A8C001FFC7F /* ChartRecordDrinkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C262725288A8C001FFC7F /* ChartRecordDrinkViewController.swift */; };
+		E97C262A25288A8C001FFC7F /* ChartRecordDrinkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97C262825288A8C001FFC7F /* ChartRecordDrinkViewController.xib */; };
+		E97C262E25288ABF001FFC7F /* ChartRecordMedicalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C262C25288ABF001FFC7F /* ChartRecordMedicalViewController.swift */; };
+		E97C262F25288ABF001FFC7F /* ChartRecordMedicalViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97C262D25288ABF001FFC7F /* ChartRecordMedicalViewController.xib */; };
+		E97C263325288AD8001FFC7F /* ChartRecordWalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C263125288AD8001FFC7F /* ChartRecordWalkViewController.swift */; };
+		E97C263425288AD8001FFC7F /* ChartRecordWalkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97C263225288AD8001FFC7F /* ChartRecordWalkViewController.xib */; };
+		E97C263825288AFB001FFC7F /* ChartRecordWeightViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C263625288AFB001FFC7F /* ChartRecordWeightViewController.swift */; };
+		E97C263925288AFB001FFC7F /* ChartRecordWeightViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97C263725288AFB001FFC7F /* ChartRecordWeightViewController.xib */; };
+		E97C263D25288B2A001FFC7F /* ChartRecordFecesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C263B25288B2A001FFC7F /* ChartRecordFecesViewController.swift */; };
+		E97C263E25288B2A001FFC7F /* ChartRecordFecesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97C263C25288B2A001FFC7F /* ChartRecordFecesViewController.xib */; };
+		E97F4B652528752E00EAD200 /* ChartDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F4B632528752E00EAD200 /* ChartDetailViewController.swift */; };
+		E97F4B662528752E00EAD200 /* ChartDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97F4B642528752E00EAD200 /* ChartDetailViewController.xib */; };
 		E98AF4AF25244220002C855B /* CDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98AF4AC25244220002C855B /* CDateFormatter.swift */; };
 		E98AF4B625244465002C855B /* CDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98AF4AA25244220002C855B /* CDatePickerView.swift */; };
 		E98AF4FF2524466B002C855B /* CDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E98AF4FE2524466B002C855B /* CDatePickerView.xib */; };
@@ -61,6 +76,7 @@
 		E9A9F2502521B7BD0049E041 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9F24F2521B7BD0049E041 /* UserInfo.swift */; };
 		E9A9F2542521C0E40049E041 /* KakaoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9F2532521C0E40049E041 /* KakaoController.swift */; };
 		E9A9F2572521C0EE0049E041 /* NaverController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9F2562521C0EE0049E041 /* NaverController.swift */; };
+		E9AFA5EB2528CE26002CFEDE /* CTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9AFA5EA2528CE26002CFEDE /* CTextView.swift */; };
 		E9C09F12251EFB1D00D0120C /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C09F11251EFB1D00D0120C /* Extension.swift */; };
 		E9C09F23251F0B2A00D0120C /* BaseNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C09F22251F0B2A00D0120C /* BaseNavigationController.swift */; };
 		E9C494352526E09200F8C7AB /* PopupListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C494332526E09200F8C7AB /* PopupListViewController.swift */; };
@@ -132,6 +148,21 @@
 		E9640EF12522D78B00EEF156 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
 		E96879382525EFB900D1DF1A /* AddAnimalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalInfoViewController.swift; sourceTree = "<group>"; };
 		E96879392525EFB900D1DF1A /* AddAnimalInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAnimalInfoViewController.xib; sourceTree = "<group>"; };
+		E97C261F25288353001FFC7F /* SharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedData.swift; sourceTree = "<group>"; };
+		E97C262225288A75001FFC7F /* ChartRecordEatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartRecordEatViewController.swift; sourceTree = "<group>"; };
+		E97C262325288A75001FFC7F /* ChartRecordEatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartRecordEatViewController.xib; sourceTree = "<group>"; };
+		E97C262725288A8C001FFC7F /* ChartRecordDrinkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartRecordDrinkViewController.swift; sourceTree = "<group>"; };
+		E97C262825288A8C001FFC7F /* ChartRecordDrinkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartRecordDrinkViewController.xib; sourceTree = "<group>"; };
+		E97C262C25288ABF001FFC7F /* ChartRecordMedicalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartRecordMedicalViewController.swift; sourceTree = "<group>"; };
+		E97C262D25288ABF001FFC7F /* ChartRecordMedicalViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartRecordMedicalViewController.xib; sourceTree = "<group>"; };
+		E97C263125288AD8001FFC7F /* ChartRecordWalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartRecordWalkViewController.swift; sourceTree = "<group>"; };
+		E97C263225288AD8001FFC7F /* ChartRecordWalkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartRecordWalkViewController.xib; sourceTree = "<group>"; };
+		E97C263625288AFB001FFC7F /* ChartRecordWeightViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartRecordWeightViewController.swift; sourceTree = "<group>"; };
+		E97C263725288AFB001FFC7F /* ChartRecordWeightViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartRecordWeightViewController.xib; sourceTree = "<group>"; };
+		E97C263B25288B2A001FFC7F /* ChartRecordFecesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartRecordFecesViewController.swift; sourceTree = "<group>"; };
+		E97C263C25288B2A001FFC7F /* ChartRecordFecesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartRecordFecesViewController.xib; sourceTree = "<group>"; };
+		E97F4B632528752E00EAD200 /* ChartDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailViewController.swift; sourceTree = "<group>"; };
+		E97F4B642528752E00EAD200 /* ChartDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartDetailViewController.xib; sourceTree = "<group>"; };
 		E98AF4AA25244220002C855B /* CDatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDatePickerView.swift; sourceTree = "<group>"; };
 		E98AF4AC25244220002C855B /* CDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDateFormatter.swift; sourceTree = "<group>"; };
 		E98AF4FE2524466B002C855B /* CDatePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CDatePickerView.xib; sourceTree = "<group>"; };
@@ -157,6 +188,7 @@
 		E9A9F2532521C0E40049E041 /* KakaoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoController.swift; sourceTree = "<group>"; };
 		E9A9F2562521C0EE0049E041 /* NaverController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NaverController.swift; sourceTree = "<group>"; };
 		E9A9F2602521E70F0049E041 /* PetChart.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PetChart.entitlements; sourceTree = "<group>"; };
+		E9AFA5EA2528CE26002CFEDE /* CTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTextView.swift; sourceTree = "<group>"; };
 		E9C09F11251EFB1D00D0120C /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		E9C09F22251F0B2A00D0120C /* BaseNavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNavigationController.swift; sourceTree = "<group>"; };
 		E9C494332526E09200F8C7AB /* PopupListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupListViewController.swift; sourceTree = "<group>"; };
@@ -237,6 +269,20 @@
 				E9428F2A252834CF00456A48 /* ChartCategoryViewController.xib */,
 				E9086ED9252867A1006D7F1D /* GraphView.swift */,
 				E9086EDC252867AA006D7F1D /* GraphView.xib */,
+				E97F4B632528752E00EAD200 /* ChartDetailViewController.swift */,
+				E97F4B642528752E00EAD200 /* ChartDetailViewController.xib */,
+				E97C262225288A75001FFC7F /* ChartRecordEatViewController.swift */,
+				E97C262325288A75001FFC7F /* ChartRecordEatViewController.xib */,
+				E97C262725288A8C001FFC7F /* ChartRecordDrinkViewController.swift */,
+				E97C262825288A8C001FFC7F /* ChartRecordDrinkViewController.xib */,
+				E97C262C25288ABF001FFC7F /* ChartRecordMedicalViewController.swift */,
+				E97C262D25288ABF001FFC7F /* ChartRecordMedicalViewController.xib */,
+				E97C263125288AD8001FFC7F /* ChartRecordWalkViewController.swift */,
+				E97C263225288AD8001FFC7F /* ChartRecordWalkViewController.xib */,
+				E97C263625288AFB001FFC7F /* ChartRecordWeightViewController.swift */,
+				E97C263725288AFB001FFC7F /* ChartRecordWeightViewController.xib */,
+				E97C263B25288B2A001FFC7F /* ChartRecordFecesViewController.swift */,
+				E97C263C25288B2A001FFC7F /* ChartRecordFecesViewController.xib */,
 			);
 			name = Chart;
 			sourceTree = "<group>";
@@ -366,6 +412,7 @@
 				E999D5B42520214D0087D8AE /* CNavigationBar.swift */,
 				E999D5E825204DF20087D8AE /* CTextField.swift */,
 				E95E141B25260E780073DC93 /* SelectedButton.swift */,
+				E9AFA5EA2528CE26002CFEDE /* CTextView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -392,6 +439,7 @@
 				E9C494562526EBD800F8C7AB /* PopupListCell.swift */,
 				E9C494572526EBD800F8C7AB /* PopupListCell.xib */,
 				E9428F082527541F00456A48 /* HitTestView.swift */,
+				E97C261F25288353001FFC7F /* SharedData.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -486,13 +534,18 @@
 				E9EF79D12525E23C00F2922F /* AddAnimalBirthDayViewController.xib in Resources */,
 				E9EF79732525853700F2922F /* EmptyPetCell.xib in Resources */,
 				E9428F2C252834CF00456A48 /* ChartCategoryViewController.xib in Resources */,
+				E97F4B662528752E00EAD200 /* ChartDetailViewController.xib in Resources */,
 				E9D794F2251ECFF800D79E7E /* LaunchScreen.storyboard in Resources */,
 				E95FB766252325A700BDC5FE /* MrStep2ViewController.xib in Resources */,
 				E9C494592526EBD900F8C7AB /* PopupListCell.xib in Resources */,
+				E97C263E25288B2A001FFC7F /* ChartRecordFecesViewController.xib in Resources */,
 				E9C494362526E09200F8C7AB /* PopupListViewController.xib in Resources */,
 				E9086EDD252867AA006D7F1D /* GraphView.xib in Resources */,
 				E968793B2525EFB900D1DF1A /* AddAnimalInfoViewController.xib in Resources */,
+				E97C263925288AFB001FFC7F /* ChartRecordWeightViewController.xib in Resources */,
+				E97C262F25288ABF001FFC7F /* ChartRecordMedicalViewController.xib in Resources */,
 				E9C4948A25273BCE00F8C7AB /* PetHealthFavoriteCell.xib in Resources */,
+				E97C263425288AD8001FFC7F /* ChartRecordWalkViewController.xib in Resources */,
 				E98AF4FF2524466B002C855B /* CDatePickerView.xib in Resources */,
 				E9D794EF251ECFF800D79E7E /* Assets.xcassets in Resources */,
 				E9EF79C72525B53400F2922F /* AddAnminalKindViewController.xib in Resources */,
@@ -501,7 +554,9 @@
 				E9428F272527904600456A48 /* ChartCellView.xib in Resources */,
 				E993C487251EEB94007E8C7E /* GoogleService-Info.plist in Resources */,
 				E9C4948525273B6A00F8C7AB /* PetHealthFavoriteEdtingViewController.xib in Resources */,
+				E97C262A25288A8C001FFC7F /* ChartRecordDrinkViewController.xib in Resources */,
 				E95E13F725260A030073DC93 /* AnimalRegiNumberInfoViewController.xib in Resources */,
+				E97C262525288A75001FFC7F /* ChartRecordEatViewController.xib in Resources */,
 				E9D79508251ED15A00D79E7E /* TutorialViewController.xib in Resources */,
 				E95FB73E2523210E00BDC5FE /* MrStep1ViewController.xib in Resources */,
 				E9EF79CC2525BDF500F2922F /* AddAnimalItemSelectViewController.xib in Resources */,
@@ -571,6 +626,7 @@
 				E98AF4B625244465002C855B /* CDatePickerView.swift in Sources */,
 				E9EF796F2525851700F2922F /* EmptyPetCell.swift in Sources */,
 				E9D794ED251ECFF800D79E7E /* PetChart.xcdatamodeld in Sources */,
+				E97C262E25288ABF001FFC7F /* ChartRecordMedicalViewController.swift in Sources */,
 				E9EF799525259F9700F2922F /* CameraViewController.swift in Sources */,
 				E9428F2125278B3900456A48 /* DateExtension.swift in Sources */,
 				E999D5F725207C610087D8AE /* AlertView.swift in Sources */,
@@ -578,12 +634,15 @@
 				E98AF4AF25244220002C855B /* CDateFormatter.swift in Sources */,
 				E9D79507251ED15A00D79E7E /* TutorialViewController.swift in Sources */,
 				E9EF79CB2525BDF500F2922F /* AddAnimalItemSelectViewController.swift in Sources */,
+				E97C262425288A75001FFC7F /* ChartRecordEatViewController.swift in Sources */,
 				E993C497251EEC09007E8C7E /* CommunityViewController.swift in Sources */,
 				E9D5AB4A251EE12A005B7ECB /* MainTabBarController.swift in Sources */,
 				E9D794E3251ECFF800D79E7E /* AppDelegate.swift in Sources */,
+				E97F4B652528752E00EAD200 /* ChartDetailViewController.swift in Sources */,
 				E9C494352526E09200F8C7AB /* PopupListViewController.swift in Sources */,
 				E9428F242527901100456A48 /* ChartCellView.swift in Sources */,
 				E9C09F12251EFB1D00D0120C /* Extension.swift in Sources */,
+				E97C263D25288B2A001FFC7F /* ChartRecordFecesViewController.swift in Sources */,
 				E9EF79C62525B53400F2922F /* AddAnminalKindViewController.swift in Sources */,
 				E9D5AB47251ED941005B7ECB /* Constants.swift in Sources */,
 				E9EF798F2525985000F2922F /* Animal.swift in Sources */,
@@ -596,15 +655,19 @@
 				E9C4948925273BCE00F8C7AB /* PetHealthFavoriteCell.swift in Sources */,
 				E95E141C25260E780073DC93 /* SelectedButton.swift in Sources */,
 				E968793A2525EFB900D1DF1A /* AddAnimalInfoViewController.swift in Sources */,
+				E97C263825288AFB001FFC7F /* ChartRecordWeightViewController.swift in Sources */,
 				E999D5B52520214D0087D8AE /* CNavigationBar.swift in Sources */,
 				E9A9F2472521B3910049E041 /* FbController.swift in Sources */,
 				E9640EF22522D78B00EEF156 /* ApiManager.swift in Sources */,
 				E9615E4A2526CCFD000550FE /* MemberInfoModifyViewController.swift in Sources */,
 				E9640EEF2522D78100EEF156 /* NetworkManager.swift in Sources */,
+				E97C263325288AD8001FFC7F /* ChartRecordWalkViewController.swift in Sources */,
 				E999D5DC2520490F0087D8AE /* Clabel.swift in Sources */,
 				E95FB73F2523210E00BDC5FE /* MrStep1ViewController.swift in Sources */,
+				E97C262925288A8C001FFC7F /* ChartRecordDrinkViewController.swift in Sources */,
 				E999D5DB2520490F0087D8AE /* CButton.swift in Sources */,
 				E9C09F23251F0B2A00D0120C /* BaseNavigationController.swift in Sources */,
+				E9AFA5EB2528CE26002CFEDE /* CTextView.swift in Sources */,
 				E9EF799C25259FFA00F2922F /* CameraOverlayView.swift in Sources */,
 				E9428F2B252834CF00456A48 /* ChartCategoryViewController.swift in Sources */,
 				E999D5DD2520490F0087D8AE /* ShadowView.swift in Sources */,
@@ -620,6 +683,7 @@
 				E95FB765252325A700BDC5FE /* MrStep2ViewController.swift in Sources */,
 				E9C4948425273B6A00F8C7AB /* PetHealthFavoriteEdtingViewController.swift in Sources */,
 				E95E142025261EC70073DC93 /* AnimalModifyInfoViewController.swift in Sources */,
+				E97C262025288353001FFC7F /* SharedData.swift in Sources */,
 				E9428F092527541F00456A48 /* HitTestView.swift in Sources */,
 				E9EF79D02525E23C00F2922F /* AddAnimalBirthDayViewController.swift in Sources */,
 			);

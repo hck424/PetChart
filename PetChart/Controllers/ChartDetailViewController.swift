@@ -1,5 +1,5 @@
 //
-//  ChartCategoryViewController.swift
+//  ChartDetailViewController.swift
 //  PetChart
 //
 //  Created by 김학철 on 2020/10/03.
@@ -7,173 +7,93 @@
 
 import UIKit
 
-let tagUnderLine = 12345
-
-class ChartCategoryViewController: BaseViewController {
+class ChartDetailViewController: BaseViewController {
     @IBOutlet weak var vwBgContainer: UIView!
-    @IBOutlet weak var lbYearMonth: UILabel!
-    @IBOutlet var arrSvTopWeekDay: [UIStackView]!
-    @IBOutlet weak var btnRecord: UIButton!
-    @IBOutlet weak var btnDetail: UIButton!
-    @IBOutlet weak var btnSafety: UIButton!
-    
-    @IBOutlet weak var btnMark: UIButton!
-    @IBOutlet weak var btnDay: UIButton!
-    @IBOutlet weak var btnWeek: UIButton!
-    @IBOutlet weak var btnMonth: UIButton!
-    
-    @IBOutlet weak var vwGraph: UIView!
+    @IBOutlet weak var lbGraphTitle: UILabel!
+    @IBOutlet weak var lbTypeTitle: UILabel!
+    @IBOutlet weak var btnShare: UIButton!
     @IBOutlet weak var svGraph: UIStackView!
     
-    var vcTitle:String?
-    var type:PetHealth?
-    var data: Dictionary<String, Any>?
-    
+    @IBOutlet weak var lbMsg: UILabel!
+    @IBOutlet weak var lbBottomTitle: UILabel!
+    @IBOutlet weak var lbBottomMsg: UILabel!
+    @IBOutlet weak var btnOtherChart: UIButton!
+    @IBOutlet weak var btnOtherPet: UIButton!
+    @IBOutlet weak var btnSafety: UIButton!
+   
     var graphType: GraphType = .day
+    var type: PetHealth = .eat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        var title = ""
-        if let tt = vcTitle {
-            title = tt
-        }
-        CNavigationBar.drawTitle(self, title, nil)
+        
+        CNavigationBar.drawTitle(self, "차트 상세", nil)
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
         
         vwBgContainer.layer.cornerRadius = 20
-        vwBgContainer.layer.maskedCorners = CACornerMask(TL: true, TR: true, BL: false, BR: false)
-        vwGraph.layer.borderWidth = 1.0
-        vwGraph.layer.borderColor = RGB(239, 239, 239).cgColor
+        vwBgContainer.layer.maskedCorners = CACornerMask(TL: true, TR: true, BL: true, BR: true)
         
         if Utility.isIphoneX() == false {
             btnSafety.isHidden = true
         }
-        arrSvTopWeekDay = arrSvTopWeekDay.sorted(by: { (sv1, sv2) -> Bool in
-            return sv1.tag < sv2.tag
-        })
         
-        self.underLineSelected(btnDay)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.configurationUI()
-    }
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-    }
-    
-    func configurationUI() {
-        btnMark.setImage(type?.markImage(), for: .normal)
-        btnMark.setTitle(type?.koreanValue(), for: .normal)
+        lbTypeTitle.text = type.koreanValue()
+        svGraph.isLayoutMarginsRelativeArrangement = true
+        svGraph.layoutMargins = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 20)
+        self.view.layoutIfNeeded()
         
-        var graphColor = type?.colorType()
-        if graphColor == nil {
-            graphColor = UIColor.black
-        }
-    
-        let curDate = Date()
-        var calendar = Calendar.init(identifier: .gregorian)
-        calendar.locale = Locale.init(identifier: "ko_KR")
-        let arrDays = calendar.daysWithSameWeekOfYear(as: curDate)
-        
-        let df = CDateFormatter()
-        df.dateFormat = "yyyy.MM"
-        let strYearMonth = df.string(from: curDate)
-        lbYearMonth.text = strYearMonth
-        
-        //top 날짜 매핑
-        for i in 0..<arrDays.count {
-            let day = arrDays[i]
-            //stackview 에서 tag로 찾아 데이터 매핑
-            var findStackView: UIStackView? = nil
-            for svTop in arrSvTopWeekDay  {
-                if svTop.tag == i+1 {
-                    findStackView = svTop
-                    break
-                }
-            }
-            
-            if let svTop = findStackView {
-                if let btnDay = svTop.viewWithTag(2) as? UIButton {
-                    let strTitle = String(format: "%02d", day.getDay())
-                    btnDay.setTitle(strTitle, for: .normal)
-                    btnDay.setTitleColor(UIColor.black, for: .normal)
-                    btnDay.titleLabel?.font = UIFont.systemFont(ofSize: (btnDay.titleLabel?.font.pointSize)!, weight: .regular)
-                    
-                    btnDay.setBackgroundImage(nil, for: .normal)
-                    
-                    if day.getMonth() == curDate.getMonth()
-                        && day.getDay() == curDate.getDay() {
-                        btnDay.titleLabel?.font = UIFont.systemFont(ofSize: (btnDay.titleLabel?.font.pointSize)!, weight: .bold)
-                        btnDay.setTitleColor(ColorDefault, for: .normal)
-                        btnDay.setBackgroundImage(UIImage(named: "circle_curent_day"), for: .normal)
-                    }
-                }
-            }
-        }
-        
-        
-        //그래프 그리기
-        for subview in svGraph.subviews {
-            subview.removeFromSuperview()
-        }
         let graph = GraphView.initWithFromNib()
         svGraph.addArrangedSubview(graph)
-        
         if graphType == .day {
-            graph.configurationGraph(type: .day, colorGraph: graphColor, data: nil)
+            lbGraphTitle.text = "일간 그래프"
         }
-        else if graphType == .week {
-            graph.configurationGraph(type: .week, colorGraph: graphColor, data: nil)
+        else if graphType == .week  {
+            lbGraphTitle.text = "주간 그래프"
         }
         else if graphType == .month {
-            graph.configurationGraph(type: .month, colorGraph: graphColor, data: nil)
+            lbGraphTitle.text = "년간 그래프"
         }
+        graph.colorSeperator = RGB(217, 217, 217)
+        graph.colorTextColor = RGB(136, 136, 136)
+        graph.colorBackground = UIColor.clear
+        graph.configurationGraph(type: graphType, colorGraph: RGB(87, 97, 125), data: nil)
+        
+        self.view.layoutIfNeeded()
     }
     
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
-        if sender == btnDay {
-            graphType = .day
-            self.configurationUI()
-            self.underLineSelected(sender)
-        }
-        else if sender == btnWeek {
-            graphType = .week
-            self.configurationUI()
-            self.underLineSelected(sender)
-        }
-        else if sender == btnMonth {
-            graphType = .month
-            self.configurationUI()
-            self.underLineSelected(sender)
-        }
-        else if sender == btnRecord {
+        if sender == btnShare {
             
         }
-        else if sender == btnDetail {
+        else if sender == btnOtherPet {
+            //커뮤니티 방으로 이동
             
         }
-    }
-    
-    func removeUnderlineView(_ sender: UIButton) {
-        if let view = sender.viewWithTag(tagUnderLine) {
-            view.removeFromSuperview()
+        else if sender == btnOtherChart {
+            
+            SharedData.instance.arrType.remove(type)
+            if SharedData.instance.arrType.count == 0 {
+                AlertView.showWithCancelAndOk(title: "차트", message: "차트를 다보았습니다.\n이페이지 나가시겠습니까?") { (index) in
+                    if index == 1 {
+                        let vcs:Array = self.navigationController!.viewControllers as Array
+                        var findIndex:Int = 0
+                        for index in stride(from: vcs.count-1, to: 0, by: -1) {
+                            let vc = vcs[index]
+                            if vc.isKind(of: self.classForCoder) == false {
+                                findIndex = index
+                                break
+                            }
+                        }
+                        self.navigationController?.popToViewController(vcs[findIndex], animated: true)
+                    }
+                }
+            }
+            else {
+                let vc = ChartDetailViewController.init()
+                vc.graphType = graphType
+                vc.type = (SharedData.instance.arrType.firstObject as? PetHealth)!
+                self.navigationController?.pushViewController(vc, animated: false)
+            }
         }
-        sender.titleLabel?.font = UIFont.systemFont(ofSize: sender.titleLabel?.font.pointSize ?? 15, weight: .regular)
-        sender.setTitleColor(RGB(145, 145, 145), for: .normal)
-    }
-    func underLineSelected(_ sender: UIButton) {
-        self.removeUnderlineView(btnDay)
-        self.removeUnderlineView(btnWeek)
-        self.removeUnderlineView(btnMonth)
-        
-        let underline = UIView.init(frame: CGRect(x: (sender.bounds.width - 20)/2, y: sender.bounds.height/2 + 3, width: 20, height: 8))
-        underline.backgroundColor = RGBA(233, 95, 94, 0.5)
-        underline.tag = tagUnderLine
-        sender.addSubview(underline)
-        
-        sender.titleLabel?.font = UIFont.systemFont(ofSize: sender.titleLabel?.font.pointSize ?? 15, weight: .bold)
-        sender.setTitleColor(UIColor.black, for: .normal)
     }
 }

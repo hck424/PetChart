@@ -148,11 +148,39 @@ class ChartCategoryViewController: BaseViewController {
             self.configurationUI()
             self.underLineSelected(sender)
         }
-        else if sender == btnRecord {
-            
-        }
         else if sender == btnDetail {
             
+            SharedData.instance.arrType.addObjects(from: [PetHealth.drink, PetHealth.eat, PetHealth.weight, PetHealth.feces, PetHealth.walk, PetHealth.medical])
+            
+            let vc = ChartDetailViewController.init(nibName: "ChartDetailViewController", bundle: nil)
+            vc.graphType = graphType
+            vc.type = type!
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
+        else if sender == btnRecord {
+            var vc: UIViewController? = nil
+            if type == .drink {
+                vc = ChartRecordDrinkViewController.init()
+            }
+            else if type == .eat {
+                vc = ChartRecordEatViewController.init()
+            }
+            else if type == .weight {
+                vc = ChartRecordWeightViewController.init()
+            }
+            else if type == .feces {
+                vc = ChartRecordFecesViewController.init()
+            }
+            else if type == .walk {
+                vc = ChartRecordWalkViewController.init()
+            }
+            else if type == .medical {
+                vc = ChartRecordMedicalViewController.init()
+            }
+            
+            if let vc = vc  {
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
         }
     }
     

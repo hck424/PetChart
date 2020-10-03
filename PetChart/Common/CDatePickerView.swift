@@ -376,9 +376,9 @@ extension CDatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
             strDate = String(format: "%04d%02d", selYear, selMonth)
         }
         else if type == .yearMonthDay {
-            strDate = String(format: "%04d%02d%02d", selYear, selMonth, selDay)
+            strDate = String(format: "%04d-%02d-%02d", selYear, selMonth, selDay)
             let df = CDateFormatter()
-            df.dateFormat = "yyyyMMdd"
+            df.dateFormat = "yyyy-MM-dd"
             selDate = df.date(from: strDate)
         }
         completion?(strDate, selDate)

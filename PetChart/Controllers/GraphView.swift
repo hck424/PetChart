@@ -29,7 +29,7 @@ class GraphView: UIView {
     }
     
     func configurationGraph(type:GraphType, colorGraph: UIColor?, data:Array<Any>?) {
-        
+        self.backgroundColor = colorBackground
         arrGraphView = arrGraphView.sorted(by: { (vw1, vw2) -> Bool in
             return vw1.tag < vw2.tag
         })

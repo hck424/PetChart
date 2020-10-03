@@ -48,7 +48,7 @@ class CNavigationBar: UINavigationBar {
         UINavigationBar.appearance().shadowImage = UIImage.init()
     }
     
-    class func drawTitle(_ controller: UIViewController, _ title: Any, _ selctor:Selector?) {
+    class func drawTitle(_ controller: UIViewController, _ title: Any?, _ selctor:Selector?) {
         let button: UIButton = UIButton.init(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
         if let title:String = title as? String {
             button.setTitle(title, for: .normal)
@@ -83,23 +83,29 @@ class CNavigationBar: UINavigationBar {
         UINavigationBar.appearance().shadowImage = UIImage.init()
     }
     
-    class func drawRight(_ controller: UIViewController, _ title: String?, _ img:UIImage, _ tag:Int,  _ selctor:Selector) {
+    class func drawRight(_ controller: UIViewController, _ title: String?, _ img:UIImage?, _ tag:Int,  _ selctor:Selector) {
         
         let button: UIButton = UIButton.init(frame: CGRect(x: 0, y: 0, width: 44, height: 44))
         button.tag = tag
         button.contentHorizontalAlignment = UIControl.ContentHorizontalAlignment.right
         button.titleLabel?.lineBreakMode = NSLineBreakMode.byTruncatingTail
-        button.setImage(img, for: .normal)
+        if let img = img {
+            button.setImage(img, for: .normal)
+        }
         
         if let title = title {
             button.titleEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 5)
-            let attr = NSAttributedString.init(string: title, attributes: [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 18, weight: .medium)])
+            let attr = NSAttributedString.init(string: title, attributes: [NSAttributedString.Key.foregroundColor : UIColor.white, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 15, weight: .medium)])
             button.setAttributedTitle(attr, for: .normal)
             
             var width: CGFloat = button.sizeThatFits(CGSize.init(width: CGFloat.greatestFiniteMagnitude, height: button.frame.size.height)).width
             if width > 250.0 {
                 width = 250
             }
+            else if width < 44 {
+                width = 44
+            }
+            
             button.frame = CGRect.init(x: 0, y: 0, width: width + button.titleEdgeInsets.left, height: button.frame.size.height)
         }
 //        button.layer.borderWidth = 1.0
