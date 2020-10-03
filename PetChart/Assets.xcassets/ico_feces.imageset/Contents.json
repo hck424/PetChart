@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "group_6.png",
+      "filename" : "ico_feces.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "group_6@2x.png",
+      "filename" : "ico_feces@2x.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "group_6@3x.png",
+      "filename" : "ico_feces@3x.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

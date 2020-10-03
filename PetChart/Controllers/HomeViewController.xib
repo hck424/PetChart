@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
+                <outlet property="btnEdting" destination="A6E-vk-elU" id="oL5-Vb-D3x"/>
                 <outlet property="btnMypetName" destination="w5y-nh-j1o" id="hRr-BV-mN8"/>
                 <outlet property="btnProfile" destination="js6-eP-eAM" id="sGP-qC-1Fb"/>
                 <outlet property="cornerBgView" destination="Xiy-QQ-5Xi" id="OUk-U8-qvu"/>
@@ -18,28 +19,28 @@
             </connections>
         </placeholder>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT" customClass="HitTestView" customModule="PetChart" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="YAz-bd-u9Q">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YAz-bd-u9Q">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="InM-vp-FMA">
                             <rect key="frame" x="0.0" y="0.0" width="414" height="68"/>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="68" id="vr8-GC-zfy"/>
                             </constraints>
                         </view>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drg-9T-2bZ">
-                            <rect key="frame" x="0.0" y="88" width="414" height="730"/>
+                            <rect key="frame" x="0.0" y="68" width="414" height="750"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKR-zD-YRv">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="730"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="750"/>
                                     <subviews>
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xiy-QQ-5Xi" userLabel="cornerBgView">
-                                            <rect key="frame" x="0.0" y="41" width="414" height="689"/>
+                                            <rect key="frame" x="0.0" y="71" width="414" height="679"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5y-nh-j1o">
                                                     <rect key="frame" x="164.5" y="41" width="85" height="30"/>
@@ -55,22 +56,46 @@
                                                         <action selector="onclickedButtonActins:" destination="-1" eventType="touchUpInside" id="X4r-Fm-Lzg"/>
                                                     </connections>
                                                 </button>
-                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5o2-Nx-de6">
-                                                    <rect key="frame" x="0.0" y="71" width="414" height="618"/>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="7gr-XN-vGN">
+                                                    <rect key="frame" x="0.0" y="70" width="414" height="35"/>
+                                                    <subviews>
+                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A6E-vk-elU">
+                                                            <rect key="frame" x="335" y="0.0" width="79" height="35"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                            <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                                            <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                            <state key="normal" title="편집" image="ico_setting">
+                                                                <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                            <connections>
+                                                                <action selector="onclickedButtonActins:" destination="-1" eventType="touchUpInside" id="IOp-e8-s9R"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="hy0-Kh-eTx"/>
+                                                    </constraints>
+                                                </stackView>
+                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5o2-Nx-de6" userLabel="svContaner">
+                                                    <rect key="frame" x="0.0" y="105" width="414" height="574"/>
+                                                    <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
                                                 </stackView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstItem="5o2-Nx-de6" firstAttribute="top" secondItem="w5y-nh-j1o" secondAttribute="bottom" id="Zfz-kC-SYm"/>
+                                                <constraint firstItem="7gr-XN-vGN" firstAttribute="top" secondItem="Xiy-QQ-5Xi" secondAttribute="top" constant="70" id="1oz-E0-rhg"/>
+                                                <constraint firstItem="7gr-XN-vGN" firstAttribute="leading" secondItem="Xiy-QQ-5Xi" secondAttribute="leading" id="GrQ-g4-qAy"/>
                                                 <constraint firstAttribute="bottom" secondItem="5o2-Nx-de6" secondAttribute="bottom" id="d7S-CK-LbS"/>
                                                 <constraint firstItem="w5y-nh-j1o" firstAttribute="top" secondItem="Xiy-QQ-5Xi" secondAttribute="top" constant="41" id="e9T-ei-zPj"/>
                                                 <constraint firstItem="5o2-Nx-de6" firstAttribute="leading" secondItem="Xiy-QQ-5Xi" secondAttribute="leading" id="jbn-v0-Fo6"/>
+                                                <constraint firstAttribute="trailing" secondItem="7gr-XN-vGN" secondAttribute="trailing" id="k7g-5I-i3j"/>
                                                 <constraint firstItem="w5y-nh-j1o" firstAttribute="centerX" secondItem="Xiy-QQ-5Xi" secondAttribute="centerX" id="qTf-pn-hmn"/>
                                                 <constraint firstAttribute="trailing" secondItem="5o2-Nx-de6" secondAttribute="trailing" id="yJz-Nc-BHO"/>
+                                                <constraint firstItem="5o2-Nx-de6" firstAttribute="top" secondItem="7gr-XN-vGN" secondAttribute="bottom" id="yab-QM-6bP"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="js6-eP-eAM">
-                                            <rect key="frame" x="166" y="0.0" width="82" height="82"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="js6-eP-eAM" userLabel="Profile">
+                                            <rect key="frame" x="166" y="30" width="82" height="82"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="js6-eP-eAM" secondAttribute="height" multiplier="1:1" id="Bu7-6e-jJp"/>
                                                 <constraint firstAttribute="width" constant="82" id="TLY-wy-Bvl"/>
@@ -81,18 +106,18 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
+                                        <constraint firstItem="Xiy-QQ-5Xi" firstAttribute="top" secondItem="js6-eP-eAM" secondAttribute="bottom" constant="-41" id="DO0-uA-5Ap"/>
                                         <constraint firstItem="js6-eP-eAM" firstAttribute="centerX" secondItem="jKR-zD-YRv" secondAttribute="centerX" id="U0j-FE-55S"/>
-                                        <constraint firstItem="Xiy-QQ-5Xi" firstAttribute="top" secondItem="jKR-zD-YRv" secondAttribute="top" constant="41" id="UbW-Rv-E9x"/>
                                         <constraint firstItem="Xiy-QQ-5Xi" firstAttribute="leading" secondItem="jKR-zD-YRv" secondAttribute="leading" id="YVe-HD-fZl"/>
                                         <constraint firstAttribute="trailing" secondItem="Xiy-QQ-5Xi" secondAttribute="trailing" id="YoK-2f-dKK"/>
                                         <constraint firstAttribute="bottom" secondItem="Xiy-QQ-5Xi" secondAttribute="bottom" id="ZEV-cp-ddZ"/>
-                                        <constraint firstItem="js6-eP-eAM" firstAttribute="top" secondItem="jKR-zD-YRv" secondAttribute="top" id="cKw-Ck-QLm"/>
+                                        <constraint firstItem="js6-eP-eAM" firstAttribute="top" secondItem="jKR-zD-YRv" secondAttribute="top" constant="30" id="cKw-Ck-QLm"/>
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstItem="jKR-zD-YRv" firstAttribute="width" secondItem="drg-9T-2bZ" secondAttribute="width" id="120-Gb-YAU"/>
                                 <constraint firstItem="jKR-zD-YRv" firstAttribute="leading" secondItem="drg-9T-2bZ" secondAttribute="leading" id="3Hd-PG-ZxS"/>
@@ -119,5 +144,6 @@
     </objects>
     <resources>
         <image name="btn_imgadd" width="120" height="120"/>
+        <image name="ico_setting" width="16" height="16"/>
     </resources>
 </document>

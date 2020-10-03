@@ -11,7 +11,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AnimalModifyInfoViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
-                <outlet property="bottomContainer" destination="tDp-Qj-bkN" id="I7R-hE-Tw8"/>
+                <outlet property="accessoryView" destination="5P1-r3-yoK" id="a6K-7i-Z52"/>
+                <outlet property="bottomContainer" destination="AdY-17-MzY" id="t2N-gR-4Dh"/>
                 <outlet property="btnAfeterNeutral" destination="Bfk-Qu-Kr1" id="e5a-Ks-d2x"/>
                 <outlet property="btnArrowItem" destination="juC-n3-r3t" id="whh-l8-1Dv"/>
                 <outlet property="btnCalendar" destination="9YF-FU-dUH" id="chI-gj-WuR"/>
@@ -20,6 +21,7 @@
                 <outlet property="btnEmptyRegiNumber" destination="0Rl-Kx-YA5" id="kks-Ii-d2D"/>
                 <outlet property="btnFemale" destination="8pN-DV-5Df" id="a70-Qe-zEj"/>
                 <outlet property="btnMale" destination="exk-gI-GtU" id="jPQ-Vq-KIH"/>
+                <outlet property="btnOk" destination="OOz-nJ-dGv" id="THf-7R-kUI"/>
                 <outlet property="btnOther" destination="G6I-Nt-jWL" id="rGA-hH-GXf"/>
                 <outlet property="btnPreNeutral" destination="td2-B6-hys" id="Cem-SA-lHu"/>
                 <outlet property="btnPrevent" destination="1Qe-12-AVD" id="10V-ia-3vd"/>
@@ -137,7 +139,7 @@
                                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UX0-cn-QYx">
                                                             <rect key="frame" x="0.0" y="16" width="374" height="45"/>
                                                             <subviews>
-                                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="yyyy-MM-dd" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="i2Z-gr-ZQ3" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
+                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="yyyy-MM-dd" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="i2Z-gr-ZQ3" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
                                                                     <rect key="frame" x="0.0" y="0.0" width="329" height="45"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="45" id="1c2-9I-eqI"/>
@@ -263,7 +265,7 @@
                                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                                     </state>
                                                                     <connections>
-                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="NZa-zJ-zhW"/>
+                                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="wce-9e-D7y"/>
                                                                     </connections>
                                                                 </button>
                                                             </subviews>
@@ -561,22 +563,36 @@
             </constraints>
             <point key="canvasLocation" x="164" y="62"/>
         </view>
+        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="5P1-r3-yoK">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+            <items>
+                <barButtonItem style="plain" systemItem="flexibleSpace" id="BaE-GR-s2z"/>
+                <barButtonItem image="keyboard.chevron.compact.down" catalog="system" id="eD0-D2-lcO">
+                    <color key="tintColor" red="0.91372549020000005" green="0.37254901959999998" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="onClickedButtonActions:" destination="-1" id="cra-dI-3Dm"/>
+                    </connections>
+                </barButtonItem>
+            </items>
+            <point key="canvasLocation" x="914" y="-186"/>
+        </toolbar>
     </objects>
     <designables>
         <designable name="QIk-lk-lZS">
-            <size key="intrinsicContentSize" width="86.5" height="29.5"/>
+            <size key="intrinsicContentSize" width="86.5" height="19.5"/>
         </designable>
         <designable name="i2Z-gr-ZQ3">
-            <size key="intrinsicContentSize" width="89" height="29.5"/>
+            <size key="intrinsicContentSize" width="89" height="19.5"/>
         </designable>
         <designable name="lfI-78-rIq">
-            <size key="intrinsicContentSize" width="86.5" height="29.5"/>
+            <size key="intrinsicContentSize" width="86.5" height="19.5"/>
         </designable>
         <designable name="rDd-WI-iuT">
-            <size key="intrinsicContentSize" width="39" height="29.5"/>
+            <size key="intrinsicContentSize" width="39" height="19.5"/>
         </designable>
         <designable name="zAa-ia-8wA">
-            <size key="intrinsicContentSize" width="207" height="25.5"/>
+            <size key="intrinsicContentSize" width="207" height="19.5"/>
         </designable>
     </designables>
     <resources>
@@ -585,6 +601,7 @@
         <image name="ico_cat" width="41" height="46"/>
         <image name="ico_dog" width="36" height="47"/>
         <image name="ico_info" width="17" height="18"/>
+        <image name="keyboard.chevron.compact.down" catalog="system" width="128" height="102"/>
         <image name="triangle" width="12" height="11"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

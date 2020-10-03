@@ -7,13 +7,33 @@
 
 import Foundation
 import UIKit
+//FIXME:: UITableView
+extension UITableView {
+    func reloadData(completion:@escaping ()-> Void) {
+        UIView.animate(withDuration: 0) {
+            self.reloadData()
+        } completion: { (finish) in
+            completion()
+        }
+    }
+}
 //FIXME:: UIViewController
 extension UIViewController {
     
 }
 //FIXME:: UIView
 extension UIView {
-    
+    func addShadow(offset:CGSize, color:UIColor, raduius: Float, opacity:Float) {
+        self.layer.masksToBounds = false
+        self.layer.shadowOffset = offset
+        self.layer.shadowColor = color.cgColor
+        self.layer.shadowRadius = CGFloat(raduius)
+        self.layer.shadowOpacity = opacity
+        
+        let bgColor = self.backgroundColor
+        self.backgroundColor = nil
+        self.layer.backgroundColor = bgColor?.cgColor
+    }
 }
 //FIXME:: CACornerMask
 extension CACornerMask {
@@ -55,39 +75,6 @@ public extension Error {
     }
 }
 
-//FIXME:: Date
-public extension Date {
-    func getStartDate(withYear year: Int) -> Date? {
-        var calendar = Calendar(identifier: .gregorian)
-        let local = Locale(identifier: "en_US_POSIX")
-        calendar.locale = local
-        var comps = calendar.dateComponents([.year, .month, .day], from: self as Date)
-        comps.year = getYear() + year
-        comps.month = 1
-        comps.day = 1
-        return calendar.date(from: comps)
-    }
-    func getYear() -> Int {
-        let df = CDateFormatter.init()
-        df.dateFormat = "yyyy"
-        let year: Int = Int(df.string(for: self)!) ?? 0
-        return year
-    }
-
-    func getMonth() -> Int {
-        let df = CDateFormatter.init()
-        df.dateFormat = "MM"
-        let month: Int = Int(df.string(for: self)!) ?? 0
-        return month
-    }
-
-    func getDay() -> Int {
-        let df = CDateFormatter.init()
-        df.dateFormat = "dd"
-        let day: Int = Int(df.string(for: self)!) ?? 0
-        return day
-    }
-}
 //FIXME:: String
 extension String {
     

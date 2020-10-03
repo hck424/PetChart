@@ -14,7 +14,6 @@ class SelectedButton: UIButton {
     }
     override var isSelected: Bool {
         didSet {
-            print(isSelected)
             if isSelected {
                 decorationSelectedBtn()
             }

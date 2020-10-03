@@ -11,6 +11,7 @@ import AVKit
 class Animal: NSObject {
     var name: String?
     var profileImage: UIImage?
+    var profileImageUrl: String?
     var kind: String? //종류
     var item: String? //품종
     var birthday: String? //생년월일

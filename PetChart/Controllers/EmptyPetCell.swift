@@ -9,7 +9,7 @@ import UIKit
 
 class EmptyPetCell: UIView {
 
-    var didSelectedClouser:(((_ selData:Any?, _ index:Int) ->()))? {
+    var didSelectedClouser:((_ selData:Any?, _ index:Int) ->())? {
         didSet {
 //            self.selIndex = didSelectedItemWithClosure!.selIndex
         }
