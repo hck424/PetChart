@@ -11,9 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChartViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
+                <outlet property="btnSettingSmart" destination="GjH-AL-J6j" id="Bsq-7b-U4q"/>
                 <outlet property="btnSettingTotal" destination="hiL-n1-qID" id="iv9-IS-eoJ"/>
                 <outlet property="btnSmartDevice" destination="OLi-Xd-o9Z" id="eko-2m-oqw"/>
-                <outlet property="btnSmartSetting" destination="GjH-AL-J6j" id="xtb-jR-Fuv"/>
                 <outlet property="svSmart" destination="zPy-V1-u3L" id="sEK-SX-eep"/>
                 <outlet property="svSmartContainer" destination="3oa-bp-JPj" id="ygR-Gg-7eJ"/>
                 <outlet property="svTotal" destination="ycc-y5-HwG" id="wWm-0b-cfI"/>

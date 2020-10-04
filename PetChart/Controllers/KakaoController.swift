@@ -11,9 +11,9 @@ import KakaoSDKCommon
 import KakaoSDKUser
 
 class KakaoController: NSObject {
-    var completion:LoginClouser?
+    var completion:LoginClosure?
     var user:UserInfo?
-    func login(viewcontorller: UIViewController, completion:LoginClouser?) {
+    func login(viewcontorller: UIViewController, completion:LoginClosure?) {
         self.completion = completion
         if AuthApi.isKakaoTalkLoginAvailable() {
             AuthApi.shared.loginWithKakaoTalk { (token: OAuthToken?, error:Error?) in

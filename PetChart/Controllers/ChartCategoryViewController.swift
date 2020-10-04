@@ -7,8 +7,6 @@
 
 import UIKit
 
-let tagUnderLine = 12345
-
 class ChartCategoryViewController: BaseViewController {
     @IBOutlet weak var vwBgContainer: UIView!
     @IBOutlet weak var lbYearMonth: UILabel!
@@ -25,10 +23,11 @@ class ChartCategoryViewController: BaseViewController {
     @IBOutlet weak var vwGraph: UIView!
     @IBOutlet weak var svGraph: UIStackView!
     
+    let TAG_UNDER_LINE: Int = 1234567
+    
     var vcTitle:String?
     var type:PetHealth?
     var data: Dictionary<String, Any>?
-    
     var graphType: GraphType = .day
     
     override func viewDidLoad() {
@@ -185,7 +184,7 @@ class ChartCategoryViewController: BaseViewController {
     }
     
     func removeUnderlineView(_ sender: UIButton) {
-        if let view = sender.viewWithTag(tagUnderLine) {
+        if let view = sender.viewWithTag(TAG_UNDER_LINE) {
             view.removeFromSuperview()
         }
         sender.titleLabel?.font = UIFont.systemFont(ofSize: sender.titleLabel?.font.pointSize ?? 15, weight: .regular)
@@ -198,7 +197,7 @@ class ChartCategoryViewController: BaseViewController {
         
         let underline = UIView.init(frame: CGRect(x: (sender.bounds.width - 20)/2, y: sender.bounds.height/2 + 3, width: 20, height: 8))
         underline.backgroundColor = RGBA(233, 95, 94, 0.5)
-        underline.tag = tagUnderLine
+        underline.tag = TAG_UNDER_LINE
         sender.addSubview(underline)
         
         sender.titleLabel?.font = UIFont.systemFont(ofSize: sender.titleLabel?.font.pointSize ?? 15, weight: .bold)

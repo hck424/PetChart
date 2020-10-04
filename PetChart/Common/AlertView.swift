@@ -12,7 +12,7 @@ enum AlertViewType: Int {
     case optionalBox
 }
 
-typealias AlertClouser = (Int) -> Void
+typealias AlertClosure = (Int) -> Void
 let TAG_ALERT_VIEW = 10111
 
 class AlertView: UIView {
@@ -31,12 +31,12 @@ class AlertView: UIView {
     var title: Any?
     var message: Any?
     var btnTitles: Array<Any>?
-    var completion:AlertClouser?
+    var completion:AlertClosure?
     var btnTitleColor: Array<UIColor>?
     var type: AlertViewType = .normal
     var optionBtnTitles: Array<Any>?
     
-    class func showWithOk(title:Any?, message: Any?, completion:AlertClouser?) {
+    class func showWithOk(title:Any?, message: Any?, completion:AlertClosure?) {
         let titles = ["확인"]
         let alert = AlertView.init(title: title, message: message, btnTitles:titles , completion: completion)
         
@@ -44,7 +44,7 @@ class AlertView: UIView {
         alert.show()
     }
     
-    class func showWithCancelAndOk(title:Any?, message: Any?, completion:AlertClouser?) {
+    class func showWithCancelAndOk(title:Any?, message: Any?, completion:AlertClosure?) {
         let titles = ["취소", "확인"]
         let alert = AlertView.init(title: title, message: message, btnTitles:titles , completion: completion)
         
@@ -52,7 +52,7 @@ class AlertView: UIView {
         alert.show()
     }
     
-    class func showWithCancelAndOk(title:Any?, message: Any?, optionBtnTitles:Array<Any>?,  completion:AlertClouser?) {
+    class func showWithCancelAndOk(title:Any?, message: Any?, optionBtnTitles:Array<Any>?,  completion:AlertClosure?) {
         let titles = ["취소", "확인"]
         let alert = AlertView.init(title: title, message: message, btnTitles:titles , completion: completion)
         alert.type = .optionalBox
@@ -64,7 +64,7 @@ class AlertView: UIView {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
     }
-    convenience init(title: Any?, message: Any?, btnTitles: [AnyHashable]?, completion: AlertClouser?) {
+    convenience init(title: Any?, message: Any?, btnTitles: [AnyHashable]?, completion: AlertClosure?) {
         self.init(frame: UIScreen.main.bounds)
         self.title = title
         self.message = message

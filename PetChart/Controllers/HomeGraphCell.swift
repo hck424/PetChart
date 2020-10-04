@@ -23,7 +23,7 @@ class HomeGraphCell: UIView {
     @IBOutlet weak var lbYesterdayValue: UILabel!
     @IBOutlet weak var sliderYesterday: UISlider!
     
-    var didSelectedClouser:((_ selData:Any?, _ index:Int) ->())? { didSet {} }
+    var didSelectedClosure:((_ selData:Any?, _ index:Int) ->())? { didSet {} }
     var data:Dictionary <String, Any>? = nil
     var type: PetHealth? = nil
     
@@ -73,7 +73,7 @@ class HomeGraphCell: UIView {
     }
     @IBAction func onClickedButtonActions(_ sender: Any) {
         if (sender as? NSObject) == btnBg {
-            didSelectedClouser?(data, 0)
+            didSelectedClosure?(data, 0)
         }
     }
 }

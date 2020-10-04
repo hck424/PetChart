@@ -10,6 +10,8 @@
 		353D39E0FF33E17BCFC84F2A /* Pods_PetChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43253CBBFD45190799B14C02 /* Pods_PetChart.framework */; };
 		E9086EDA252867A1006D7F1D /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9086ED9252867A1006D7F1D /* GraphView.swift */; };
 		E9086EDD252867AA006D7F1D /* GraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9086EDC252867AA006D7F1D /* GraphView.xib */; };
+		E929CA5E2529CE8E00AB4F68 /* TalkWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E929CA5C2529CE8E00AB4F68 /* TalkWriteViewController.swift */; };
+		E929CA5F2529CE8E00AB4F68 /* TalkWriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E929CA5D2529CE8E00AB4F68 /* TalkWriteViewController.xib */; };
 		E9428EFA2527503A00456A48 /* PetSelectRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9428EF92527503A00456A48 /* PetSelectRowView.swift */; };
 		E9428EFD2527504E00456A48 /* PetSelectRowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9428EFC2527504E00456A48 /* PetSelectRowView.xib */; };
 		E9428F092527541F00456A48 /* HitTestView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9428F082527541F00456A48 /* HitTestView.swift */; };
@@ -31,6 +33,8 @@
 		E95FB73F2523210E00BDC5FE /* MrStep1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FB73D2523210E00BDC5FE /* MrStep1ViewController.swift */; };
 		E95FB765252325A700BDC5FE /* MrStep2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FB763252325A700BDC5FE /* MrStep2ViewController.swift */; };
 		E95FB766252325A700BDC5FE /* MrStep2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95FB764252325A700BDC5FE /* MrStep2ViewController.xib */; };
+		E96039632529BB1200328932 /* TalkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96039612529BB1200328932 /* TalkCell.swift */; };
+		E96039642529BB1200328932 /* TalkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96039622529BB1200328932 /* TalkCell.xib */; };
 		E9615E4A2526CCFD000550FE /* MemberInfoModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9615E482526CCFD000550FE /* MemberInfoModifyViewController.swift */; };
 		E9615E4B2526CCFE000550FE /* MemberInfoModifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9615E492526CCFD000550FE /* MemberInfoModifyViewController.xib */; };
 		E9640EEF2522D78100EEF156 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9640EEE2522D78100EEF156 /* NetworkManager.swift */; };
@@ -52,6 +56,7 @@
 		E97C263E25288B2A001FFC7F /* ChartRecordFecesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97C263C25288B2A001FFC7F /* ChartRecordFecesViewController.xib */; };
 		E97F4B652528752E00EAD200 /* ChartDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F4B632528752E00EAD200 /* ChartDetailViewController.swift */; };
 		E97F4B662528752E00EAD200 /* ChartDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97F4B642528752E00EAD200 /* ChartDetailViewController.xib */; };
+		E98963F42529FF0800A30D27 /* TalkDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E98963F32529FF0800A30D27 /* TalkDetailViewController.xib */; };
 		E98AF4AF25244220002C855B /* CDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98AF4AC25244220002C855B /* CDateFormatter.swift */; };
 		E98AF4B625244465002C855B /* CDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98AF4AA25244220002C855B /* CDatePickerView.swift */; };
 		E98AF4FF2524466B002C855B /* CDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E98AF4FE2524466B002C855B /* CDatePickerView.xib */; };
@@ -60,8 +65,8 @@
 		E993C48E251EEBCF007E8C7E /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E993C48C251EEBCF007E8C7E /* HomeViewController.xib */; };
 		E993C492251EEBDE007E8C7E /* ChartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993C490251EEBDE007E8C7E /* ChartViewController.swift */; };
 		E993C493251EEBDE007E8C7E /* ChartViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E993C491251EEBDE007E8C7E /* ChartViewController.xib */; };
-		E993C497251EEC09007E8C7E /* CommunityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993C495251EEC09007E8C7E /* CommunityViewController.swift */; };
-		E993C498251EEC09007E8C7E /* CommunityViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E993C496251EEC09007E8C7E /* CommunityViewController.xib */; };
+		E993C497251EEC09007E8C7E /* TalkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993C495251EEC09007E8C7E /* TalkViewController.swift */; };
+		E993C498251EEC09007E8C7E /* TalkViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E993C496251EEC09007E8C7E /* TalkViewController.xib */; };
 		E999D5B52520214D0087D8AE /* CNavigationBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5B42520214D0087D8AE /* CNavigationBar.swift */; };
 		E999D5D625202A190087D8AE /* Utility.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5D525202A190087D8AE /* Utility.swift */; };
 		E999D5DB2520490F0087D8AE /* CButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5D82520490F0087D8AE /* CButton.swift */; };
@@ -72,6 +77,9 @@
 		E999D5E925204DF20087D8AE /* CTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5E825204DF20087D8AE /* CTextField.swift */; };
 		E999D5F725207C610087D8AE /* AlertView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E999D5F625207C610087D8AE /* AlertView.swift */; };
 		E999D5FA25207C6D0087D8AE /* AlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E999D5F925207C6D0087D8AE /* AlertView.xib */; };
+		E99AD4372529E16C00CBDE8F /* TalkDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99AD4352529E16C00CBDE8F /* TalkDetailViewController.swift */; };
+		E99AD43C2529ED3B00CBDE8F /* TalkDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E99AD43A2529ED3B00CBDE8F /* TalkDetailCell.swift */; };
+		E99AD43D2529ED3B00CBDE8F /* TalkDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E99AD43B2529ED3B00CBDE8F /* TalkDetailCell.xib */; };
 		E9A9F2472521B3910049E041 /* FbController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9F2462521B3910049E041 /* FbController.swift */; };
 		E9A9F2502521B7BD0049E041 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9F24F2521B7BD0049E041 /* UserInfo.swift */; };
 		E9A9F2542521C0E40049E041 /* KakaoController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9A9F2532521C0E40049E041 /* KakaoController.swift */; };
@@ -121,6 +129,8 @@
 		D56D95B30D28A1F007217B56 /* Pods-PetChart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.release.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.release.xcconfig"; sourceTree = "<group>"; };
 		E9086ED9252867A1006D7F1D /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		E9086EDC252867AA006D7F1D /* GraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GraphView.xib; sourceTree = "<group>"; };
+		E929CA5C2529CE8E00AB4F68 /* TalkWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkWriteViewController.swift; sourceTree = "<group>"; };
+		E929CA5D2529CE8E00AB4F68 /* TalkWriteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkWriteViewController.xib; sourceTree = "<group>"; };
 		E9428EF92527503A00456A48 /* PetSelectRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSelectRowView.swift; sourceTree = "<group>"; };
 		E9428EFC2527504E00456A48 /* PetSelectRowView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PetSelectRowView.xib; sourceTree = "<group>"; };
 		E9428F082527541F00456A48 /* HitTestView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HitTestView.swift; sourceTree = "<group>"; };
@@ -142,6 +152,8 @@
 		E95FB73D2523210E00BDC5FE /* MrStep1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MrStep1ViewController.swift; sourceTree = "<group>"; };
 		E95FB763252325A700BDC5FE /* MrStep2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrStep2ViewController.swift; sourceTree = "<group>"; };
 		E95FB764252325A700BDC5FE /* MrStep2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MrStep2ViewController.xib; sourceTree = "<group>"; };
+		E96039612529BB1200328932 /* TalkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkCell.swift; sourceTree = "<group>"; };
+		E96039622529BB1200328932 /* TalkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkCell.xib; sourceTree = "<group>"; };
 		E9615E482526CCFD000550FE /* MemberInfoModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoModifyViewController.swift; sourceTree = "<group>"; };
 		E9615E492526CCFD000550FE /* MemberInfoModifyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberInfoModifyViewController.xib; sourceTree = "<group>"; };
 		E9640EEE2522D78100EEF156 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
@@ -163,6 +175,7 @@
 		E97C263C25288B2A001FFC7F /* ChartRecordFecesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartRecordFecesViewController.xib; sourceTree = "<group>"; };
 		E97F4B632528752E00EAD200 /* ChartDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailViewController.swift; sourceTree = "<group>"; };
 		E97F4B642528752E00EAD200 /* ChartDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartDetailViewController.xib; sourceTree = "<group>"; };
+		E98963F32529FF0800A30D27 /* TalkDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TalkDetailViewController.xib; sourceTree = "<group>"; };
 		E98AF4AA25244220002C855B /* CDatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDatePickerView.swift; sourceTree = "<group>"; };
 		E98AF4AC25244220002C855B /* CDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDateFormatter.swift; sourceTree = "<group>"; };
 		E98AF4FE2524466B002C855B /* CDatePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CDatePickerView.xib; sourceTree = "<group>"; };
@@ -171,8 +184,8 @@
 		E993C48C251EEBCF007E8C7E /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
 		E993C490251EEBDE007E8C7E /* ChartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartViewController.swift; sourceTree = "<group>"; };
 		E993C491251EEBDE007E8C7E /* ChartViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartViewController.xib; sourceTree = "<group>"; };
-		E993C495251EEC09007E8C7E /* CommunityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommunityViewController.swift; sourceTree = "<group>"; };
-		E993C496251EEC09007E8C7E /* CommunityViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CommunityViewController.xib; sourceTree = "<group>"; };
+		E993C495251EEC09007E8C7E /* TalkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkViewController.swift; sourceTree = "<group>"; };
+		E993C496251EEC09007E8C7E /* TalkViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkViewController.xib; sourceTree = "<group>"; };
 		E999D5B42520214D0087D8AE /* CNavigationBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CNavigationBar.swift; sourceTree = "<group>"; };
 		E999D5D525202A190087D8AE /* Utility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utility.swift; sourceTree = "<group>"; };
 		E999D5D82520490F0087D8AE /* CButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CButton.swift; sourceTree = "<group>"; };
@@ -183,6 +196,9 @@
 		E999D5E825204DF20087D8AE /* CTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTextField.swift; sourceTree = "<group>"; };
 		E999D5F625207C610087D8AE /* AlertView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertView.swift; sourceTree = "<group>"; };
 		E999D5F925207C6D0087D8AE /* AlertView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AlertView.xib; sourceTree = "<group>"; };
+		E99AD4352529E16C00CBDE8F /* TalkDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailViewController.swift; sourceTree = "<group>"; };
+		E99AD43A2529ED3B00CBDE8F /* TalkDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailCell.swift; sourceTree = "<group>"; };
+		E99AD43B2529ED3B00CBDE8F /* TalkDetailCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkDetailCell.xib; sourceTree = "<group>"; };
 		E9A9F2462521B3910049E041 /* FbController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FbController.swift; sourceTree = "<group>"; };
 		E9A9F24F2521B7BD0049E041 /* UserInfo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
 		E9A9F2532521C0E40049E041 /* KakaoController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KakaoController.swift; sourceTree = "<group>"; };
@@ -287,13 +303,21 @@
 			name = Chart;
 			sourceTree = "<group>";
 		};
-		E9428F1425277B7B00456A48 /* Comunity */ = {
+		E9428F1425277B7B00456A48 /* Talk */ = {
 			isa = PBXGroup;
 			children = (
-				E993C495251EEC09007E8C7E /* CommunityViewController.swift */,
-				E993C496251EEC09007E8C7E /* CommunityViewController.xib */,
+				E993C495251EEC09007E8C7E /* TalkViewController.swift */,
+				E993C496251EEC09007E8C7E /* TalkViewController.xib */,
+				E96039612529BB1200328932 /* TalkCell.swift */,
+				E96039622529BB1200328932 /* TalkCell.xib */,
+				E929CA5C2529CE8E00AB4F68 /* TalkWriteViewController.swift */,
+				E929CA5D2529CE8E00AB4F68 /* TalkWriteViewController.xib */,
+				E99AD4352529E16C00CBDE8F /* TalkDetailViewController.swift */,
+				E98963F32529FF0800A30D27 /* TalkDetailViewController.xib */,
+				E99AD43A2529ED3B00CBDE8F /* TalkDetailCell.swift */,
+				E99AD43B2529ED3B00CBDE8F /* TalkDetailCell.xib */,
 			);
-			name = Comunity;
+			name = Talk;
 			sourceTree = "<group>";
 		};
 		E95E13F1252609A30073DC93 /* AddPetAnimal */ = {
@@ -393,7 +417,7 @@
 				E95E13F1252609A30073DC93 /* AddPetAnimal */,
 				E9EF796D252583F500F2922F /* Home */,
 				E9428F1325277B6D00456A48 /* Chart */,
-				E9428F1425277B7B00456A48 /* Comunity */,
+				E9428F1425277B7B00456A48 /* Talk */,
 				E999D5E625204A450087D8AE /* Logoin */,
 				E9C4948225273B6A00F8C7AB /* PetHealthFavoriteEdtingViewController.swift */,
 				E9C4948325273B6A00F8C7AB /* PetHealthFavoriteEdtingViewController.xib */,
@@ -529,7 +553,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E993C498251EEC09007E8C7E /* CommunityViewController.xib in Resources */,
+				E99AD43D2529ED3B00CBDE8F /* TalkDetailCell.xib in Resources */,
+				E993C498251EEC09007E8C7E /* TalkViewController.xib in Resources */,
 				E95E142125261EC70073DC93 /* AnimalModifyInfoViewController.xib in Resources */,
 				E9EF79D12525E23C00F2922F /* AddAnimalBirthDayViewController.xib in Resources */,
 				E9EF79732525853700F2922F /* EmptyPetCell.xib in Resources */,
@@ -544,6 +569,7 @@
 				E968793B2525EFB900D1DF1A /* AddAnimalInfoViewController.xib in Resources */,
 				E97C263925288AFB001FFC7F /* ChartRecordWeightViewController.xib in Resources */,
 				E97C262F25288ABF001FFC7F /* ChartRecordMedicalViewController.xib in Resources */,
+				E96039642529BB1200328932 /* TalkCell.xib in Resources */,
 				E9C4948A25273BCE00F8C7AB /* PetHealthFavoriteCell.xib in Resources */,
 				E97C263425288AD8001FFC7F /* ChartRecordWalkViewController.xib in Resources */,
 				E98AF4FF2524466B002C855B /* CDatePickerView.xib in Resources */,
@@ -560,6 +586,7 @@
 				E9D79508251ED15A00D79E7E /* TutorialViewController.xib in Resources */,
 				E95FB73E2523210E00BDC5FE /* MrStep1ViewController.xib in Resources */,
 				E9EF79CC2525BDF500F2922F /* AddAnimalItemSelectViewController.xib in Resources */,
+				E929CA5F2529CE8E00AB4F68 /* TalkWriteViewController.xib in Resources */,
 				E9428F1125276BFA00456A48 /* PetSelectPopupView.xib in Resources */,
 				E9C49480252712D800F8C7AB /* HomeGraphCell.xib in Resources */,
 				E9D794EA251ECFF800D79E7E /* Main.storyboard in Resources */,
@@ -569,6 +596,7 @@
 				E999D5E225204A110087D8AE /* LoginViewController.xib in Resources */,
 				E9EF799F2525A00600F2922F /* CameraOverlayView.xib in Resources */,
 				E9615E4B2526CCFE000550FE /* MemberInfoModifyViewController.xib in Resources */,
+				E98963F42529FF0800A30D27 /* TalkDetailViewController.xib in Resources */,
 				E9EF79882525927200F2922F /* AddAnimalNameViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -635,8 +663,9 @@
 				E9D79507251ED15A00D79E7E /* TutorialViewController.swift in Sources */,
 				E9EF79CB2525BDF500F2922F /* AddAnimalItemSelectViewController.swift in Sources */,
 				E97C262425288A75001FFC7F /* ChartRecordEatViewController.swift in Sources */,
-				E993C497251EEC09007E8C7E /* CommunityViewController.swift in Sources */,
+				E993C497251EEC09007E8C7E /* TalkViewController.swift in Sources */,
 				E9D5AB4A251EE12A005B7ECB /* MainTabBarController.swift in Sources */,
+				E99AD4372529E16C00CBDE8F /* TalkDetailViewController.swift in Sources */,
 				E9D794E3251ECFF800D79E7E /* AppDelegate.swift in Sources */,
 				E97F4B652528752E00EAD200 /* ChartDetailViewController.swift in Sources */,
 				E9C494352526E09200F8C7AB /* PopupListViewController.swift in Sources */,
@@ -644,6 +673,7 @@
 				E9C09F12251EFB1D00D0120C /* Extension.swift in Sources */,
 				E97C263D25288B2A001FFC7F /* ChartRecordFecesViewController.swift in Sources */,
 				E9EF79C62525B53400F2922F /* AddAnminalKindViewController.swift in Sources */,
+				E96039632529BB1200328932 /* TalkCell.swift in Sources */,
 				E9D5AB47251ED941005B7ECB /* Constants.swift in Sources */,
 				E9EF798F2525985000F2922F /* Animal.swift in Sources */,
 				E9EF79872525927200F2922F /* AddAnimalNameViewController.swift in Sources */,
@@ -661,6 +691,7 @@
 				E9640EF22522D78B00EEF156 /* ApiManager.swift in Sources */,
 				E9615E4A2526CCFD000550FE /* MemberInfoModifyViewController.swift in Sources */,
 				E9640EEF2522D78100EEF156 /* NetworkManager.swift in Sources */,
+				E929CA5E2529CE8E00AB4F68 /* TalkWriteViewController.swift in Sources */,
 				E97C263325288AD8001FFC7F /* ChartRecordWalkViewController.swift in Sources */,
 				E999D5DC2520490F0087D8AE /* Clabel.swift in Sources */,
 				E95FB73F2523210E00BDC5FE /* MrStep1ViewController.swift in Sources */,
@@ -673,6 +704,7 @@
 				E999D5DD2520490F0087D8AE /* ShadowView.swift in Sources */,
 				E9573CA72524CAD800583C6F /* MrStep3ViewController.swift in Sources */,
 				E999D5E125204A110087D8AE /* LoginViewController.swift in Sources */,
+				E99AD43C2529ED3B00CBDE8F /* TalkDetailCell.swift in Sources */,
 				E993C492251EEBDE007E8C7E /* ChartViewController.swift in Sources */,
 				E993C48D251EEBCF007E8C7E /* HomeViewController.swift in Sources */,
 				E9A9F2572521C0EE0049E041 /* NaverController.swift in Sources */,

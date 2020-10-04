@@ -43,9 +43,9 @@ class HomeViewController: BaseViewController {
         
         let hasPet = true
         if hasPet == false {
-            let addPetCell = EmptyPetCell.initWithFromNib()
-            svContaner.addArrangedSubview(addPetCell)
-            addPetCell.didSelectedClouser = ({(selData:Any?, index:Int) -> () in
+            let emptyPetCell = EmptyPetCell.initWithFromNib()
+            svContaner.addArrangedSubview(emptyPetCell)
+            emptyPetCell.didSelectedClosure = ({(selData:Any?, index:Int) -> () in
                 let vc = AddAnimalNameViewController.init(nibName: "AddAnimalNameViewController", bundle: nil)
                 self.navigationController?.pushViewController(vc, animated: false)
             })
@@ -134,17 +134,11 @@ class HomeViewController: BaseViewController {
     }
     @objc @IBAction func onclickedButtonActins(_ sender: UIButton) {
         if sender.tag == TAG_NAVI_USER {
-//            let vc = AnimalModifyInfoViewController.init(nibName: "AnimalModifyInfoViewController", bundle: nil)
-            
-//            let vc = MemberInfoModifyViewController.init(nibName: "MemberInfoModifyViewController", bundle: nil)
-//            let vc = PetHealthFavoriteEdtingViewController.init()
-//            self.navigationController?.pushViewController(vc, animated: false)
-//            let picker = CDatePickerView.init(type: .yearMonthDay) { (strDate, date) in
-//                print("strDate:\(String(describing: strDate)), date: \(String(describing: date))")
-//            }
-//            picker?.local = Locale(identifier: "ko_KR")
-//            picker?.show()
-//            return
+            let vc = PetHealthFavoriteEdtingViewController.init()
+            vc.catergory = .favoriteHome
+            vc.data = [.drink, .eat, .weight, .feces, .walk, .medical]
+            self.navigationController?.pushViewController(vc, animated: true)
+            return
             
 
 //            let data = ["포메라니안", "미니어처 핀셔", "파피용", "미니어쳐 닥스훈트", "요크셔테리어", "말티즈", "비숑 프리제", "미니어쳐 슈나우저", "포메라니안", "미니어처 핀셔", "파피용", "미니어쳐 닥스훈트", "요크셔테리어", "말티즈", "비숑 프리제", "미니어쳐 슈나우저", "포메라니안", "미니어처 핀셔", "파피용", "미니어쳐 닥스훈트", "요크셔테리어", "말티즈", "비숑 프리제", "미니어쳐 슈나우저"]

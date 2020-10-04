@@ -6,17 +6,34 @@
 //
 
 import UIKit
+enum CategoryType:Int {
+    case favoriteHome
+    case chartSmart
+    case chartToal
+}
 
 class PetHealthFavoriteEdtingViewController: BaseViewController {
-
+    
     @IBOutlet weak var tblView: UITableView!
-    var arrData:Array<AnyObject> = Array<AnyObject>()
+    var catergory: CategoryType = .favoriteHome
+    var data:Array<PetHealth>?
+    var tblData: NSMutableArray = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
-        CNavigationBar.drawTitle(self, "즐겨찾기 편집", nil)
-
+        var vcTitle = ""
+        if catergory == .favoriteHome {
+            vcTitle = "즐겨찾기 편집"
+        }
+        else if catergory == .chartSmart {
+            vcTitle = "스마트차트 설정"
+        }
+        else if catergory == .chartToal {
+            vcTitle = "전체차트 설정"
+        }
+        CNavigationBar.drawTitle(self, vcTitle, nil)
+        
         self.tblView.delegate = self
         self.tblView.dataSource = self
         
@@ -28,56 +45,133 @@ class PetHealthFavoriteEdtingViewController: BaseViewController {
     }
     
     func makeTblData() {
+        guard let data = data else {
+            return
+        }
+        
         let dfs = UserDefaults.standard
-        
-        var item: NSMutableDictionary = NSMutableDictionary()
-        item["type"] = PetHealth.drink
-        if dfs.object(forKey: kDrink) != nil {
-            item["selected"] = true
+        for type in data {
+            let item: NSMutableDictionary = NSMutableDictionary()
+            item["type"] = type
+            if catergory == .favoriteHome {
+                if type == .drink {
+                    item["key"] = kDrink
+                    if dfs.object(forKey: kDrink) != nil {
+                        item["selected"] = true
+                    }
+                }
+                else if type == .eat {
+                    item["key"] = kEat
+                    if dfs.object(forKey: kEat) != nil {
+                        item["selected"] = true
+                    }
+                }
+                else if type == .weight {
+                    item["key"] = kWeight
+                    if dfs.object(forKey: kWeight) != nil {
+                        item["selected"] = true
+                    }
+                }
+                else if type == .feces {
+                    item["key"] = kFeces
+                    if dfs.object(forKey: kFeces) != nil {
+                        item["selected"] = true
+                    }
+                }
+                else if type == .walk {
+                    item["key"] = kWalk
+                    if dfs.object(forKey: kWalk) != nil {
+                        item["selected"] = true
+                    }
+                }
+                else if type == .medical {
+                    item["key"] = kMedical
+                    if dfs.object(forKey: kMedical) != nil {
+                        item["selected"] = true
+                    }
+                }
+                tblData.add(item)
+            }
+            else if catergory == .chartSmart {
+                if type == .drink {
+                    item["key"] = kSmartChartDrink
+                    if dfs.object(forKey: kSmartChartDrink) != nil {
+                        item["selected"] = true
+                    }
+                }
+                else if type == .eat {
+                    item["key"] = kSmartChartEat
+                    if dfs.object(forKey: kSmartChartEat) != nil {
+                        item["selected"] = true
+                    }
+                }
+                tblData.add(item)
+            }
+            else if catergory == .chartToal {
+                if type == .drink {
+                    item["key"] = kTotalChartDrink
+                    if dfs.object(forKey: kTotalChartDrink) != nil {
+                        item["selected"] = true
+                    }
+                }
+                else if type == .eat {
+                    item["key"] = kTotalChartEat
+                    if dfs.object(forKey: kTotalChartEat) != nil {
+                        item["selected"] = true
+                    }
+                }
+                else if type == .weight {
+                    item["key"] = kTotalChartWeight
+                    if dfs.object(forKey: kTotalChartWeight) != nil {
+                        item["selected"] = true
+                    }
+                }
+                else if type == .feces {
+                    item["key"] = kTotalChartFeces
+                    if dfs.object(forKey: kTotalChartFeces) != nil {
+                        item["selected"] = true
+                    }
+                }
+                else if type == .walk {
+                    item["key"] = kTotalChartWalk
+                    if dfs.object(forKey: kTotalChartWalk) != nil {
+                        item["selected"] = true
+                    }
+                }
+                else if type == .medical {
+                    item["key"] = kTotalChartMedical
+                    if dfs.object(forKey: kTotalChartMedical) != nil {
+                        item["selected"] = true
+                    }
+                }
+                tblData.add(item)
+            }
         }
-        arrData.append(item)
-        
-        item = NSMutableDictionary()
-        item["type"] = PetHealth.eat
-        if dfs.object(forKey: kEat) != nil {
-            item["selected"] = true
+    }
+    
+    func saveUserDefalutData(_ data: Dictionary<String, Any>, _ selected: Bool) {
+        guard let type = data["type"] else {
+            return
         }
-        arrData.append(item)
-        
-        
-        item = NSMutableDictionary()
-        item["type"] = PetHealth.weight
-        if dfs.object(forKey: kWeight) != nil {
-            item["selected"] = true
+        guard let key = data["key"]  else {
+            return
         }
-        arrData.append(item)
-        
-        item = NSMutableDictionary()
-        item["type"] = PetHealth.feces
-        if dfs.object(forKey: kFeces) != nil {
-            item["selected"] = true
+        if let _ = type as? PetHealth, let key = key as? String {
+            let dfs = UserDefaults.standard
+            if selected {
+                dfs.setValue("Y", forKey: key)
+            }
+            else {
+                dfs.removeObject(forKey: key)
+            }
+            dfs.synchronize()
         }
-        arrData.append(item)
-        
-        item = NSMutableDictionary()
-        item["type"] = PetHealth.walk
-        if dfs.object(forKey: kWalk) != nil {
-            item["selected"] = true
-        }
-        arrData.append(item)
-        
-        item = NSMutableDictionary()
-        item["type"] = PetHealth.medical
-        if dfs.object(forKey: kMedical) != nil {
-            item["selected"] = true
-        }
-        arrData.append(item)
     }
 }
 
 extension PetHealthFavoriteEdtingViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrData.count
+        return tblData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -86,9 +180,14 @@ extension PetHealthFavoriteEdtingViewController: UITableViewDelegate, UITableVie
             cell = Bundle.main.loadNibNamed("PetHealthFavoriteCell", owner: self, options: nil)?.first as? PetHealthFavoriteCell
         }
         
-        let item = arrData[indexPath.row]
+        let item = tblData[indexPath.row]
         cell?.confifurationData(item as! Dictionary<String, Any>)
-        
+        cell?.didClickedClourse = ({(selData: Dictionary<String, Any>? , selected:Bool) -> () in
+            if let selData = selData {
+                self.saveUserDefalutData(selData, selected)
+            }
+            
+        })
         return cell!
     }
     

@@ -9,7 +9,7 @@ import UIKit
 
 class EmptyPetCell: UIView {
 
-    var didSelectedClouser:((_ selData:Any?, _ index:Int) ->())? {
+    var didSelectedClosure:((_ selData:Any?, _ index:Int) ->())? {
         didSet {
 //            self.selIndex = didSelectedItemWithClosure!.selIndex
         }
@@ -20,7 +20,7 @@ class EmptyPetCell: UIView {
     }
 
     @IBAction func actionAddPet(_ sender: UIButton) {
-        self.didSelectedClouser?(nil, 0)
+        self.didSelectedClosure?(nil, 0)
     }
     
     class func initWithFromNib() -> EmptyPetCell {

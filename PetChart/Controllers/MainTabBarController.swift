@@ -13,7 +13,7 @@ class MainTabBarController: UITabBarController {
 
         let homeVc = HomeViewController.init(nibName: "HomeViewController", bundle: nil)
         let chartVc = ChartViewController.init(nibName: "ChartViewController", bundle: nil)
-        let communityVc = CommunityViewController.init(nibName: "CommunityViewController", bundle: nil)
+        let communityVc = TalkViewController.init(nibName: "TalkViewController", bundle: nil)
         
         let homeNaviCtrl = BaseNavigationController.init(rootViewController: homeVc)
         let chartNaviCtrl = BaseNavigationController.init(rootViewController: chartVc)

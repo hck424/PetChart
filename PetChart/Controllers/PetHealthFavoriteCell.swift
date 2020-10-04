@@ -12,13 +12,18 @@ class PetHealthFavoriteCell: UITableViewCell {
     @IBOutlet weak var btnToggle: UIButton!
     @IBOutlet weak var lbTitle: UILabel!
     var data: Dictionary<String, Any>? = nil
+    var didClickedClourse:((_ selData: Dictionary<String, Any>?, _ selected: Bool) ->())? {
+        didSet {
+            
+        }
+    }
     override func awakeFromNib() {
         super.awakeFromNib()
         let bgView = UIView()
         bgView.backgroundColor = UIColor.clear
         self.selectedBackgroundView = bgView
     }
-
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -33,49 +38,7 @@ class PetHealthFavoriteCell: UITableViewCell {
     }
     @IBAction func onClickedButtonActions(_ sender: UIButton) {
         sender.isSelected = !sender.isSelected
-        let dfs = UserDefaults.standard
         
-        let type:PetHealth = (data!["type"] as? PetHealth)!
-        if sender.isSelected {
-            if type == .drink {
-                dfs.setValue(true, forKey: kDrink)
-            }
-            else if type == .eat {
-                dfs.setValue(true, forKey: kEat)
-            }
-            else if type == .weight {
-                dfs.setValue(true, forKey: kWeight)
-            }
-            else if type == .feces {
-                dfs.setValue(true, forKey: kFeces)
-            }
-            else if type == .walk  {
-                dfs.setValue(true, forKey: kWalk)
-            }
-            else if type == .medical {
-                dfs.setValue(true, forKey: kMedical)
-            }
-        }
-        else {
-            if type == .drink {
-                dfs.removeObject(forKey: kDrink)
-            }
-            else if type == .eat {
-                dfs.removeObject(forKey: kEat)
-            }
-            else if type == .weight {
-                dfs.removeObject(forKey: kWeight)
-            }
-            else if type == .feces {
-                dfs.removeObject(forKey: kFeces)
-            }
-            else if type == .walk  {
-                dfs.removeObject(forKey: kWalk)
-            }
-            else if type == .medical {
-                dfs.removeObject(forKey: kMedical)
-            }
-        }
-        dfs.synchronize()
+        didClickedClourse?(data, sender.isSelected)
     }
 }

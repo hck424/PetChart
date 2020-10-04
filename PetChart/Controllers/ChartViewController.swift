@@ -12,7 +12,7 @@ class ChartViewController: BaseViewController {
     @IBOutlet weak var svSmart: UIStackView!
     @IBOutlet weak var svSmartContainer: UIStackView!
     @IBOutlet weak var vwSmartBg: UIView!
-    @IBOutlet weak var btnSmartSetting: UIButton!
+    @IBOutlet weak var btnSettingSmart: UIButton!
     @IBOutlet weak var btnSmartDevice: CButton!
     
     @IBOutlet weak var svTotal: UIStackView!
@@ -70,10 +70,14 @@ class ChartViewController: BaseViewController {
             arrTotal.add(PetHealth.medical)
         }
         
-        arrSmart.removeAllObjects()
-        arrSmart.addObjects(from: [PetHealth.drink, PetHealth.eat])
-        arrTotal.removeAllObjects()
-        arrTotal.addObjects(from: [PetHealth.drink, PetHealth.eat, PetHealth.weight, PetHealth.feces, PetHealth.walk, PetHealth.medical])
+//        arrSmart.removeAllObjects()
+        if arrSmart.count == 0 {
+            arrSmart.addObjects(from: [PetHealth.drink, PetHealth.eat])
+        }
+//        arrTotal.removeAllObjects()
+        if arrTotal.count == 0 {
+            arrTotal.addObjects(from: [PetHealth.drink, PetHealth.eat, PetHealth.weight, PetHealth.feces, PetHealth.walk, PetHealth.medical])
+        }
         
         //스마트 차트에 포함되어 있으면 total 차트에서 뺀다.
         if arrSmart.count > 0 {
@@ -89,17 +93,17 @@ class ChartViewController: BaseViewController {
             }
         }
         
-//        if arrSmart.count == 0 {
-//            svSmart.isHidden = true
-//        } else {
-//            svSmart.isHidden = false
-//        }
-//
-//        if arrTotal.count == 0 {
-//            svTotal.isHidden = true
-//        } else {
-//            svTotal.isHidden = false
-//        }
+        if arrSmart.count == 0 {
+            svSmart.isHidden = true
+        } else {
+            svSmart.isHidden = false
+        }
+
+        if arrTotal.count == 0 {
+            svTotal.isHidden = true
+        } else {
+            svTotal.isHidden = false
+        }
         
         for subView in svSmartContainer.subviews {
             subView.removeFromSuperview()
@@ -151,6 +155,18 @@ class ChartViewController: BaseViewController {
     @objc @IBAction func onclickedButtonActins(_ sender: UIButton) {
         if sender.tag == TAG_NAVI_USER {
             
+        }
+        else if sender == btnSettingSmart {
+            let vc = PetHealthFavoriteEdtingViewController.init()
+            vc.catergory = .chartSmart
+            vc.data = [.drink, .eat]
+            self.navigationController?.pushViewController(vc, animated: false)
+        }
+        else if sender == btnSettingTotal {
+            let vc = PetHealthFavoriteEdtingViewController.init()
+            vc.catergory = .chartToal
+            vc.data = [.drink, .eat, .weight, .feces, .walk, .medical]
+            self.navigationController?.pushViewController(vc, animated: false)
         }
     }
 }

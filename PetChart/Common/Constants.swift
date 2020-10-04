@@ -12,7 +12,7 @@ let SERVER_PREFIX = "https://jayutest.best:5001"
 //let SERVER_PRIFIX = "https://jayutest.best:5001"
 
 
-typealias LoginClouser = (UserInfo?, Error?) -> Void
+typealias LoginClosure = (UserInfo?, Error?) -> Void
 let ColorDefault = RGB(233, 95, 94)
 public func RGB(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> UIColor {
     UIColor(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: 1.0)
@@ -22,7 +22,6 @@ public func RGBA(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ a: CGFloat) -> UICo
 }
 
 let NotiNameHitTestView = "HitTestView"
-
 
 let IsShowTutorial = "IsShowTutorial"
 let KAKAO_NATIVE_APP_KEY = "f43c314ddcf1ce35e19935da750b7c8a"
@@ -149,9 +148,9 @@ enum PetHealth: String {
         return nil
     }
 }
-
 enum GraphType: Int {
     case day
     case week
     case month
 }
+
