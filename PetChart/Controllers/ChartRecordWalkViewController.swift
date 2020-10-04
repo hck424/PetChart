@@ -9,7 +9,18 @@ import UIKit
 
 class ChartRecordWalkViewController: BaseViewController {
 
+    @IBOutlet weak var btnDay: UIButton!
+    @IBOutlet weak var tfDay: UITextField!
+    @IBOutlet weak var btnToday: SelectedButton!
+    @IBOutlet weak var btnStartTime: UIButton!
+    @IBOutlet weak var btnEndTime: UIButton!
+    @IBOutlet weak var btnTakeTime: UIButton!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
+    
+    var stDate: Date? = nil
+    var edDate: Date? = nil
+    var selDate: Date? = nil
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawTitle(self, PetHealth.walk.koreanValue(), nil)
@@ -18,6 +29,13 @@ class ChartRecordWalkViewController: BaseViewController {
         
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapGestureHanlder(_ :)))
         self.view.addGestureRecognizer(tap)
+        
+        btnStartTime.setTitleColor(RGB(202, 202, 202), for: .normal)
+        btnStartTime.setTitleColor(UIColor.black, for: .selected)
+        btnEndTime.setTitleColor(RGB(202, 202, 202), for: .normal)
+        btnEndTime.setTitleColor(UIColor.black, for: .selected)
+        btnTakeTime.setTitleColor(RGB(202, 202, 202), for: .normal)
+        btnTakeTime.setTitleColor(UIColor.black, for: .selected)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -37,13 +55,89 @@ class ChartRecordWalkViewController: BaseViewController {
     
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
         self.view.endEditing(true)
-        if sender.tag == 1111 {
+        
+        if sender == btnDay {
+            btnToday.isSelected = false
+            let curDate = Date()
+            let picker = CDatePickerView.init(type: .yearMonthDay, minDate: curDate.getStartDate(withYear: -10), maxDate: curDate, apointDate: curDate) { (strDate, date) in
+                if let date = date {
+                    self.selDate = date
+                    self.tfDay.text = strDate
+                }
+            }
+            picker?.local = Locale(identifier: "ko_KR")
+            picker?.show()
+        }
+        else if sender == btnToday {
+            sender.isSelected = true
+            let curDate = Date()
+            let df = CDateFormatter()
+            df.dateFormat = "yyyy-MM-dd"
+            self.selDate = curDate
+            tfDay.text = df.string(from: curDate)
+        }
+        else if sender == btnStartTime {
+            let picker = CDatePickerView.init(type: .time) { (strDate, date) in
+                if let date = date {
+                    self.stDate = date
+                    self.btnStartTime.setTitle(strDate, for: .normal)
+                    self.btnStartTime.isSelected = true
+                    self.decorationTakeTime()
+                }
+            }
+            picker?.minuteInterval = 5
+            picker?.local = Locale(identifier: "ko_KR")
+            picker?.show()
+        }
+        else if sender == btnEndTime {
+            let picker = CDatePickerView.init(type: .time) { (strDate, date) in
+                if let date = date {
+                    self.edDate = date
+                    self.btnEndTime.setTitle(strDate, for: .normal)
+                    self.btnEndTime.isSelected = true
+                 
+                    self.decorationTakeTime()
+                }
+            }
+            picker?.minuteInterval = 5
+            picker?.local = Locale(identifier: "ko_KR")
+            picker?.show()
+        }
+        else if sender.tag == 1111 {
             
         }
     }
     
-    @objc func notificationHandler(_ notification: Notification) {
+    func decorationTakeTime() {
+        if (self.stDate != nil)
+            && (self.edDate != nil)
+            && (self.stDate! < self.edDate!) {
             
+            let interval = self.edDate! - self.stDate!
+            var result = ""
+            if let hour = interval.hour, hour > 0 {
+                result.append(String(format: "%02d:", hour))
+            }
+            else {
+                result = "00:"
+            }
+            
+            if let minute = interval.minute, minute > 0 {
+                result.append(String(format: "%02d", minute))
+            }
+            
+            if result.length > 0 {
+                btnTakeTime.isSelected = true
+                btnTakeTime.setTitle(result, for: .normal)
+            }
+        }
+        else {
+            btnTakeTime.setTitle("00:00", for: .normal)
+            btnTakeTime.isSelected = false
+        }
+    }
+    
+    @objc func notificationHandler(_ notification: Notification) {
         let heightKeyboard = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue.size.height
         let duration = CGFloat((notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.floatValue ?? 0.0)
  

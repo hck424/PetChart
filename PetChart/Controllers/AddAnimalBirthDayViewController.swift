@@ -19,7 +19,8 @@ class AddAnimalBirthDayViewController: BaseViewController {
     @IBOutlet weak var btnSafety: UIButton!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
     
-    var selStrDate:String? = nil
+    var selDate: Date? = nil
+    
     var animal: Animal?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,19 +78,21 @@ class AddAnimalBirthDayViewController: BaseViewController {
             let maxDate = Date()
             let minDate = Date().getStartDate(withYear: -30)
             let apoint = Date()
+            
             let picker = CDatePickerView.init(type: .yearMonthDay, minDate: minDate, maxDate: maxDate, apointDate: apoint) { (strDate, date) in
                 
-                let df = CDateFormatter()
-                df.dateFormat = "yyyy-MM-dd"
-                self.tfBirthDay1.text = df.string(from: date!)
-                self.selStrDate = strDate
+                if let date = date {
+                    self.tfBirthDay1.text = strDate
+                    self.selDate = date
+                }
             }
+            picker?.local = Locale(identifier: "ko_KR")
             picker?.show()
         }
         else if sender == btnOk {
             
             if btnCheck1.isSelected {
-                animal?.birthday = selStrDate
+                animal?.birthday = tfBirthDay1.text
             }
             else if btnCheck2.isSelected {
                 animal?.birthday = tfBirthDay2.text

@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="btnFullClose" destination="SXx-09-WpQ" id="X6M-dK-Yda"/>
                 <outlet property="btnOk" destination="OYW-OK-uUy" id="gQo-nF-u2T"/>
+                <outlet property="datePicker" destination="BDh-xT-qYb" id="9BS-Rf-6Ea"/>
                 <outlet property="picker" destination="2y1-qL-DLe" id="jZE-Lf-fgK"/>
                 <outlet property="xib" destination="iN0-l3-epB" id="W2k-rq-sEs"/>
             </connections>
@@ -32,14 +33,14 @@
                     <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SXx-09-WpQ">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="598"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="348"/>
                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="calibratedRGB"/>
                             <connections>
                                 <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="UZp-PQ-wHj"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OYW-OK-uUy">
-                            <rect key="frame" x="0.0" y="598" width="414" height="48"/>
+                            <rect key="frame" x="0.0" y="348" width="414" height="48"/>
                             <color key="backgroundColor" red="0.91372549020000005" green="0.37254901959999998" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="b74-h5-YgT"/>
@@ -50,13 +51,25 @@
                                 <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="t1b-dg-s70"/>
                             </connections>
                         </button>
+                        <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="10" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="BDh-xT-qYb">
+                            <rect key="frame" x="0.0" y="396" width="414" height="250"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" priority="999" constant="250" id="ZdO-g8-em5"/>
+                            </constraints>
+                            <connections>
+                                <action selector="datePickerEdtingChanged:" destination="-1" eventType="editingChanged" id="rP2-Ac-n0t"/>
+                                <action selector="datePickerValueChange:" destination="-1" eventType="valueChanged" id="uBS-ev-3uo"/>
+                            </connections>
+                        </datePicker>
                         <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2y1-qL-DLe">
                             <rect key="frame" x="0.0" y="646" width="414" height="250"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="250" id="aqG-rw-dsq"/>
+                                <constraint firstAttribute="height" priority="999" constant="250" id="aqG-rw-dsq"/>
                             </constraints>
                         </pickerView>
                     </subviews>
+                    <viewLayoutGuide key="safeArea" id="bY8-68-emF"/>
                 </stackView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>

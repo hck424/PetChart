@@ -39,6 +39,23 @@ extension Date {
         let day: Int = Int(df.string(for: self)!) ?? 0
         return day
     }
+    
+    static func -(recent: Date, previous: Date) -> (month: Int?, day: Int?, hour: Int?, minute: Int?, second: Int?) {
+        let day = Calendar.current.dateComponents([.day], from: previous, to: recent).day
+        let month = Calendar.current.dateComponents([.month], from: previous, to: recent).month
+        let hour = Calendar.current.dateComponents([.hour], from: previous, to: recent).hour
+        var minute = Calendar.current.dateComponents([.minute], from: previous, to: recent).minute
+        var second = Calendar.current.dateComponents([.second], from: previous, to: recent).second
+        
+        if let m = minute, m > 60 {
+            minute = Int(m%60)
+        }
+        if let s = second, s > 60 {
+            second = Int(s%60)
+        }
+        
+        return (month: month, day: day, hour: hour, minute: minute, second: second)
+    }
 }
 
 extension Calendar {

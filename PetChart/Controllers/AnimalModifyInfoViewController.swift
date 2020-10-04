@@ -34,7 +34,7 @@ class AnimalModifyInfoViewController: BaseViewController {
     @IBOutlet var accessoryView: UIToolbar!
     
     var profileImg: UIImage?
-    var selStrDate: String?
+    var selDate: Date? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,14 +68,13 @@ class AnimalModifyInfoViewController: BaseViewController {
         if (sender as? NSObject) == btnCalendar {
             
             let picker = CDatePickerView.init(type: .yearMonthDay, minDate: Date().getStartDate(withYear: -30), maxDate: Date(), apointDate: Date()) { (strDate, date) in
-                self.selStrDate = strDate
                 
                 if let date = date {
-                    let df = CDateFormatter()
-                    df.dateFormat = "yyyy-MM-dd"
-                    self.tfBirthDay.text = df.string(from: date)
+                    self.tfBirthDay.text = strDate
+                    self.selDate = date
                 }
             }
+            picker?.local = Locale(identifier: "ko_KR")
             picker?.show()
         }
         else if (sender as? NSObject) == btnArrowItem {

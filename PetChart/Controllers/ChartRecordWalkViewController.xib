@@ -12,6 +12,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChartRecordWalkViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
                 <outlet property="bottomContainer" destination="EGq-l2-0Gl" id="PSV-Is-gTs"/>
+                <outlet property="btnDay" destination="ZdJ-D5-nC5" id="ROE-Pf-18M"/>
+                <outlet property="btnEndTime" destination="Ovq-kQ-73a" id="aoU-gT-i1v"/>
+                <outlet property="btnStartTime" destination="t8r-ai-S3S" id="4RA-OT-BYz"/>
+                <outlet property="btnTakeTime" destination="hAl-5C-xon" id="uTe-IE-kRY"/>
+                <outlet property="btnToday" destination="xzh-Bw-E0v" id="Lbj-1x-eYx"/>
+                <outlet property="tfDay" destination="BES-Vz-c4e" id="xiB-fm-aSV"/>
                 <outlet property="view" destination="VIs-g1-EqJ" id="Z56-Ak-ESM"/>
             </connections>
         </placeholder>
@@ -70,6 +76,9 @@
                                                                 <constraint firstItem="3I9-v8-a7U" firstAttribute="top" secondItem="ZdJ-D5-nC5" secondAttribute="top" id="brw-hx-RJT"/>
                                                                 <constraint firstAttribute="bottom" secondItem="3I9-v8-a7U" secondAttribute="bottom" id="ucb-rN-IqJ"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <action selector="onClickedBtnActions:" destination="-1" eventType="touchUpInside" id="DM0-No-OVA"/>
+                                                            </connections>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p4j-b9-xO0">
                                                             <rect key="frame" x="0.0" y="45" width="329" height="1"/>
@@ -80,7 +89,7 @@
                                                         </view>
                                                     </subviews>
                                                 </stackView>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xzh-Bw-E0v" customClass="CButton" customModule="PetChart" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xzh-Bw-E0v" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
                                                     <rect key="frame" x="337" y="0.0" width="37" height="46"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="80" id="ntz-S4-fgK"/>
@@ -89,17 +98,9 @@
                                                     <state key="normal" title="Today">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
-                                                    <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                            <real key="value" value="1"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                            <color key="value" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                            <real key="value" value="4"/>
-                                                        </userDefinedRuntimeAttribute>
-                                                    </userDefinedRuntimeAttributes>
+                                                    <connections>
+                                                        <action selector="onClickedBtnActions:" destination="-1" eventType="touchUpInside" id="xql-9Y-Cj5"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </stackView>
@@ -126,6 +127,9 @@
                                                             <state key="normal" title="00:00">
                                                                 <color key="titleColor" red="0.792156862745098" green="0.792156862745098" blue="0.792156862745098" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="onClickedBtnActions:" destination="-1" eventType="touchUpInside" id="SXW-Ph-idd"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="253" verticalHuggingPriority="251" text="~" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lj0-uc-XHa">
                                                             <rect key="frame" x="62" y="0.0" width="9.5" height="45"/>
@@ -139,25 +143,29 @@
                                                             <state key="normal" title="00:00">
                                                                 <color key="titleColor" red="0.79215686269999996" green="0.79215686269999996" blue="0.79215686269999996" alpha="1" colorSpace="calibratedRGB"/>
                                                             </state>
+                                                            <connections>
+                                                                <action selector="onClickedBtnActions:" destination="-1" eventType="touchUpInside" id="iHd-jP-RWB"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muh-If-9Zq">
-                                                            <rect key="frame" x="153.5" y="0.0" width="116" height="45"/>
+                                                            <rect key="frame" x="153.5" y="0.0" width="92.5" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7n-2t-14h">
-                                                            <rect key="frame" x="289.5" y="0.0" width="13" height="45"/>
+                                                            <rect key="frame" x="266" y="0.0" width="13" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mE5-Zv-N1e">
-                                                            <rect key="frame" x="322.5" y="0.0" width="18.5" height="45"/>
+                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAl-5C-xon">
+                                                            <rect key="frame" x="299" y="0.0" width="42" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <color key="textColor" red="0.79215686269999996" green="0.79215686269999996" blue="0.79215686269999996" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <nil key="highlightedColor"/>
-                                                        </label>
+                                                            <state key="normal" title="00:00">
+                                                                <color key="titleColor" red="0.79215686269999996" green="0.79215686269999996" blue="0.79215686269999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                            </state>
+                                                        </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="분" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Mt-Ye-Sbq">
                                                             <rect key="frame" x="361" y="0.0" width="13" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>

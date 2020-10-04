@@ -13,13 +13,16 @@ enum PickerType: Int {
     case month
     case yearMonth
     case yearMonthDay
+    case time
 }
+
 class CDatePickerView: UIView {
     
     @IBOutlet var xib: UIView!
     @IBOutlet weak var btnFullClose: UIButton!
     @IBOutlet weak var picker: UIPickerView!
     @IBOutlet weak var btnOk: UIButton!
+    @IBOutlet weak var datePicker: UIDatePicker!
     
     var enableValueChange:Bool = false
     
@@ -35,6 +38,18 @@ class CDatePickerView: UIView {
     var apointDate: Date? = nil;
     var completion: PickerColuser?
     var type:PickerType = .yearMonthDay
+    
+    var local: Locale?
+    var minuteInterval: Int = 1
+    
+    var selDate: Date? = nil
+    
+    convenience init?(type: PickerType, completion:PickerColuser?) {
+        self.init(frame: UIScreen.main.bounds)
+        self.type = type
+        self.completion = completion
+        self.loadXib()
+    }
     
     convenience init?(type: PickerType, minDate: Date?, maxDate: Date?, apointDate: Date?, completion:PickerColuser?) {
         self.init(frame: UIScreen.main.bounds)
@@ -66,10 +81,43 @@ class CDatePickerView: UIView {
         self.backgroundColor = UIColor.clear
         let window = AppDelegate.instance()?.window
         window?.addSubview(self)
-        picker.delegate = self
-        self.makeComponetsData()
-        self.defaultApointPicker()
-        
+        if type == .year || type == .month || type == .yearMonth {
+            picker.isHidden = false
+            datePicker.isHidden = true
+            picker.delegate = self
+            self.makeComponetsData()
+            self.defaultApointPicker()
+        }
+        else {
+            picker.isHidden = true
+            datePicker.isHidden = false
+            
+            datePicker.calendar = Calendar(identifier: .gregorian)
+            if let local = local {
+                datePicker.locale = local
+            }
+            else {
+                datePicker.locale = Locale.current
+            }
+            
+            let curDate = Date()
+            if type == .time {
+                datePicker.datePickerMode = .time
+                datePicker.minuteInterval = minuteInterval
+                datePicker.setDate(curDate, animated: true)
+                selDate = curDate
+            }
+            else {
+                datePicker.datePickerMode = .date
+                datePicker.minimumDate = minDate
+                datePicker.maximumDate = maxDate
+                if apointDate == nil {
+                    self.apointDate = Date()
+                }
+                selDate = apointDate
+                datePicker.setDate(apointDate!, animated: true)
+            }
+        }
     }
     func makeComponetsData() {
         if type == .year {
@@ -93,22 +141,6 @@ class CDatePickerView: UIView {
             
             for i in 0..<12 {
                 arrMonth.append((i+1))
-            }
-            
-        }
-        else if type == .yearMonthDay {
-            let minYear: Int = (minDate?.getYear())!
-            let maxYear: Int = (maxDate?.getYear())!
-            for i in 0..<(maxYear - minYear+1) {
-                arrYear.append((i+minYear))
-            }
-            
-            for i in 0..<12 {
-                arrMonth.append((i+1))
-            }
-            
-            for i in 0..<31 {
-                arrDay.append((i+1))
             }
         }
     }
@@ -134,15 +166,6 @@ class CDatePickerView: UIView {
             picker.selectRow(row, inComponent: 0, animated: true)
             picker.selectRow((selMonth-1), inComponent: 1, animated: true)
         }
-        else if type == .yearMonthDay {
-            selYear = (apointDate?.getYear())!
-            selMonth = (apointDate?.getMonth())!
-            selDay = (apointDate?.getDay())!
-            let row: Int = arrYear.firstIndex(of: selYear) ?? 0
-            picker.selectRow(row, inComponent: 0, animated: true)
-            picker.selectRow((selMonth-1), inComponent: 1, animated: true)
-            picker.selectRow((selDay-1), inComponent: 2, animated: true)
-        }
     }
     func dismiss() {
         self.completion = nil
@@ -158,18 +181,26 @@ class CDatePickerView: UIView {
             self.dismiss()
         }
     }
+    
+    //UIDatePicker
+    @IBAction func datePickerValueChange(_ sender: UIDatePicker) {
+        self.selDate = sender.date
+    }
+    @IBAction func datePickerTouchUpInside(_ sender: UIDatePicker) {
+        if enableValueChange {
+            self.selDate = sender.date
+            self.finishCompletion()
+        }
+    }
 }
 
 extension CDatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        if type == .year || type == .month {
-            return 1
-        }
-        else if type == .yearMonth {
+        if type == .yearMonth {
             return 2
         }
         else {
-            return 3
+            return 1
         }
     }
     
@@ -188,17 +219,7 @@ extension CDatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
                 return arrMonth.count
             }
         }
-        else {
-            if component == 0 {
-                return arrYear.count
-            }
-            else if component == 1 {
-                return arrMonth.count
-            }
-            else {
-                return arrDay.count
-            }
-        }
+        return 0
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
@@ -213,7 +234,6 @@ extension CDatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
                 cell = lbCol
             }
             cell?.text = String(format: "%04d 년", arrYear[row])
-            
         }
         else if type == .month {
             if cell == nil {
@@ -253,52 +273,6 @@ extension CDatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
                 cell?.text = String(format: "%02d 월", arrMonth[row])
             }
         }
-        else if type == .yearMonthDay {
-            if cell == nil {
-                let space: CGFloat = 30
-                let lr: CGFloat = 20
-                let width = (pickerView.bounds.width - 2*space - 2*lr)/3
-                
-                if component == 0 {
-                    let lbCol = UILabel.init(frame:CGRect.init(x: lr, y: 0, width: width, height: 44))
-                    lbCol.textColor = UIColor.black
-                    lbCol.font = UIFont.systemFont(ofSize: 15)
-                    lbCol.textAlignment = NSTextAlignment.right
-                    cell = lbCol
-//                    lbCol.layer.borderWidth = 1.0
-//                    lbCol.layer.borderColor = UIColor.red.cgColor
-                }
-                else if component == 1 {
-                    let lbCol = UILabel.init(frame:CGRect.init(x:width+lr+space, y: 0, width: width, height: 44))
-                    lbCol.textColor = UIColor.black
-                    lbCol.font = UIFont.systemFont(ofSize: 15)
-                    lbCol.textAlignment = NSTextAlignment.center
-                    cell = lbCol
-//                    lbCol.layer.borderWidth = 1.0
-//                    lbCol.layer.borderColor = UIColor.blue.cgColor
-                }
-                else {
-                    let lbCol = UILabel.init(frame:CGRect.init(x:2*width-lr-2*space, y: 0, width: width, height: 44))
-                    lbCol.textColor = UIColor.black
-                    lbCol.font = UIFont.systemFont(ofSize: 15)
-                    lbCol.textAlignment = NSTextAlignment.left
-//                    lbCol.layer.borderWidth = 1.0
-//                    lbCol.layer.borderColor = UIColor.yellow.cgColor
-                    cell = lbCol
-                }
-            }
-            
-            if component == 0 {
-                cell?.text = String(format: "%04d 년", arrYear[row])
-            }
-            else if component == 1 {
-                cell?.text = String(format: "%02d 월", arrMonth[row])
-            }
-            else {
-                cell?.text = String(format: "%02d 일", arrDay[row])
-            }
-        }
-    
         return cell!
     }
     
@@ -331,33 +305,6 @@ extension CDatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
             }
             
         }
-        else if type == .yearMonthDay {
-            let maxYear:Int = (maxDate?.getYear())!
-            let maxMonth:Int = (maxDate?.getMonth())!
-            
-            let minYear:Int = (minDate?.getYear())!
-            let minMonth:Int = (minDate?.getMonth())!
-            
-            
-            if component == 0 {
-                selYear = arrYear[row]
-            }
-            else if component == 1 {
-                selMonth = arrMonth[row]
-                if selYear >= maxYear && selMonth > maxMonth {
-                    selMonth = maxMonth
-                    pickerView.selectRow(selMonth-1, inComponent: component, animated: true)
-                }
-                if selYear <= minYear && selMonth < minMonth {
-                    selMonth = minMonth
-                    pickerView.selectRow(selMonth-1, inComponent: component, animated: true)
-                }
-            }
-            else {
-                selDay = arrDay[row]
-            }
-        }
-        
         if enableValueChange && self.completion != nil {
             self.finishCompletion()
         }
@@ -365,22 +312,32 @@ extension CDatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func finishCompletion() {
         var strDate: String = ""
-        var selDate: Date?
         if type == .year {
             strDate = String(format: "%04d", selYear)
+            completion?(strDate, nil)
         }
         else if type == .month {
             strDate = String(format: "%02d", selMonth)
+            completion?(strDate, nil)
         }
         else if type == .yearMonth {
             strDate = String(format: "%04d%02d", selYear, selMonth)
+            completion?(strDate, nil)
         }
         else if type == .yearMonthDay {
-            strDate = String(format: "%04d-%02d-%02d", selYear, selMonth, selDay)
-            let df = CDateFormatter()
-            df.dateFormat = "yyyy-MM-dd"
-            selDate = df.date(from: strDate)
+            if let selDate = selDate {
+                let df = CDateFormatter()
+                df.dateFormat = "yyyy-MM-dd"
+                completion?(df.string(from: selDate), selDate)
+            }
         }
-        completion?(strDate, selDate)
+        else if type == .time {
+            if let selDate = selDate {
+                let df = CDateFormatter()
+                df.dateFormat = "hh:mm a"
+                let strDate = df.string(from: selDate)
+                completion?(strDate, selDate)
+            }
+        }
     }
 }

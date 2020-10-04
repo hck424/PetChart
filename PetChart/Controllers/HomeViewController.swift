@@ -137,9 +137,14 @@ class HomeViewController: BaseViewController {
 //            let vc = AnimalModifyInfoViewController.init(nibName: "AnimalModifyInfoViewController", bundle: nil)
             
 //            let vc = MemberInfoModifyViewController.init(nibName: "MemberInfoModifyViewController", bundle: nil)
-            let vc = PetHealthFavoriteEdtingViewController.init()
-            self.navigationController?.pushViewController(vc, animated: false)
-            return
+//            let vc = PetHealthFavoriteEdtingViewController.init()
+//            self.navigationController?.pushViewController(vc, animated: false)
+//            let picker = CDatePickerView.init(type: .yearMonthDay) { (strDate, date) in
+//                print("strDate:\(String(describing: strDate)), date: \(String(describing: date))")
+//            }
+//            picker?.local = Locale(identifier: "ko_KR")
+//            picker?.show()
+//            return
             
 
 //            let data = ["포메라니안", "미니어처 핀셔", "파피용", "미니어쳐 닥스훈트", "요크셔테리어", "말티즈", "비숑 프리제", "미니어쳐 슈나우저", "포메라니안", "미니어처 핀셔", "파피용", "미니어쳐 닥스훈트", "요크셔테리어", "말티즈", "비숑 프리제", "미니어쳐 슈나우저", "포메라니안", "미니어처 핀셔", "파피용", "미니어쳐 닥스훈트", "요크셔테리어", "말티즈", "비숑 프리제", "미니어쳐 슈나우저"]

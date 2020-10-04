@@ -16,8 +16,7 @@ import UIKit
     @IBOutlet weak var bgCornerView: UIView!
     @IBInspectable @IBOutlet weak var tfBirthDay: CTextField!
     
-    var selBirthDay:String? = nil
-    
+    var selDate: Date? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
@@ -38,25 +37,23 @@ import UIKit
             let maxDate = todaysDate
             let apoint = todaysDate.getStartDate(withYear: -30)
             
-            let picker = CDatePickerView.init(type: .yearMonthDay, minDate: minDate, maxDate: maxDate, apointDate: apoint) { (strDate, date:Date?) in
-                let df = CDateFormatter()
-                df.dateFormat = "yyyy-MM-dd"
+            let picker = CDatePickerView.init(type: .yearMonthDay, minDate: minDate, maxDate: maxDate, apointDate: apoint) { (strDate, date) in
                 if let date = date {
-                    let str = df.string(from: date)
-                    self.tfBirthDay.text = str
-                    self.selBirthDay = strDate
+                    self.selDate = date
+                    self.tfBirthDay.text = strDate
                 }
             }
+            picker?.local = Locale(identifier: "ko_KR")
             picker?.show()
             
             return
         }
         else if sender == btnOk {
-            guard let selBirthDay = selBirthDay else {
+            if tfBirthDay.text?.length  == 0 {
                 self.view.makeToast("생년월일을 입력해주세요.")
                 return
             }
-            self.user?.birthday = selBirthDay
+            self.user?.birthday = tfBirthDay.text
             
             let vc = MrStep3ViewController.init(nibName: "MrStep3ViewController", bundle: nil)
             vc.user = self.user

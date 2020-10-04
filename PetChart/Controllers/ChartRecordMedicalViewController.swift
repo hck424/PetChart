@@ -57,11 +57,12 @@ class ChartRecordMedicalViewController: BaseViewController {
             
             let curDate = Date()
             let picker = CDatePickerView.init(type: .yearMonthDay, minDate: curDate.getStartDate(withYear: -10), maxDate: curDate, apointDate: curDate) { (strDate, date) in
-                self.selDate = date
-                if let strDate = strDate {
+                if let date = date {
+                    self.selDate = date
                     self.tfDay.text = strDate
                 }
             }
+            picker?.local = Locale(identifier: "ko_KR")
             picker?.show()
         }
         else if sender == btnToday {
