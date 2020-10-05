@@ -15,6 +15,7 @@
                 <outlet property="btnSend" destination="VSw-mH-lxo" id="vjJ-64-Xzq"/>
                 <outlet property="heightTextView" destination="N1u-hF-4qc" id="bSe-d2-bVQ"/>
                 <outlet property="safetyView" destination="IWF-SC-AeN" id="ibR-yY-kyP"/>
+                <outlet property="tblView" destination="0ef-7y-3v0" id="edC-QK-hzy"/>
                 <outlet property="textView" destination="CRI-C5-hew" id="Slk-bE-xfP"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -27,6 +28,10 @@
                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="0ef-7y-3v0">
                     <rect key="frame" x="0.0" y="44" width="414" height="770"/>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="Z9C-Fq-hb7"/>
+                        <outlet property="delegate" destination="-1" id="fFX-dU-zhx"/>
+                    </connections>
                 </tableView>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="uzw-iJ-o2b">
                     <rect key="frame" x="0.0" y="814" width="414" height="82"/>
@@ -77,6 +82,9 @@
                                             </constraints>
                                             <inset key="contentEdgeInsets" minX="5" minY="5" maxX="5" maxY="5"/>
                                             <state key="normal" image="btn_send"/>
+                                            <connections>
+                                                <action selector="onClickedBtnAction:" destination="-1" eventType="touchUpInside" id="m0S-eI-e2g"/>
+                                            </connections>
                                         </button>
                                     </subviews>
                                     <edgeInsets key="layoutMargins" top="8" left="10" bottom="8" right="10"/>

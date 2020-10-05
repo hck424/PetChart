@@ -59,6 +59,8 @@
 		E95E141C25260E780073DC93 /* SelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E141B25260E780073DC93 /* SelectedButton.swift */; };
 		E95E142025261EC70073DC93 /* AnimalModifyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E141E25261EC70073DC93 /* AnimalModifyInfoViewController.swift */; };
 		E95E142125261EC70073DC93 /* AnimalModifyInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E141F25261EC70073DC93 /* AnimalModifyInfoViewController.xib */; };
+		E95E6FB9252B510B00FAB6C6 /* ChattingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E6FB7252B510B00FAB6C6 /* ChattingCell.swift */; };
+		E95E6FBA252B510B00FAB6C6 /* ChattingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E6FB8252B510B00FAB6C6 /* ChattingCell.xib */; };
 		E95FB73E2523210E00BDC5FE /* MrStep1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95FB73C2523210E00BDC5FE /* MrStep1ViewController.xib */; };
 		E95FB73F2523210E00BDC5FE /* MrStep1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FB73D2523210E00BDC5FE /* MrStep1ViewController.swift */; };
 		E95FB765252325A700BDC5FE /* MrStep2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FB763252325A700BDC5FE /* MrStep2ViewController.swift */; };
@@ -212,6 +214,8 @@
 		E95E141B25260E780073DC93 /* SelectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedButton.swift; sourceTree = "<group>"; };
 		E95E141E25261EC70073DC93 /* AnimalModifyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalModifyInfoViewController.swift; sourceTree = "<group>"; };
 		E95E141F25261EC70073DC93 /* AnimalModifyInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimalModifyInfoViewController.xib; sourceTree = "<group>"; };
+		E95E6FB7252B510B00FAB6C6 /* ChattingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingCell.swift; sourceTree = "<group>"; };
+		E95E6FB8252B510B00FAB6C6 /* ChattingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChattingCell.xib; sourceTree = "<group>"; };
 		E95FB73C2523210E00BDC5FE /* MrStep1ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MrStep1ViewController.xib; sourceTree = "<group>"; };
 		E95FB73D2523210E00BDC5FE /* MrStep1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MrStep1ViewController.swift; sourceTree = "<group>"; };
 		E95FB763252325A700BDC5FE /* MrStep2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrStep2ViewController.swift; sourceTree = "<group>"; };
@@ -461,6 +465,8 @@
 				E95D09D1252AE3B100077EE4 /* FAQViewController.xib */,
 				E95D09D6252AE3DD00077EE4 /* QuestionViewController.swift */,
 				E95D09D7252AE3DD00077EE4 /* QuestionViewController.xib */,
+				E95E6FB7252B510B00FAB6C6 /* ChattingCell.swift */,
+				E95E6FB8252B510B00FAB6C6 /* ChattingCell.xib */,
 				E95D09E0252AE41000077EE4 /* Setting */,
 			);
 			name = MyInfo;
@@ -681,6 +687,7 @@
 			files = (
 				E99AD43D2529ED3B00CBDE8F /* TalkDetailCell.xib in Resources */,
 				E993C498251EEC09007E8C7E /* TalkViewController.xib in Resources */,
+				E95E6FBA252B510B00FAB6C6 /* ChattingCell.xib in Resources */,
 				E95D0A32252AFA9500077EE4 /* IotListViewController.xib in Resources */,
 				E95E142125261EC70073DC93 /* AnimalModifyInfoViewController.xib in Resources */,
 				E9EF79D12525E23C00F2922F /* AddAnimalBirthDayViewController.xib in Resources */,
@@ -834,6 +841,7 @@
 				E9086EDA252867A1006D7F1D /* GraphView.swift in Sources */,
 				E9C4948925273BCE00F8C7AB /* PetHealthFavoriteCell.swift in Sources */,
 				E95E141C25260E780073DC93 /* SelectedButton.swift in Sources */,
+				E95E6FB9252B510B00FAB6C6 /* ChattingCell.swift in Sources */,
 				E953A37E252B01A2000F87D7 /* IotSearchViewController.swift in Sources */,
 				E968793A2525EFB900D1DF1A /* AddAnimalInfoViewController.swift in Sources */,
 				E97C263825288AFB001FFC7F /* ChartRecordWeightViewController.swift in Sources */,

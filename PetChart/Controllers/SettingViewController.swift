@@ -11,7 +11,7 @@ class SettingViewController: BaseViewController {
     @IBOutlet weak var tblView: UITableView!
     
     let arrData = [["title":"앱 알림 설정", "identify": "push"],
-                   ["title":"버전과리", "identify":"version"],
+                   ["title":"버전관리", "identify":"version"],
                    ["title":"개인정보 처리방침", "identify":"privacy_policy"],
                    ["title":"이용약관", "identify":"terms"],
                    ["title":"회원탈퇴", "identify": "withdraw"],
