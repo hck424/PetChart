@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyPetEmptyCell" rowHeight="159" id="KGk-i7-Jjw" customClass="MyPetEmptyCell" customModule="PetChart" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="159"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="159"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="shQ-sJ-LZT">
+                        <rect key="frame" x="20" y="4" width="280" height="151"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="6" translatesAutoresizingMaskIntoConstraints="NO" id="I5D-Ed-n52">
+                                <rect key="frame" x="67" y="34" width="146.5" height="83"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="252" image="ico_petadd" translatesAutoresizingMaskIntoConstraints="NO" id="AEw-7P-YBd">
+                                        <rect key="frame" x="43.5" y="0.0" width="59" height="56"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="내 반려동물을 등록해주세요!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yaz-xr-UEd">
+                                        <rect key="frame" x="0.0" y="62" width="146.5" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="I5D-Ed-n52" secondAttribute="bottom" constant="34" id="iBc-Gz-WDo"/>
+                            <constraint firstItem="I5D-Ed-n52" firstAttribute="centerY" secondItem="shQ-sJ-LZT" secondAttribute="centerY" id="mZq-ao-Y7T"/>
+                            <constraint firstItem="I5D-Ed-n52" firstAttribute="top" secondItem="shQ-sJ-LZT" secondAttribute="top" constant="34" id="v8k-YM-I6o"/>
+                            <constraint firstItem="I5D-Ed-n52" firstAttribute="centerX" secondItem="shQ-sJ-LZT" secondAttribute="centerX" id="vRQ-gh-bDS"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="shQ-sJ-LZT" secondAttribute="trailing" constant="20" id="HKk-xt-6f3"/>
+                    <constraint firstItem="shQ-sJ-LZT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="4" id="ZgN-hF-GAe"/>
+                    <constraint firstAttribute="bottom" secondItem="shQ-sJ-LZT" secondAttribute="bottom" constant="4" id="nDc-eg-VMA"/>
+                    <constraint firstItem="shQ-sJ-LZT" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="20" id="xPp-Bm-7u1"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="bgView" destination="shQ-sJ-LZT" id="icC-Fz-1hr"/>
+            </connections>
+            <point key="canvasLocation" x="-133.33333333333334" y="1.6741071428571428"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ico_petadd" width="59" height="56"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

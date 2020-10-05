@@ -313,13 +313,22 @@
                                         <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                             <real key="value" value="4"/>
                                         </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
+                                        <userDefinedRuntimeAttribute type="number" keyPath="insetTop">
                                             <real key="value" value="12"/>
                                         </userDefinedRuntimeAttribute>
-                                        <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
+                                        <userDefinedRuntimeAttribute type="number" keyPath="insetBottom">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="insetLeft">
+                                            <real key="value" value="12"/>
+                                        </userDefinedRuntimeAttribute>
+                                        <userDefinedRuntimeAttribute type="number" keyPath="insetRigth">
                                             <real key="value" value="12"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <outlet property="delegate" destination="-1" id="f4K-nR-EkZ"/>
+                                    </connections>
                                 </textView>
                             </subviews>
                             <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>

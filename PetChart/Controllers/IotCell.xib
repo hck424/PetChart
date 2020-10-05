@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="IotCell" rowHeight="161" id="QBK-9u-e97" customClass="IotCell" customModule="PetChart" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="161"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="QBK-9u-e97" id="Mva-hl-gL1">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="161"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dnM-Vv-g2P">
+                        <rect key="frame" x="20" y="4" width="280" height="153"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" alignment="center" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="zwQ-he-x2g">
+                                <rect key="frame" x="0.0" y="0.0" width="280" height="153"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="ico_iot" translatesAutoresizingMaskIntoConstraints="NO" id="qnh-Lq-gu4">
+                                        <rect key="frame" x="20" y="43" width="108" height="67"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    </imageView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="lan-VI-Hog">
+                                        <rect key="frame" x="140" y="20.5" width="120" height="112.5"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="wNW-qn-bnJ">
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="44"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="레오의 식사시간" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7pJ-vo-TVT">
+                                                        <rect key="frame" x="0.0" y="0.0" width="120" height="21.5"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="모델명 영역" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IQA-hn-ACd">
+                                                        <rect key="frame" x="0.0" y="29.5" width="120" height="14.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="s4q-NW-dFd">
+                                                <rect key="frame" x="0.0" y="56" width="120" height="14.5"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="현재 접속상태 :" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KBU-dw-xXr">
+                                                        <rect key="frame" x="0.0" y="0.0" width="73" height="14.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="연결 중" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ftw-ad-A3W">
+                                                        <rect key="frame" x="77" y="0.0" width="43" height="14.5"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                        <color key="textColor" red="0.20000000000000001" green="0.62745098039215685" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5J2-kG-csy">
+                                                <rect key="frame" x="0.0" y="82.5" width="120" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="nL6-oj-WoL"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="4" maxY="0.0"/>
+                                                <state key="normal" title="기기설정" image="ico_setting">
+                                                    <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="onClickedBtnActions:" destination="QBK-9u-e97" eventType="touchUpInside" id="1IT-ad-PT7"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <edgeInsets key="layoutMargins" top="20" left="20" bottom="20" right="20"/>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="zwQ-he-x2g" secondAttribute="trailing" id="ZVt-Tx-rmn"/>
+                            <constraint firstItem="zwQ-he-x2g" firstAttribute="top" secondItem="dnM-Vv-g2P" secondAttribute="top" id="axw-zt-p1a"/>
+                            <constraint firstItem="zwQ-he-x2g" firstAttribute="leading" secondItem="dnM-Vv-g2P" secondAttribute="leading" id="j0g-lg-AyD"/>
+                            <constraint firstAttribute="bottom" secondItem="zwQ-he-x2g" secondAttribute="bottom" id="ynf-rg-oGu"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="dnM-Vv-g2P" firstAttribute="leading" secondItem="Mva-hl-gL1" secondAttribute="leading" constant="20" id="0Zz-lN-Qke"/>
+                    <constraint firstAttribute="trailing" secondItem="dnM-Vv-g2P" secondAttribute="trailing" constant="20" id="4V9-kn-Sxf"/>
+                    <constraint firstAttribute="bottom" secondItem="dnM-Vv-g2P" secondAttribute="bottom" constant="4" id="YBR-AJ-QgE"/>
+                    <constraint firstItem="dnM-Vv-g2P" firstAttribute="top" secondItem="Mva-hl-gL1" secondAttribute="top" constant="4" id="xNj-PA-FYK"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="kzG-f8-TTe"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <connections>
+                <outlet property="bgView" destination="dnM-Vv-g2P" id="m4Z-57-E1e"/>
+                <outlet property="btnIotSetting" destination="5J2-kG-csy" id="Q8J-aT-KhG"/>
+                <outlet property="ivIotThumb" destination="qnh-Lq-gu4" id="UcH-9u-YX9"/>
+                <outlet property="lbIotModel" destination="IQA-hn-ACd" id="sar-dB-bxJ"/>
+                <outlet property="lbIotName" destination="7pJ-vo-TVT" id="WOK-2g-oyE"/>
+                <outlet property="lbIotState" destination="ftw-ad-A3W" id="3nc-xN-3zs"/>
+            </connections>
+            <point key="canvasLocation" x="-23.188405797101453" y="205.91517857142856"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="ico_iot" width="108" height="67"/>
+        <image name="ico_setting" width="16" height="16"/>
+    </resources>
+</document>

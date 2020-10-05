@@ -8,9 +8,9 @@
 import UIKit
 import Foundation
 
-@IBDesignable class CTextView: UITextView, UITextViewDelegate {
-    private var placeholderLabel: UILabel?
-    
+@IBDesignable class CTextView: UITextView {
+    public var placeholderLabel: UILabel?
+    var myDelegate: UITextViewDelegate?
     @IBInspectable var borderWidth: CGFloat = 0.0 {
         didSet {
             if borderWidth > 0 {setNeedsLayout()}
@@ -28,14 +28,24 @@ import Foundation
         }
     }
     
-    @IBInspectable var insetTB: CGFloat = 0.0 {
+    @IBInspectable var insetTop: CGFloat = 0.0 {
         didSet {
-            if insetTB > 0.0 { setNeedsDisplay() }
+            if insetTop > 0.0 { setNeedsDisplay() }
         }
     }
-    @IBInspectable var insetLR: CGFloat = 0.0 {
+    @IBInspectable var insetBottom: CGFloat = 0.0 {
         didSet {
-            if insetLR > 0.0 { setNeedsDisplay() }
+            if insetBottom > 0.0 { setNeedsDisplay() }
+        }
+    }
+    @IBInspectable var insetLeft: CGFloat = 0.0 {
+        didSet {
+            if insetLeft > 0.0 { setNeedsDisplay() }
+        }
+    }
+    @IBInspectable var insetRigth: CGFloat = 0.0 {
+        didSet {
+            if insetRigth > 0.0 { setNeedsDisplay() }
         }
     }
     @IBInspectable var placeHolderColor: UIColor = UIColor(white: 0.78, alpha: 1) {
@@ -51,15 +61,15 @@ import Foundation
             }
         }
     }
+    
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
         self.textContainer.lineFragmentPadding = 0.0
-        self.textContainerInset = UIEdgeInsets.init(top: insetTB, left: insetLR, bottom: insetTB, right: insetLR)
+        self.textContainerInset = UIEdgeInsets.init(top: insetTop, left: insetLeft, bottom: insetBottom, right: insetRigth)
         if placeHolderString != nil {
             self.configurePlaceholderLabel()
         }
-        
         
         if borderWidth > 0 && borderColor != nil {
             layer.borderColor = borderColor?.cgColor
@@ -71,13 +81,13 @@ import Foundation
             self.layer.cornerRadius = cornerRadius
         }
     }
-    override var text: String! {
-        didSet {
-            textViewDidChange(self)
-        }
-    }
+//    override var text: String! {
+//        didSet {
+//            textViewDidChange(self)
+//        }
+//    }
     func configurePlaceholderLabel() {
-        self.delegate = self
+        
         placeholderLabel = UILabel()
         placeholderLabel?.font = font
         placeholderLabel?.textColor? = placeHolderColor
@@ -87,14 +97,15 @@ import Foundation
         self.addSubview(placeholderLabel!)
         
         placeholderLabel?.translatesAutoresizingMaskIntoConstraints = false
-        placeholderLabel?.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: insetLR).isActive = true
-        placeholderLabel?.topAnchor.constraint(equalTo: self.topAnchor, constant: insetTB).isActive = true
-        placeholderLabel?.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: insetLR).isActive = true
-        placeholderLabel?.bottomAnchor.constraint(greaterThanOrEqualTo: self.bottomAnchor, constant: insetTB).isActive = true
+        placeholderLabel?.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: insetLeft).isActive = true
+        placeholderLabel?.topAnchor.constraint(equalTo: self.topAnchor, constant: insetTop).isActive = true
+        placeholderLabel?.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: insetRigth).isActive = true
+        placeholderLabel?.bottomAnchor.constraint(greaterThanOrEqualTo: self.bottomAnchor, constant: insetBottom).isActive = true
     }
     
-    func textViewDidChange(_ textView: UITextView) {
-        placeholderLabel?.isHidden = !textView.text.isEmpty
-    }
+//    func textViewDidChange(_ textView: UITextView) {
+//        placeholderLabel?.isHidden = !textView.text.isEmpty
+//    }
+    
 }
  

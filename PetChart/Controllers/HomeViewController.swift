@@ -134,11 +134,14 @@ class HomeViewController: BaseViewController {
     }
     @objc @IBAction func onclickedButtonActins(_ sender: UIButton) {
         if sender.tag == TAG_NAVI_USER {
-            let vc = PetHealthFavoriteEdtingViewController.init()
-            vc.catergory = .favoriteHome
-            vc.data = [.drink, .eat, .weight, .feces, .walk, .medical]
+            let vc = MyInfoViewController.init()
             self.navigationController?.pushViewController(vc, animated: true)
-            return
+            
+//            let vc = PetHealthFavoriteEdtingViewController.init()
+//            vc.catergory = .favoriteHome
+//            vc.data = [.drink, .eat, .weight, .feces, .walk, .medical]
+//            self.navigationController?.pushViewController(vc, animated: true)
+//            return
             
 
 //            let data = ["포메라니안", "미니어처 핀셔", "파피용", "미니어쳐 닥스훈트", "요크셔테리어", "말티즈", "비숑 프리제", "미니어쳐 슈나우저", "포메라니안", "미니어처 핀셔", "파피용", "미니어쳐 닥스훈트", "요크셔테리어", "말티즈", "비숑 프리제", "미니어쳐 슈나우저", "포메라니안", "미니어처 핀셔", "파피용", "미니어쳐 닥스훈트", "요크셔테리어", "말티즈", "비숑 프리제", "미니어쳐 슈나우저"]

@@ -171,3 +171,12 @@ extension TalkWriteViewController: CameraViewControllerDelegate {
         }
     }
 }
+
+extension TalkWriteViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        if let textView = textView as? CTextView {
+            textView.placeholderLabel?.isHidden = !textView.text.isEmpty
+        }
+    }
+
+}

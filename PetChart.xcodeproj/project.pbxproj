@@ -22,8 +22,38 @@
 		E9428F272527904600456A48 /* ChartCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9428F262527904600456A48 /* ChartCellView.xib */; };
 		E9428F2B252834CF00456A48 /* ChartCategoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9428F29252834CF00456A48 /* ChartCategoryViewController.swift */; };
 		E9428F2C252834CF00456A48 /* ChartCategoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9428F2A252834CF00456A48 /* ChartCategoryViewController.xib */; };
+		E9431695252AB62E009CF07E /* MyInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9431693252AB62E009CF07E /* MyInfoCell.swift */; };
+		E9431696252AB62E009CF07E /* MyInfoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9431694252AB62E009CF07E /* MyInfoCell.xib */; };
+		E943169A252ABA39009CF07E /* MyPetViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9431698252ABA39009CF07E /* MyPetViewController.swift */; };
+		E943169F252ABAAD009CF07E /* IotViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E943169D252ABAAD009CF07E /* IotViewController.swift */; };
+		E94316A0252ABAAD009CF07E /* IotViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E943169E252ABAAD009CF07E /* IotViewController.xib */; };
+		E94316A4252ABCF3009CF07E /* MyPetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94316A2252ABCF3009CF07E /* MyPetCell.swift */; };
+		E94316A5252ABCF3009CF07E /* MyPetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94316A3252ABCF3009CF07E /* MyPetCell.xib */; };
+		E94316A9252ABD0F009CF07E /* MyPetEmptyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E94316A7252ABD0F009CF07E /* MyPetEmptyCell.swift */; };
+		E94316AA252ABD0F009CF07E /* MyPetEmptyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94316A8252ABD0F009CF07E /* MyPetEmptyCell.xib */; };
+		E94316AE252AD397009CF07E /* MyPetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94316AD252AD396009CF07E /* MyPetViewController.xib */; };
+		E953A37E252B01A2000F87D7 /* IotSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E953A37C252B01A1000F87D7 /* IotSearchViewController.swift */; };
+		E953A37F252B01A2000F87D7 /* IotSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E953A37D252B01A1000F87D7 /* IotSearchViewController.xib */; };
 		E9573CA72524CAD800583C6F /* MrStep3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9573CA52524CAD800583C6F /* MrStep3ViewController.swift */; };
 		E9573CA82524CAD800583C6F /* MrStep3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9573CA62524CAD800583C6F /* MrStep3ViewController.xib */; };
+		E95D09C7252AD84F00077EE4 /* IotManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D09C5252AD84F00077EE4 /* IotManagementViewController.swift */; };
+		E95D09C8252AD84F00077EE4 /* IotManagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95D09C6252AD84F00077EE4 /* IotManagementViewController.xib */; };
+		E95D09CC252AE32B00077EE4 /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D09CA252AE32B00077EE4 /* NoticeViewController.swift */; };
+		E95D09CD252AE32B00077EE4 /* NoticeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95D09CB252AE32B00077EE4 /* NoticeViewController.xib */; };
+		E95D09D2252AE3B100077EE4 /* FAQViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D09D0252AE3B100077EE4 /* FAQViewController.swift */; };
+		E95D09D3252AE3B100077EE4 /* FAQViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95D09D1252AE3B100077EE4 /* FAQViewController.xib */; };
+		E95D09D8252AE3DD00077EE4 /* QuestionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D09D6252AE3DD00077EE4 /* QuestionViewController.swift */; };
+		E95D09D9252AE3DD00077EE4 /* QuestionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95D09D7252AE3DD00077EE4 /* QuestionViewController.xib */; };
+		E95D09DD252AE40A00077EE4 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D09DB252AE40A00077EE4 /* SettingViewController.swift */; };
+		E95D09DE252AE40A00077EE4 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95D09DC252AE40A00077EE4 /* SettingViewController.xib */; };
+		E95D0A26252AF21800077EE4 /* WithdrawViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D0A24252AF21800077EE4 /* WithdrawViewController.swift */; };
+		E95D0A27252AF21800077EE4 /* WithdrawViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95D0A25252AF21800077EE4 /* WithdrawViewController.xib */; };
+		E95D0A2B252AF23000077EE4 /* PushViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D0A29252AF23000077EE4 /* PushViewController.swift */; };
+		E95D0A2C252AF23000077EE4 /* PushViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95D0A2A252AF23000077EE4 /* PushViewController.xib */; };
+		E95D0A31252AFA9500077EE4 /* IotListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D0A2F252AFA9500077EE4 /* IotListViewController.swift */; };
+		E95D0A32252AFA9500077EE4 /* IotListViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95D0A30252AFA9500077EE4 /* IotListViewController.xib */; };
+		E95D0A38252AFBDE00077EE4 /* IotCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D0A36252AFBDE00077EE4 /* IotCell.swift */; };
+		E95D0A39252AFBDE00077EE4 /* IotCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95D0A37252AFBDE00077EE4 /* IotCell.xib */; };
 		E95E13F625260A030073DC93 /* AnimalRegiNumberInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E13F425260A030073DC93 /* AnimalRegiNumberInfoViewController.swift */; };
 		E95E13F725260A030073DC93 /* AnimalRegiNumberInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E13F525260A030073DC93 /* AnimalRegiNumberInfoViewController.xib */; };
 		E95E141C25260E780073DC93 /* SelectedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E141B25260E780073DC93 /* SelectedButton.swift */; };
@@ -60,6 +90,8 @@
 		E98AF4AF25244220002C855B /* CDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98AF4AC25244220002C855B /* CDateFormatter.swift */; };
 		E98AF4B625244465002C855B /* CDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98AF4AA25244220002C855B /* CDatePickerView.swift */; };
 		E98AF4FF2524466B002C855B /* CDatePickerView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E98AF4FE2524466B002C855B /* CDatePickerView.xib */; };
+		E9910A4A252AA14300BD877C /* MyInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9910A48252AA14300BD877C /* MyInfoViewController.swift */; };
+		E9910A4B252AA14300BD877C /* MyInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9910A49252AA14300BD877C /* MyInfoViewController.xib */; };
 		E993C487251EEB94007E8C7E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E993C486251EEB94007E8C7E /* GoogleService-Info.plist */; };
 		E993C48D251EEBCF007E8C7E /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E993C48B251EEBCF007E8C7E /* HomeViewController.swift */; };
 		E993C48E251EEBCF007E8C7E /* HomeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E993C48C251EEBCF007E8C7E /* HomeViewController.xib */; };
@@ -107,6 +139,8 @@
 		E9D794F2251ECFF800D79E7E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9D794F0251ECFF800D79E7E /* LaunchScreen.storyboard */; };
 		E9D79507251ED15A00D79E7E /* TutorialViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D79505251ED15A00D79E7E /* TutorialViewController.swift */; };
 		E9D79508251ED15A00D79E7E /* TutorialViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9D79506251ED15A00D79E7E /* TutorialViewController.xib */; };
+		E9DFC6AA252B0D8C00167237 /* IotDeviceCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9DFC6A8252B0D8C00167237 /* IotDeviceCell.swift */; };
+		E9DFC6AB252B0D8C00167237 /* IotDeviceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9DFC6A9252B0D8C00167237 /* IotDeviceCell.xib */; };
 		E9EF796F2525851700F2922F /* EmptyPetCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EF796E2525851700F2922F /* EmptyPetCell.swift */; };
 		E9EF79732525853700F2922F /* EmptyPetCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9EF79722525853700F2922F /* EmptyPetCell.xib */; };
 		E9EF79872525927200F2922F /* AddAnimalNameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9EF79852525927200F2922F /* AddAnimalNameViewController.swift */; };
@@ -141,8 +175,38 @@
 		E9428F262527904600456A48 /* ChartCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartCellView.xib; sourceTree = "<group>"; };
 		E9428F29252834CF00456A48 /* ChartCategoryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartCategoryViewController.swift; sourceTree = "<group>"; };
 		E9428F2A252834CF00456A48 /* ChartCategoryViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartCategoryViewController.xib; sourceTree = "<group>"; };
+		E9431693252AB62E009CF07E /* MyInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoCell.swift; sourceTree = "<group>"; };
+		E9431694252AB62E009CF07E /* MyInfoCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyInfoCell.xib; sourceTree = "<group>"; };
+		E9431698252ABA39009CF07E /* MyPetViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetViewController.swift; sourceTree = "<group>"; };
+		E943169D252ABAAD009CF07E /* IotViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IotViewController.swift; sourceTree = "<group>"; };
+		E943169E252ABAAD009CF07E /* IotViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IotViewController.xib; sourceTree = "<group>"; };
+		E94316A2252ABCF3009CF07E /* MyPetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetCell.swift; sourceTree = "<group>"; };
+		E94316A3252ABCF3009CF07E /* MyPetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPetCell.xib; sourceTree = "<group>"; };
+		E94316A7252ABD0F009CF07E /* MyPetEmptyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPetEmptyCell.swift; sourceTree = "<group>"; };
+		E94316A8252ABD0F009CF07E /* MyPetEmptyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyPetEmptyCell.xib; sourceTree = "<group>"; };
+		E94316AD252AD396009CF07E /* MyPetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyPetViewController.xib; sourceTree = "<group>"; };
+		E953A37C252B01A1000F87D7 /* IotSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IotSearchViewController.swift; sourceTree = "<group>"; };
+		E953A37D252B01A1000F87D7 /* IotSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IotSearchViewController.xib; sourceTree = "<group>"; };
 		E9573CA52524CAD800583C6F /* MrStep3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrStep3ViewController.swift; sourceTree = "<group>"; };
 		E9573CA62524CAD800583C6F /* MrStep3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MrStep3ViewController.xib; sourceTree = "<group>"; };
+		E95D09C5252AD84F00077EE4 /* IotManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IotManagementViewController.swift; sourceTree = "<group>"; };
+		E95D09C6252AD84F00077EE4 /* IotManagementViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IotManagementViewController.xib; sourceTree = "<group>"; };
+		E95D09CA252AE32B00077EE4 /* NoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
+		E95D09CB252AE32B00077EE4 /* NoticeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoticeViewController.xib; sourceTree = "<group>"; };
+		E95D09D0252AE3B100077EE4 /* FAQViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FAQViewController.swift; sourceTree = "<group>"; };
+		E95D09D1252AE3B100077EE4 /* FAQViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FAQViewController.xib; sourceTree = "<group>"; };
+		E95D09D6252AE3DD00077EE4 /* QuestionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionViewController.swift; sourceTree = "<group>"; };
+		E95D09D7252AE3DD00077EE4 /* QuestionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = QuestionViewController.xib; sourceTree = "<group>"; };
+		E95D09DB252AE40A00077EE4 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		E95D09DC252AE40A00077EE4 /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		E95D0A24252AF21800077EE4 /* WithdrawViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WithdrawViewController.swift; sourceTree = "<group>"; };
+		E95D0A25252AF21800077EE4 /* WithdrawViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WithdrawViewController.xib; sourceTree = "<group>"; };
+		E95D0A29252AF23000077EE4 /* PushViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushViewController.swift; sourceTree = "<group>"; };
+		E95D0A2A252AF23000077EE4 /* PushViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PushViewController.xib; sourceTree = "<group>"; };
+		E95D0A2F252AFA9500077EE4 /* IotListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IotListViewController.swift; sourceTree = "<group>"; };
+		E95D0A30252AFA9500077EE4 /* IotListViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IotListViewController.xib; sourceTree = "<group>"; };
+		E95D0A36252AFBDE00077EE4 /* IotCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IotCell.swift; sourceTree = "<group>"; };
+		E95D0A37252AFBDE00077EE4 /* IotCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IotCell.xib; sourceTree = "<group>"; };
 		E95E13F425260A030073DC93 /* AnimalRegiNumberInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalRegiNumberInfoViewController.swift; sourceTree = "<group>"; };
 		E95E13F525260A030073DC93 /* AnimalRegiNumberInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimalRegiNumberInfoViewController.xib; sourceTree = "<group>"; };
 		E95E141B25260E780073DC93 /* SelectedButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedButton.swift; sourceTree = "<group>"; };
@@ -179,6 +243,8 @@
 		E98AF4AA25244220002C855B /* CDatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDatePickerView.swift; sourceTree = "<group>"; };
 		E98AF4AC25244220002C855B /* CDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDateFormatter.swift; sourceTree = "<group>"; };
 		E98AF4FE2524466B002C855B /* CDatePickerView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CDatePickerView.xib; sourceTree = "<group>"; };
+		E9910A48252AA14300BD877C /* MyInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyInfoViewController.swift; sourceTree = "<group>"; };
+		E9910A49252AA14300BD877C /* MyInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyInfoViewController.xib; sourceTree = "<group>"; };
 		E993C486251EEB94007E8C7E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E993C48B251EEBCF007E8C7E /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		E993C48C251EEBCF007E8C7E /* HomeViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeViewController.xib; sourceTree = "<group>"; };
@@ -229,6 +295,8 @@
 		E9D794F3251ECFF800D79E7E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9D79505251ED15A00D79E7E /* TutorialViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TutorialViewController.swift; sourceTree = "<group>"; };
 		E9D79506251ED15A00D79E7E /* TutorialViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TutorialViewController.xib; sourceTree = "<group>"; };
+		E9DFC6A8252B0D8C00167237 /* IotDeviceCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IotDeviceCell.swift; sourceTree = "<group>"; };
+		E9DFC6A9252B0D8C00167237 /* IotDeviceCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IotDeviceCell.xib; sourceTree = "<group>"; };
 		E9EF796E2525851700F2922F /* EmptyPetCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyPetCell.swift; sourceTree = "<group>"; };
 		E9EF79722525853700F2922F /* EmptyPetCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyPetCell.xib; sourceTree = "<group>"; };
 		E9EF79852525927200F2922F /* AddAnimalNameViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalNameViewController.swift; sourceTree = "<group>"; };
@@ -320,6 +388,38 @@
 			name = Talk;
 			sourceTree = "<group>";
 		};
+		E95D09E0252AE41000077EE4 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				E95D09DB252AE40A00077EE4 /* SettingViewController.swift */,
+				E95D09DC252AE40A00077EE4 /* SettingViewController.xib */,
+				E95D0A24252AF21800077EE4 /* WithdrawViewController.swift */,
+				E95D0A25252AF21800077EE4 /* WithdrawViewController.xib */,
+				E95D0A29252AF23000077EE4 /* PushViewController.swift */,
+				E95D0A2A252AF23000077EE4 /* PushViewController.xib */,
+			);
+			name = Setting;
+			sourceTree = "<group>";
+		};
+		E95D0A2E252AFA5B00077EE4 /* Iot */ = {
+			isa = PBXGroup;
+			children = (
+				E943169D252ABAAD009CF07E /* IotViewController.swift */,
+				E943169E252ABAAD009CF07E /* IotViewController.xib */,
+				E95D0A2F252AFA9500077EE4 /* IotListViewController.swift */,
+				E95D0A30252AFA9500077EE4 /* IotListViewController.xib */,
+				E95D0A36252AFBDE00077EE4 /* IotCell.swift */,
+				E95D0A37252AFBDE00077EE4 /* IotCell.xib */,
+				E95D09C5252AD84F00077EE4 /* IotManagementViewController.swift */,
+				E95D09C6252AD84F00077EE4 /* IotManagementViewController.xib */,
+				E953A37C252B01A1000F87D7 /* IotSearchViewController.swift */,
+				E953A37D252B01A1000F87D7 /* IotSearchViewController.xib */,
+				E9DFC6A8252B0D8C00167237 /* IotDeviceCell.swift */,
+				E9DFC6A9252B0D8C00167237 /* IotDeviceCell.xib */,
+			);
+			name = Iot;
+			sourceTree = "<group>";
+		};
 		E95E13F1252609A30073DC93 /* AddPetAnimal */ = {
 			isa = PBXGroup;
 			children = (
@@ -339,6 +439,31 @@
 				E95E141F25261EC70073DC93 /* AnimalModifyInfoViewController.xib */,
 			);
 			name = AddPetAnimal;
+			sourceTree = "<group>";
+		};
+		E9910A4D252AA14800BD877C /* MyInfo */ = {
+			isa = PBXGroup;
+			children = (
+				E9910A48252AA14300BD877C /* MyInfoViewController.swift */,
+				E9910A49252AA14300BD877C /* MyInfoViewController.xib */,
+				E9431693252AB62E009CF07E /* MyInfoCell.swift */,
+				E9431694252AB62E009CF07E /* MyInfoCell.xib */,
+				E9431698252ABA39009CF07E /* MyPetViewController.swift */,
+				E94316AD252AD396009CF07E /* MyPetViewController.xib */,
+				E94316A2252ABCF3009CF07E /* MyPetCell.swift */,
+				E94316A3252ABCF3009CF07E /* MyPetCell.xib */,
+				E94316A7252ABD0F009CF07E /* MyPetEmptyCell.swift */,
+				E94316A8252ABD0F009CF07E /* MyPetEmptyCell.xib */,
+				E95D0A2E252AFA5B00077EE4 /* Iot */,
+				E95D09CA252AE32B00077EE4 /* NoticeViewController.swift */,
+				E95D09CB252AE32B00077EE4 /* NoticeViewController.xib */,
+				E95D09D0252AE3B100077EE4 /* FAQViewController.swift */,
+				E95D09D1252AE3B100077EE4 /* FAQViewController.xib */,
+				E95D09D6252AE3DD00077EE4 /* QuestionViewController.swift */,
+				E95D09D7252AE3DD00077EE4 /* QuestionViewController.xib */,
+				E95D09E0252AE41000077EE4 /* Setting */,
+			);
+			name = MyInfo;
 			sourceTree = "<group>";
 		};
 		E999D5E625204A450087D8AE /* Logoin */ = {
@@ -423,6 +548,7 @@
 				E9C4948325273B6A00F8C7AB /* PetHealthFavoriteEdtingViewController.xib */,
 				E9C4948725273BCE00F8C7AB /* PetHealthFavoriteCell.swift */,
 				E9C4948825273BCE00F8C7AB /* PetHealthFavoriteCell.xib */,
+				E9910A4D252AA14800BD877C /* MyInfo */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -555,44 +681,61 @@
 			files = (
 				E99AD43D2529ED3B00CBDE8F /* TalkDetailCell.xib in Resources */,
 				E993C498251EEC09007E8C7E /* TalkViewController.xib in Resources */,
+				E95D0A32252AFA9500077EE4 /* IotListViewController.xib in Resources */,
 				E95E142125261EC70073DC93 /* AnimalModifyInfoViewController.xib in Resources */,
 				E9EF79D12525E23C00F2922F /* AddAnimalBirthDayViewController.xib in Resources */,
 				E9EF79732525853700F2922F /* EmptyPetCell.xib in Resources */,
 				E9428F2C252834CF00456A48 /* ChartCategoryViewController.xib in Resources */,
 				E97F4B662528752E00EAD200 /* ChartDetailViewController.xib in Resources */,
+				E95D09DE252AE40A00077EE4 /* SettingViewController.xib in Resources */,
 				E9D794F2251ECFF800D79E7E /* LaunchScreen.storyboard in Resources */,
 				E95FB766252325A700BDC5FE /* MrStep2ViewController.xib in Resources */,
+				E95D09D9252AE3DD00077EE4 /* QuestionViewController.xib in Resources */,
+				E94316AA252ABD0F009CF07E /* MyPetEmptyCell.xib in Resources */,
 				E9C494592526EBD900F8C7AB /* PopupListCell.xib in Resources */,
+				E94316A5252ABCF3009CF07E /* MyPetCell.xib in Resources */,
 				E97C263E25288B2A001FFC7F /* ChartRecordFecesViewController.xib in Resources */,
 				E9C494362526E09200F8C7AB /* PopupListViewController.xib in Resources */,
 				E9086EDD252867AA006D7F1D /* GraphView.xib in Resources */,
 				E968793B2525EFB900D1DF1A /* AddAnimalInfoViewController.xib in Resources */,
 				E97C263925288AFB001FFC7F /* ChartRecordWeightViewController.xib in Resources */,
 				E97C262F25288ABF001FFC7F /* ChartRecordMedicalViewController.xib in Resources */,
+				E94316AE252AD397009CF07E /* MyPetViewController.xib in Resources */,
 				E96039642529BB1200328932 /* TalkCell.xib in Resources */,
 				E9C4948A25273BCE00F8C7AB /* PetHealthFavoriteCell.xib in Resources */,
 				E97C263425288AD8001FFC7F /* ChartRecordWalkViewController.xib in Resources */,
 				E98AF4FF2524466B002C855B /* CDatePickerView.xib in Resources */,
+				E9431696252AB62E009CF07E /* MyInfoCell.xib in Resources */,
 				E9D794EF251ECFF800D79E7E /* Assets.xcassets in Resources */,
+				E95D0A27252AF21800077EE4 /* WithdrawViewController.xib in Resources */,
 				E9EF79C72525B53400F2922F /* AddAnminalKindViewController.xib in Resources */,
 				E9573CA82524CAD800583C6F /* MrStep3ViewController.xib in Resources */,
 				E993C493251EEBDE007E8C7E /* ChartViewController.xib in Resources */,
+				E9DFC6AB252B0D8C00167237 /* IotDeviceCell.xib in Resources */,
 				E9428F272527904600456A48 /* ChartCellView.xib in Resources */,
+				E95D0A2C252AF23000077EE4 /* PushViewController.xib in Resources */,
 				E993C487251EEB94007E8C7E /* GoogleService-Info.plist in Resources */,
 				E9C4948525273B6A00F8C7AB /* PetHealthFavoriteEdtingViewController.xib in Resources */,
 				E97C262A25288A8C001FFC7F /* ChartRecordDrinkViewController.xib in Resources */,
+				E94316A0252ABAAD009CF07E /* IotViewController.xib in Resources */,
 				E95E13F725260A030073DC93 /* AnimalRegiNumberInfoViewController.xib in Resources */,
 				E97C262525288A75001FFC7F /* ChartRecordEatViewController.xib in Resources */,
 				E9D79508251ED15A00D79E7E /* TutorialViewController.xib in Resources */,
 				E95FB73E2523210E00BDC5FE /* MrStep1ViewController.xib in Resources */,
 				E9EF79CC2525BDF500F2922F /* AddAnimalItemSelectViewController.xib in Resources */,
 				E929CA5F2529CE8E00AB4F68 /* TalkWriteViewController.xib in Resources */,
+				E95D0A39252AFBDE00077EE4 /* IotCell.xib in Resources */,
+				E9910A4B252AA14300BD877C /* MyInfoViewController.xib in Resources */,
 				E9428F1125276BFA00456A48 /* PetSelectPopupView.xib in Resources */,
 				E9C49480252712D800F8C7AB /* HomeGraphCell.xib in Resources */,
 				E9D794EA251ECFF800D79E7E /* Main.storyboard in Resources */,
+				E95D09D3252AE3B100077EE4 /* FAQViewController.xib in Resources */,
 				E999D5FA25207C6D0087D8AE /* AlertView.xib in Resources */,
+				E95D09C8252AD84F00077EE4 /* IotManagementViewController.xib in Resources */,
+				E95D09CD252AE32B00077EE4 /* NoticeViewController.xib in Resources */,
 				E993C48E251EEBCF007E8C7E /* HomeViewController.xib in Resources */,
 				E9428EFD2527504E00456A48 /* PetSelectRowView.xib in Resources */,
+				E953A37F252B01A2000F87D7 /* IotSearchViewController.xib in Resources */,
 				E999D5E225204A110087D8AE /* LoginViewController.xib in Resources */,
 				E9EF799F2525A00600F2922F /* CameraOverlayView.xib in Resources */,
 				E9615E4B2526CCFE000550FE /* MemberInfoModifyViewController.xib in Resources */,
@@ -654,7 +797,10 @@
 				E98AF4B625244465002C855B /* CDatePickerView.swift in Sources */,
 				E9EF796F2525851700F2922F /* EmptyPetCell.swift in Sources */,
 				E9D794ED251ECFF800D79E7E /* PetChart.xcdatamodeld in Sources */,
+				E95D09D2252AE3B100077EE4 /* FAQViewController.swift in Sources */,
+				E95D0A2B252AF23000077EE4 /* PushViewController.swift in Sources */,
 				E97C262E25288ABF001FFC7F /* ChartRecordMedicalViewController.swift in Sources */,
+				E943169A252ABA39009CF07E /* MyPetViewController.swift in Sources */,
 				E9EF799525259F9700F2922F /* CameraViewController.swift in Sources */,
 				E9428F2125278B3900456A48 /* DateExtension.swift in Sources */,
 				E999D5F725207C610087D8AE /* AlertView.swift in Sources */,
@@ -666,6 +812,7 @@
 				E993C497251EEC09007E8C7E /* TalkViewController.swift in Sources */,
 				E9D5AB4A251EE12A005B7ECB /* MainTabBarController.swift in Sources */,
 				E99AD4372529E16C00CBDE8F /* TalkDetailViewController.swift in Sources */,
+				E95D09DD252AE40A00077EE4 /* SettingViewController.swift in Sources */,
 				E9D794E3251ECFF800D79E7E /* AppDelegate.swift in Sources */,
 				E97F4B652528752E00EAD200 /* ChartDetailViewController.swift in Sources */,
 				E9C494352526E09200F8C7AB /* PopupListViewController.swift in Sources */,
@@ -677,13 +824,17 @@
 				E9D5AB47251ED941005B7ECB /* Constants.swift in Sources */,
 				E9EF798F2525985000F2922F /* Animal.swift in Sources */,
 				E9EF79872525927200F2922F /* AddAnimalNameViewController.swift in Sources */,
+				E95D0A31252AFA9500077EE4 /* IotListViewController.swift in Sources */,
 				E95E13F625260A030073DC93 /* AnimalRegiNumberInfoViewController.swift in Sources */,
 				E9428F0E25276BF100456A48 /* PetSelectPopupView.swift in Sources */,
 				E999D5E925204DF20087D8AE /* CTextField.swift in Sources */,
+				E95D09D8252AE3DD00077EE4 /* QuestionViewController.swift in Sources */,
 				E999D5D625202A190087D8AE /* Utility.swift in Sources */,
+				E9910A4A252AA14300BD877C /* MyInfoViewController.swift in Sources */,
 				E9086EDA252867A1006D7F1D /* GraphView.swift in Sources */,
 				E9C4948925273BCE00F8C7AB /* PetHealthFavoriteCell.swift in Sources */,
 				E95E141C25260E780073DC93 /* SelectedButton.swift in Sources */,
+				E953A37E252B01A2000F87D7 /* IotSearchViewController.swift in Sources */,
 				E968793A2525EFB900D1DF1A /* AddAnimalInfoViewController.swift in Sources */,
 				E97C263825288AFB001FFC7F /* ChartRecordWeightViewController.swift in Sources */,
 				E999D5B52520214D0087D8AE /* CNavigationBar.swift in Sources */,
@@ -693,18 +844,24 @@
 				E9640EEF2522D78100EEF156 /* NetworkManager.swift in Sources */,
 				E929CA5E2529CE8E00AB4F68 /* TalkWriteViewController.swift in Sources */,
 				E97C263325288AD8001FFC7F /* ChartRecordWalkViewController.swift in Sources */,
+				E95D09C7252AD84F00077EE4 /* IotManagementViewController.swift in Sources */,
+				E943169F252ABAAD009CF07E /* IotViewController.swift in Sources */,
 				E999D5DC2520490F0087D8AE /* Clabel.swift in Sources */,
 				E95FB73F2523210E00BDC5FE /* MrStep1ViewController.swift in Sources */,
 				E97C262925288A8C001FFC7F /* ChartRecordDrinkViewController.swift in Sources */,
 				E999D5DB2520490F0087D8AE /* CButton.swift in Sources */,
 				E9C09F23251F0B2A00D0120C /* BaseNavigationController.swift in Sources */,
 				E9AFA5EB2528CE26002CFEDE /* CTextView.swift in Sources */,
+				E95D0A38252AFBDE00077EE4 /* IotCell.swift in Sources */,
 				E9EF799C25259FFA00F2922F /* CameraOverlayView.swift in Sources */,
+				E95D09CC252AE32B00077EE4 /* NoticeViewController.swift in Sources */,
+				E94316A9252ABD0F009CF07E /* MyPetEmptyCell.swift in Sources */,
 				E9428F2B252834CF00456A48 /* ChartCategoryViewController.swift in Sources */,
 				E999D5DD2520490F0087D8AE /* ShadowView.swift in Sources */,
 				E9573CA72524CAD800583C6F /* MrStep3ViewController.swift in Sources */,
 				E999D5E125204A110087D8AE /* LoginViewController.swift in Sources */,
 				E99AD43C2529ED3B00CBDE8F /* TalkDetailCell.swift in Sources */,
+				E95D0A26252AF21800077EE4 /* WithdrawViewController.swift in Sources */,
 				E993C492251EEBDE007E8C7E /* ChartViewController.swift in Sources */,
 				E993C48D251EEBCF007E8C7E /* HomeViewController.swift in Sources */,
 				E9A9F2572521C0EE0049E041 /* NaverController.swift in Sources */,
@@ -712,9 +869,12 @@
 				E9A9F2502521B7BD0049E041 /* UserInfo.swift in Sources */,
 				E9D5AB50251EE177005B7ECB /* BaseViewController.swift in Sources */,
 				E9A9F2542521C0E40049E041 /* KakaoController.swift in Sources */,
+				E9431695252AB62E009CF07E /* MyInfoCell.swift in Sources */,
 				E95FB765252325A700BDC5FE /* MrStep2ViewController.swift in Sources */,
 				E9C4948425273B6A00F8C7AB /* PetHealthFavoriteEdtingViewController.swift in Sources */,
 				E95E142025261EC70073DC93 /* AnimalModifyInfoViewController.swift in Sources */,
+				E94316A4252ABCF3009CF07E /* MyPetCell.swift in Sources */,
+				E9DFC6AA252B0D8C00167237 /* IotDeviceCell.swift in Sources */,
 				E97C262025288353001FFC7F /* SharedData.swift in Sources */,
 				E9428F092527541F00456A48 /* HitTestView.swift in Sources */,
 				E9EF79D02525E23C00F2922F /* AddAnimalBirthDayViewController.swift in Sources */,

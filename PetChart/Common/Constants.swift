@@ -47,6 +47,8 @@ let kTotalChartFeces = "TotalChartFeces"
 let kTotalChartWalk = "TotalChartWalk"
 let kTotalChartMedical = "TotalChartMedical"
 
+let kPushSetting = "PushSetting"
+
 enum PetHealth: String {
     case drink = "drink"
     case eat = "eat"

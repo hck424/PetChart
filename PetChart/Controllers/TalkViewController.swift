@@ -99,7 +99,8 @@ class TalkViewController: BaseViewController, UITableViewDataSource, UITableView
     }
     @objc @IBAction func onclickedButtonActins(_ sender: UIButton) {
         if sender.tag == TAG_NAVI_USER {
-            
+            let vc = MyInfoViewController.init()
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         else if sender == btnWrite {
             let vc = TalkWriteViewController.init()

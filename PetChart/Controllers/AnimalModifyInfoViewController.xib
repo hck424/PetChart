@@ -580,19 +580,19 @@
     </objects>
     <designables>
         <designable name="QIk-lk-lZS">
-            <size key="intrinsicContentSize" width="86.5" height="29.5"/>
+            <size key="intrinsicContentSize" width="86.5" height="19.5"/>
         </designable>
         <designable name="i2Z-gr-ZQ3">
-            <size key="intrinsicContentSize" width="89" height="29.5"/>
+            <size key="intrinsicContentSize" width="89" height="19.5"/>
         </designable>
         <designable name="lfI-78-rIq">
-            <size key="intrinsicContentSize" width="86.5" height="29.5"/>
+            <size key="intrinsicContentSize" width="86.5" height="19.5"/>
         </designable>
         <designable name="rDd-WI-iuT">
-            <size key="intrinsicContentSize" width="39" height="29.5"/>
+            <size key="intrinsicContentSize" width="39" height="19.5"/>
         </designable>
         <designable name="zAa-ia-8wA">
-            <size key="intrinsicContentSize" width="207" height="25.5"/>
+            <size key="intrinsicContentSize" width="207" height="19.5"/>
         </designable>
     </designables>
     <resources>

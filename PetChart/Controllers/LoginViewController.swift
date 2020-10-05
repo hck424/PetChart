@@ -39,7 +39,7 @@ class LoginViewController: BaseViewController {
         bgCorner.layer.maskedCorners = [CACornerMask.layerMinXMinYCorner, CACornerMask.layerMaxXMinYCorner]
         
         let str1: String = "안녕하세요.\n스마트한 우리아이 건강관리의 시작\n "
-        let img = UIImage(named: "group_18")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+        let img = UIImage(named: "logo_red")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         let attchment = NSTextAttachment.init(image: img!)
         
         attchment.bounds = CGRect.init(x: 0, y: -1, width: img!.size.width, height: img!.size.height)

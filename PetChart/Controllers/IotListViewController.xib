@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IotListViewController" customModule="PetChart" customModuleProvider="target">
+            <connections>
+                <outlet property="btnIotRegist" destination="kx2-i0-eD3" id="85e-kO-VlP"/>
+                <outlet property="footerView" destination="oKj-fQ-YnR" id="xf5-MV-0YU"/>
+                <outlet property="tblView" destination="lHK-fq-RsC" id="UMm-Nn-Pyu"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="grouped" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="lHK-fq-RsC">
+                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="46b-QH-kQ4"/>
+                        <outlet property="delegate" destination="-1" id="Kcp-Am-U2I"/>
+                    </connections>
+                </tableView>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+            <constraints>
+                <constraint firstItem="lHK-fq-RsC" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="7LR-ko-ToC"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="lHK-fq-RsC" secondAttribute="bottom" id="fVH-iU-Xvh"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="lHK-fq-RsC" secondAttribute="trailing" id="jHo-LQ-flK"/>
+                <constraint firstItem="lHK-fq-RsC" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="zHF-l3-AtM"/>
+            </constraints>
+            <point key="canvasLocation" x="-162" y="88"/>
+        </view>
+        <view contentMode="scaleToFill" id="oKj-fQ-YnR">
+            <rect key="frame" x="0.0" y="0.0" width="348" height="85"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kx2-i0-eD3" customClass="CButton" customModule="PetChart" customModuleProvider="target">
+                    <rect key="frame" x="20" y="4" width="308" height="36"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="36" id="z86-sg-1Nk"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                    <state key="normal" title="+ 새 기기 등록">
+                        <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="boolean" keyPath="halfCornerRadius" value="YES"/>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <action selector="onClickedBtnActions:" destination="-1" eventType="touchUpInside" id="wW6-Gy-8Jh"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="kx2-i0-eD3" secondAttribute="bottom" constant="4" id="dki-qM-W89"/>
+                <constraint firstAttribute="trailing" secondItem="kx2-i0-eD3" secondAttribute="trailing" constant="20" id="j7a-xH-d5c"/>
+                <constraint firstItem="kx2-i0-eD3" firstAttribute="leading" secondItem="oKj-fQ-YnR" secondAttribute="leading" constant="20" id="k2u-fC-CBj"/>
+                <constraint firstItem="kx2-i0-eD3" firstAttribute="top" secondItem="oKj-fQ-YnR" secondAttribute="top" constant="4" id="xHD-Tg-5DO"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="679.71014492753625" y="232.70089285714283"/>
+        </view>
+    </objects>
+</document>
