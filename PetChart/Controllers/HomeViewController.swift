@@ -6,6 +6,8 @@
 //
 
 import UIKit
+
+
 @IBDesignable
 class HomeViewController: BaseViewController {
     @IBOutlet weak var cornerBgView: UIView!
@@ -18,6 +20,7 @@ class HomeViewController: BaseViewController {
     var hitCount: Int = 0
     var petCount: Int = 0
     var petPopupView: PetSelectPopupView?
+    var arrMyPet: Array<Any>?
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawTitle(self, UIImage(named: "header_logo")!, nil)
@@ -29,7 +32,7 @@ class HomeViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.configurationUI()
+        self.requestMyPetList()
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NotiNameHitTestView), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_ :)), name: NSNotification.Name(rawValue: NotiNameHitTestView), object: nil)
     }
@@ -39,55 +42,75 @@ class HomeViewController: BaseViewController {
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NotiNameHitTestView), object: nil)
     }
     
+    func requestMyPetList() {
+        ApiManager.shared.requestMyPetList { (response) in
+            if let response = response as?[String:Any], let data = response["data"] {
+                self.configurationUI()
+            }
+            else {
+                self.configurationUI()
+            }
+        } failure: { (error) in
+            self.showErrorAlertView(error)
+        }
+
+    }
+
     func configurationUI() {
         
-        let hasPet = true
-        if hasPet == false {
+        
+        for view in svContaner.subviews {
+            view.removeFromSuperview()
+        }
+        
+        guard arrMyPet != nil else {
+            btnEdting.isHidden = true
+            btnMypetName.isHidden = true
             let emptyPetCell = EmptyPetCell.initWithFromNib()
             svContaner.addArrangedSubview(emptyPetCell)
             emptyPetCell.didSelectedClosure = ({(selData:Any?, index:Int) -> () in
                 let vc = AddAnimalNameViewController.init(nibName: "AddAnimalNameViewController", bundle: nil)
                 self.navigationController?.pushViewController(vc, animated: false)
             })
+            return
         }
-        else {
-            for view in svContaner.subviews {
-                view.removeFromSuperview()
-            }
-            
-            let dfs = UserDefaults.standard
-            var arrType:[PetHealth] = []
-            if dfs.object(forKey: kDrink) != nil {
-                arrType.append(.drink)
-            }
-            if dfs.object(forKey: kEat) != nil {
-                arrType.append(.eat)
-            }
-            if dfs.object(forKey: kWeight) != nil {
-                arrType.append(.weight)
-            }
-            if dfs.object(forKey: kFeces) != nil {
-                arrType.append(.feces)
-            }
-            if dfs.object(forKey: kWalk) != nil {
-                arrType.append(.walk)
-            }
-            if dfs.object(forKey: kMedical) != nil {
-                arrType.append(.medical)
-            }
-            
-            for type in arrType {
-                let cell = Bundle.main.loadNibNamed("HomeGraphCell", owner: self, options: nil)?.first as! HomeGraphCell
-                svContaner.addArrangedSubview(cell)
-                cell.configurationData(nil, type: type)
-            }
-            
-            let lbTmp = UILabel()
-            lbTmp.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for:.horizontal)
-            lbTmp.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for:.vertical)
-            svContaner.addArrangedSubview(lbTmp)
-            self.view.layoutIfNeeded()
+
+        btnEdting.isHidden = false
+        btnMypetName.isHidden = false
+        
+        let dfs = UserDefaults.standard
+        var arrType:[PetHealth] = []
+        if dfs.object(forKey: kDrink) != nil {
+            arrType.append(.drink)
         }
+        if dfs.object(forKey: kEat) != nil {
+            arrType.append(.eat)
+        }
+        if dfs.object(forKey: kWeight) != nil {
+            arrType.append(.weight)
+        }
+        if dfs.object(forKey: kFeces) != nil {
+            arrType.append(.feces)
+        }
+        if dfs.object(forKey: kWalk) != nil {
+            arrType.append(.walk)
+        }
+        if dfs.object(forKey: kMedical) != nil {
+            arrType.append(.medical)
+        }
+        
+        for type in arrType {
+            let cell = Bundle.main.loadNibNamed("HomeGraphCell", owner: self, options: nil)?.first as! HomeGraphCell
+            svContaner.addArrangedSubview(cell)
+            cell.configurationData(nil, type: type)
+        }
+        
+        let lbTmp = UILabel()
+        lbTmp.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for:.horizontal)
+        lbTmp.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for:.vertical)
+        svContaner.addArrangedSubview(lbTmp)
+        self.view.layoutIfNeeded()
+    
         
         petCount = 2
         if petCount > 1 {
@@ -110,7 +133,7 @@ class HomeViewController: BaseViewController {
             let animal3:Animal = Animal()
             animal3.name = "미미"
             
-            var data:[Animal] = [animal, animal2, animal3]
+            let data:[Animal] = [animal, animal2, animal3]
             if let petPopupView = petPopupView {
                 self.view.addSubview(petPopupView)
                 petPopupView.translatesAutoresizingMaskIntoConstraints = false
@@ -121,7 +144,7 @@ class HomeViewController: BaseViewController {
                 
                 petPopupView.configurationData(data)
                 petPopupView.didClickedClosure = ({(selData:Animal?, index) -> () in
-                    print(selData?.name)
+                    print(selData?.name as Any)
                     petPopupView.isHidden = true
                 })
                 petPopupView.isHidden = true
@@ -132,10 +155,9 @@ class HomeViewController: BaseViewController {
             btnMypetName.setTitle("낭낭이", for: .normal)
         }
     }
+    //FIXME:: custom btn actions
     @objc @IBAction func onclickedButtonActins(_ sender: UIButton) {
         if sender.tag == TAG_NAVI_USER {
-            let vc = MyInfoViewController.init()
-            self.navigationController?.pushViewController(vc, animated: true)
             
 //            let vc = PetHealthFavoriteEdtingViewController.init()
 //            vc.catergory = .favoriteHome
@@ -158,12 +180,8 @@ class HomeViewController: BaseViewController {
 //
 //            return
             
-//            AlertView.showWithCancelAndOk(title: "로그인 안내", message: "로그인이 필요한 메뉴입니다.\n로그인하시겠습니까") { (index) in
-//                if index == 1 {
-//                    let vc = LoginViewController.init(nibName: "LoginViewController", bundle: nil)
-//                    self.navigationController?.pushViewController(vc, animated: false)
-//                }
-//            }
+            
+            self.checkSessionGotoMyInfoVc()
         }
         else if sender == btnEdting {
             let vc = PetHealthFavoriteEdtingViewController.init()

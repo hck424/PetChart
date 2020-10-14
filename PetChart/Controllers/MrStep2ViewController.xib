@@ -12,10 +12,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MrStep2ViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
                 <outlet property="bgCornerView" destination="0ch-Sv-pI8" id="gj7-Ux-v10"/>
-                <outlet property="btnCanlendar" destination="vey-iZ-seh" id="zN8-vS-Rg3"/>
+                <outlet property="btnCanlendar" destination="c5h-0y-ECA" id="ANr-ld-jsa"/>
                 <outlet property="btnOk" destination="7dR-AP-rLg" id="hw3-5K-arg"/>
                 <outlet property="btnSafety" destination="M6V-hL-to6" id="Sby-je-wYw"/>
-                <outlet property="tfBirthDay" destination="MnL-vS-uzy" id="JMg-qT-51K"/>
+                <outlet property="tfBirthDay" destination="qcJ-m9-BEX" id="67t-nG-T0f"/>
                 <outlet property="view" destination="vgy-cN-WQ3" id="vgU-dS-hZh"/>
             </connections>
         </placeholder>
@@ -36,7 +36,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="SVo-2R-PRd">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="647"/>
                                     <subviews>
-                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="xBL-50-2fa">
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="wur-Df-Ywf">
                                             <rect key="frame" x="20" y="20" width="374" height="62"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="생년월일" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bUi-SO-FhG">
@@ -45,42 +45,44 @@
                                                     <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fsf-Xq-9NT">
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c5h-0y-ECA" customClass="UIButton">
                                                     <rect key="frame" x="0.0" y="16" width="374" height="45"/>
                                                     <subviews>
-                                                        <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="yyyy-MM-dd" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="MnL-vS-uzy" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="0.0" width="329" height="45"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="45" id="q4Z-tT-osH"/>
-                                                            </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
-                                                                    <real key="value" value="5"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
-                                                                    <real key="value" value="0.0"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </textField>
-                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vey-iZ-seh">
-                                                            <rect key="frame" x="329" y="0.0" width="45" height="45"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="width" constant="45" id="FDy-ld-c98"/>
-                                                            </constraints>
-                                                            <state key="normal" image="fill_1"/>
-                                                            <connections>
-                                                                <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="FoE-oC-2Tw"/>
-                                                            </connections>
-                                                        </button>
+                                                        <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zAe-we-jh5">
+                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
+                                                            <subviews>
+                                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="yyyy-MM-dd" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qcJ-m9-BEX">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="348" height="45"/>
+                                                                    <constraints>
+                                                                        <constraint firstAttribute="height" constant="45" id="fuj-Rl-Wvu"/>
+                                                                    </constraints>
+                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                    <textInputTraits key="textInputTraits"/>
+                                                                </textField>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fill_1" translatesAutoresizingMaskIntoConstraints="NO" id="TUb-hs-axl">
+                                                                    <rect key="frame" x="356" y="0.0" width="18" height="45"/>
+                                                                </imageView>
+                                                            </subviews>
+                                                        </stackView>
                                                     </subviews>
-                                                </stackView>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8uR-Ih-8cE">
-                                                    <rect key="frame" x="0.0" y="61" width="374" height="1"/>
-                                                    <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="1" id="Rev-qk-6Ba"/>
+                                                        <constraint firstItem="zAe-we-jh5" firstAttribute="top" secondItem="c5h-0y-ECA" secondAttribute="top" id="0PB-Xk-OXm"/>
+                                                        <constraint firstAttribute="height" secondItem="zAe-we-jh5" secondAttribute="height" id="A3n-Jk-IKa"/>
+                                                        <constraint firstItem="zAe-we-jh5" firstAttribute="leading" secondItem="c5h-0y-ECA" secondAttribute="leading" id="C4r-s7-ybc"/>
+                                                        <constraint firstAttribute="trailing" secondItem="zAe-we-jh5" secondAttribute="trailing" id="WA4-uB-qTp"/>
+                                                        <constraint firstAttribute="bottom" secondItem="zAe-we-jh5" secondAttribute="bottom" id="ZRw-TB-uKc"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="vYi-oZ-ZL4"/>
+                                                    </connections>
+                                                </view>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QYG-O3-gf9">
+                                                    <rect key="frame" x="0.0" y="61" width="374" height="1"/>
+                                                    <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="1" id="fQp-V5-kqn"/>
                                                     </constraints>
                                                 </view>
                                             </subviews>
@@ -143,14 +145,9 @@
                 <constraint firstItem="65H-nE-ibD" firstAttribute="leading" secondItem="FxR-NN-JWU" secondAttribute="leading" id="lLX-wN-cuj"/>
                 <constraint firstItem="65H-nE-ibD" firstAttribute="trailing" secondItem="FxR-NN-JWU" secondAttribute="trailing" id="x16-96-ROD"/>
             </constraints>
-            <point key="canvasLocation" x="-201" y="78"/>
+            <point key="canvasLocation" x="-201.44927536231884" y="77.678571428571431"/>
         </view>
     </objects>
-    <designables>
-        <designable name="MnL-vS-uzy">
-            <size key="intrinsicContentSize" width="89" height="19.5"/>
-        </designable>
-    </designables>
     <resources>
         <image name="fill_1" width="18" height="18"/>
         <image name="join_steop2" width="259" height="63"/>

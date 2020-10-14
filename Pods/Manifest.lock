@@ -62,6 +62,9 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
+  - GCDWebServer (3.5.4):
+    - GCDWebServer/Core (= 3.5.4)
+  - GCDWebServer/Core (3.5.4)
   - GoogleAppMeasurement (6.8.3):
     - GoogleUtilities/AppDelegateSwizzler (~> 6.7)
     - GoogleUtilities/MethodSwizzler (~> 6.7)
@@ -90,6 +93,7 @@ PODS:
   - GoogleUtilities/UserDefaults (6.7.2):
     - GoogleUtilities/Logger
   - GTMSessionFetcher/Core (1.4.0)
+  - JWTDecode (2.4.1)
   - KakaoSDK (2.0.2):
     - KakaoSDKAuth (= 2.0.2)
     - KakaoSDKCommon (= 2.0.2)
@@ -127,8 +131,10 @@ PODS:
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
   - naveridlogin-sdk-ios (4.1.2)
+  - ObjectMapper (3.5.3)
   - PromisesObjC (1.2.10)
   - SwiftKeychainWrapper (4.0.1)
+  - SwiftyJSON (4.3.0)
   - Toast-Swift (5.0.1)
 
 DEPENDENCIES:
@@ -139,10 +145,14 @@ DEPENDENCIES:
   - Firebase/Analytics
   - Firebase/Auth
   - Firebase/Crashlytics
+  - GCDWebServer (~> 3.0)
+  - JWTDecode (~> 2.4)
   - KakaoSDK
   - Mantis (~> 1.4.1)
   - naveridlogin-sdk-ios
+  - ObjectMapper (~> 3.5)
   - SwiftKeychainWrapper
+  - SwiftyJSON (~> 4.0)
   - Toast-Swift (~> 5.0.1)
 
 SPEC REPOS:
@@ -159,10 +169,12 @@ SPEC REPOS:
     - FirebaseCoreDiagnostics
     - FirebaseCrashlytics
     - FirebaseInstallations
+    - GCDWebServer
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
     - GTMSessionFetcher
+    - JWTDecode
     - KakaoSDK
     - KakaoSDKAuth
     - KakaoSDKCommon
@@ -175,8 +187,10 @@ SPEC REPOS:
     - Mantis
     - nanopb
     - naveridlogin-sdk-ios
+    - ObjectMapper
     - PromisesObjC
     - SwiftKeychainWrapper
+    - SwiftyJSON
     - Toast-Swift
 
 SPEC CHECKSUMS:
@@ -192,10 +206,12 @@ SPEC CHECKSUMS:
   FirebaseCoreDiagnostics: 770ac5958e1372ce67959ae4b4f31d8e127c3ac1
   FirebaseCrashlytics: 5777d3462fb8c3ab9e80a2473bd7d667a2e8411c
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
+  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   GoogleAppMeasurement: 966e88df9d19c15715137bb2ddaf52373f111436
   GoogleDataTransport: b7f406340a291370045a270c599e53c6fa6ec20f
   GoogleUtilities: 7f2f5a07f888cdb145101d6042bc4422f57e70b3
   GTMSessionFetcher: 6f5c8abbab8a9bce4bb3f057e317728ec6182b10
+  JWTDecode: 4bd4da0cdf0f8154fd467fa48499f34ec057fb88
   KakaoSDK: 5ef36912e9cbeda1206de9979e7daa832981611b
   KakaoSDKAuth: 69698a4a6726f2b43fb43246891a1a747343935e
   KakaoSDKCommon: 2226e13fbbd4a875826c7a348cf4f535392a4b8f
@@ -208,10 +224,12 @@ SPEC CHECKSUMS:
   Mantis: d2b5d8eb4cbead50c6b1cd0254ccccbf3a7ac3c1
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   naveridlogin-sdk-ios: cf8afccdb1793d4ecfcd5d46aa8729d8b5058c70
+  ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: b08a2bcd666400bff155e8b0f177dbad1c4c6f81
+PODFILE CHECKSUM: 3e4c402b02682d0978928dfc1db372ee8876d58c
 
 COCOAPODS: 1.9.3

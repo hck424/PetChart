@@ -50,6 +50,7 @@ class CNavigationBar: UINavigationBar {
     
     class func drawTitle(_ controller: UIViewController, _ title: Any?, _ selctor:Selector?) {
         let button: UIButton = UIButton.init(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
+        button.setTitleColor(UIColor.white, for: .normal)
         if let title:String = title as? String {
             button.setTitle(title, for: .normal)
             button.titleLabel?.font = UIFont.systemFont(ofSize: 18.0, weight: .medium)

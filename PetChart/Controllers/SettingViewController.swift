@@ -79,9 +79,16 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             AlertView.showWithCancelAndOk(title: "로그아웃", message: "로그아웃 하시겠습니까?") { (index) in
                 if index == 1 {
                     //TODO:: 로그아웃 처리
+                    self.logout()
+                    
                 }
             }
         }
     }
     
+    func logout() {
+        SharedData.removeObjectForKey(key: kPToken)
+        SharedData.instance.pToken = nil
+        self.navigationController?.popToRootViewController(animated: true)
+    }
 }

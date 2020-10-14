@@ -35,7 +35,7 @@ class AlertView: UIView {
     var btnTitleColor: Array<UIColor>?
     var type: AlertViewType = .normal
     var optionBtnTitles: Array<Any>?
-    
+    var contentEdge = UIEdgeInsets(top: 12, left: 20, bottom: 30, right: 20)
     class func showWithOk(title:Any?, message: Any?, completion:AlertClosure?) {
         let titles = ["확인"]
         let alert = AlertView.init(title: title, message: message, btnTitles:titles , completion: completion)
@@ -170,6 +170,9 @@ class AlertView: UIView {
         }
         else {
             svTitle.isHidden = true
+            svContent.isLayoutMarginsRelativeArrangement = true
+            contentEdge = UIEdgeInsets(top: 30, left: 20, bottom: 30, right: 20)
+            svContent.layoutMargins = contentEdge
         }
         
         if let message = message {

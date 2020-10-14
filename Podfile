@@ -23,4 +23,8 @@ pod 'CryptoSwift'
 pod 'SwiftKeychainWrapper'
 pod 'Toast-Swift', '~> 5.0.1'
 pod 'Mantis', '~> 1.4.1'
+pod 'JWTDecode', '~> 2.4'
+pod 'ObjectMapper', '~> 3.5'
+pod 'SwiftyJSON', '~> 4.0'
+pod "GCDWebServer", "~> 3.0"
 end

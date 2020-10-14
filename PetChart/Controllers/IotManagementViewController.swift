@@ -21,7 +21,7 @@ class IotManagementViewController: BaseViewController {
         super.viewDidLoad()
 
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
-        CNavigationBar.drawTitle(self, "기기관리 설정", nil)
+        CNavigationBar.drawTitle(self, "기기 설정", nil)
         if Utility.isIphoneX() == false {
             btnSafety.isHidden = true
         }

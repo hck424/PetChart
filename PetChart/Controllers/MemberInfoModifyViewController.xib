@@ -18,12 +18,12 @@
                 <outlet property="btnOk" destination="Ykg-Wb-i1I" id="gD5-92-eVR"/>
                 <outlet property="btnPhoneNumberChange" destination="rH1-yi-HdQ" id="aYo-Av-ANG"/>
                 <outlet property="btnSafety" destination="ry1-Zj-sKS" id="htH-RJ-maQ"/>
-                <outlet property="tfAddress" destination="0pV-bV-pRM" id="J6U-D2-hes"/>
                 <outlet property="tfAddressDetail" destination="oBj-U1-NlN" id="rpX-hT-vOx"/>
                 <outlet property="tfEmail" destination="cXo-Cs-hYs" id="omJ-ha-dMy"/>
                 <outlet property="tfName" destination="ZDM-gU-45Z" id="Jnq-PW-ONf"/>
                 <outlet property="tfNicName" destination="UkY-aJ-cht" id="SDN-NL-4Bg"/>
                 <outlet property="tfPhoneNumber" destination="LfP-r3-UJx" id="Msb-Qn-vJG"/>
+                <outlet property="tvAddress" destination="4wf-Sx-gST" id="GOi-LH-MSl"/>
                 <outlet property="view" destination="8y8-CA-k9E" id="JOS-uV-vj9"/>
                 <outletCollection property="arrBtnPrivacy" destination="JiO-vq-grk" collectionClass="NSMutableArray" id="HQb-oU-bHj"/>
                 <outletCollection property="arrBtnPrivacy" destination="IQm-BN-xb9" collectionClass="NSMutableArray" id="Sry-5u-q3v"/>
@@ -251,6 +251,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rH1-yi-HdQ" customClass="CButton" customModule="PetChart" customModuleProvider="target">
                                                     <rect key="frame" x="311" y="9.5" width="63" height="26"/>
                                                     <color key="backgroundColor" red="0.91372549020000005" green="0.37254901959999998" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="63" id="qqP-Ly-1cM"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                     <inset key="contentEdgeInsets" minX="20" minY="5" maxX="20" maxY="5"/>
                                                     <state key="normal" title="변경">
@@ -275,7 +278,7 @@
                                     </subviews>
                                 </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="S9W-rz-jfx">
-                                    <rect key="frame" x="20" y="481" width="374" height="115"/>
+                                    <rect key="frame" x="20" y="481" width="374" height="120"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="주소" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kCl-C9-VrJ">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
@@ -284,31 +287,43 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0IU-zE-aiN">
-                                            <rect key="frame" x="0.0" y="16" width="374" height="45"/>
+                                            <rect key="frame" x="0.0" y="16" width="374" height="50"/>
                                             <subviews>
-                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="예) 서초대로 385" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="0pV-bV-pRM" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
-                                                    <rect key="frame" x="0.0" y="0.0" width="303" height="45"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="4wf-Sx-gST" customClass="CTextView" customModule="PetChart" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="303" height="50"/>
+                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="45" id="G6s-QO-l0M"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="y21-8y-GBY"/>
                                                     </constraints>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     <userDefinedRuntimeAttributes>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
+                                                        <userDefinedRuntimeAttribute type="string" keyPath="placeHolderString" value="예) 서초대로 385"/>
+                                                        <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
+                                                            <color key="value" systemColor="placeholderTextColor"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetTop">
                                                             <real key="value" value="5"/>
                                                         </userDefinedRuntimeAttribute>
-                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetBottom">
+                                                            <real key="value" value="5"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetLeft">
                                                             <real key="value" value="0.0"/>
                                                         </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="insetRigth">
+                                                            <real key="value" value="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isCenterTextAligment" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
-                                                    <connections>
-                                                        <outlet property="delegate" destination="-1" id="POG-WG-5dp"/>
-                                                    </connections>
-                                                </textField>
+                                                </textView>
                                                 <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HMG-a7-8RM" customClass="CButton" customModule="PetChart" customModuleProvider="target">
-                                                    <rect key="frame" x="311" y="9.5" width="63" height="26"/>
+                                                    <rect key="frame" x="311" y="12" width="63" height="26"/>
                                                     <color key="backgroundColor" red="0.91372549020000005" green="0.37254901959999998" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="63" id="1NJ-Ih-gqf"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="13"/>
                                                     <inset key="contentEdgeInsets" minX="20" minY="5" maxX="20" maxY="5"/>
                                                     <state key="normal" title="검색">
@@ -324,14 +339,14 @@
                                             </subviews>
                                         </stackView>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sAx-TA-sPJ">
-                                            <rect key="frame" x="0.0" y="61" width="374" height="1"/>
+                                            <rect key="frame" x="0.0" y="66" width="374" height="1"/>
                                             <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="1" id="hhd-Mg-qSo"/>
                                             </constraints>
                                         </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gwv-sh-1vg">
-                                            <rect key="frame" x="0.0" y="62" width="374" height="53"/>
+                                            <rect key="frame" x="0.0" y="67" width="374" height="53"/>
                                             <subviews>
                                                 <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="상세주소 입력(건물명, 동/호수 등)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="oBj-U1-NlN" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="8" width="374" height="45"/>
@@ -365,7 +380,7 @@
                                     </subviews>
                                 </stackView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5T4-TB-R4k">
-                                    <rect key="frame" x="20" y="626" width="374" height="124"/>
+                                    <rect key="frame" x="20" y="631" width="374" height="119"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -449,9 +464,6 @@
         </toolbar>
     </objects>
     <designables>
-        <designable name="0pV-bV-pRM">
-            <size key="intrinsicContentSize" width="106" height="19.5"/>
-        </designable>
         <designable name="LfP-r3-UJx">
             <size key="intrinsicContentSize" width="109" height="19.5"/>
         </designable>
@@ -470,6 +482,9 @@
     </designables>
     <resources>
         <image name="keyboard.chevron.compact.down" catalog="system" width="128" height="102"/>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

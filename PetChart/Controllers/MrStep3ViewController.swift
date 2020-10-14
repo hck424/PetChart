@@ -69,10 +69,52 @@ import UIKit
     //FIXME:: button actions
     @IBAction func onclickedButtonActions(_ sender: UIButton) {
         if sender == btnEmailCheck {
-            sender.isSelected = true
+            guard let id = tfEmail.text, id.isEmpty == false else {
+                return
+            }
+            
+            ApiManager.shared.requestFindUserIdCheck(id: id) { (response) in
+                if let response = response as? [String : Any], let success = response["success"] as? Bool {
+                    
+                    if let msg = response["msg"] as? String {
+                        if msg == "사용할 수 있는 아이디 입니다." {
+                            self.btnEmailCheck.isSelected = true
+                        }
+                        else {
+                            self.showErrorAlertView(response)
+                        }
+                    }
+                }
+                else {
+                    self.showErrorAlertView(response)
+                }
+                
+            } failure: { (error) in
+                self.showErrorAlertView(error)
+            }
         }
         else if sender == btnNickNameCheck {
-            sender.isSelected = true
+            guard let nicName = tfNickName.text else {
+                return
+            }
+            
+            ApiManager.shared.requestFindUserNicNameCheck(nickName: nicName, success: { (response) in
+                if let response = response as? [String : Any], let success = response["success"] as? Bool {
+                    if let msg = response["msg"] as? String {
+                        if msg == "사용할 수 있는 닉네임 입니다." {
+                            self.btnNickNameCheck.isSelected = true
+                        }
+                        else {
+                            self.showErrorAlertView(response)
+                        }
+                    }
+                    else {
+                        self.showErrorAlertView(response)
+                    }
+                }
+            }, failure: { (error) in
+                self.showErrorAlertView(error)
+            })
         }
         else if sender == btnOk {
             lbHintEmail.isHidden = true
@@ -118,8 +160,82 @@ import UIKit
             if isOk == false {
                 return
             }
+            guard let user = user else {
+                return
+            }
             
+            var param: Dictionary<String, String> = [:]
+            guard let email = tfEmail.text else  {
+                return
+            }
+            guard let jonin_type = user.joinType,
+                  let name = user.name,
+                  let nickname = tfNickName.text,
+                  let password = tfPassword.text,
+                  let birthday = user.birthday,
+                  let sex = user.gender else {
+                
+                return
+            }
             
+            param["email"] = email
+            param["id"] = email
+            param["join_type"] = jonin_type
+            param["name"] = name
+            param["nickname"] = nickname
+            param["sex"] = sex
+            param["password"] = password
+            param["birthday"] = birthday
+            param["privacy_agree"] = "true"
+            param["termsservice_agree"] = "true"
+            param["Marketing_agree"] = "true"
+            
+            self.view.endEditing(true)
+            ApiManager.shared.requestUserSignOut(param: param) { (response) in
+                print("회원가입 성공: \(String(describing: response))")
+                
+                if let response = response as? [String: Any], let success = response["success"] as? Bool {
+                    if success == true {
+                        
+                    }
+                    else {
+                        self.showErrorAlertView(response)
+                    }
+                }
+            } failure: { (error) in
+                print("회원가입 실패: \(String(describing: error))")
+                if let error = error as? Dictionary<String, Any> {
+                    
+                    var title = "에러"
+                    var errorCode: Int = 0
+                    if let code = error["code"] as? Int {
+                        title.append(":\(code)")
+                        errorCode = code
+                    }
+                    guard let msg = error["msg"] as? String else {
+                        return
+                    }
+                    
+                    AlertView.showWithOk(title: title, message: msg) { (index) in
+                        if errorCode == -1005 {
+                            let vcs:Array = self.navigationController!.viewControllers as Array
+                            var findIndex:Int = 0
+                            for index in stride(from: vcs.count-1, to: 0, by: -1) {
+                                let vc = vcs[index]
+                                if vc.isKind(of: LoginViewController.classForCoder()) == true {
+                                    findIndex = index
+                                    break
+                                }
+                            }
+                            self.navigationController?.popToViewController(vcs[findIndex], animated: true)
+                        }
+                        
+                    }
+                }
+                else if (error as? Error) != nil {
+                    AlertView.showWithOk(title: "에러", message: "시스템 에러", completion: nil)
+                }
+            }
         }
     }
     

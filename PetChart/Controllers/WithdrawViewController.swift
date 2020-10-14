@@ -32,6 +32,33 @@ class WithdrawViewController: BaseViewController {
             AlertView.showWithCancelAndOk(title: "회원 탈퇴", message: "확인 버튼을 누르면 탈퇴 처리가 완료됩니다.") { (index) in
                 if index == 1 {
                     //TODO:: 회원 탈퇴
+                    
+                    var param = [String: Any]()
+                    
+                    guard let id = SharedData.getUserId(),
+                          let login_type = SharedData.getLoginType(),
+                          let password = SharedData.objectForKey(key: kUserPassword) else {
+                        return
+                    }
+                    
+                    param["id"] = "\(login_type)_\(id)"
+                    param["login_type"] = login_type
+                    param["password"] = password
+                    
+                    ApiManager.shared.requestUserExit(param: param) { (response) in
+                        if let response = response as? [String : Any], (response["success"] as! Bool) == true {
+                            SharedData.removeObjectForKey(key: kUserId)
+                            SharedData.removeObjectForKey(key: kUserPassword)
+                            SharedData.removeObjectForKey(key: kPToken)
+                            SharedData.removeObjectForKey(key: kLoginType)
+                            self.navigationController?.popToRootViewController(animated: true)
+                        }
+                        else {
+                            self.showErrorAlertView(response)
+                        }
+                    } failure: { (error) in
+                        self.showErrorAlertView(error)
+                    }
                 }
             }
         }

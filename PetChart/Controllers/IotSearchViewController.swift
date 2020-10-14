@@ -17,7 +17,7 @@ class IotSearchViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
-        CNavigationBar.drawTitle(self, "기기설정", nil)
+        CNavigationBar.drawTitle(self, "기기 등록", nil)
         
         
         tblView.layer.cornerRadius = 20

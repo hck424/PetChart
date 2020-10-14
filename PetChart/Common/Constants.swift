@@ -25,10 +25,11 @@ let NotiNameHitTestView = "HitTestView"
 
 let IsShowTutorial = "IsShowTutorial"
 let KAKAO_NATIVE_APP_KEY = "f43c314ddcf1ce35e19935da750b7c8a"
+let KAKAO_REST_API_KEY = "4a98985ff0324b80007198c0b928e263"
 let NAVER_URL_SCHEME = "naverlogin"
 let NAVER_CONSUMER_KEY = "X7G9gqYulGWet9LR8V0k"
 let NAVER_CONSUMER_SECRET = "DDdzjicyuS"
-let kUSER_UUID = "USER_UUID"
+
 
 let kDrink = "Drink"
 let kEat = "Eat"
@@ -48,6 +49,15 @@ let kTotalChartWalk = "TotalChartWalk"
 let kTotalChartMedical = "TotalChartMedical"
 
 let kPushSetting = "PushSetting"
+
+let kAPPLECATION_UUID = "APPLECATION_UUID"
+let kUserId = "UserId"
+let kPToken = "PToken"
+let kLoginType = "LoginType"
+let kUserIdx = "UserIdx"
+let kUserPassword = "UserPassword"
+
+let TAG_LOADING_IMG = 99999
 
 enum PetHealth: String {
     case drink = "drink"
@@ -156,3 +166,12 @@ enum GraphType: Int {
     case month
 }
 
+public struct Address {
+    let addressName: String
+    var postCode: String
+    var roadAddr: String
+    var jibunAddr: String
+    var depthOneAddr: String
+    var deptTwoAddr: String
+    var deptThreeAddr: String
+}

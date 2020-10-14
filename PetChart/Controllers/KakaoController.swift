@@ -23,8 +23,7 @@ class KakaoController: NSObject {
                     return
                 }
                 print("login kakaotalk success.")
-                self.user = UserInfo()
-                self.user?.accessToken = token?.accessToken
+                self.user = UserInfo.init(JSON: ["access_token": token?.accessToken ?? ""])
                 self.user?.expiresIn = token?.expiresIn
                 self.user?.expiredAt = token?.expiredAt
                 self.user?.refreshToken = token?.refreshToken
@@ -64,9 +63,6 @@ class KakaoController: NSObject {
             }
             if let birthday = user.kakaoAccount?.birthday {
                 self.user?.birthday = birthday
-            }
-            if let ageRange = user.kakaoAccount?.ageRange {
-                self.user?.ageRange = ageRange.rawValue
             }
             if let gender = user.kakaoAccount?.gender?.rawValue {
                 self.user?.gender = gender

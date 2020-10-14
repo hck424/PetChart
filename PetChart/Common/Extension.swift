@@ -17,9 +17,28 @@ extension UITableView {
         }
     }
 }
+
 //FIXME:: UIViewController
 extension UIViewController {
     
+    func showErrorAlertView(_ data: Any?) {
+        if let data = data as? Dictionary<String, Any> {
+            
+            var title = "에러"
+            if let code = data["code"] as? Int {
+                title.append(":\(code)")
+            }
+            
+            guard let msg = data["msg"] as? String else {
+                return
+            }
+            AlertView.showWithOk(title: nil, message: msg, completion: nil)
+            
+        }
+        else if let data = data as? Error {
+//            AlertView.showWithOk(title: "Error", message: "시스템에러", completion: nil)
+        }
+    }
 }
 //FIXME:: UIView
 extension UIView {
@@ -33,6 +52,43 @@ extension UIView {
         let bgColor = self.backgroundColor
         self.backgroundColor = nil
         self.layer.backgroundColor = bgColor?.cgColor
+    }
+    
+    func startAnimation(raduis: CGFloat) {
+        let imageName = "ico_loading"
+
+        let indicator = viewWithTag(TAG_LOADING_IMG) as? UIImageView
+        if indicator != nil {
+            indicator?.removeFromSuperview()
+        }
+
+        isHidden = false
+        superview?.bringSubviewToFront(self)
+
+        let ivIndicator = UIImageView(frame: CGRect(x: 0, y: 0, width: 2 * raduis, height: 2 * raduis))
+        ivIndicator.tag = TAG_LOADING_IMG
+        ivIndicator.contentMode = .scaleAspectFit
+        ivIndicator.image = UIImage(named: imageName)
+        addSubview(ivIndicator)
+        indicator?.layer.borderWidth = 1.0
+        indicator?.layer.borderColor = UIColor.red.cgColor
+        ivIndicator.frame = CGRect(x: (frame.size.width - ivIndicator.frame.size.width) / 2, y: (frame.size.height - ivIndicator.frame.size.height) / 2, width: ivIndicator.frame.size.width, height: ivIndicator.frame.size.height)
+
+        let rotation = CABasicAnimation(keyPath: "transform.rotation")
+        rotation.fromValue = NSNumber(value: 0.0)
+        rotation.toValue = NSNumber(value: -2.0 * Double(CGFloat.pi))
+        rotation.duration = 1
+        rotation.repeatCount = .infinity
+
+        ivIndicator.layer.add(rotation, forKey: "loading")
+    }
+    func stopAnimation() {
+        isHidden = true
+        let indicator = viewWithTag(TAG_LOADING_IMG) as? UIImageView
+        if indicator != nil {
+            indicator?.layer.removeAnimation(forKey: "loading")
+            //        [indicator removeFromSuperview];
+        }
     }
 }
 //FIXME:: CACornerMask
@@ -77,7 +133,13 @@ public extension Error {
 
 //FIXME:: String
 extension String {
-    
+    func isEqualToString(find: String) -> Bool {
+        return String(format: self) == find
+    }
+    func deletingPrefix(_ prefix: String) -> String {
+           guard self.hasPrefix(prefix) else { return self }
+           return String(self.dropFirst(prefix.count))
+    }
     // String Trim
     public var stringTrim: String{
         return self.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines)

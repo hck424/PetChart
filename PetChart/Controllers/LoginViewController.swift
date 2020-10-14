@@ -28,6 +28,8 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var btnApple: CButton!
     @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var bottomScrollView: NSLayoutConstraint!
+    @IBOutlet weak var lbHitUserId: UILabel!
+    @IBOutlet weak var lbHitPassword: UILabel!
     
     var user: UserInfo? = nil
     var currentNonce: String? = nil
@@ -52,6 +54,8 @@ class LoginViewController: BaseViewController {
         
         lbTitle.attributedText = resultAttr
         
+        tfEmail.text = SharedData.getUserId() ?? ""
+        btnCheck.isSelected = true
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -68,7 +72,7 @@ class LoginViewController: BaseViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
+        
     @IBAction func tapGestureHanlder(_ sender: UITapGestureRecognizer) {
         if sender.view == self.view {
             self.view.endEditing(true)
@@ -80,10 +84,77 @@ class LoginViewController: BaseViewController {
             self.navigationController?.popViewController(animated: false)
         }
         else if sender == btnLogin {
+            lbHitUserId.isHidden = true
+            lbHitPassword.isHidden = true
+            var isOk = true
+            if tfEmail.text?.count == 0 {
+                lbHitUserId.isHidden = false
+                isOk = false
+            }
+            if tfPassword.text?.count == 0 {
+                lbHitPassword.isHidden = false
+                isOk = false
+            }
+            if isOk == false {
+                return
+            }
             
+            
+            var param:[String:Any] = [:]
+            param["id"] = tfEmail.text!
+            param["password"] = tfPassword.text!
+            param["deviceUID"] = SharedData.objectForKey(key: kAPPLECATION_UUID)!
+            param["login_type"] = SharedData.getLoginType() ?? "none"
+            param["p_token"] = SharedData.getToken() ?? "123....."
+            
+            ApiManager.shared.requestUserSignIn(param: param) { (response) in
+               
+                if let response = response as? [String:Any],
+                   let success = response["success"] as? Bool,
+                   let data = response["data"] as? [String: Any] {
+                    
+                    if success == false {
+                        self.showErrorAlertView(response)
+                        return
+                    }
+                    
+                    
+                    if let token = data["token"] as? String {
+                        if self.btnCheck.isSelected {
+                            //로그인 유지 userdefault 쓴다.
+                            SharedData.setObjectForKey(key: kPToken, value: token)
+                            SharedData.instance.pToken = token
+                        }
+                        else {
+                            //메모리에 유지
+                            SharedData.instance.pToken = token
+                        }
+                    }
+                    if let idx = data["idx"] as? Int {
+                        SharedData.setObjectForKey(key: kUserIdx, value: idx)
+                    }
+                    if let password = self.tfPassword.text {
+                        SharedData.setObjectForKey(key: kUserPassword, value: password)
+                    }
+                    
+                    if let join_type = data["join_type"] as? String,
+                       let user_id = data["user_id"] as? String {
+                        
+                        let realUserId = user_id.deletingPrefix("\(join_type)_")
+                        
+                        SharedData.setObjectForKey(key: kLoginType, value: join_type)
+                        SharedData.setObjectForKey(key: kUserId, value: realUserId)
+                    }
+                    
+                    self.navigationController?.popViewController(animated: false)
+                }
+                
+            } failure: { (error) in
+                self.showErrorAlertView(error)
+            }
         }
         else if sender == btnCheck {
-            
+            sender.isSelected = !sender.isSelected
         }
         else if sender == btnKakao {
             KakaoController().login(viewcontorller: self) { (user: UserInfo?, error: Error?) in
@@ -109,7 +180,8 @@ class LoginViewController: BaseViewController {
             
         }
         else if sender == btnFindPassword {
-            
+            let vc = FindPassWordViewController.init()
+            self.navigationController?.pushViewController(vc, animated: true)
         }
         else if sender == btnJoinEmail {
             let vc = MrStep1ViewController.init(nibName: "MrStep1ViewController", bundle: nil)
@@ -206,8 +278,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                 print("Unable to serialize token string from data:\(appIdToken.description)")
                 return
             }
-            self.user = UserInfo()
-            self.user?.accessToken = idToken
+            self.user = UserInfo.init(JSON: ["access_token": idToken])
+            
             print ("user appid token : \(idToken)")
             
             // Initialize a Firebase credential.

@@ -11,10 +11,11 @@ import UIKit
     var user: UserInfo?
     
     @IBOutlet weak var btnCanlendar: UIButton!
+    
     @IBOutlet weak var btnOk: UIButton!
     @IBOutlet weak var btnSafety: UIButton!
     @IBOutlet weak var bgCornerView: UIView!
-    @IBInspectable @IBOutlet weak var tfBirthDay: CTextField!
+    @IBOutlet weak var tfBirthDay: UITextField!
     
     var selDate: Date? = nil
     override func viewDidLoad() {

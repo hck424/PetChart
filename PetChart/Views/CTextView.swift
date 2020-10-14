@@ -10,7 +10,8 @@ import Foundation
 
 @IBDesignable class CTextView: UITextView {
     public var placeholderLabel: UILabel?
-    var myDelegate: UITextViewDelegate?
+    private var isOnceLoad: Bool = false
+    
     @IBInspectable var borderWidth: CGFloat = 0.0 {
         didSet {
             if borderWidth > 0 {setNeedsLayout()}
@@ -48,6 +49,11 @@ import Foundation
             if insetRigth > 0.0 { setNeedsDisplay() }
         }
     }
+    @IBInspectable var isCenterTextAligment:Bool = false {
+        didSet {
+            if isCenterTextAligment { setNeedsDisplay() }
+        }
+    }
     @IBInspectable var placeHolderColor: UIColor = UIColor(white: 0.78, alpha: 1) {
         didSet {
             setNeedsDisplay()
@@ -71,6 +77,10 @@ import Foundation
             self.configurePlaceholderLabel()
         }
         
+        if isCenterTextAligment && isOnceLoad == false {
+            self.addObserver(self, forKeyPath: "contentSize", options: .new, context: nil)
+            isOnceLoad = true
+        }
         if borderWidth > 0 && borderColor != nil {
             layer.borderColor = borderColor?.cgColor
             layer.borderWidth = borderWidth
@@ -103,6 +113,17 @@ import Foundation
         placeholderLabel?.bottomAnchor.constraint(greaterThanOrEqualTo: self.bottomAnchor, constant: insetBottom).isActive = true
     }
     
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+        
+        if let textView = object as? UITextView {
+            var topoffset = (textView.bounds.size.height - (textView.contentSize.height * textView.zoomScale))/2.0
+            if topoffset < 0.0 {
+                topoffset = 0.0
+            }
+            
+            textView.contentOffset = CGPoint(x: 0, y: -topoffset)
+        }
+    }
 //    func textViewDidChange(_ textView: UITextView) {
 //        placeholderLabel?.isHidden = !textView.text.isEmpty
 //    }

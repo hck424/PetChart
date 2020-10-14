@@ -152,7 +152,7 @@
                                                                         <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="cvO-mJ-9cM">
                                                                             <rect key="frame" x="0.0" y="16" width="374" height="45"/>
                                                                             <subviews>
-                                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="닉네임을 입력하세요" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qNV-Kl-zC0" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
+                                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="닉네임을 입력하세요(3글자이상)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qNV-Kl-zC0" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
                                                                                     <rect key="frame" x="0.0" y="0.0" width="301" height="45"/>
                                                                                     <constraints>
                                                                                         <constraint firstAttribute="height" constant="45" id="1ie-7W-9YV"/>
@@ -433,7 +433,7 @@
             <size key="intrinsicContentSize" width="116" height="18"/>
         </designable>
         <designable name="qNV-Kl-zC0">
-            <size key="intrinsicContentSize" width="121" height="19.5"/>
+            <size key="intrinsicContentSize" width="193" height="19.5"/>
         </designable>
     </designables>
     <resources>

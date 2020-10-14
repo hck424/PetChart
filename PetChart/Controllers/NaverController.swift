@@ -43,8 +43,7 @@ class NaverController: NSObject {
                     guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] else { return }
                     guard let response = json["response"] as? [String: AnyObject] else { return }
 
-                    self.user = UserInfo()
-                    self.user?.accessToken = accessToken
+                    self.user = UserInfo.init(JSON: ["access_token": accessToken])
                     if let id = response["id"]  as?String { self.user?.userId = id }
                     if let email = response["email"]  as?String { self.user?.email = email}
                     if let name = response["name"]  as?String { self.user?.name = name }

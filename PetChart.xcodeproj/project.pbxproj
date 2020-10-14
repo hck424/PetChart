@@ -8,8 +8,23 @@
 
 /* Begin PBXBuildFile section */
 		353D39E0FF33E17BCFC84F2A /* Pods_PetChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43253CBBFD45190799B14C02 /* Pods_PetChart.framework */; };
+		E901E57125343931000D499C /* WkWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901E56F25343931000D499C /* WkWebViewController.swift */; };
+		E901E57225343931000D499C /* WkWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E901E57025343931000D499C /* WkWebViewController.xib */; };
+		E901E576253459BB000D499C /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = E901E575253459BB000D499C /* index.html */; };
+		E901E59225354D1F000D499C /* AddressSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901E59025354D1F000D499C /* AddressSearchViewController.swift */; };
+		E901E59325354D1F000D499C /* AddressSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E901E59125354D1F000D499C /* AddressSearchViewController.xib */; };
+		E901E5C92535780B000D499C /* AddressSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901E5C72535780B000D499C /* AddressSearchCell.swift */; };
+		E901E5CA2535780B000D499C /* AddressSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E901E5C82535780B000D499C /* AddressSearchCell.xib */; };
+		E901E61825369165000D499C /* NoticeCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901E61725369165000D499C /* NoticeCellView.swift */; };
+		E901E61B2536916C000D499C /* NoticeCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E901E61A2536916C000D499C /* NoticeCellView.xib */; };
+		E901E61F253697E8000D499C /* FindPassWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901E61D253697E8000D499C /* FindPassWordViewController.swift */; };
+		E901E620253697E8000D499C /* FindPassWordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E901E61E253697E8000D499C /* FindPassWordViewController.xib */; };
 		E9086EDA252867A1006D7F1D /* GraphView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9086ED9252867A1006D7F1D /* GraphView.swift */; };
 		E9086EDD252867AA006D7F1D /* GraphView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9086EDC252867AA006D7F1D /* GraphView.xib */; };
+		E92022332536CD1500C35E77 /* NewPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92022312536CD1500C35E77 /* NewPasswordViewController.swift */; };
+		E92022342536CD1500C35E77 /* NewPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E92022322536CD1500C35E77 /* NewPasswordViewController.xib */; };
+		E92022842536DE4100C35E77 /* WifiSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92022822536DE4100C35E77 /* WifiSearchViewController.swift */; };
+		E92022852536DE4100C35E77 /* WifiSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E92022832536DE4100C35E77 /* WifiSearchViewController.xib */; };
 		E929CA5E2529CE8E00AB4F68 /* TalkWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E929CA5C2529CE8E00AB4F68 /* TalkWriteViewController.swift */; };
 		E929CA5F2529CE8E00AB4F68 /* TalkWriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E929CA5D2529CE8E00AB4F68 /* TalkWriteViewController.xib */; };
 		E9428EFA2527503A00456A48 /* PetSelectRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9428EF92527503A00456A48 /* PetSelectRowView.swift */; };
@@ -163,8 +178,23 @@
 		43253CBBFD45190799B14C02 /* Pods_PetChart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetChart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9D1289E7D5706541A0DEC79A /* Pods-PetChart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.debug.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.debug.xcconfig"; sourceTree = "<group>"; };
 		D56D95B30D28A1F007217B56 /* Pods-PetChart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.release.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.release.xcconfig"; sourceTree = "<group>"; };
+		E901E56F25343931000D499C /* WkWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WkWebViewController.swift; sourceTree = "<group>"; };
+		E901E57025343931000D499C /* WkWebViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WkWebViewController.xib; sourceTree = "<group>"; };
+		E901E575253459BB000D499C /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
+		E901E59025354D1F000D499C /* AddressSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchViewController.swift; sourceTree = "<group>"; };
+		E901E59125354D1F000D499C /* AddressSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressSearchViewController.xib; sourceTree = "<group>"; };
+		E901E5C72535780B000D499C /* AddressSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchCell.swift; sourceTree = "<group>"; };
+		E901E5C82535780B000D499C /* AddressSearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressSearchCell.xib; sourceTree = "<group>"; };
+		E901E61725369165000D499C /* NoticeCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeCellView.swift; sourceTree = "<group>"; };
+		E901E61A2536916C000D499C /* NoticeCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoticeCellView.xib; sourceTree = "<group>"; };
+		E901E61D253697E8000D499C /* FindPassWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPassWordViewController.swift; sourceTree = "<group>"; };
+		E901E61E253697E8000D499C /* FindPassWordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FindPassWordViewController.xib; sourceTree = "<group>"; };
 		E9086ED9252867A1006D7F1D /* GraphView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GraphView.swift; sourceTree = "<group>"; };
 		E9086EDC252867AA006D7F1D /* GraphView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GraphView.xib; sourceTree = "<group>"; };
+		E92022312536CD1500C35E77 /* NewPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewPasswordViewController.swift; sourceTree = "<group>"; };
+		E92022322536CD1500C35E77 /* NewPasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewPasswordViewController.xib; sourceTree = "<group>"; };
+		E92022822536DE4100C35E77 /* WifiSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiSearchViewController.swift; sourceTree = "<group>"; };
+		E92022832536DE4100C35E77 /* WifiSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WifiSearchViewController.xib; sourceTree = "<group>"; };
 		E929CA5C2529CE8E00AB4F68 /* TalkWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkWriteViewController.swift; sourceTree = "<group>"; };
 		E929CA5D2529CE8E00AB4F68 /* TalkWriteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkWriteViewController.xib; sourceTree = "<group>"; };
 		E9428EF92527503A00456A48 /* PetSelectRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSelectRowView.swift; sourceTree = "<group>"; };
@@ -346,6 +376,14 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		E901E56B253437B9000D499C /* Resource */ = {
+			isa = PBXGroup;
+			children = (
+				E901E575253459BB000D499C /* index.html */,
+			);
+			path = Resource;
+			sourceTree = "<group>";
+		};
 		E9428F1325277B6D00456A48 /* Chart */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,6 +458,8 @@
 				E953A37D252B01A1000F87D7 /* IotSearchViewController.xib */,
 				E9DFC6A8252B0D8C00167237 /* IotDeviceCell.swift */,
 				E9DFC6A9252B0D8C00167237 /* IotDeviceCell.xib */,
+				E92022822536DE4100C35E77 /* WifiSearchViewController.swift */,
+				E92022832536DE4100C35E77 /* WifiSearchViewController.xib */,
 			);
 			name = Iot;
 			sourceTree = "<group>";
@@ -461,6 +501,8 @@
 				E95D0A2E252AFA5B00077EE4 /* Iot */,
 				E95D09CA252AE32B00077EE4 /* NoticeViewController.swift */,
 				E95D09CB252AE32B00077EE4 /* NoticeViewController.xib */,
+				E901E61725369165000D499C /* NoticeCellView.swift */,
+				E901E61A2536916C000D499C /* NoticeCellView.xib */,
 				E95D09D0252AE3B100077EE4 /* FAQViewController.swift */,
 				E95D09D1252AE3B100077EE4 /* FAQViewController.xib */,
 				E95D09D6252AE3DD00077EE4 /* QuestionViewController.swift */,
@@ -488,6 +530,10 @@
 				E9A9F2462521B3910049E041 /* FbController.swift */,
 				E9A9F2532521C0E40049E041 /* KakaoController.swift */,
 				E9A9F2562521C0EE0049E041 /* NaverController.swift */,
+				E901E61D253697E8000D499C /* FindPassWordViewController.swift */,
+				E901E61E253697E8000D499C /* FindPassWordViewController.xib */,
+				E92022312536CD1500C35E77 /* NewPasswordViewController.swift */,
+				E92022322536CD1500C35E77 /* NewPasswordViewController.xib */,
 			);
 			name = Logoin;
 			sourceTree = "<group>";
@@ -522,11 +568,14 @@
 		E9D794E1251ECFF800D79E7E /* PetChart */ = {
 			isa = PBXGroup;
 			children = (
+				E901E56B253437B9000D499C /* Resource */,
 				E9A9F2602521E70F0049E041 /* PetChart.entitlements */,
 				E9A9F24E2521B7BD0049E041 /* Models */,
 				E993C486251EEB94007E8C7E /* GoogleService-Info.plist */,
 				E9D794EE251ECFF800D79E7E /* Assets.xcassets */,
 				E9D794E2251ECFF800D79E7E /* AppDelegate.swift */,
+				E9640EEE2522D78100EEF156 /* NetworkManager.swift */,
+				E9640EF12522D78B00EEF156 /* ApiManager.swift */,
 				E9D794FD251ED09100D79E7E /* Common */,
 				E9D794FC251ED07800D79E7E /* Views */,
 				E9D794FB251ED06B00D79E7E /* Controllers */,
@@ -582,8 +631,6 @@
 				E999D5D525202A190087D8AE /* Utility.swift */,
 				E999D5F625207C610087D8AE /* AlertView.swift */,
 				E999D5F925207C6D0087D8AE /* AlertView.xib */,
-				E9640EEE2522D78100EEF156 /* NetworkManager.swift */,
-				E9640EF12522D78B00EEF156 /* ApiManager.swift */,
 				E98AF4AC25244220002C855B /* CDateFormatter.swift */,
 				E98AF4AA25244220002C855B /* CDatePickerView.swift */,
 				E98AF4FE2524466B002C855B /* CDatePickerView.xib */,
@@ -596,6 +643,12 @@
 				E9C494572526EBD800F8C7AB /* PopupListCell.xib */,
 				E9428F082527541F00456A48 /* HitTestView.swift */,
 				E97C261F25288353001FFC7F /* SharedData.swift */,
+				E901E56F25343931000D499C /* WkWebViewController.swift */,
+				E901E57025343931000D499C /* WkWebViewController.xib */,
+				E901E59025354D1F000D499C /* AddressSearchViewController.swift */,
+				E901E59125354D1F000D499C /* AddressSearchViewController.xib */,
+				E901E5C72535780B000D499C /* AddressSearchCell.swift */,
+				E901E5C82535780B000D499C /* AddressSearchCell.xib */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -689,6 +742,7 @@
 				E993C498251EEC09007E8C7E /* TalkViewController.xib in Resources */,
 				E95E6FBA252B510B00FAB6C6 /* ChattingCell.xib in Resources */,
 				E95D0A32252AFA9500077EE4 /* IotListViewController.xib in Resources */,
+				E92022342536CD1500C35E77 /* NewPasswordViewController.xib in Resources */,
 				E95E142125261EC70073DC93 /* AnimalModifyInfoViewController.xib in Resources */,
 				E9EF79D12525E23C00F2922F /* AddAnimalBirthDayViewController.xib in Resources */,
 				E9EF79732525853700F2922F /* EmptyPetCell.xib in Resources */,
@@ -709,8 +763,11 @@
 				E97C262F25288ABF001FFC7F /* ChartRecordMedicalViewController.xib in Resources */,
 				E94316AE252AD397009CF07E /* MyPetViewController.xib in Resources */,
 				E96039642529BB1200328932 /* TalkCell.xib in Resources */,
+				E901E61B2536916C000D499C /* NoticeCellView.xib in Resources */,
+				E901E57225343931000D499C /* WkWebViewController.xib in Resources */,
 				E9C4948A25273BCE00F8C7AB /* PetHealthFavoriteCell.xib in Resources */,
 				E97C263425288AD8001FFC7F /* ChartRecordWalkViewController.xib in Resources */,
+				E901E576253459BB000D499C /* index.html in Resources */,
 				E98AF4FF2524466B002C855B /* CDatePickerView.xib in Resources */,
 				E9431696252AB62E009CF07E /* MyInfoCell.xib in Resources */,
 				E9D794EF251ECFF800D79E7E /* Assets.xcassets in Resources */,
@@ -729,6 +786,8 @@
 				E97C262525288A75001FFC7F /* ChartRecordEatViewController.xib in Resources */,
 				E9D79508251ED15A00D79E7E /* TutorialViewController.xib in Resources */,
 				E95FB73E2523210E00BDC5FE /* MrStep1ViewController.xib in Resources */,
+				E901E5CA2535780B000D499C /* AddressSearchCell.xib in Resources */,
+				E92022852536DE4100C35E77 /* WifiSearchViewController.xib in Resources */,
 				E9EF79CC2525BDF500F2922F /* AddAnimalItemSelectViewController.xib in Resources */,
 				E929CA5F2529CE8E00AB4F68 /* TalkWriteViewController.xib in Resources */,
 				E95D0A39252AFBDE00077EE4 /* IotCell.xib in Resources */,
@@ -746,8 +805,10 @@
 				E999D5E225204A110087D8AE /* LoginViewController.xib in Resources */,
 				E9EF799F2525A00600F2922F /* CameraOverlayView.xib in Resources */,
 				E9615E4B2526CCFE000550FE /* MemberInfoModifyViewController.xib in Resources */,
+				E901E620253697E8000D499C /* FindPassWordViewController.xib in Resources */,
 				E98963F42529FF0800A30D27 /* TalkDetailViewController.xib in Resources */,
 				E9EF79882525927200F2922F /* AddAnimalNameViewController.xib in Resources */,
+				E901E59325354D1F000D499C /* AddressSearchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -822,15 +883,19 @@
 				E95D09DD252AE40A00077EE4 /* SettingViewController.swift in Sources */,
 				E9D794E3251ECFF800D79E7E /* AppDelegate.swift in Sources */,
 				E97F4B652528752E00EAD200 /* ChartDetailViewController.swift in Sources */,
+				E92022332536CD1500C35E77 /* NewPasswordViewController.swift in Sources */,
 				E9C494352526E09200F8C7AB /* PopupListViewController.swift in Sources */,
 				E9428F242527901100456A48 /* ChartCellView.swift in Sources */,
 				E9C09F12251EFB1D00D0120C /* Extension.swift in Sources */,
+				E92022842536DE4100C35E77 /* WifiSearchViewController.swift in Sources */,
 				E97C263D25288B2A001FFC7F /* ChartRecordFecesViewController.swift in Sources */,
 				E9EF79C62525B53400F2922F /* AddAnminalKindViewController.swift in Sources */,
 				E96039632529BB1200328932 /* TalkCell.swift in Sources */,
 				E9D5AB47251ED941005B7ECB /* Constants.swift in Sources */,
+				E901E59225354D1F000D499C /* AddressSearchViewController.swift in Sources */,
 				E9EF798F2525985000F2922F /* Animal.swift in Sources */,
 				E9EF79872525927200F2922F /* AddAnimalNameViewController.swift in Sources */,
+				E901E5C92535780B000D499C /* AddressSearchCell.swift in Sources */,
 				E95D0A31252AFA9500077EE4 /* IotListViewController.swift in Sources */,
 				E95E13F625260A030073DC93 /* AnimalRegiNumberInfoViewController.swift in Sources */,
 				E9428F0E25276BF100456A48 /* PetSelectPopupView.swift in Sources */,
@@ -851,12 +916,14 @@
 				E9615E4A2526CCFD000550FE /* MemberInfoModifyViewController.swift in Sources */,
 				E9640EEF2522D78100EEF156 /* NetworkManager.swift in Sources */,
 				E929CA5E2529CE8E00AB4F68 /* TalkWriteViewController.swift in Sources */,
+				E901E57125343931000D499C /* WkWebViewController.swift in Sources */,
 				E97C263325288AD8001FFC7F /* ChartRecordWalkViewController.swift in Sources */,
 				E95D09C7252AD84F00077EE4 /* IotManagementViewController.swift in Sources */,
 				E943169F252ABAAD009CF07E /* IotViewController.swift in Sources */,
 				E999D5DC2520490F0087D8AE /* Clabel.swift in Sources */,
 				E95FB73F2523210E00BDC5FE /* MrStep1ViewController.swift in Sources */,
 				E97C262925288A8C001FFC7F /* ChartRecordDrinkViewController.swift in Sources */,
+				E901E61825369165000D499C /* NoticeCellView.swift in Sources */,
 				E999D5DB2520490F0087D8AE /* CButton.swift in Sources */,
 				E9C09F23251F0B2A00D0120C /* BaseNavigationController.swift in Sources */,
 				E9AFA5EB2528CE26002CFEDE /* CTextView.swift in Sources */,
@@ -865,6 +932,7 @@
 				E95D09CC252AE32B00077EE4 /* NoticeViewController.swift in Sources */,
 				E94316A9252ABD0F009CF07E /* MyPetEmptyCell.swift in Sources */,
 				E9428F2B252834CF00456A48 /* ChartCategoryViewController.swift in Sources */,
+				E901E61F253697E8000D499C /* FindPassWordViewController.swift in Sources */,
 				E999D5DD2520490F0087D8AE /* ShadowView.swift in Sources */,
 				E9573CA72524CAD800583C6F /* MrStep3ViewController.swift in Sources */,
 				E999D5E125204A110087D8AE /* LoginViewController.swift in Sources */,

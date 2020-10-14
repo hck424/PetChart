@@ -15,12 +15,12 @@ import KakaoSDKCommon
 import NaverThirdPartyLogin
 import SwiftKeychainWrapper
 
+
 @main
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
-    var uuid: String = ""
-    
+    var loadingView: UIView? = nil
     class func instance() -> AppDelegate? {
         return UIApplication.shared.delegate as? AppDelegate
     }
@@ -64,10 +64,42 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.callMainVc()
         }
         
-        self.uuid = Utility.getUUID()
-        print("===== uuid: \(uuid)")
+        if (SharedData.objectForKey(key: kAPPLECATION_UUID) as? String) == nil {
+            let newUUID = Utility.getUUID()
+            SharedData.setObjectForKey(key: kAPPLECATION_UUID, value: newUUID)
+        }
         
-        
+        if let token = SharedData.getToken(),
+           let userId = SharedData.getUserId(),
+           let loginType = SharedData.getLoginType() {
+            if token.isEmpty == false && userId.isEmpty == false && loginType.isEmpty == false {
+                
+                let param = ["id": userId, "login_type": loginType]
+                ApiManager.shared.requestUpdateAuthToken(param: param) { (response) in
+                    print(String(describing: response))
+                    if let response = response as? [String:Any], let data = response["data"] as? [String: Any] {
+                        if let token = data["token"] as? String {
+                            SharedData.setObjectForKey(key: kPToken, value: token)
+                            SharedData.instance.pToken = token
+                            print("==== new token: \(token)")
+                        }
+                        else {
+                            print("error: token 갱신오류")
+                        }
+                    }
+                    else {
+                        print("error: token 갱신오류")
+                    }
+                } failure: { (error) in
+                    print(String(describing: error))
+                }
+            }
+        }
+        print("==== userId: \(SharedData.objectForKey(key: kUserId) ?? "")")
+        print("==== token: \(SharedData.objectForKey(key: kPToken) ?? "")")
+        print("==== logintype: \(SharedData.objectForKey(key: kLoginType) ?? "")")
+    
+       
         return true
     }
     
@@ -99,6 +131,25 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         return true
     }
+    
+    func startIndicator() {
+        DispatchQueue.main.async(execute: {
+            if self.loadingView == nil {
+                self.loadingView = UIView(frame: UIScreen.main.bounds)
+            }
+            self.window!.addSubview(self.loadingView!)
+            self.loadingView?.startAnimation(raduis: 25.0)
+        })
+    }
+    func stopIndicator() {
+        DispatchQueue.main.async(execute: {
+            if self.loadingView != nil {
+                self.loadingView!.stopAnimation()
+                self.loadingView?.removeFromSuperview()
+            }
+        })
+    }
+    
     
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {

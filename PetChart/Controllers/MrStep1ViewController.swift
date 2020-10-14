@@ -69,7 +69,7 @@ import UIKit
                 self.view.makeToast("성별을 선택해 주세요.", position:.top)
                 return
             }
-            self.user = UserInfo()
+            self.user = UserInfo(JSON: ["join_type": "none"])
             user?.name = tfName.text!
             if btnMale.isSelected {
                 user?.gender = "M"
@@ -81,6 +81,7 @@ import UIKit
             let vc = MrStep2ViewController.init(nibName: "MrStep2ViewController", bundle: nil)
             vc.user = self.user
             self.navigationController?.pushViewController(vc, animated: true)
+            
         }
     }
     
