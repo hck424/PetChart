@@ -10,7 +10,7 @@ import UIKit
 
 let SERVER_PREFIX = "https://jayutest.best:5001"
 //let SERVER_PRIFIX = "https://jayutest.best:5001"
-
+let IOT_SERVER_PREFIX = "http://192.168.4.1:5001"
 
 typealias LoginClosure = (UserInfo?, Error?) -> Void
 let ColorDefault = RGB(233, 95, 94)
@@ -175,3 +175,14 @@ public struct Address {
     var deptTwoAddr: String
     var deptThreeAddr: String
 }
+
+struct WifiInfo {
+    public var interface:String?
+    public var ssid:String?
+    public var bssid:String?
+    public var password:String?
+    public var model:String?
+}
+
+let IOT_API_KEY = "QRpvmh2AgDeg0us4csAI9Kpb0Bn4CoPQ"
+let kIOT_SESSION_KEY = "IOT_SESSION_KEY"

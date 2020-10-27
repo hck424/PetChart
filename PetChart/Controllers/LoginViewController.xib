@@ -417,14 +417,6 @@
             </connections>
         </tapGestureRecognizer>
     </objects>
-    <designables>
-        <designable name="Pg8-J2-IMH">
-            <size key="intrinsicContentSize" width="129" height="18.5"/>
-        </designable>
-        <designable name="iiK-oh-bJf">
-            <size key="intrinsicContentSize" width="129" height="17"/>
-        </designable>
-    </designables>
     <resources>
         <image name="checkbox_off" width="16" height="16"/>
         <image name="checkbox_on" width="16" height="16"/>

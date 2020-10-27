@@ -25,6 +25,7 @@
 		E92022342536CD1500C35E77 /* NewPasswordViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E92022322536CD1500C35E77 /* NewPasswordViewController.xib */; };
 		E92022842536DE4100C35E77 /* WifiSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E92022822536DE4100C35E77 /* WifiSearchViewController.swift */; };
 		E92022852536DE4100C35E77 /* WifiSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E92022832536DE4100C35E77 /* WifiSearchViewController.xib */; };
+		E92022FC253DDC2900308E9F /* NetworkExtension.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E92022FB253DDC2900308E9F /* NetworkExtension.framework */; };
 		E929CA5E2529CE8E00AB4F68 /* TalkWriteViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E929CA5C2529CE8E00AB4F68 /* TalkWriteViewController.swift */; };
 		E929CA5F2529CE8E00AB4F68 /* TalkWriteViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E929CA5D2529CE8E00AB4F68 /* TalkWriteViewController.xib */; };
 		E9428EFA2527503A00456A48 /* PetSelectRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9428EF92527503A00456A48 /* PetSelectRowView.swift */; };
@@ -101,6 +102,7 @@
 		E97C263925288AFB001FFC7F /* ChartRecordWeightViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97C263725288AFB001FFC7F /* ChartRecordWeightViewController.xib */; };
 		E97C263D25288B2A001FFC7F /* ChartRecordFecesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C263B25288B2A001FFC7F /* ChartRecordFecesViewController.swift */; };
 		E97C263E25288B2A001FFC7F /* ChartRecordFecesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97C263C25288B2A001FFC7F /* ChartRecordFecesViewController.xib */; };
+		E97E91BE25373A0100BFE6B2 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E97E91BD25373A0100BFE6B2 /* ExternalAccessory.framework */; };
 		E97F4B652528752E00EAD200 /* ChartDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F4B632528752E00EAD200 /* ChartDetailViewController.swift */; };
 		E97F4B662528752E00EAD200 /* ChartDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97F4B642528752E00EAD200 /* ChartDetailViewController.xib */; };
 		E98963F42529FF0800A30D27 /* TalkDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E98963F32529FF0800A30D27 /* TalkDetailViewController.xib */; };
@@ -195,6 +197,8 @@
 		E92022322536CD1500C35E77 /* NewPasswordViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NewPasswordViewController.xib; sourceTree = "<group>"; };
 		E92022822536DE4100C35E77 /* WifiSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WifiSearchViewController.swift; sourceTree = "<group>"; };
 		E92022832536DE4100C35E77 /* WifiSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WifiSearchViewController.xib; sourceTree = "<group>"; };
+		E92022872536EFB500C35E77 /* CoreBluetooth.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreBluetooth.framework; path = System/Library/Frameworks/CoreBluetooth.framework; sourceTree = SDKROOT; };
+		E92022FB253DDC2900308E9F /* NetworkExtension.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NetworkExtension.framework; path = System/Library/Frameworks/NetworkExtension.framework; sourceTree = SDKROOT; };
 		E929CA5C2529CE8E00AB4F68 /* TalkWriteViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkWriteViewController.swift; sourceTree = "<group>"; };
 		E929CA5D2529CE8E00AB4F68 /* TalkWriteViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkWriteViewController.xib; sourceTree = "<group>"; };
 		E9428EF92527503A00456A48 /* PetSelectRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetSelectRowView.swift; sourceTree = "<group>"; };
@@ -271,6 +275,7 @@
 		E97C263725288AFB001FFC7F /* ChartRecordWeightViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartRecordWeightViewController.xib; sourceTree = "<group>"; };
 		E97C263B25288B2A001FFC7F /* ChartRecordFecesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartRecordFecesViewController.swift; sourceTree = "<group>"; };
 		E97C263C25288B2A001FFC7F /* ChartRecordFecesViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartRecordFecesViewController.xib; sourceTree = "<group>"; };
+		E97E91BD25373A0100BFE6B2 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		E97F4B632528752E00EAD200 /* ChartDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailViewController.swift; sourceTree = "<group>"; };
 		E97F4B642528752E00EAD200 /* ChartDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartDetailViewController.xib; sourceTree = "<group>"; };
 		E98963F32529FF0800A30D27 /* TalkDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TalkDetailViewController.xib; sourceTree = "<group>"; };
@@ -352,6 +357,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E97E91BE25373A0100BFE6B2 /* ExternalAccessory.framework in Frameworks */,
+				E92022FC253DDC2900308E9F /* NetworkExtension.framework in Frameworks */,
 				353D39E0FF33E17BCFC84F2A /* Pods_PetChart.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -362,6 +369,9 @@
 		71624BCF5D1874C7B5ABBA1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E92022FB253DDC2900308E9F /* NetworkExtension.framework */,
+				E97E91BD25373A0100BFE6B2 /* ExternalAccessory.framework */,
+				E92022872536EFB500C35E77 /* CoreBluetooth.framework */,
 				43253CBBFD45190799B14C02 /* Pods_PetChart.framework */,
 			);
 			name = Frameworks;

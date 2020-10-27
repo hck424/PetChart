@@ -9,9 +9,11 @@ import UIKit
 
 class NewPasswordViewController: BaseViewController {
 
-    @IBOutlet weak var tfPassword: CTextField!
+    @IBOutlet weak var btnEye1: UIButton!
+    @IBOutlet weak var btnEye2: UIButton!
+    @IBOutlet weak var tfPassword: UITextField!
     @IBOutlet weak var lbHintPasword: UILabel!
-    @IBOutlet weak var tfPasswordConfirm: CTextField!
+    @IBOutlet weak var tfPasswordConfirm: UITextField!
     @IBOutlet weak var lbHitPasswordConfirm: UILabel!
     @IBOutlet weak var btnOk: UIButton!
     @IBOutlet weak var btnSafety: UIButton!
@@ -50,8 +52,17 @@ class NewPasswordViewController: BaseViewController {
     }
     
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
-        self.view.endEditing(true)
-        if sender == btnOk {
+        
+        if sender == btnEye1 {
+            sender.isSelected = !sender.isSelected
+            tfPassword.isSecureTextEntry = !sender.isSelected
+        }
+        else if sender == btnEye2 {
+            sender.isSelected = !sender.isSelected
+            tfPasswordConfirm.isSecureTextEntry = !sender.isSelected
+        }
+        else if sender == btnOk {
+            self.view.endEditing(true)
             var isOk = true
             lbHintPasword.isHidden = true
             lbHitPasswordConfirm.isHidden = true

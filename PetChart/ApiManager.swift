@@ -103,4 +103,90 @@ class ApiManager: NSObject {
             failure?(error)
         }
     }
+    
+    
+    ///IOT Conented
+    func requestIotConnet(success:ResSuccess?, failure:ResFailure?) {
+        let url = "\(IOT_SERVER_PREFIX)/iot/set/connect?apiKey=\(IOT_API_KEY)"
+        NetworkManager.shared.requestIot(.get, url, nil) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
+    ///IOT Setting
+    func requestIotSetting(param:[String:Any], success:ResSuccess?, failure:ResFailure?) {
+        var url = "\(IOT_SERVER_PREFIX)/iot/set/setting?"
+        url.append("idx=\(param["idx"]!)")
+        url.append("&sessionKey=\(param["sessionKey"]!)")
+        url.append("&uid=\(param["uid"]!)")
+        url.append("&url=\(param["url"]!)")
+        NetworkManager.shared.requestIot(.get, url, nil) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
+    
+    func requestIotStation(param:[String:Any], success:ResSuccess?, failure:ResFailure?) {
+        var url = "\(IOT_SERVER_PREFIX)/iot/set/station?"
+        url.append("ssid=\(param["ssid"]!)")
+        url.append("&passwordKey=\(param["passwordKey"]!)")
+        url.append("&sessionKey=\(param["sessionKey"]!)")
+        url.append("&timestamp=\(param["timestamp"]!)")
+        
+        NetworkManager.shared.requestIot(.get, url, nil) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
+    
+    ///IOT 장비 상태
+    func requestIotStatus(success:ResSuccess?, failure:ResFailure?) {
+        let url = "\(IOT_SERVER_PREFIX)/iot/get/status"
+        NetworkManager.shared.requestIot(.get, url, nil) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
+    /// IOT 서비스 시작 /iot/set/service_start
+    func requestIotServiceStart(sessionKey:String, success:ResSuccess?, failure:ResFailure?) {
+        let url = "\(IOT_SERVER_PREFIX)/iot/set/service_start?sessionKey=\(sessionKey)"
+        NetworkManager.shared.requestIot(.get, url, nil) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
+    
+    ///IOT 서비스 중지 /iot/set/service_stop
+    func requestIotServiceStop(sessionKey:String?, success:ResSuccess?, failure:ResFailure?) {
+        let url = "\(IOT_SERVER_PREFIX)/iot/set/service_stop"
+        NetworkManager.shared.requestIot(.get, url, nil) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
+    ///IOT 초기화 /iot/set/reset
+    func requestIotReset(sessionKey:String?, success:ResSuccess?, failure:ResFailure?) {
+        let url = "\(IOT_SERVER_PREFIX)/iot/set/reset"
+        NetworkManager.shared.requestIot(.get, url, nil) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
+    
+    /// APP -> Iot 연결 해지 /iot/set/disconnect
+    func requestIotDisConnet(sessionKey:String?, success:ResSuccess?, failure:ResFailure?) {
+        let url = "\(IOT_SERVER_PREFIX)/iot/set/disconnect"
+        NetworkManager.shared.requestIot(.get, url, nil) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
 }

@@ -14,6 +14,8 @@
                 <outlet property="bgCornerView" destination="XXr-eJ-Uaa" id="PyA-OC-sSO"/>
                 <outlet property="bottomContainer" destination="aqn-Eu-7PB" id="EMr-MT-DX4"/>
                 <outlet property="btnEmailCheck" destination="Vs3-dI-9OI" id="zim-gA-iq4"/>
+                <outlet property="btnEye1" destination="piq-0A-YCr" id="c1V-e0-4hS"/>
+                <outlet property="btnEye2" destination="ALr-el-onP" id="T7X-fC-sTN"/>
                 <outlet property="btnNickNameCheck" destination="D25-Eh-uFs" id="ZcI-tO-inJ"/>
                 <outlet property="btnOk" destination="w7D-uG-32a" id="c2n-Ry-GLw"/>
                 <outlet property="btnSafety" destination="jbf-9r-uwE" id="dY6-m8-0hN"/>
@@ -23,8 +25,8 @@
                 <outlet property="lbHitNickName" destination="oNY-ow-N5l" id="DTZ-F3-Mo2"/>
                 <outlet property="tfEmail" destination="Nmb-cK-LWm" id="l5Q-hb-eB5"/>
                 <outlet property="tfNickName" destination="qNV-Kl-zC0" id="Nac-pP-wUa"/>
-                <outlet property="tfPassword" destination="aBw-N3-YcU" id="2bN-v2-11J"/>
-                <outlet property="tfPasswordConfirm" destination="Bir-mK-KkI" id="0MN-fW-3Wd"/>
+                <outlet property="tfPassword" destination="YEV-OO-dUY" id="avW-c5-aZb"/>
+                <outlet property="tfPasswordConfirm" destination="ZMa-AZ-olt" id="CKV-M1-uin"/>
                 <outlet property="view" destination="d0m-eD-qCO" id="9T9-pR-CCE"/>
             </connections>
         </placeholder>
@@ -218,49 +220,61 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yGP-Gh-l1K">
-                                                            <rect key="frame" x="20" y="244" width="374" height="78.5"/>
+                                                            <rect key="frame" x="20" y="244" width="374" height="82"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UzW-VU-znV">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="61"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="64.5"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fav-OM-1cS">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="374" height="18.5"/>
                                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                                             <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="숫자 영문 기호 입력" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="aBw-N3-YcU" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="16" width="374" height="45"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="height" constant="45" id="bIw-Zb-wVP"/>
-                                                                            </constraints>
-                                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                                                            <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
-                                                                                    <real key="value" value="5"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
-                                                                                    <real key="value" value="0.0"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="borderBottom" value="YES"/>
-                                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                    <color key="value" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                                    <real key="value" value="1"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                            </userDefinedRuntimeAttributes>
-                                                                            <connections>
-                                                                                <action selector="textFeildEdtingChange:" destination="-1" eventType="editingChanged" id="GxE-KU-85v"/>
-                                                                                <outlet property="delegate" destination="-1" id="KjI-7V-UFK"/>
-                                                                            </connections>
-                                                                        </textField>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ehU-NP-ilG">
+                                                                            <rect key="frame" x="0.0" y="18.5" width="374" height="46"/>
+                                                                            <subviews>
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Yev-1W-UOr">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
+                                                                                    <subviews>
+                                                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="(영문, 숫자, 기호) 8자리 이상 입력" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YEV-OO-dUY">
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="326" height="45"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstAttribute="height" constant="45" id="OuB-Ya-3Ox"/>
+                                                                                            </constraints>
+                                                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                                                            <connections>
+                                                                                                <outlet property="delegate" destination="-1" id="TxI-5Z-edy"/>
+                                                                                            </connections>
+                                                                                        </textField>
+                                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="piq-0A-YCr">
+                                                                                            <rect key="frame" x="334" y="0.0" width="40" height="45"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstAttribute="width" constant="40" id="chG-Gp-ipp"/>
+                                                                                            </constraints>
+                                                                                            <state key="normal" image="ico_eye_off"/>
+                                                                                            <state key="selected" image="ico_eye_on"/>
+                                                                                            <connections>
+                                                                                                <action selector="onclickedButtonActions:" destination="-1" eventType="touchUpInside" id="4AN-KL-RAs"/>
+                                                                                            </connections>
+                                                                                        </button>
+                                                                                    </subviews>
+                                                                                </stackView>
+                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8ow-6g-wCv">
+                                                                                    <rect key="frame" x="0.0" y="45" width="374" height="1"/>
+                                                                                    <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="1" id="lhl-OL-09r"/>
+                                                                                    </constraints>
+                                                                                </view>
+                                                                            </subviews>
+                                                                        </stackView>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="숫자 영문 기호가 포함되어 있어야 합니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fuj-TQ-psk">
-                                                                    <rect key="frame" x="0.0" y="64" width="374" height="14.5"/>
+                                                                    <rect key="frame" x="0.0" y="67.5" width="374" height="14.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                     <color key="textColor" systemColor="systemRedColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -278,10 +292,10 @@
                                                             </constraints>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6Ec-LF-cBG">
-                                                            <rect key="frame" x="20" y="352.5" width="374" height="78.5"/>
+                                                            <rect key="frame" x="20" y="356" width="374" height="79.5"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="yLp-kb-nQo">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="61"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="62"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호 확인" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8XD-f3-bA4">
                                                                             <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
@@ -289,38 +303,50 @@
                                                                             <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
-                                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="비밀번호 확인" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Bir-mK-KkI" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
-                                                                            <rect key="frame" x="0.0" y="16" width="374" height="45"/>
-                                                                            <constraints>
-                                                                                <constraint firstAttribute="height" constant="45" id="l1o-y6-wNf"/>
-                                                                            </constraints>
-                                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
-                                                                            <userDefinedRuntimeAttributes>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
-                                                                                    <real key="value" value="5"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
-                                                                                    <real key="value" value="0.0"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                                <userDefinedRuntimeAttribute type="boolean" keyPath="borderBottom" value="YES"/>
-                                                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                                                    <color key="value" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                                                    <real key="value" value="1"/>
-                                                                                </userDefinedRuntimeAttribute>
-                                                                            </userDefinedRuntimeAttributes>
-                                                                            <connections>
-                                                                                <action selector="textFeildEdtingChange:" destination="-1" eventType="editingChanged" id="vyf-Ma-SsS"/>
-                                                                                <outlet property="delegate" destination="-1" id="REl-Ab-R06"/>
-                                                                            </connections>
-                                                                        </textField>
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="FtP-vo-eW2">
+                                                                            <rect key="frame" x="0.0" y="16" width="374" height="46"/>
+                                                                            <subviews>
+                                                                                <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DNs-sf-s9u">
+                                                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
+                                                                                    <subviews>
+                                                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="비밀번호 확인" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZMa-AZ-olt">
+                                                                                            <rect key="frame" x="0.0" y="0.0" width="326" height="45"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstAttribute="height" constant="45" id="tw8-bQ-sEo"/>
+                                                                                            </constraints>
+                                                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                                                            <connections>
+                                                                                                <outlet property="delegate" destination="-1" id="U0u-O1-odX"/>
+                                                                                            </connections>
+                                                                                        </textField>
+                                                                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ALr-el-onP">
+                                                                                            <rect key="frame" x="334" y="0.0" width="40" height="45"/>
+                                                                                            <constraints>
+                                                                                                <constraint firstAttribute="width" constant="40" id="sdU-YU-qy9"/>
+                                                                                            </constraints>
+                                                                                            <state key="normal" image="ico_eye_off"/>
+                                                                                            <state key="selected" image="ico_eye_on"/>
+                                                                                            <connections>
+                                                                                                <action selector="onclickedButtonActions:" destination="-1" eventType="touchUpInside" id="aqy-xB-MWy"/>
+                                                                                            </connections>
+                                                                                        </button>
+                                                                                    </subviews>
+                                                                                </stackView>
+                                                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zf6-Ic-DgJ">
+                                                                                    <rect key="frame" x="0.0" y="45" width="374" height="1"/>
+                                                                                    <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                                                    <constraints>
+                                                                                        <constraint firstAttribute="height" constant="1" id="VxQ-G6-kAW"/>
+                                                                                    </constraints>
+                                                                                </view>
+                                                                            </subviews>
+                                                                        </stackView>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비밀번호가 일치하지 않습니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8v-NC-o7y">
-                                                                    <rect key="frame" x="0.0" y="64" width="374" height="14.5"/>
+                                                                    <rect key="frame" x="0.0" y="65" width="374" height="14.5"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                                     <color key="textColor" systemColor="systemRedColor"/>
                                                                     <nil key="highlightedColor"/>
@@ -338,7 +364,7 @@
                                                             </constraints>
                                                         </view>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1V2-wM-BG4">
-                                                            <rect key="frame" x="20" y="461" width="374" height="246"/>
+                                                            <rect key="frame" x="20" y="465.5" width="374" height="241.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -414,7 +440,7 @@
             <connections>
                 <outletCollection property="gestureRecognizers" destination="VBd-Jk-rUk" appends="YES" id="bLK-JE-qBd"/>
             </connections>
-            <point key="canvasLocation" x="-201" y="78"/>
+            <point key="canvasLocation" x="-201.44927536231884" y="77.678571428571431"/>
         </view>
         <tapGestureRecognizer id="VBd-Jk-rUk">
             <connections>
@@ -423,20 +449,16 @@
         </tapGestureRecognizer>
     </objects>
     <designables>
-        <designable name="Bir-mK-KkI">
-            <size key="intrinsicContentSize" width="82" height="18"/>
-        </designable>
         <designable name="Nmb-cK-LWm">
             <size key="intrinsicContentSize" width="109.5" height="19.5"/>
-        </designable>
-        <designable name="aBw-N3-YcU">
-            <size key="intrinsicContentSize" width="116" height="18"/>
         </designable>
         <designable name="qNV-Kl-zC0">
             <size key="intrinsicContentSize" width="193" height="19.5"/>
         </designable>
     </designables>
     <resources>
+        <image name="ico_eye_off" width="27" height="27"/>
+        <image name="ico_eye_on" width="27" height="27"/>
         <image name="join_steop3" width="259" height="63"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

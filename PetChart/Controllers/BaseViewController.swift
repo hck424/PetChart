@@ -8,6 +8,8 @@
 import UIKit
 import Toast_Swift
 import JWTDecode
+import NetworkExtension
+import SystemConfiguration.CaptiveNetwork
 
 class BaseViewController: UIViewController {
     override func viewDidLoad() {
@@ -55,5 +57,64 @@ class BaseViewController: UIViewController {
     func gotoMyinfoVc() {
         let vc = MyInfoViewController.init()
         self.navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    //FIXME:: wifi change
+    func connetedWifi(wifi:WifiInfo, completion:@escaping(_ success:Bool, _ error:Error?) -> Void)  {
+        let configuration = NEHotspotConfiguration.init(ssid: wifi.ssid!, passphrase: wifi.password!, isWEP: false)
+        configuration.joinOnce = true
+        AppDelegate.instance()?.startIndicator()
+        NEHotspotConfigurationManager.shared.apply(configuration) { (error) in
+            AppDelegate.instance()?.stopIndicator()
+            if error != nil {
+                completion(false, error)
+            }
+            else {
+                completion(true, nil)
+            }
+            
+        }
+        //        NEHotspotConfigurationManager.shared.getConfiguredSSIDs { (list) in
+        //            NSLog("scan wiifi list: \(list)")
+        //        }
+    }
+    func getAllWifiList(completion:@escaping(_ list:[Any]?)->Void) {
+        NEHotspotConfigurationManager.shared.getConfiguredSSIDs { (wifiList) in
+            wifiList.forEach {
+                NEHotspotConfigurationManager.shared.removeConfiguration(forSSID: $0)
+            }
+            
+            // ... from here you can use your usual approach to autoconnect to your network
+            NEHotspotConfigurationManager.shared.getConfiguredSSIDs { (list) in
+                completion(list)
+            }
+        }
+    }
+    func disconnetWifi(wifi:WifiInfo, completion:@escaping(_ success:Bool, _ error:Error?) -> Void)  {
+        if let ssid = wifi.ssid {
+            NEHotspotConfigurationManager.shared.removeConfiguration(forSSID: ssid)
+            completion(true, nil)
+        }
+        else {
+            completion(false, nil)
+        }
+    }
+    func fetchWifi() -> Array<WifiInfo> {
+        guard let interfaceNames = CNCopySupportedInterfaces() as? [String] else {
+            return []
+        }
+        let wifiInfo:[WifiInfo] = interfaceNames.compactMap { name in
+            guard let info = CNCopyCurrentNetworkInfo(name as CFString) as? [String:AnyObject] else {
+                return nil
+            }
+            guard let ssid = info[kCNNetworkInfoKeySSID as String] as? String else {
+                return nil
+            }
+            guard let bssid = info[kCNNetworkInfoKeyBSSID as String] as? String else {
+                return nil
+            }
+            return WifiInfo.init(interface: name, ssid: ssid, bssid: bssid, password: nil, model: nil)
+        }
+        return wifiInfo
     }
 }

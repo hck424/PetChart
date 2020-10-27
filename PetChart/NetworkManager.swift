@@ -77,6 +77,43 @@ class NetworkManager: NSObject {
         
     }
     
+    func requestIot(_ method: HTTPMethod, _ url: String, _ param:[String :Any]?, success:ResSuccess?, failure:ResFailure?) {
+        
+        let headers: HTTPHeaders = [.accept(ContentType.json.rawValue)]
+        let request = AF.request(url, method: method, parameters: param, encoding: JSONEncoding.default, headers: headers)
+        let startTime = CACurrentMediaTime()
+        
+        request.responseJSON { (response:AFDataResponse<Any>) in
+            let endTime = CACurrentMediaTime()
+            if let url = response.request?.url?.absoluteString {
+                print("\n\n =======request ======= \nurl: \(String(describing: url))")
+            }
+            print("take time: \(endTime - startTime)")
+            print ("======= response ======= \n\(String(describing: response))")
+             
+            switch response.result {
+            case .success(let result):
+                let statusCode: Int = response.response!.statusCode as Int
+                if (statusCode >= 200) && (statusCode <= 300) {
+                    if let success = success {
+                        success(result)
+                    }
+                }
+                else {
+                    if let failure = failure {
+                        failure(result)
+                    }
+                }
+                
+                break
+            case .failure(let error as NSError?):
+                if let failure = failure {
+                    failure(error)
+                }
+                break
+            }
+        }
+    }
     
     func debugPrint(_ data: Any?) {
         if let data = data as? [String : Any] {

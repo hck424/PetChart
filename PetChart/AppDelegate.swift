@@ -99,7 +99,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("==== token: \(SharedData.objectForKey(key: kPToken) ?? "")")
         print("==== logintype: \(SharedData.objectForKey(key: kLoginType) ?? "")")
     
-       
+        
         return true
     }
     
@@ -138,7 +138,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.loadingView = UIView(frame: UIScreen.main.bounds)
             }
             self.window!.addSubview(self.loadingView!)
+            self.loadingView?.tag = 1234321
             self.loadingView?.startAnimation(raduis: 25.0)
+            
+            //혹시라라도 indicator 계속 돌고 있으면 강제로 제거 해준다. 10초후에
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+10) {
+                if let loadingView = AppDelegate.instance()?.window?.viewWithTag(1234321) {
+                    loadingView.removeFromSuperview()
+                }
+            }
         })
     }
     func stopIndicator() {

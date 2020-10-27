@@ -7,7 +7,6 @@
 
 import UIKit
 
-
 @IBDesignable
 class HomeViewController: BaseViewController {
     @IBOutlet weak var cornerBgView: UIView!
@@ -16,7 +15,6 @@ class HomeViewController: BaseViewController {
     @IBOutlet weak var svContaner: UIStackView!
     @IBOutlet weak var btnEdting: UIButton!
     
-
     var hitCount: Int = 0
     var petCount: Int = 0
     var petPopupView: PetSelectPopupView?
@@ -28,6 +26,8 @@ class HomeViewController: BaseViewController {
     
         cornerBgView.layer.cornerRadius = 20.0
         cornerBgView.layer.maskedCorners = [CACornerMask.layerMinXMinYCorner, CACornerMask.layerMaxXMinYCorner]
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -191,6 +191,11 @@ class HomeViewController: BaseViewController {
             if petCount > 1 {
                 petPopupView?.isHidden = false
             }
+        }
+        else if sender == btnProfile {
+            let vc = IotSearchViewController.init()
+//            let vc = WifiSearchViewController.init()
+            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
     

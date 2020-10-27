@@ -8,14 +8,14 @@
 import UIKit
 enum PopupListType: Int {
     case normal
+    case wifi
 }
 typealias PopupListClosure = (_ viewcontroller: UIViewController, _ selData: Any?, _ index: Int? ) ->Void
 
 class PopupListViewController: UIViewController {
 
     @IBOutlet weak var btnFullClose: UIButton!
-    @IBOutlet weak var btnClose: UIButton!
-    @IBOutlet weak var tvTitle: UITextView!
+    @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var svTitle: UIStackView!
     @IBOutlet weak var svContainer: UIStackView!
     @IBOutlet weak var svSearch: UIStackView!
@@ -25,13 +25,18 @@ class PopupListViewController: UIViewController {
     @IBOutlet weak var heightTblView: NSLayoutConstraint!
     @IBOutlet weak var bgContainerView: UIView!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
+    @IBOutlet weak var heightTitle: NSLayoutConstraint!
+    @IBOutlet weak var widthContainerView: NSLayoutConstraint! 
     
     public var placeHolderString: String?
     public var showSearchBar:Bool = false
     public var enableFullTouchClose = true
-    public var showAnimation:Bool = true
-    public var animationDuration: TimeInterval = 0.2
+    public var edgeTitle = UIEdgeInsets(top: 20, left: 20, bottom: 0, right: 20)
+    public var edgeSearchBar = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
+    public var edgeContainer = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+    public var widthRate:CGFloat = 0.8
     
+    let mininumBottom: CGFloat = 80
     var type: PopupListType = .normal
     var originData: Array<Any>?
     var keys: Array<String>?
@@ -63,8 +68,17 @@ class PopupListViewController: UIViewController {
         }
         
         bgContainerView.layer.cornerRadius = 20
-        bgContainerView.layer.maskedCorners = CACornerMask(TL: true, TR: true, BL: false, BR: false)
+        bgContainerView.layer.maskedCorners = CACornerMask(TL: true, TR: true, BL: true, BR: true)
         
+        svTitle.isLayoutMarginsRelativeArrangement = true
+        svTitle.layoutMargins = edgeTitle
+        
+        svSearch.isLayoutMarginsRelativeArrangement = true
+        svSearch.layoutMargins = edgeSearchBar
+        
+        svContainer.isLayoutMarginsRelativeArrangement = true
+        svContainer.layoutMargins = edgeContainer
+        tblView.separatorInset = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 20)
         if let placeHolderString = placeHolderString {
             tfSearch.placeholder = placeHolderString
         }
@@ -76,40 +90,41 @@ class PopupListViewController: UIViewController {
             svSearch.isHidden = true
         }
         
+        widthContainerView.constant = UIScreen.main.bounds.width * widthRate
         
         if let popupTitle = popupTitle {
-            tvTitle.text = popupTitle
-            tvTitle.isHidden = false
+            svTitle.isHidden = false
+            lbTitle.text = popupTitle
+            
+            let height = lbTitle.sizeThatFits(CGSize(width: lbTitle.bounds.width, height: CGFloat.greatestFiniteMagnitude)).height
+            heightTitle.constant = height
         }
         else {
-            tvTitle.isHidden = true
+            svTitle.isHidden = true
         }
 
         tblView.estimatedRowHeight = 30.0
         tblView.rowHeight = UITableView.automaticDimension
 //        tblView.tableHeaderView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tblView.frame.size.width, height: 20))
-        tblView.tableFooterView = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tblView.bounds.width, height: 34))
+        tblView.tableFooterView = UIView.init(frame: CGRect(x: 0, y: 0, width: tblView.frame.size.width, height: 1))
 
         tblView.delegate = self
         tblView.dataSource = self
         
         self.view.layoutIfNeeded()
         tblView.reloadData {
+            self.heightTblView.constant = self.tblView.contentSize.height
+            self.view.layoutIfNeeded()
+            self.btnFullClose.backgroundColor = UIColor.clear
+            self.bgContainerView.alpha = 0.0
+            self.bgContainerView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             
-            if self.showAnimation {
-                self.bottomContainer.constant -= self.bgContainerView.bounds.height
-                UIView.animate(withDuration: 0.0) {
-                    self.btnFullClose.alpha = 0.0
-                    self.view.layoutIfNeeded()
-                } completion: { (finish) in
-                    self.bottomContainer.constant = 0
-                    self.heightTblView.constant = self.tblView.contentSize.height
-                    
-                    UIView.animate(withDuration: self.animationDuration, delay: 0, options: .curveEaseOut) {
-                        self.btnFullClose.alpha = 1.0
-                        self.view.layoutIfNeeded()
-                    }
-                }
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn) {
+                self.btnFullClose.backgroundColor = RGBA(0, 0, 0, 0.2)
+                self.bgContainerView.transform = CGAffineTransform(scaleX: 1, y: 1)
+                self.bgContainerView.alpha = 1.0
+            } completion: { (finish) in
+                self.heightTblView.constant = self.tblView.contentSize.height
             }
         }
     }
@@ -124,22 +139,33 @@ class PopupListViewController: UIViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-    
-    func dismissProcess(item: Any?, index: Int?) {
-        if (showAnimation) {
-            self.view.layoutIfNeeded()
-            self.bottomContainer.constant = -self.bgContainerView.bounds.height
-            UIView.animate(withDuration: self.animationDuration, delay: 0.0, options: .curveEaseIn) {
-                self.btnFullClose.alpha = 0
+    func reloadData(_ data:[Any]?) {
+        
+        if let data = data {
+            self.originData?.removeAll()
+            self.data.removeAll()
+            self.originData = data
+            self.data = data
+        }
+        tblView.reloadData {
+            self.heightTblView.constant = self.tblView.contentSize.height
+            UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseIn) {
                 self.view.layoutIfNeeded()
             } completion: { (finish) in
-                self.completion?(self, item, index)
+                self.heightTblView.constant = self.tblView.contentSize.height
             }
         }
-        else {
+    }
+    func dismissProcess(item: Any?, index: Int?) {
+        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut) {
+            self.btnFullClose.backgroundColor = UIColor.clear
+            self.bgContainerView.alpha = 0.0
+            self.bgContainerView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
+        } completion: { (finish) in
             self.completion?(self, item, index)
         }
     }
+    
     @IBAction func textFieldEdtingChanged(_ textFiled: UITextField) {
         data.removeAll()
         if let text:String = textFiled.text, text.count > 0 {
@@ -197,8 +223,7 @@ class PopupListViewController: UIViewController {
     
     @IBAction func onClickedButtonActions(_ sender: Any) {
         self.view.endEditing(true)
-        if (sender as? NSObject) == btnFullClose
-        || (sender as? NSObject) == btnClose {
+        if (sender as? NSObject) == btnFullClose {
             self.dismissProcess(item: nil, index: nil)
         }
     }
@@ -215,7 +240,7 @@ class PopupListViewController: UIViewController {
             })
         }
         else if notification.name == UIResponder.keyboardWillHideNotification {
-            bottomContainer.constant = 0
+            bottomContainer.constant = mininumBottom
             UIView.animate(withDuration: TimeInterval(duration)) {
                 self.view.layoutIfNeeded()
             }
@@ -260,6 +285,10 @@ extension PopupListViewController: UITableViewDelegate, UITableViewDataSource {
                 }
                 cell?.lbTitle.text = result
             }
+        }
+        else if let item = item as? WifiInfo {
+            cell?.ivThumb.isHidden = true
+            cell?.lbTitle.text = item.ssid
         }
         
         return cell!

@@ -13,8 +13,10 @@ import UIKit
     @IBOutlet weak var btnSafety: UIButton!
     @IBInspectable @IBOutlet weak var tfEmail: CTextField!
     @IBInspectable @IBOutlet weak var tfNickName: CTextField!
-    @IBInspectable @IBOutlet weak var tfPassword: CTextField!
-    @IBInspectable @IBOutlet weak var tfPasswordConfirm: CTextField!
+    @IBOutlet weak var btnEye1: UIButton!
+    @IBOutlet weak var btnEye2: UIButton!
+    @IBInspectable @IBOutlet weak var tfPassword: UITextField!
+    @IBInspectable @IBOutlet weak var tfPasswordConfirm: UITextField!
     @IBInspectable @IBOutlet weak var btnEmailCheck: CButton!
     @IBInspectable @IBOutlet weak var btnNickNameCheck: CButton!
     @IBOutlet weak var bgCornerView: UIView!
@@ -115,6 +117,14 @@ import UIKit
             }, failure: { (error) in
                 self.showErrorAlertView(error)
             })
+        }
+        else if sender == btnEye1 {
+            sender.isSelected = !sender.isSelected
+            tfPassword.isSecureTextEntry = !sender.isSelected
+        }
+        else if sender == btnEye2 {
+            sender.isSelected = !sender.isSelected
+            tfPasswordConfirm.isSecureTextEntry = !sender.isSelected
         }
         else if sender == btnOk {
             lbHintEmail.isHidden = true
