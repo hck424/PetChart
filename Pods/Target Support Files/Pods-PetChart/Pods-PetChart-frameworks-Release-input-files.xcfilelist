@@ -18,6 +18,7 @@ ${BUILT_PRODUCTS_DIR}/KakaoSDKTemplate/KakaoSDKTemplate.framework
 ${BUILT_PRODUCTS_DIR}/KakaoSDKUser/KakaoSDKUser.framework
 ${BUILT_PRODUCTS_DIR}/Mantis/Mantis.framework
 ${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework
+${BUILT_PRODUCTS_DIR}/PhoneNumberKit/PhoneNumberKit.framework
 ${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework
 ${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework
 ${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework

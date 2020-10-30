@@ -96,6 +96,7 @@ class NewPasswordViewController: BaseViewController {
 //             "join_type": "none",
 //             "key": "a+zAj00AnMu/SiFY5YTLwKoyq1J2Cku8pB2FjwHXFwY=",
 //             "password": 1234567
+            
             AlertView.showWithOk(title: "비밀번호 변경", message: "비밀번호를 확인해주세요.") { (index) in
                 ApiManager.shared.requestModifyPassword(param: [:]) { (response) in
                     

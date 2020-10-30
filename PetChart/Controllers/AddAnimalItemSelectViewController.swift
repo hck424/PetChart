@@ -28,6 +28,8 @@ import UIKit
     @IBOutlet weak var svUnknow: UIStackView!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
     
+    var animalKindList:Array<String>?
+    
     var animal: Animal?
     
     override func viewDidLoad() {
@@ -104,6 +106,26 @@ import UIKit
         }
         else if sender == btnSearch {
             
+            let kind = (animal?.animalType?.dtype)!
+            ApiManager.shared.requestAnimalKinds(kind: kind) { (response) in
+                if let response = response as? [String:Any], let success = response["success"] as? Bool , let list = response["list"] as? Array<String>  {
+                    if success && list.isEmpty == false {
+                        self.animalKindList = list
+                        let vc = PopupListViewController.init(type: .normal, title: "품종을 선택해주세요.", data: list, keys: nil) { (vcs, selData:Any?, index) in
+                            if let selData = selData as?String {
+                                self.tfItem.text = selData
+                            }
+                            vcs.dismiss(animated: true, completion: nil)
+                        }
+                        vc.modalPresentationStyle = .overFullScreen
+                        vc.modalTransitionStyle = .crossDissolve
+                        self.present(vc, animated: true, completion: nil)
+                    }
+                }
+            } failure: { (error) in
+                
+            }
+
         }
         else if sender == btnSmall {
             btnSmall.isSelected = true
@@ -123,22 +145,28 @@ import UIKit
         else if sender == btnOk {
             if btnItemKnow.isSelected {
                 animal?.item = tfItem.text
+                animal?.size = nil
+                
+                if (animal?.item) == nil {
+                    self.view.makeToast("품종을 알려주세요", position:.top)
+                    return
+                }
             }
             else if btnItemUnknow.isSelected {
+                animal?.item = nil
                 if btnSmall.isSelected {
-                    animal?.item = "소형"
+                    animal?.size = "S"
                 }
                 else if btnMiddle.isSelected {
-                    animal?.item = "중형"
+                    animal?.size = "M"
                 }
                 else if btnLarge.isSelected {
-                    animal?.item = "대형"
+                    animal?.size = "M"
                 }
-            }
-            
-            if (animal?.item) == nil {
-                self.view.makeToast("품종을 알려주세요", position:.top)
-                return
+                if (animal?.size) == nil {
+                    self.view.makeToast("사이즈 알려주세요", position:.top)
+                    return
+                }
             }
             
             let vc = AddAnimalBirthDayViewController.init(nibName: "AddAnimalBirthDayViewController", bundle: nil)

@@ -18,7 +18,7 @@ class AddAnimalNameViewController: BaseViewController {
     
     var animal: Animal? = nil
     var profileImg: UIImage? = nil
-    
+    var profileImgOrigin: UIImage? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
@@ -74,7 +74,7 @@ class AddAnimalNameViewController: BaseViewController {
             self.animal = Animal()
             animal?.name = tfPetName.text
             animal?.profileImage = profileImg
-            
+            animal?.profileImageOrigin = profileImgOrigin
             let vc = AddAnminalKindViewController.init(nibName: "AddAnminalKindViewController", bundle: nil)
             vc.animal = animal
             self.navigationController?.pushViewController(vc, animated: true)
@@ -110,6 +110,7 @@ class AddAnimalNameViewController: BaseViewController {
 extension AddAnimalNameViewController: CameraViewControllerDelegate {
     func didFinishImagePicker(origin: UIImage?, crop: UIImage?) {
         self.profileImg = crop
+        self.profileImgOrigin = origin
         self.btnAdd.setImage(self.profileImg, for: .normal)
         self.btnAdd.borderColor = RGB(217, 217, 217)
         self.btnAdd.borderWidth = 2.0

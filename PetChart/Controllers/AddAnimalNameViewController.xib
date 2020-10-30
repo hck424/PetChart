@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -65,7 +65,7 @@
                                     <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
                                     <nil key="highlightedColor"/>
                                 </label>
-                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="낭낭이" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Oed-iU-VbA" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
+                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="반려동물 이름 입력 세글자 이상 (ex: 낭낭이)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Oed-iU-VbA" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
                                     <rect key="frame" x="20" y="44" width="374" height="45"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="45" id="g8X-p1-wrp"/>
@@ -154,7 +154,7 @@
     </objects>
     <designables>
         <designable name="Oed-iU-VbA">
-            <size key="intrinsicContentSize" width="39" height="29.5"/>
+            <size key="intrinsicContentSize" width="262.5" height="19.5"/>
         </designable>
     </designables>
     <resources>

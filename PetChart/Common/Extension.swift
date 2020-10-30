@@ -28,12 +28,28 @@ extension UIViewController {
             if let code = data["code"] as? Int {
                 title.append(":\(code)")
             }
+            var msg:String = ""
+            if let errors = data["errors"] as? NSArray {
+                for error in errors {
+                    if let error = error as?[String:Any], let message = error["message"] {
+                        msg.append("\(message)\n")
+                    }
+                }
+                if msg.isEmpty == false {
+                    msg = String(msg.dropLast())
+                }
+            }
+            if msg.isEmpty == true {
+                if let message = data["msg"] as? String {
+                    msg = message
+                }
+            }
             
-            guard let msg = data["msg"] as? String else {
+            if msg.isEmpty == true {
                 return
             }
-            AlertView.showWithOk(title: nil, message: msg, completion: nil)
             
+            AlertView.showWithOk(title: title, message: msg, completion: nil)
         }
         else if let data = data as? Error {
 //            AlertView.showWithOk(title: "Error", message: "시스템에러", completion: nil)
@@ -189,5 +205,13 @@ extension String {
         let emailRegex = "^[0-9]{3}+[0-9]{4}+[0-9]{4}$"
         let emailTest = NSPredicate(format: "SELF MATCHES %@", emailRegex)
         return emailTest.evaluate(with: candidate)
+    }
+    func getNumberString() ->String? {
+        let strArr = self.components(separatedBy: CharacterSet.decimalDigits.inverted)
+        var result = ""
+        for item in strArr {
+            result.append(item)
+        }
+        return result
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PhoneNumberKit
 
 class FindPassWordViewController: BaseViewController {
 
@@ -20,6 +21,7 @@ class FindPassWordViewController: BaseViewController {
     @IBOutlet weak var lbHintPhoneNumber: UILabel!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
     
+    let phoneNumberKit = PhoneNumberKit()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,6 +58,28 @@ class FindPassWordViewController: BaseViewController {
         }
     }
 
+    @IBAction func textFieldEditingChange(_ sender: UITextField) {
+        
+        
+        if sender == tfPhoneNumber  {
+            guard let text = sender.text else {
+                return
+            }
+            
+            if text.isEmpty == true {
+                return
+            }
+            else {
+                do {
+                    let phoneNumber = try phoneNumberKit.parse(text, ignoreType: true)
+                    let newNum = self.phoneNumberKit.format(phoneNumber, toType: .national)
+                    self.tfPhoneNumber.text = newNum
+                } catch {
+                    self.tfPhoneNumber.text = text
+                }
+            }
+        }
+    }
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
         self.view.endEditing(true)
         if sender == btnOk {
@@ -92,10 +116,9 @@ class FindPassWordViewController: BaseViewController {
                 loginType = type
             }
             
-            let vc = NewPasswordViewController.init()
-            self.navigationController?.pushViewController(vc, animated: true)
+//            let vc = NewPasswordViewController.init()
+//            self.navigationController?.pushViewController(vc, animated: true)
             
-            return
             let param = ["id": tfUserId.text!, "join_type":loginType, "name":tfUserName.text!, "phone":tfPhoneNumber.text!];
             ApiManager.shared.requestFindUserPassword(param: param) { (response) in
                 print(param)

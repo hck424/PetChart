@@ -56,8 +56,22 @@ let kPToken = "PToken"
 let kLoginType = "LoginType"
 let kUserIdx = "UserIdx"
 let kUserPassword = "UserPassword"
-
+let kAppConfigInfo = "AppConfigInfo"
 let TAG_LOADING_IMG = 99999
+
+enum Gender : String {
+    case mail = "M"
+    case femail = "F"
+    
+    func displayValue() ->String {
+        if self.rawValue == "M" {
+            return "남"
+        }
+        else {
+            return "여"
+        }
+    }
+}
 
 enum PetHealth: String {
     case drink = "drink"

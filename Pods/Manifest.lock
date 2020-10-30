@@ -132,6 +132,12 @@ PODS:
   - nanopb/encode (1.30906.0)
   - naveridlogin-sdk-ios (4.1.2)
   - ObjectMapper (3.5.3)
+  - PhoneNumberKit (3.3.1):
+    - PhoneNumberKit/PhoneNumberKitCore (= 3.3.1)
+    - PhoneNumberKit/UIKit (= 3.3.1)
+  - PhoneNumberKit/PhoneNumberKitCore (3.3.1)
+  - PhoneNumberKit/UIKit (3.3.1):
+    - PhoneNumberKit/PhoneNumberKitCore
   - PromisesObjC (1.2.10)
   - SwiftKeychainWrapper (4.0.1)
   - SwiftyJSON (4.3.0)
@@ -151,6 +157,7 @@ DEPENDENCIES:
   - Mantis (~> 1.4.1)
   - naveridlogin-sdk-ios
   - ObjectMapper (~> 3.5)
+  - PhoneNumberKit (~> 3.3)
   - SwiftKeychainWrapper
   - SwiftyJSON (~> 4.0)
   - Toast-Swift (~> 5.0.1)
@@ -188,6 +195,7 @@ SPEC REPOS:
     - nanopb
     - naveridlogin-sdk-ios
     - ObjectMapper
+    - PhoneNumberKit
     - PromisesObjC
     - SwiftKeychainWrapper
     - SwiftyJSON
@@ -225,11 +233,12 @@ SPEC CHECKSUMS:
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
   naveridlogin-sdk-ios: cf8afccdb1793d4ecfcd5d46aa8729d8b5058c70
   ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
+  PhoneNumberKit: ff153d5e299f6da566cb73c6aa71e354933b2932
   PromisesObjC: b14b1c6b68e306650688599de8a45e49fae81151
   SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 3e4c402b02682d0978928dfc1db372ee8876d58c
+PODFILE CHECKSUM: 62d19e31c626801db0d5b37a8c0033a797bab777
 
 COCOAPODS: 1.9.3

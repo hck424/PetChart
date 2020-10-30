@@ -19,6 +19,7 @@ class HomeViewController: BaseViewController {
     var petCount: Int = 0
     var petPopupView: PetSelectPopupView?
     var arrMyPet: Array<Any>?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawTitle(self, UIImage(named: "header_logo")!, nil)
@@ -44,7 +45,10 @@ class HomeViewController: BaseViewController {
     
     func requestMyPetList() {
         ApiManager.shared.requestMyPetList { (response) in
-            if let response = response as?[String:Any], let data = response["data"] {
+            if let response = response as?[String:Any],
+               let data = response["data"] as? [String:Any],
+               let pets = data["pets"] as? Array<Any> {
+                self.arrMyPet = pets
                 self.configurationUI()
             }
             else {
@@ -58,12 +62,11 @@ class HomeViewController: BaseViewController {
 
     func configurationUI() {
         
-        
         for view in svContaner.subviews {
             view.removeFromSuperview()
         }
         
-        guard arrMyPet != nil else {
+        guard arrMyPet != nil && arrMyPet?.isEmpty == false else {
             btnEdting.isHidden = true
             btnMypetName.isHidden = true
             let emptyPetCell = EmptyPetCell.initWithFromNib()

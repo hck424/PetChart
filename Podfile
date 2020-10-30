@@ -27,4 +27,6 @@ pod 'JWTDecode', '~> 2.4'
 pod 'ObjectMapper', '~> 3.5'
 pod 'SwiftyJSON', '~> 4.0'
 pod "GCDWebServer", "~> 3.0"
+pod 'PhoneNumberKit', '~> 3.3'
+
 end

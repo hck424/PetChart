@@ -93,10 +93,10 @@ class AddAnimalInfoViewController: BaseViewController, UITextFieldDelegate {
             sender.isSelected = true
             
             if sender.tag == 100 {
-                selGender = "남"
+                selGender = "M"
             }
             else {
-                selGender = "여"
+                selGender = "F"
             }
         }
         else if sender.tag == 200 || sender.tag == 201 {
@@ -106,10 +106,10 @@ class AddAnimalInfoViewController: BaseViewController, UITextFieldDelegate {
             sender.isSelected = true
             
             if sender.tag == 200 {
-                selNeutral = "중성화 전"
+                selNeutral = "N"
             }
             else {
-                selNeutral = "중성화 완료"
+                selNeutral = "Y"
             }
         }
         else if sender.tag == 300 || sender.tag == 301 || sender.tag == 302 {
@@ -119,13 +119,13 @@ class AddAnimalInfoViewController: BaseViewController, UITextFieldDelegate {
             sender.isSelected = true
             
             if sender.tag == 300 {
-                selPrevent = "접종 전"
+                selPrevent = "N"
             }
             else if sender.tag == 301{
-                selPrevent = "접종 후"
+                selPrevent = "Y"
             }
             else {
-                selPrevent = "모름"
+                selPrevent = "D"
             }
         }
         else if sender.tag == 400 {
@@ -143,6 +143,12 @@ class AddAnimalInfoViewController: BaseViewController, UITextFieldDelegate {
             
             if tfRegiNumber.text!.count > 0 {
                 animal?.regiNumber = tfRegiNumber.text
+            }
+         
+            ApiManager.shared.requestRegistAnimal(anmail: animal!) { (response) in
+                print(String(describing: response))
+            } failure: { (error) in
+                self.showErrorAlertView(error)
             }
         }
     }

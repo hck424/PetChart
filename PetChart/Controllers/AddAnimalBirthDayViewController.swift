@@ -12,14 +12,13 @@ class AddAnimalBirthDayViewController: BaseViewController {
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var btnCheck1: UIButton!
     @IBOutlet weak var btnCheck2: UIButton!
-    @IBOutlet weak var btnCanlendar: UIButton!
-    @IBOutlet weak var tfBirthDay1: CTextField!
-    @IBOutlet weak var tfBirthDay2: CTextField!
+    @IBOutlet weak var btnBirthDay1: UIButton!
+    @IBOutlet weak var btnBirthDay2: UIButton!
+    @IBOutlet weak var tfBirthDay1: UITextField!
+    @IBOutlet weak var tfBirthDay2: UITextField!
     @IBOutlet weak var btnOk: UIButton!
     @IBOutlet weak var btnSafety: UIButton!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
-    
-    var selDate: Date? = nil
     
     var animal: Animal?
     override func viewDidLoad() {
@@ -74,16 +73,53 @@ class AddAnimalBirthDayViewController: BaseViewController {
             tfBirthDay1.text = ""
             animal?.birthday = nil
         }
-        else if sender == btnCanlendar {
+        else if sender == btnBirthDay1 {
+            btnCheck1.isSelected = true
+            btnCheck2.isSelected = false
             let maxDate = Date()
             let minDate = Date().getStartDate(withYear: -30)
             let apoint = Date()
             
             let picker = CDatePickerView.init(type: .yearMonthDay, minDate: minDate, maxDate: maxDate, apointDate: apoint) { (strDate, date) in
                 
-                if let date = date {
+                if let date = date, let strDate = strDate {
+                    self.tfBirthDay2.text = ""
                     self.tfBirthDay1.text = strDate
-                    self.selDate = date
+                    let ageComponet = self.getAgeInfo(birthDay: date)
+                    self.animal?.age = ageComponet.year ?? 0
+                    self.animal?.birthday = strDate
+                }
+            }
+            picker?.local = Locale(identifier: "ko_KR")
+            picker?.show()
+        }
+        else if sender == btnBirthDay2 {
+            btnCheck1.isSelected = false
+            btnCheck2.isSelected = true
+            let maxDate = Date()
+            let minDate = Date().getStartDate(withYear: -30)
+            let apoint = Date()
+            
+            let picker = CDatePickerView.init(type: .yearMonth, minDate: minDate, maxDate: maxDate, apointDate: apoint) { (strDate, date) in
+                
+                if let strDate = strDate {
+                    self.tfBirthDay1.text = ""
+                    let df = CDateFormatter.init()
+                    df.dateFormat = "yyyy-MM-dd"
+                    let birthday = df.date(from: "\(strDate)-01")
+                    let ageComponet = self.getAgeInfo(birthDay: birthday!)
+                    let year = ageComponet.year ?? 0
+                    let month = ageComponet.month ?? 0
+                    if  year > 0 {
+                        let str = "\(year)세 \(month)개월"
+                        self.tfBirthDay2.text = str
+                    }
+                    else {
+                        let str = "\(month)개월"
+                        self.tfBirthDay2.text = str
+                    }
+                    self.animal?.age = ageComponet.year ?? 0
+                    self.animal?.birthday = "\(strDate)-01"
                 }
             }
             picker?.local = Locale(identifier: "ko_KR")
@@ -109,7 +145,13 @@ class AddAnimalBirthDayViewController: BaseViewController {
         }
     }
     
-    
+    func getAgeInfo(birthDay:Date) -> DateComponents {
+        let now = Date()
+        var calendar = Calendar.init(identifier: Calendar.Identifier.gregorian)
+        calendar.locale = Locale.init(identifier: "en_US_POSIX")
+        let componets = calendar.dateComponents([.year, .month,.day], from: birthDay, to: now)
+        return componets
+    }
     @objc func notificationHandler(_ notification: Notification) {
             
         let heightKeyboard = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue.size.height

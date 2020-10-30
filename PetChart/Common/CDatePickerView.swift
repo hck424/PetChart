@@ -321,7 +321,7 @@ extension CDatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
             completion?(strDate, nil)
         }
         else if type == .yearMonth {
-            strDate = String(format: "%04d%02d", selYear, selMonth)
+            strDate = String(format: "%04d-%02d", selYear, selMonth)
             completion?(strDate, nil)
         }
         else if type == .yearMonthDay {

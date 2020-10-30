@@ -17,7 +17,7 @@ class AddAnminalKindViewController: BaseViewController {
     @IBOutlet weak var btnSafety: UIButton!
     
     var animal:Animal?
-    var selAnimal: String? = nil
+    var selAnimal: AnimalType? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,21 +43,20 @@ class AddAnminalKindViewController: BaseViewController {
             btnDog.isSelected = true
             btnCat.isSelected = false
             btnOther.isSelected = false
-            
-            selAnimal = "dog"
+            selAnimal = AnimalType(id: 1, dtype: "puppy", label: "강아지")
         }
         else if sender == btnCat {
             btnDog.isSelected = false
             btnCat.isSelected = true
             btnOther.isSelected = false
-            selAnimal = "cat"
+            selAnimal = AnimalType(id: 1, dtype: "cat", label: "고양이")
         }
         else if sender == btnOther {
             btnDog.isSelected = false
             btnCat.isSelected = false
             btnOther.isSelected = true
             
-            selAnimal = "other"
+            selAnimal = AnimalType(id: 1, dtype: "etc", label: "기타")
         }
         else if sender == btnOk {
             if btnDog.isSelected == false && btnCat.isSelected == false && btnOther.isSelected == false {
@@ -65,7 +64,7 @@ class AddAnminalKindViewController: BaseViewController {
                 return
             }
             
-            animal?.kind = selAnimal
+            animal?.animalType = selAnimal
             
             let vc = AddAnimalItemSelectViewController.init()
             vc.animal = animal

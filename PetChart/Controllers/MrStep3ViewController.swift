@@ -80,9 +80,12 @@ import UIKit
                     
                     if let msg = response["msg"] as? String {
                         if msg == "사용할 수 있는 아이디 입니다." {
-                            self.btnEmailCheck.isSelected = true
+                            AlertView.showWithOk(title: nil, message: msg) { (index) in
+                                self.btnEmailCheck.isSelected = true
+                            }
                         }
                         else {
+                            self.btnEmailCheck.isSelected = false
                             self.showErrorAlertView(response)
                         }
                     }
@@ -104,9 +107,12 @@ import UIKit
                 if let response = response as? [String : Any], let success = response["success"] as? Bool {
                     if let msg = response["msg"] as? String {
                         if msg == "사용할 수 있는 닉네임 입니다." {
-                            self.btnNickNameCheck.isSelected = true
+                            AlertView.showWithOk(title: nil, message: msg) { (index) in
+                                self.btnNickNameCheck.isSelected = true
+                            }
                         }
                         else {
+                            self.btnNickNameCheck.isSelected = false
                             self.showErrorAlertView(response)
                         }
                     }
@@ -198,10 +204,10 @@ import UIKit
             param["birthday"] = birthday
             param["privacy_agree"] = "true"
             param["termsservice_agree"] = "true"
-            param["Marketing_agree"] = "true"
+            param["marketing_agree"] = "true"
             
             self.view.endEditing(true)
-            ApiManager.shared.requestUserSignOut(param: param) { (response) in
+            ApiManager.shared.requestUserSignUp(param: param) { (response) in
                 print("회원가입 성공: \(String(describing: response))")
                 
                 if let response = response as? [String: Any], let success = response["success"] as? Bool {

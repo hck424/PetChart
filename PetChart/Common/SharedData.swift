@@ -12,6 +12,7 @@ class SharedData: NSObject {
     //차트 상세에서 쓴다.
     var arrType:NSMutableArray = NSMutableArray()
     var pToken: String? = nil
+    var configInfo: [String:Any]? = nil
     
     class func getUserId() -> String? {
         guard let userid = UserDefaults.standard.object(forKey: kUserId) as? String else {

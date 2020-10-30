@@ -20,7 +20,7 @@ class ApiManager: NSObject {
     }
     
     ///회원가입
-    func requestUserSignOut(param:[String : Any], success:ResSuccess?, failure:ResFailure?) {
+    func requestUserSignUp(param:[String : Any], success:ResSuccess?, failure:ResFailure?) {
         NetworkManager.shared.request(.post, "/api/v1/signup", param) { (respone) in
             success?(respone)
         } failure: { (error) in
@@ -56,7 +56,7 @@ class ApiManager: NSObject {
     
     ///비밀번호 찾기
     func requestFindUserPassword(param:[String : Any], success:ResSuccess?, failure: ResFailure?) {
-        NetworkManager.shared.request(.post, "/api/v1/findByPass", nil) { (respone) in
+        NetworkManager.shared.request(.post, "/api/v1/findByPass", param) { (respone) in
             success?(respone)
         } failure: { (error) in
             failure?(error)
@@ -97,13 +97,43 @@ class ApiManager: NSObject {
 
     ///마이펫 리스트
     func requestMyPetList(success: ResSuccess?, failure: ResFailure?) {
-        NetworkManager.shared.request(.get, "/api/v1/animal/lists", nil) { (respone) in
+        NetworkManager.shared.request(.get, "/api/v1/animal", nil) { (respone) in
             success?(respone)
         } failure: { (error) in
             failure?(error)
         }
     }
     
+    /// Config 정보
+    func requestAppConfig(isMemoryCache:Bool = false, success: ResSuccess?, failure:ResFailure?) {
+        let config = SharedData.instance.configInfo
+        if isMemoryCache == true && config != nil {
+            success?(config)
+        }
+        else {
+            NetworkManager.shared.request(.get, "/api/v1/app/config", nil) { (response) in
+                if let response = response as? [String:Any], let data = response["data"] as? [String:Any] {
+                    SharedData.instance.configInfo = data
+                    success?(response)
+                }
+            } failure: { (error) in
+                failure?(error)
+            }
+        }
+    }
+    
+    ///품종리스트
+    func requestAnimalKinds(kind:String, success:ResSuccess?, failure:ResFailure?) {
+        NetworkManager.shared.request(.get, "/api/v1/animal/kinds?kind=\(kind)", nil) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
+    
+    func requestRegistAnimal(anmail:Animal, success:ResSuccess?, failure:ResFailure?) {
+        
+    }
     
     ///IOT Conented
     func requestIotConnet(success:ResSuccess?, failure:ResFailure?) {

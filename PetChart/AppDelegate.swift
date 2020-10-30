@@ -84,13 +84,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                             print("==== new token: \(token)")
                         }
                         else {
+                            SharedData.removeObjectForKey(key: kPToken)
+                            SharedData.instance.pToken = nil
                             print("error: token 갱신오류")
                         }
                     }
                     else {
+                        SharedData.removeObjectForKey(key: kPToken)
+                        SharedData.instance.pToken = nil
                         print("error: token 갱신오류")
                     }
                 } failure: { (error) in
+                    SharedData.removeObjectForKey(key: kPToken)
+                    SharedData.instance.pToken = nil
                     print(String(describing: error))
                 }
             }
@@ -99,6 +105,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("==== token: \(SharedData.objectForKey(key: kPToken) ?? "")")
         print("==== logintype: \(SharedData.objectForKey(key: kLoginType) ?? "")")
     
+        ApiManager.shared.requestAppConfig(isMemoryCache: false, success: nil, failure: nil)
         
         return true
     }

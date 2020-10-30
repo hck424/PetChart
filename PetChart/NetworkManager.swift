@@ -45,6 +45,9 @@ class NetworkManager: NSObject {
             let endTime = CACurrentMediaTime()
             if let url = response.request?.url?.absoluteString {
                 print("\n\n =======request ======= \nurl: \(String(describing: url))")
+                if let param = param {
+                    print(String(describing: param))
+                }
             }
             print("take time: \(endTime - startTime)")
             print ("======= response ======= \n\(String(describing: response))")
@@ -74,7 +77,62 @@ class NetworkManager: NSObject {
                 break
             }
         }
+    }
+    
+    func requestFormdataType(_ method: HTTPMethod, _ url: String, _ param:[String :Any]?, success:ResSuccess?, failure:ResFailure?) {
+        let fulUrl = self.getFullUrl(url)
         
+        var headers: HTTPHeaders?
+        
+        if let token = SharedData.getToken() {
+            let myHerder = HTTPHeader(name: "X-AUTH-TOKEN", value: token)
+            headers = [.accept(ContentType.formdata.rawValue), myHerder]
+        } else {
+            headers = [.accept(ContentType.formdata.rawValue)]
+        }
+        
+        
+        let request = AF.request(fulUrl, method: method, parameters: param, encoding: JSONEncoding.default, headers: headers)
+        
+        AppDelegate.instance()?.startIndicator()
+        let startTime = CACurrentMediaTime()
+        
+        request.responseJSON { (response:AFDataResponse<Any>) in
+            let endTime = CACurrentMediaTime()
+            if let url = response.request?.url?.absoluteString {
+                print("\n\n =======request ======= \nurl: \(String(describing: url))")
+                if let param = param {
+                    print(String(describing: param))
+                }
+            }
+            print("take time: \(endTime - startTime)")
+            print ("======= response ======= \n\(String(describing: response))")
+            
+            AppDelegate.instance()?.stopIndicator()
+            switch response.result {
+            case .success(let result):
+                let statusCode: Int = response.response!.statusCode as Int
+                if (statusCode >= 200) && (statusCode <= 300) {
+                    if let success = success {
+                        success(result)
+                    }
+                }
+                else {
+                    if let failure = failure {
+                        failure(result)
+                    }
+                    self.debugPrint(result)
+                }
+                
+                break
+            case .failure(let error as NSError?):
+                if let failure = failure {
+                    failure(error)
+                    self.debugPrint(error)
+                }
+                break
+            }
+        }
     }
     
     func requestIot(_ method: HTTPMethod, _ url: String, _ param:[String :Any]?, success:ResSuccess?, failure:ResFailure?) {
