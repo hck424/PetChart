@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import ObjectMapper
+import Photos
+
 @IBDesignable
 class AddAnimalNameViewController: BaseViewController {
 
-    @IBInspectable @IBOutlet weak var btnAdd: CButton!
+    @IBInspectable @IBOutlet weak var btnProfile: CButton!
     @IBInspectable @IBOutlet weak var tfPetName: CTextField!
     @IBOutlet weak var btnOk: UIButton!
     @IBOutlet weak var btnSafety: UIButton!
@@ -18,12 +21,12 @@ class AddAnimalNameViewController: BaseViewController {
     
     var animal: Animal? = nil
     var profileImg: UIImage? = nil
-    var profileImgOrigin: UIImage? = nil
+//    var profileImgOrigin: UIImage? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
         CNavigationBar.drawTitle(self, "반려동물 등록", nil)
-        
+        btnProfile.imageView?.contentMode = .scaleAspectFit
         btnSafety.isHidden = true
         if Utility.isIphoneX() {
             btnSafety.isHidden = false
@@ -51,7 +54,7 @@ class AddAnimalNameViewController: BaseViewController {
     @IBAction func onClickedButtonActions(_ sender: UIButton) {
         self.view.endEditing(true)
         
-        if sender == btnAdd {
+        if sender == btnProfile {
             let alert = UIAlertController.init(title: nil, message: nil, preferredStyle:.actionSheet)
             alert.addAction(UIAlertAction.init(title: "카메라", style: .default, handler: { (action) in
                 self.showCamera(UIImagePickerController.SourceType.camera)
@@ -71,12 +74,16 @@ class AddAnimalNameViewController: BaseViewController {
                 self.view.makeToast("반려동물 이름을 알려주세요.", position:.top)
                 return
             }
-            self.animal = Animal()
-            animal?.name = tfPetName.text
-            animal?.profileImage = profileImg
-            animal?.profileImageOrigin = profileImgOrigin
+            
+            self.animal = Animal(JSON: ["petName": tfPetName.text!])
+            var images:Array<UIImage>?
+            if let profileImg = profileImg {
+                 images = Array<UIImage>()
+                images?.append(profileImg)
+            }
             let vc = AddAnminalKindViewController.init(nibName: "AddAnminalKindViewController", bundle: nil)
             vc.animal = animal
+            vc.images = images
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -108,13 +115,31 @@ class AddAnimalNameViewController: BaseViewController {
 }
 
 extension AddAnimalNameViewController: CameraViewControllerDelegate {
+    func didFinishImagePickerAssets(_ assets: [PHAsset]?) {
+        guard let assets = assets else {
+            return
+        }
+        guard let asset = assets.first else { return }
+        PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: 300, height: 300), contentMode: .aspectFit, options: PHImageRequestOptions()) { (result, _) in
+            guard let result = result else {
+                return
+            }
+            self.profileImg = result
+    //        self.profileImgOrigin = origin
+            self.btnProfile.setImage(self.profileImg, for: .normal)
+            self.btnProfile.borderColor = RGB(217, 217, 217)
+            self.btnProfile.borderWidth = 2.0
+            self.btnProfile.setNeedsDisplay()
+        }
+    }
+    
     func didFinishImagePicker(origin: UIImage?, crop: UIImage?) {
         self.profileImg = crop
-        self.profileImgOrigin = origin
-        self.btnAdd.setImage(self.profileImg, for: .normal)
-        self.btnAdd.borderColor = RGB(217, 217, 217)
-        self.btnAdd.borderWidth = 2.0
-        self.btnAdd.setNeedsDisplay()
+//        self.profileImgOrigin = origin
+        self.btnProfile.setImage(self.profileImg, for: .normal)
+        self.btnProfile.borderColor = RGB(217, 217, 217)
+        self.btnProfile.borderWidth = 2.0
+        self.btnProfile.setNeedsDisplay()
     }
 }
 

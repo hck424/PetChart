@@ -3,34 +3,36 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>84044809047-cd9a4pdm1vmcu6nudqrcc9emdmi9vp22.apps.googleusercontent.com</string>
+	<string>491818390799-3pqafu2tdh0qv3t8lea4kg6d3pkrgg7b.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.84044809047-cd9a4pdm1vmcu6nudqrcc9emdmi9vp22</string>
+	<string>com.googleusercontent.apps.491818390799-3pqafu2tdh0qv3t8lea4kg6d3pkrgg7b</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>491818390799-vqebbrhs6tseq56qn079toej6n0aqj6j.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBbzAcb5nqw6-ta2LGbeaBcxCljo8wj3c0</string>
+	<string>AIzaSyA6acRWndH2YIhuEQDn7GhllwUtU7vnDEg</string>
 	<key>GCM_SENDER_ID</key>
-	<string>84044809047</string>
+	<string>491818390799</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>kr.gagamel.PetChart</string>
+	<string>com.app.petchart</string>
 	<key>PROJECT_ID</key>
-	<string>petchart-db75a</string>
+	<string>petchart-b1045</string>
 	<key>STORAGE_BUCKET</key>
-	<string>petchart-db75a.appspot.com</string>
+	<string>petchart-b1045.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false/>
+	<false></false>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_GCM_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true/>
+	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:84044809047:ios:ff6be0b4a9ce545e877412</string>
+	<string>1:491818390799:ios:c38838efad069521195a7a</string>
 	<key>DATABASE_URL</key>
-	<string>https://petchart-db75a.firebaseio.com</string>
+	<string>https://petchart-b1045.firebaseio.com</string>
 </dict>
 </plist>

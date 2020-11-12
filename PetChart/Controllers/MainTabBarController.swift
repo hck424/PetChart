@@ -46,6 +46,9 @@ class MainTabBarController: UITabBarController {
         
         self.hidesBottomBarWhenPushed = true
     }
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("== maintabar viewwillappear")
+    }
     
 }

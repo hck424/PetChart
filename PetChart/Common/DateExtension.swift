@@ -32,14 +32,24 @@ extension Date {
         let month: Int = Int(df.string(for: self)!) ?? 0
         return month
     }
-    
     func getDay() -> Int {
         let df = CDateFormatter.init()
         df.dateFormat = "dd"
         let day: Int = Int(df.string(for: self)!) ?? 0
         return day
     }
-    
+    func jumpingDay(jumping:Int)-> Date? {
+        var dayComponent = DateComponents()
+        dayComponent.day = jumping
+        let calendar = Calendar.init(identifier: .gregorian)
+        return calendar.date(byAdding: dayComponent, to: self)
+    }
+    func stringDateWithFormat(_ formater: String) -> String {
+        let df = CDateFormatter.init()
+        df.dateFormat = formater
+        let strDate = df.string(from: self)
+        return strDate
+    }
     static func -(recent: Date, previous: Date) -> (month: Int?, day: Int?, hour: Int?, minute: Int?, second: Int?) {
         let day = Calendar.current.dateComponents([.day], from: previous, to: recent).day
         let month = Calendar.current.dateComponents([.month], from: previous, to: recent).month
@@ -100,4 +110,18 @@ func getAllDaysOfTheCurrentWeek() -> [Date] {
     }
     
     return dates
+}
+func datesRange(unit: NSCalendar.Unit, from: Date, to: Date) -> [Date] {
+    if from > to { return [Date]()}
+    
+    let calendar:NSCalendar = NSCalendar(identifier: .gregorian)!
+    var tempDate = from
+    var array = [tempDate]
+
+    while tempDate < to {
+        tempDate = calendar.date(byAdding: unit, value: 1, to: tempDate)!
+        array.append(tempDate)
+    }
+
+    return array
 }

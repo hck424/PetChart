@@ -11,8 +11,8 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddAnimalNameViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
                 <outlet property="bottomContainer" destination="uRs-gH-Z9F" id="nzz-Ab-ZWY"/>
-                <outlet property="btnAdd" destination="tQO-Re-erh" id="Rc5-o4-Eee"/>
                 <outlet property="btnOk" destination="Dw3-Zd-0AT" id="esh-UE-zYb"/>
+                <outlet property="btnProfile" destination="tQO-Re-erh" id="boe-bI-dZM"/>
                 <outlet property="btnSafety" destination="j4Z-Fi-IYV" id="fwK-fq-vcC"/>
                 <outlet property="cornerBgView" destination="1f9-P7-j3H" id="VYA-5O-OQr"/>
                 <outlet property="tfPetName" destination="Oed-iU-VbA" id="NkW-S2-Izn"/>

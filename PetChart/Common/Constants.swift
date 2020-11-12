@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 let SERVER_PREFIX = "https://jayutest.best:5001"
-//let SERVER_PRIFIX = "https://jayutest.best:5001"
 let IOT_SERVER_PREFIX = "http://192.168.4.1:5001"
 
 typealias LoginClosure = (UserInfo?, Error?) -> Void
@@ -24,11 +23,12 @@ public func RGBA(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat, _ a: CGFloat) -> UICo
 let NotiNameHitTestView = "HitTestView"
 
 let IsShowTutorial = "IsShowTutorial"
-let KAKAO_NATIVE_APP_KEY = "f43c314ddcf1ce35e19935da750b7c8a"
-let KAKAO_REST_API_KEY = "4a98985ff0324b80007198c0b928e263"
-let NAVER_URL_SCHEME = "naverlogin"
-let NAVER_CONSUMER_KEY = "X7G9gqYulGWet9LR8V0k"
-let NAVER_CONSUMER_SECRET = "DDdzjicyuS"
+let KAKAO_NATIVE_APP_KEY = "4945988ae0215607dd3e5c1add4b3dd3"
+let KAKAO_REST_API_KEY = "4bcddca6187aca7ae52e4a306b1cab88" //주소 써치
+let NAVER_URL_SCHEME = "com.app.petchart"
+let NAVER_CONSUMER_KEY = "pnwBsZc4aq8weaOwidr8"
+let NAVER_CONSUMER_TESTER_KEY = "wns7874"
+let NAVER_CONSUMER_SECRET = "AiJpWSBgRw"
 
 
 let kDrink = "Drink"
@@ -56,9 +56,12 @@ let kPToken = "PToken"
 let kLoginType = "LoginType"
 let kUserIdx = "UserIdx"
 let kUserPassword = "UserPassword"
-let kAppConfigInfo = "AppConfigInfo"
 let TAG_LOADING_IMG = 99999
+let kMainShowPetId = "MainShowPetId"
+let kMainShowPetName = "MainShowPetName"
 
+let kMyHomeWifiPassword = "MyHomeWifiPassword"
+let kPushUserData = "PushUserData"
 enum Gender : String {
     case mail = "M"
     case femail = "F"
@@ -83,6 +86,57 @@ enum PetHealth: String {
     
     func value()->String {
         return self.rawValue
+    }
+    func udfHomeGraphKey() ->String {
+        if self.rawValue == "drink" {
+            return kDrink
+        }
+        else if self.rawValue == "eat" {
+            return kEat
+        }
+        else if self.rawValue == "weight" {
+            return kWeight
+        }
+        else if self.rawValue == "feces" {
+            return kFeces
+        }
+        else if self.rawValue == "walk"  {
+            return kWalk
+        }
+        else if self.rawValue == "medical" {
+            return kMedical
+        }
+        return kDrink
+    }
+    func udfTotalChartKey() ->String {
+        if self.rawValue == "drink" {
+            return kTotalChartDrink
+        }
+        else if self.rawValue == "eat" {
+            return kTotalChartEat
+        }
+        else if self.rawValue == "weight" {
+            return kTotalChartWeight
+        }
+        else if self.rawValue == "feces" {
+            return kTotalChartFeces
+        }
+        else if self.rawValue == "walk"  {
+            return kTotalChartWalk
+        }
+        else if self.rawValue == "medical" {
+            return kTotalChartMedical
+        }
+        return kTotalChartDrink
+    }
+    func udfSmartChartKey() ->String {
+        if self.rawValue == "drink" {
+            return kSmartChartDrink
+        }
+        else if self.rawValue == "eat" {
+            return kSmartChartEat
+        }
+        return kSmartChartDrink
     }
     
     func koreanValue() -> String? {
@@ -174,10 +228,13 @@ enum PetHealth: String {
         return nil
     }
 }
-enum GraphType: Int {
-    case day
-    case week
-    case month
+
+enum GraphType: String {
+    case min = "min"
+    case hour = "hour"
+    case day = "day"
+    case week = "week"
+    case month = "month"
 }
 
 public struct Address {
@@ -200,3 +257,15 @@ struct WifiInfo {
 
 let IOT_API_KEY = "QRpvmh2AgDeg0us4csAI9Kpb0Bn4CoPQ"
 let kIOT_SESSION_KEY = "IOT_SESSION_KEY"
+
+struct MyError: Error {
+    let message: String
+
+    init(_ message: String) {
+        self.message = message
+    }
+
+    public var localizedDescription: String {
+        return message
+    }
+}

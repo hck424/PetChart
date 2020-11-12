@@ -9,11 +9,9 @@ import UIKit
 
 class SharedData: NSObject {
     static var instance = SharedData()
-    //차트 상세에서 쓴다.
-    var arrType:NSMutableArray = NSMutableArray()
+
     var pToken: String? = nil
-    var configInfo: [String:Any]? = nil
-    
+    var userIdx:Int = -1
     class func getUserId() -> String? {
         guard let userid = UserDefaults.standard.object(forKey: kUserId) as? String else {
             return nil

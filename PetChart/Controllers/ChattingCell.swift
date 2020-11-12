@@ -33,20 +33,25 @@ class ChattingCell: UITableViewCell {
             return
         }
         
-        if let content = data["content"] as? String {
-            lbContent.text = content
+        if let message = data["message"] as? String {
+            lbContent.text = message
         }
-        
-        if let type = data["type"] as? String, let lbTime = self.getTimeLabel() {
-            if type == "send" {
+        if let dtype = data["dtype"] as? String {
+            if dtype == "user" {
                 bgView.backgroundColor = ColorDefault
-                svContent.insertArrangedSubview(lbTime, at: 0)
                 lbContent.textColor = UIColor.white
+                
+                if let lbTime = self.getTimeLabel() {   //내가 쓴글
+                    svContent.insertArrangedSubview(lbTime, at: 0)
+                }
             }
             else {
                 bgView.backgroundColor = UIColor.white
-                svContent.addArrangedSubview(lbTime)
                 lbContent.textColor = UIColor.black
+                
+                if let lbTime = self.getTimeLabel() {
+                    svContent.addArrangedSubview(lbTime)
+                }
             }
         }
     }
@@ -55,7 +60,7 @@ class ChattingCell: UITableViewCell {
         guard let data = data else {
             return nil
         }
-        guard let writeDate = data["writeDate"] as? String else {
+        guard let writeDate = data["create_date"] as? String else {
             return nil
         }
         
@@ -65,19 +70,30 @@ class ChattingCell: UITableViewCell {
         lbTime.textColor = RGB(136, 136, 136)
         
         let df = CDateFormatter.init()
-        df.dateFormat = "yyyyMMdd HH:mm:ss"
-        let date = df.date(from: writeDate)
+        df.dateFormat = "yyyy.MM.dd HH:mm:ss"
         
+        guard let date = df.date(from: writeDate) else {
+            return nil
+        }
+  
         df.locale = NSLocale(localeIdentifier: "ko_KR") as Locale
-        df.dateFormat = "a hh:mm"
-        let str = df.string(from: date!)
+        let calendar = Calendar.init(identifier: .gregorian)
+        
+        if calendar.isDateInToday(date) {
+            df.dateFormat = "a hh:mm"
+        }
+        else {
+            df.dateFormat = "yy.MM.dd hh:mm"
+        }
+        
+        let str = df.string(from: date)
         lbTime.text = str
         
         lbTime.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for:.horizontal)
         lbTime.setContentHuggingPriority(UILayoutPriority(rawValue: 1), for:.vertical)
         
-        if let type = data["type"] as? String {
-            if type == "send" {
+        if let dtype = data["dtype"] as? String {
+            if dtype == "user" {
                 lbTime.textAlignment = .right
             }
             else {

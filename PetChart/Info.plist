@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>PETCHART</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,10 +24,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>kakaologin</string>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>kakaof43c314ddcf1ce35e19935da750b7c8a</string>
+				<string>kakao4945988ae0215607dd3e5c1add4b3dd3</string>
 			</array>
 		</dict>
 		<dict>
@@ -33,28 +35,29 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>fb392180688606898</string>
+				<string>fb864189104327540</string>
 			</array>
 		</dict>
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>naverlogin</string>
+			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>naverlogin</string>
+				<string>com.app.petchart</string>
 			</array>
 		</dict>
+		<dict/>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
-	<string>392180688606898</string>
+	<string>864189104327540</string>
 	<key>FacebookDisplayName</key>
-	<string>PetChart</string>
+	<string>PETCHART</string>
 	<key>KAKAO_APP_KEY</key>
-	<string>487547</string>
+	<string>495036</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>fbapi</string>
@@ -79,6 +82,23 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<true/>
+	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>카메라 사용을 허용해주세요.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Application requires user’s location for better user experience.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Application requires user’s location for better user experience.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Application requires user’s location for better user experience.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>갤러리 접근을 허용해주세요.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>갤러리 접근을 허용해주세요.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
@@ -104,20 +124,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>카메라 사용을 허용해주세요.</string>
-	<key>NSPhotoLibraryAddUsageDescription</key>
-	<string>갤러리 접근을 허용해주세요.</string>
-	<key>NSAppTransportSecurity</key>
-	<dict>
-		<key>NSAllowsArbitraryLoads</key>
-		<true/>
-	</dict>
-    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-        <string>Application requires user’s location for better user experience.</string>
-        <key>NSLocationAlwaysUsageDescription</key>
-        <string>Application requires user’s location for better user experience.</string>
-        <key>NSLocationWhenInUseUsageDescription</key>
-        <string>Application requires user’s location for better user experience.</string>
 </dict>
 </plist>

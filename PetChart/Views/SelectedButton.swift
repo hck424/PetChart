@@ -8,6 +8,7 @@
 import UIKit
 
 class SelectedButton: UIButton {
+    var data:Any? = nil
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         self.decorationNormalBtn()

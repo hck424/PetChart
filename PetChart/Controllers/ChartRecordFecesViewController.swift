@@ -15,8 +15,12 @@ class ChartRecordFecesViewController: BaseViewController {
     @IBOutlet var arrBtnColor: [CButton]!
     @IBOutlet var arrBtnFeces: [SelectedButton]!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
+    @IBOutlet weak var tfCountS: UITextField!
+    @IBOutlet weak var tfCountP: UITextField!
     
     var selDate: Date?
+    var isCompletionS: Bool = false
+    var isCompletionP: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,26 +84,119 @@ class ChartRecordFecesViewController: BaseViewController {
             self.selDate = curDate
             tfDay.text = df.string(from: curDate)
         }
-        else if let sender = sender as? CButton {
-            if arrBtnColor.contains(sender) {
-                for btn in arrBtnColor {
-                    btn.layer.borderColor = nil
-                    btn.layer.borderWidth = 0
-                }
-                sender.layer.borderColor = ColorDefault.cgColor
-                sender.layer.borderWidth = 2.0
+        else if let colorBtn = sender as? CButton,  arrBtnColor.contains(colorBtn) == true {
+            for btn in arrBtnColor {
+                btn.layer.borderColor = nil
+                btn.layer.borderWidth = 0
+                btn.isSelected = false
             }
+            colorBtn.isSelected = true
+            colorBtn.layer.borderColor = ColorDefault.cgColor
+            colorBtn.layer.borderWidth = 2.0
+            
         }
-        else if let sender = sender as? SelectedButton {
-            if arrBtnFeces.contains(sender) {
-                for btn in arrBtnFeces {
-                    btn.isSelected = false
-                }
-                sender.isSelected = true
+        else if let selBtn = sender as? SelectedButton,  arrBtnFeces.contains(selBtn) == true {
+            for btn in arrBtnFeces {
+                btn.isSelected = false
             }
+            selBtn.isSelected = true
+            
         }
         else if sender.tag == 1111 {
+            guard let petId = SharedData.objectForKey(key: kMainShowPetId) else {
+                self.view.makeToast("등록된 동물이 없습니다.", position:.top)
+                return
+            }
+            guard let date = tfDay.text, date.isEmpty == false else {
+                self.view.makeToast("날짜를 입력해주세요.", position:.top)
+                return
+            }
             
+            guard let sCount = tfCountS.text, sCount.isEmpty == false else {
+                self.view.makeToast("소변 횟수 입력해주세요.", position:.top)
+                return
+            }
+            guard let pCount = tfCountS.text, pCount.isEmpty == false else {
+                self.view.makeToast("대변 횟수 입력해주세요.", position:.top)
+                return
+            }
+            
+            var colorS = 0
+            var isSelectedS = false
+            for btn in arrBtnColor {
+                if btn.isSelected {
+                    isSelectedS = true
+                    if btn.tag < 6 {
+                        colorS = btn.tag
+                    }
+                    break
+                }
+            }
+            if isSelectedS == false {
+                self.view.makeToast("소변 색갈을 선택해주세요.", position:.top)
+                return
+            }
+            
+            var colorP = 0
+            var isSelectedP = false
+            for btn in arrBtnColor {
+                if btn.isSelected {
+                    isSelectedP = true
+                    if btn.tag < 6 {
+                        colorP = btn.tag
+                    }
+                    break
+                }
+            }
+            
+            if isSelectedP == false {
+                self.view.makeToast("대변 종류를 선택해주세요.", position:.top)
+                return
+            }
+            
+            let param1 = ["dtype":"S", "pet_id": petId, "cnt":sCount, "color": colorS, "date_key": date]
+            let param2 = ["dtype":"P", "pet_id": petId, "cnt":pCount, "color": colorP, "date_key": date]
+            //소변기록
+            ApiManager.shared.requestWriteChart(type: .feces, param: param1) { (response) in
+                if let response = response as? [String:Any],
+                   let msg = response["msg"] as? String,
+                   let success = response["success"] as? Bool, success == true {
+                    
+                    self.isCompletionS = true
+                    if self.isCompletionS && self.isCompletionP {
+                        AlertView.showWithCancelAndOk(title: "배변 기록", message: msg) { (index) in
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }
+                }
+                else {
+                    self.showErrorAlertView(response)
+                }
+
+            } failure: { (error) in
+                self.showErrorAlertView(error)
+            }
+            
+            //대변 기록
+            ApiManager.shared.requestWriteChart(type: .feces, param: param2) { (response) in
+                if let response = response as? [String:Any],
+                   let msg = response["msg"] as? String,
+                   let success = response["success"] as? Bool, success == true {
+                    
+                    self.isCompletionP = true
+                    if self.isCompletionS && self.isCompletionP {
+                        AlertView.showWithCancelAndOk(title: "배변 기록", message: msg) { (index) in
+                            self.navigationController?.popViewController(animated: true)
+                        }
+                    }
+                }
+                else {
+                    self.showErrorAlertView(response)
+                }
+
+            } failure: { (error) in
+                self.showErrorAlertView(error)
+            }
         }
     }
     

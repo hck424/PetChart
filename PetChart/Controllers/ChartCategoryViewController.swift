@@ -10,32 +10,48 @@ import UIKit
 class ChartCategoryViewController: BaseViewController {
     @IBOutlet weak var vwBgContainer: UIView!
     @IBOutlet weak var lbYearMonth: UILabel!
-    @IBOutlet var arrSvTopWeekDay: [UIStackView]!
     @IBOutlet weak var btnRecord: UIButton!
     @IBOutlet weak var btnDetail: UIButton!
     @IBOutlet weak var btnSafety: UIButton!
-    
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var svTopDay: UIStackView!
     @IBOutlet weak var btnMark: UIButton!
     @IBOutlet weak var btnDay: UIButton!
     @IBOutlet weak var btnWeek: UIButton!
     @IBOutlet weak var btnMonth: UIButton!
-    
     @IBOutlet weak var vwGraph: UIView!
     @IBOutlet weak var svGraph: UIStackView!
+    
+    var arrBtnTopDay: [CButton] = [CButton]()
     
     let TAG_UNDER_LINE: Int = 1234567
     
     var vcTitle:String?
-    var type:PetHealth?
+    var type:PetHealth = .drink
     var data: Dictionary<String, Any>?
     var graphType: GraphType = .day
     
+    var arrChart:[[String:Any]] = [[String:Any]]()
+    var maxValue:Int = 0
+    let df = CDateFormatter.init()
+    var calendar = Calendar.init(identifier: .gregorian)
+    var saveMonth:Int = -1
+    var widthTopDay: CGFloat = 0
+    var seledButton:CButton? = nil
+    var arrPickupGraph:[[String:Any]] = [[String:Any]]()
+    var graph: GraphView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        scrollView.delegate = self
+        calendar.locale = Locale.init(identifier: "ko_KR")
+        
         var title = ""
         if let tt = vcTitle {
             title = tt
         }
+        
         CNavigationBar.drawTitle(self, title, nil)
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
         
@@ -47,113 +63,270 @@ class ChartCategoryViewController: BaseViewController {
         if Utility.isIphoneX() == false {
             btnSafety.isHidden = true
         }
-        arrSvTopWeekDay = arrSvTopWeekDay.sorted(by: { (sv1, sv2) -> Bool in
-            return sv1.tag < sv2.tag
-        })
         
         self.underLineSelected(btnDay)
+        
+        self.view.layoutIfNeeded()
+        
+        self.btnDay.sendActions(for: .touchUpInside)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.configurationUI()
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
     
-    func configurationUI() {
-        btnMark.setImage(type?.markImage(), for: .normal)
-        btnMark.setTitle(type?.koreanValue(), for: .normal)
+    func requestChartData(from: String, to: String) {
         
-        var graphColor = type?.colorType()
+        guard let savePetId = UserDefaults.standard.object(forKey: kMainShowPetId) as? Int  else {
+            return
+        }
+        
+        ApiManager.shared.requestChartData(health: type, petId: savePetId, type: graphType, stDate:from , edDate: to) { (response) in
+            if let response = response as? [String:Any],
+               let date = response["data"] as? [String:Any],
+               let charts = date["charts"] as? Array<[String:Any]> {
+                self.arrChart.removeAll()
+                self.arrChart = charts
+                self.maxValue = (date["maxValue"] as? Int) ?? 0
+                self.configurationUI()
+            }
+        } failure: { (error) in
+            self.showErrorAlertView(error)
+        }
+    }
+    
+    
+    func configurationUI() {
+        if arrChart.isEmpty == true {
+            return
+        }
+    
+        btnMark.setImage(type.markImage(), for: .normal)
+        btnMark.setTitle(type.koreanValue(), for: .normal)
+        
+        let curDate = Date()
+        
+        var graphColor = type.colorType()
         if graphColor == nil {
             graphColor = UIColor.black
         }
-    
-        let curDate = Date()
-        var calendar = Calendar.init(identifier: .gregorian)
-        calendar.locale = Locale.init(identifier: "ko_KR")
-        let arrDays = calendar.daysWithSameWeekOfYear(as: curDate)
-        
-        let df = CDateFormatter()
-        df.dateFormat = "yyyy.MM"
-        let strYearMonth = df.string(from: curDate)
-        lbYearMonth.text = strYearMonth
-        
-        //top 날짜 매핑
-        for i in 0..<arrDays.count {
-            let day = arrDays[i]
-            //stackview 에서 tag로 찾아 데이터 매핑
-            var findStackView: UIStackView? = nil
-            for svTop in arrSvTopWeekDay  {
-                if svTop.tag == i+1 {
-                    findStackView = svTop
-                    break
-                }
-            }
-            
-            if let svTop = findStackView {
-                if let btnDay = svTop.viewWithTag(2) as? UIButton {
-                    let strTitle = String(format: "%02d", day.getDay())
-                    btnDay.setTitle(strTitle, for: .normal)
-                    btnDay.setTitleColor(UIColor.black, for: .normal)
-                    btnDay.titleLabel?.font = UIFont.systemFont(ofSize: (btnDay.titleLabel?.font.pointSize)!, weight: .regular)
-                    
-                    btnDay.setBackgroundImage(nil, for: .normal)
-                    
-                    if day.getMonth() == curDate.getMonth()
-                        && day.getDay() == curDate.getDay() {
-                        btnDay.titleLabel?.font = UIFont.systemFont(ofSize: (btnDay.titleLabel?.font.pointSize)!, weight: .bold)
-                        btnDay.setTitleColor(ColorDefault, for: .normal)
-                        btnDay.setBackgroundImage(UIImage(named: "circle_curent_day"), for: .normal)
-                    }
-                }
-            }
-        }
-        
         
         //그래프 그리기
         for subview in svGraph.subviews {
             subview.removeFromSuperview()
         }
-        let graph = GraphView.initWithFromNib()
-        svGraph.addArrangedSubview(graph)
+        self.graph = GraphView.initWithFromNib()
+        svGraph.addArrangedSubview(graph!)
         
         if graphType == .day {
-            graph.configurationGraph(type: .day, colorGraph: graphColor, data: nil)
+            graph?.configurationGraph(type: .day, colorGraph: graphColor)
         }
         else if graphType == .week {
-            graph.configurationGraph(type: .week, colorGraph: graphColor, data: nil)
+            graph?.configurationGraph(type: .week, colorGraph: graphColor)
         }
         else if graphType == .month {
-            graph.configurationGraph(type: .month, colorGraph: graphColor, data: nil)
+            graph?.configurationGraph(type: .month, colorGraph: graphColor)
         }
+        
+        if graphType == .day {
+            //top DayView 그리기
+            for subView in svTopDay.subviews {
+                subView.removeFromSuperview()
+            }
+            arrBtnTopDay.removeAll()
+            
+            for i in 0..<arrChart.count {
+                let item = arrChart[i]
+                self.makeTopDayButton(item:item, index:i)
+            }
+            
+            self.view.layoutIfNeeded()
+            df.dateFormat = "yyyy-MM-dd"
+            let todayStr = df.string(for: curDate)!
+            var findIndex = 0
+            
+            //그린후 오늘 날짜로 이동
+            for btn in arrBtnTopDay {
+                if let item = btn.data as? [String:Any] {
+                    if let key = item["key"] as? String {
+                        if key == todayStr {
+                            findIndex = btn.tag
+                            break
+                        }
+                    }
+                }
+            }
+            
+            self.changeSeledButton(index: findIndex)
+            scrollView.setContentOffset(CGPoint(x: scrollView.contentSize.width-scrollView.frame.size.width, y: 0), animated: true)
+        }
+        else if graphType == .week {
+            var index = 0
+            self.arrPickupGraph.removeAll()
+            var tmpArray:[[String:Any]] = [[String:Any]]()
+            for item in arrChart.reversed() {
+                if let key = item["key"] as? String {
+                    df.dateFormat = "yyyy-MM-dd"
+                    if let date = df.date(from: key) {
+                        if date < curDate {
+                            tmpArray.append(item)
+                            index += 1
+                        }
+                    }
+                }
+                
+                if index > 4 {
+                    break;
+                }
+            }
+            self.arrPickupGraph = tmpArray.reversed()
+            self.graph?.maxValue = maxValue
+            self.graph?.data = arrPickupGraph
+            self.graph?.reloadData()
+        }
+        else if graphType == .month {
+            self.arrPickupGraph = arrChart
+            self.graph?.maxValue = maxValue
+            self.graph?.data = arrPickupGraph
+            self.graph?.reloadData()
+        }
+    }
+    
+    func makeTopDayButton(item:[String:Any], index:Int) {
+        self.widthTopDay = CGFloat((scrollView.bounds.width - 40.0)/5)
+        let btn:CButton = CButton.init()
+        btn.translatesAutoresizingMaskIntoConstraints = true
+        btn.widthAnchor.constraint(equalToConstant: widthTopDay).isActive = true
+        
+        svTopDay.addArrangedSubview(btn)
+        btn.data = item
+        btn.tag = index
+        
+        guard let key = item["key"] as? String else {
+            return
+        }
+        df.dateFormat = "yyyy-MM-dd"
+        guard let date = df.date(from: key) else {
+            return
+        }
+        let index = calendar.component(.weekday, from: date)
+        let simbol = calendar.shortWeekdaySymbols[index-1]
+        
+        let componet = calendar.dateComponents([.month, .day], from: date)
+        let curMonth = componet.month!
+        let day = componet.day!
+        
+        let svVertical:UIStackView = UIStackView.init()
+        svVertical.axis = .vertical
+        svVertical.distribution = .fillEqually
+        svVertical.alignment = .center
+        btn.addSubview(svVertical)
+        
+        svVertical.translatesAutoresizingMaskIntoConstraints = false
+        svVertical.leadingAnchor.constraint(equalTo: btn.leadingAnchor).isActive = true
+        svVertical.topAnchor.constraint(equalTo: btn.topAnchor).isActive = true
+        svVertical.bottomAnchor.constraint(equalTo: btn.bottomAnchor).isActive = true
+        svVertical.trailingAnchor.constraint(equalTo: btn.trailingAnchor).isActive = true
+        svVertical.isUserInteractionEnabled = false
+        
+        let label = UILabel.init()
+        svVertical.addArrangedSubview(label)
+        
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.textColor = RGB(136, 136, 136)
+        label.tag = 100
+        
+        label.text = simbol
+        let lbDay = UILabel.init()
+        lbDay.textAlignment = .center
+        lbDay.font = UIFont.systemFont(ofSize: 13)
+        lbDay.textColor = UIColor.black
+        lbDay.tag = 200
+        var widthDay:CGFloat = 35.0
+        if widthDay > widthTopDay {
+            widthDay = widthTopDay
+        }
+        lbDay.translatesAutoresizingMaskIntoConstraints = false
+        lbDay.widthAnchor.constraint(equalToConstant: widthDay).isActive = true
+        lbDay.heightAnchor.constraint(equalToConstant: widthDay).isActive = true
+        svVertical.addArrangedSubview(lbDay)
+        if curMonth != saveMonth {
+            lbDay.text = "\(curMonth)/\(day)"
+        }
+        else {
+            lbDay.text = "\(day)"
+        }
+        
+        lbDay.layer.cornerRadius = CGFloat(widthDay/2.0)
+        lbDay.layer.borderColor = UIColor.clear.cgColor
+        lbDay.layer.borderWidth = 2.0
+       
+        saveMonth = curMonth
+        
+        btn.addTarget(self, action: #selector(onClickedBtnActions(_:)), for: .touchUpInside)
+        arrBtnTopDay.append(btn)
     }
     
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
         if sender == btnDay {
             graphType = .day
-            self.configurationUI()
+            
+            //서버에서 30개씩 내려준다.
+            let stDate = Date().jumpingDay(jumping: -29)
+            let edDate = Date()
+            
+            if let stDate = stDate {
+                let from = stDate.stringDateWithFormat("yyyy-MM-dd")
+                let to = edDate.stringDateWithFormat("yyyy-MM-dd")
+                self.requestChartData(from: from, to: to)
+            }
             self.underLineSelected(sender)
         }
         else if sender == btnWeek {
             graphType = .week
+            let edDate = Date()
+            let stDate = Date().jumpingDay(jumping: -42)
+            
+            if let stDate = stDate {
+                let from = stDate.stringDateWithFormat("yyyy-MM-dd")
+                let to = edDate.stringDateWithFormat("yyyy-MM-dd")
+                self.requestChartData(from: from, to: to)
+            }
+            
             self.configurationUI()
             self.underLineSelected(sender)
         }
         else if sender == btnMonth {
             graphType = .month
-            self.configurationUI()
+            
+            let edDate = Date()
+            //5개월전 .jumpingDay(jumping: -240)!
+            var year = edDate.getYear()
+            var month = edDate.getMonth()
+            let day = edDate.getDay()
+            let beforeMonth = 4
+            if (month - beforeMonth) < 1 {
+                year = year - 1
+                month = 12-abs(month-beforeMonth)
+            }
+            else {
+                month = month - beforeMonth
+            }
+            let from = String.init(format: "%04d-%02d-%02d", year, month, day)
+            let to = edDate.stringDateWithFormat("yyyy-MM-dd")
+            self.requestChartData(from: from, to: to)
+            
             self.underLineSelected(sender)
         }
         else if sender == btnDetail {
-            
-            SharedData.instance.arrType.addObjects(from: [PetHealth.drink, PetHealth.eat, PetHealth.weight, PetHealth.feces, PetHealth.walk, PetHealth.medical])
-            
             let vc = ChartDetailViewController.init(nibName: "ChartDetailViewController", bundle: nil)
             vc.graphType = graphType
-            vc.type = type!
+            vc.type = type
             self.navigationController?.pushViewController(vc, animated: true)
         }
         else if sender == btnRecord {
@@ -181,6 +354,10 @@ class ChartCategoryViewController: BaseViewController {
                 self.navigationController?.pushViewController(vc, animated: true)
             }
         }
+        else if self.arrBtnTopDay.contains(sender as! CButton) == true {
+            let findIndex = sender.tag
+            self.changeSeledButton(index: findIndex)
+        }
     }
     
     func removeUnderlineView(_ sender: UIButton) {
@@ -202,5 +379,103 @@ class ChartCategoryViewController: BaseViewController {
         
         sender.titleLabel?.font = UIFont.systemFont(ofSize: sender.titleLabel?.font.pointSize ?? 15, weight: .bold)
         sender.setTitleColor(UIColor.black, for: .normal)
+    }
+    
+    func changeSeledButton(index:Int) {
+        if graphType == .day {
+            print("=== index: \(index)")
+            
+            if let seledButton = seledButton {
+                if let lbDate = seledButton.viewWithTag(200) as? UILabel {
+                    lbDate.font = UIFont.systemFont(ofSize: 13)
+                    lbDate.textColor = UIColor.black
+                    lbDate.layer.borderColor = UIColor.clear.cgColor
+                }
+            }
+            self.seledButton = arrBtnTopDay[index]
+            if let lbDate = self.seledButton!.viewWithTag(200) as? UILabel {
+                lbDate.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+                lbDate.textColor = ColorDefault
+                lbDate.layer.borderColor = ColorDefault.cgColor
+            }
+            
+            let widthCenter = CGFloat(2*widthTopDay)
+            let offsetX = CGFloat(CGFloat(index)*widthTopDay - widthCenter)
+            
+            //        print("offset oringx: \(CGFloat(CGFloat(index)*widthTopDay)), centerx:\(offsetX), consize:\(scrollView.contentSize.width)")
+            
+            if (offsetX <= scrollView.contentSize.width - scrollView.bounds.width)
+                && (offsetX >= 0) {
+                scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
+            }
+            
+            self.arrPickupGraph.removeAll()
+            
+            guard let selData = seledButton?.data as? [String:Any] else {
+                return
+            }
+            guard let key = selData["key"] as? String else {
+                return
+            }
+            df.dateFormat = "yyyy-MM-dd"
+            guard let selDate:Date = df.date(from: key) else {
+                return
+            }
+            
+            df.dateFormat = "yyyy.MM"
+            let strYearMonth = df.string(from: selDate)
+            lbYearMonth.text = strYearMonth
+            
+            guard let pickData = self.pickupDayGraphDates(count: 5, selDate: selDate, arrData: arrChart) else {
+                return
+            }
+            
+            self.graph?.maxValue = maxValue
+            self.graph?.data = pickData
+            self.graph?.reloadData()
+        }
+    }
+    
+    func pickupDayGraphDates(count:Int, selDate:Date, arrData:Array<[String:Any]>) -> Array<[String:Any]>? {
+        df.dateFormat = "yyyy-MM-dd"
+        
+        let stDay = selDate.jumpingDay(jumping: -(count-1))!
+        let days = datesRange(unit: .day, from: stDay, to: selDate)
+        var result:Array<[String:Any]> = Array<[String:Any]>()
+        
+        for day in days {
+            let findDateStr:String = df.string(from: day)
+            var isFind = false
+            for item in arrData {
+                if let key = item["key"] as? String, key == findDateStr {
+                    result.append(item)
+                    isFind = true
+                }
+            }
+            if isFind == false {
+                //create garbage data
+                let garbageData:[String:Any] = ["key": findDateStr, "value1": 0, "value2": 0.0, "etc": ""]
+                result.append(garbageData)
+            }
+        }
+        return result
+    }
+
+}
+
+extension ChartCategoryViewController: UIScrollViewDelegate {
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+//        print("=== didend decelerating")
+        let offsetX = scrollView.contentOffset.x + scrollView.bounds.width/2
+        let findIndex = Int(offsetX/widthTopDay)
+        self.changeSeledButton(index: findIndex)
+    }
+    
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if decelerate == false {
+            let offsetX = scrollView.contentOffset.x + scrollView.bounds.width/2
+            let findIndex = Int(offsetX/widthTopDay)
+            self.changeSeledButton(index: findIndex)
+        }
     }
 }

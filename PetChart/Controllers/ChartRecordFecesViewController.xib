@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,6 +14,8 @@
                 <outlet property="bottomContainer" destination="6o3-4J-svy" id="soI-O1-wDt"/>
                 <outlet property="btnDay" destination="lz4-N0-8Jp" id="WmT-kf-KhL"/>
                 <outlet property="btnToday" destination="EEZ-at-7ku" id="Vuc-Sh-A3F"/>
+                <outlet property="tfCountP" destination="zmo-aU-4N6" id="Ysb-8c-noU"/>
+                <outlet property="tfCountS" destination="IGH-Bz-GVF" id="fAz-Ge-mqP"/>
                 <outlet property="tfDay" destination="FPM-6n-CsK" id="eQJ-Sw-kKW"/>
                 <outlet property="view" destination="crB-IS-r21" id="kMr-kQ-dUN"/>
                 <outletCollection property="arrBtnFeces" destination="ihq-Nj-jg4" collectionClass="NSMutableArray" id="VIo-3K-o37"/>
@@ -85,6 +87,9 @@
                                                                 <constraint firstItem="IbK-aD-HPF" firstAttribute="leading" secondItem="lz4-N0-8Jp" secondAttribute="leading" id="ckM-Pa-gAI"/>
                                                                 <constraint firstAttribute="trailing" secondItem="IbK-aD-HPF" secondAttribute="trailing" id="rpB-8W-BmJ"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <action selector="onClickedBtnActions:" destination="-1" eventType="touchUpInside" id="oU4-OG-a6u"/>
+                                                            </connections>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4XV-77-gaJ">
                                                             <rect key="frame" x="0.0" y="45" width="329" height="1"/>
@@ -104,6 +109,9 @@
                                                     <state key="normal" title="Today">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="onClickedBtnActions:" destination="-1" eventType="touchUpInside" id="MPu-dG-rN5"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </stackView>

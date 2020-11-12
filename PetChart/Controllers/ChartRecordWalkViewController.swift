@@ -14,12 +14,13 @@ class ChartRecordWalkViewController: BaseViewController {
     @IBOutlet weak var btnToday: SelectedButton!
     @IBOutlet weak var btnStartTime: UIButton!
     @IBOutlet weak var btnEndTime: UIButton!
-    @IBOutlet weak var btnTakeTime: UIButton!
+    @IBOutlet weak var tfTakeTime: UITextField!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
     
     var stDate: Date? = nil
     var edDate: Date? = nil
     var selDate: Date? = nil
+    var walkTime:Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,8 +35,6 @@ class ChartRecordWalkViewController: BaseViewController {
         btnStartTime.setTitleColor(UIColor.black, for: .selected)
         btnEndTime.setTitleColor(RGB(202, 202, 202), for: .normal)
         btnEndTime.setTitleColor(UIColor.black, for: .selected)
-        btnTakeTime.setTitleColor(RGB(202, 202, 202), for: .normal)
-        btnTakeTime.setTitleColor(UIColor.black, for: .selected)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,7 +94,6 @@ class ChartRecordWalkViewController: BaseViewController {
                     self.edDate = date
                     self.btnEndTime.setTitle(strDate, for: .normal)
                     self.btnEndTime.isSelected = true
-                 
                     self.decorationTakeTime()
                 }
             }
@@ -104,11 +102,62 @@ class ChartRecordWalkViewController: BaseViewController {
             picker?.show()
         }
         else if sender.tag == 1111 {
+            guard let date = tfDay.text, date.isEmpty == false else {
+                self.view.makeToast("날짜를 입력해주세요.", position:.top)
+                return
+            }
+            
+            guard stDate != nil else {
+                self.view.makeToast("산책 시작시간을 입력해주세요", position:.top)
+                return
+            }
+            
+            guard edDate != nil else {
+                self.view.makeToast("산책 종료시간을 입력해주세요", position:.top)
+                return
+            }
+            
+            guard walkTime > 0 else {
+                self.view.makeToast("산책 시간을 계산할수 없습니다.", position:.top)
+                return
+            }
+            guard let petId = SharedData.objectForKey(key: kMainShowPetId) else {
+                self.view.makeToast("등록된 동물이 없습니다.", position:.top)
+                return
+            }
+            
+            let df = CDateFormatter.init()
+            df.dateFormat = "yyyy-MM-dd HH:MM"
+            guard let walkStDate = df.string(from: stDate!) as? String, let walkEdDate = df.string(from: edDate!) as? String else {
+                self.view.makeToast("데이트 포멧 에러", position:.top)
+                return
+            }
+            
+            let param:[String:Any] = ["date_key":date, "walk_start_dt":walkStDate, "walk_end_dt":walkEdDate, "pet_id":petId, "walk_time":walkTime]
+            
+            ApiManager.shared.requestWriteChart(type: .walk, param: param) { (response) in
+                if let response = response as? [String:Any],
+                   let msg = response["msg"] as? String,
+                   let success = response["success"] as? Bool, success == true {
+                    AlertView.showWithCancelAndOk(title: "산책 기록", message: msg) { (index) in
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+                else {
+                    self.showErrorAlertView(response)
+                }
+            } failure: { (error) in
+                self.showErrorAlertView(error)
+            }
+            
             
         }
     }
     
     func decorationTakeTime() {
+        walkTime = 0
+        tfTakeTime.text = nil
+        
         if (self.stDate != nil)
             && (self.edDate != nil)
             && (self.stDate! < self.edDate!) {
@@ -117,23 +166,20 @@ class ChartRecordWalkViewController: BaseViewController {
             var result = ""
             if let hour = interval.hour, hour > 0 {
                 result.append(String(format: "%02d:", hour))
+                walkTime = hour*60
             }
             else {
                 result = "00:"
             }
             
-            if let minute = interval.minute, minute > 0 {
+            if let minute = interval.minute {
                 result.append(String(format: "%02d", minute))
+                walkTime += minute
             }
-            
+            print("=== walk time: \(walkTime)")
             if result.length > 0 {
-                btnTakeTime.isSelected = true
-                btnTakeTime.setTitle(result, for: .normal)
+                tfTakeTime.text = result
             }
-        }
-        else {
-            btnTakeTime.setTitle("00:00", for: .normal)
-            btnTakeTime.isSelected = false
         }
     }
     

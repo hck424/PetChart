@@ -19,20 +19,22 @@ class KakaoController: NSObject {
             AuthApi.shared.loginWithKakaoTalk { (token: OAuthToken?, error:Error?) in
                 if let error = error {
                     print(error)
-                    self.completion?(nil, nil)
+                    self.completion?(nil, error)
                     return
                 }
-                print("login kakaotalk success.")
-                self.user = UserInfo.init(JSON: ["access_token": token?.accessToken ?? ""])
-                self.user?.expiresIn = token?.expiresIn
-                self.user?.expiredAt = token?.expiredAt
-                self.user?.refreshToken = token?.refreshToken
-            
-                self.requestKakaoUserInfo()
+                else {
+                    print("login kakaotalk success.")
+                    self.user = UserInfo.init(JSON: ["access_token": token?.accessToken ?? ""])
+                    self.user?.expiresIn = token?.expiresIn
+                    self.user?.expiredAt = token?.expiredAt
+                    self.user?.refreshToken = token?.refreshToken
+                    self.requestKakaoUserInfo()
+                }
             }
         }
         else {
-            let k = 0
+            let error = MyError.init("kakao lgoin invalid")
+            completion?(nil, error)
         }
     }
     func requestKakaoUserInfo() {
@@ -46,27 +48,30 @@ class KakaoController: NSObject {
                 self.completion?(nil, error)
                 return
             }
+            self.user?.joinType = "kakao"
+            self.user?.userId = "\(user.id)"
             
-            if let email = user.kakaoAccount?.email {
-                self.user?.email = email
-            }
-            self.user?.profileImageUrl = nil
-            if let profileImageUrl:URL = user.kakaoAccount?.profile?.profileImageUrl {
-                self.user?.profileImageUrl = profileImageUrl.absoluteString
-            }
-            if let nickname = user.kakaoAccount?.profile?.nickname {
-                self.user?.nickname = nickname
-                self.user?.name = nickname
-            }
-            if let birthyear = user.kakaoAccount?.birthyear {
-                self.user?.birthday = birthyear
-            }
-            if let birthday = user.kakaoAccount?.birthday {
-                self.user?.birthday = birthday
-            }
-            if let gender = user.kakaoAccount?.gender?.rawValue {
-                self.user?.gender = gender
-            }
+//            if let email = user.kakaoAccount?.email {
+//                self.user?.email = email
+//                self.user?.password = email
+//            }
+//            self.user?.profileImageUrl = nil
+//            if let profileImageUrl:URL = user.kakaoAccount?.profile?.profileImageUrl {
+//                self.user?.profileImageUrl = profileImageUrl.absoluteString
+//            }
+//            if let nickname = user.kakaoAccount?.profile?.nickname {
+//                self.user?.nickname = nickname
+//                self.user?.name = nickname
+//            }
+//            if let birthyear = user.kakaoAccount?.birthyear {
+//                self.user?.birthday = birthyear
+//            }
+//            if let birthday = user.kakaoAccount?.birthday {
+//                self.user?.birthday = birthday
+//            }
+//            if let gender = user.kakaoAccount?.gender?.rawValue {
+//                self.user?.gender = gender
+//            }
             
             self.completion?(self.user, nil)
         }

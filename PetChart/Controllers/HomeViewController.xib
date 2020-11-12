@@ -3,15 +3,17 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
+                <outlet property="bannerView" destination="InM-vp-FMA" id="rPQ-dA-u8S"/>
                 <outlet property="btnEdting" destination="A6E-vk-elU" id="oL5-Vb-D3x"/>
-                <outlet property="btnMypetName" destination="w5y-nh-j1o" id="hRr-BV-mN8"/>
+                <outlet property="btnMypetName" destination="GmM-Ac-uxd" id="4z0-QP-cgQ"/>
                 <outlet property="btnProfile" destination="js6-eP-eAM" id="sGP-qC-1Fb"/>
                 <outlet property="cornerBgView" destination="Xiy-QQ-5Xi" id="OUk-U8-qvu"/>
                 <outlet property="svContaner" destination="5o2-Nx-de6" id="KMe-1s-xpb"/>
@@ -26,36 +28,61 @@
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YAz-bd-u9Q">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
-                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="InM-vp-FMA">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="68"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="InM-vp-FMA" customClass="FSPagerView" customModule="FSPagerView">
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
                             <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="68" id="vr8-GC-zfy"/>
+                                <constraint firstAttribute="height" constant="84" id="vr8-GC-zfy"/>
                             </constraints>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="boolean" keyPath="isInfinite" value="YES"/>
+                            </userDefinedRuntimeAttributes>
                         </view>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drg-9T-2bZ">
-                            <rect key="frame" x="0.0" y="68" width="414" height="750"/>
+                            <rect key="frame" x="0.0" y="84" width="414" height="734"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKR-zD-YRv">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="750"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="734"/>
                                     <subviews>
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xiy-QQ-5Xi" userLabel="cornerBgView">
-                                            <rect key="frame" x="0.0" y="71" width="414" height="679"/>
+                                            <rect key="frame" x="0.0" y="89" width="414" height="645"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="w5y-nh-j1o">
-                                                    <rect key="frame" x="164.5" y="41" width="85" height="30"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GmM-Ac-uxd" userLabel="btnMypetName" customClass="UIButton">
+                                                    <rect key="frame" x="144" y="45" width="126.5" height="30"/>
+                                                    <subviews>
+                                                        <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cUK-MC-Ao1">
+                                                            <rect key="frame" x="0.0" y="0.0" width="126.5" height="30"/>
+                                                            <subviews>
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="100" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="MyPet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v23-gO-7e0">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="52.5" height="30"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <label opaque="NO" userInteractionEnabled="NO" tag="101" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="비숑프리제" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2cb-gF-Hvz">
+                                                                    <rect key="frame" x="57.5" y="0.0" width="52" height="30"/>
+                                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                                    <color key="textColor" red="0.60784313725490191" green="0.60784313725490191" blue="0.60784313725490191" alpha="1" colorSpace="calibratedRGB"/>
+                                                                    <nil key="highlightedColor"/>
+                                                                </label>
+                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" tag="102" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle" translatesAutoresizingMaskIntoConstraints="NO" id="WgY-fC-hyz">
+                                                                    <rect key="frame" x="114.5" y="0.0" width="12" height="30"/>
+                                                                </imageView>
+                                                            </subviews>
+                                                        </stackView>
+                                                    </subviews>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="4TG-28-KXF"/>
+                                                        <constraint firstItem="cUK-MC-Ao1" firstAttribute="leading" secondItem="GmM-Ac-uxd" secondAttribute="leading" id="4gU-Si-7Rz"/>
+                                                        <constraint firstAttribute="height" constant="30" id="MSZ-EV-ok7"/>
+                                                        <constraint firstItem="cUK-MC-Ao1" firstAttribute="top" secondItem="GmM-Ac-uxd" secondAttribute="top" id="Rgp-hc-qxQ"/>
+                                                        <constraint firstAttribute="trailing" secondItem="cUK-MC-Ao1" secondAttribute="trailing" id="n3T-Ip-Hd4"/>
+                                                        <constraint firstAttribute="bottom" secondItem="cUK-MC-Ao1" secondAttribute="bottom" id="vL7-HW-zdY"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                    <inset key="contentEdgeInsets" minX="10" minY="0.0" maxX="10" maxY="0.0"/>
-                                                    <state key="normal" title="MY PET">
-                                                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
                                                     <connections>
-                                                        <action selector="onclickedButtonActins:" destination="-1" eventType="touchUpInside" id="X4r-Fm-Lzg"/>
+                                                        <action selector="onclickedButtonActins:" destination="-1" eventType="touchUpInside" id="kgj-Ri-CM0"/>
                                                     </connections>
-                                                </button>
+                                                </view>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="bottom" translatesAutoresizingMaskIntoConstraints="NO" id="7gr-XN-vGN">
                                                     <rect key="frame" x="0.0" y="70" width="414" height="35"/>
                                                     <subviews>
@@ -77,28 +104,28 @@
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5o2-Nx-de6" userLabel="svContaner">
-                                                    <rect key="frame" x="0.0" y="105" width="414" height="574"/>
+                                                    <rect key="frame" x="0.0" y="105" width="414" height="540"/>
                                                     <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
                                                 </stackView>
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
                                                 <constraint firstItem="7gr-XN-vGN" firstAttribute="top" secondItem="Xiy-QQ-5Xi" secondAttribute="top" constant="70" id="1oz-E0-rhg"/>
+                                                <constraint firstItem="GmM-Ac-uxd" firstAttribute="top" secondItem="Xiy-QQ-5Xi" secondAttribute="top" constant="45" id="8zL-5J-mRt"/>
                                                 <constraint firstItem="7gr-XN-vGN" firstAttribute="leading" secondItem="Xiy-QQ-5Xi" secondAttribute="leading" id="GrQ-g4-qAy"/>
                                                 <constraint firstAttribute="bottom" secondItem="5o2-Nx-de6" secondAttribute="bottom" id="d7S-CK-LbS"/>
-                                                <constraint firstItem="w5y-nh-j1o" firstAttribute="top" secondItem="Xiy-QQ-5Xi" secondAttribute="top" constant="41" id="e9T-ei-zPj"/>
                                                 <constraint firstItem="5o2-Nx-de6" firstAttribute="leading" secondItem="Xiy-QQ-5Xi" secondAttribute="leading" id="jbn-v0-Fo6"/>
                                                 <constraint firstAttribute="trailing" secondItem="7gr-XN-vGN" secondAttribute="trailing" id="k7g-5I-i3j"/>
-                                                <constraint firstItem="w5y-nh-j1o" firstAttribute="centerX" secondItem="Xiy-QQ-5Xi" secondAttribute="centerX" id="qTf-pn-hmn"/>
+                                                <constraint firstItem="GmM-Ac-uxd" firstAttribute="centerX" secondItem="Xiy-QQ-5Xi" secondAttribute="centerX" id="uTQ-BG-uGR"/>
                                                 <constraint firstAttribute="trailing" secondItem="5o2-Nx-de6" secondAttribute="trailing" id="yJz-Nc-BHO"/>
                                                 <constraint firstItem="5o2-Nx-de6" firstAttribute="top" secondItem="7gr-XN-vGN" secondAttribute="bottom" id="yab-QM-6bP"/>
                                             </constraints>
                                         </view>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="js6-eP-eAM" userLabel="Profile">
-                                            <rect key="frame" x="166" y="30" width="82" height="82"/>
+                                        <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="js6-eP-eAM" userLabel="Profile">
+                                            <rect key="frame" x="157" y="30" width="100" height="100"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="js6-eP-eAM" secondAttribute="height" multiplier="1:1" id="Bu7-6e-jJp"/>
-                                                <constraint firstAttribute="width" constant="82" id="TLY-wy-Bvl"/>
+                                                <constraint firstAttribute="width" constant="100" id="TLY-wy-Bvl"/>
                                             </constraints>
                                             <state key="normal" image="btn_imgadd"/>
                                             <connections>
@@ -145,5 +172,9 @@
     <resources>
         <image name="btn_imgadd" width="120" height="120"/>
         <image name="ico_setting" width="16" height="16"/>
+        <image name="triangle" width="12" height="11"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

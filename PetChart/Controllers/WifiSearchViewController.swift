@@ -4,7 +4,7 @@
 //
 //  Created by 김학철 on 2020/10/14.
 //
-
+// IOT서비스 시작 : conent -> station -> setting -> servicestart
 import UIKit
 import Foundation
 import SystemConfiguration.CaptiveNetwork
@@ -13,7 +13,7 @@ import NetworkExtension
 
 class WifiSearchViewController: BaseViewController, UITextFieldDelegate {
     
-    @IBOutlet weak var tvWifiName: CTextView!
+    @IBOutlet weak var tvWifiName: UITextField!
     @IBOutlet weak var btnWifiName: UIButton!
     @IBOutlet weak var tfWifiPassword: UITextField!
     @IBOutlet weak var btnOk: UIButton!
@@ -23,11 +23,13 @@ class WifiSearchViewController: BaseViewController, UITextFieldDelegate {
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
     @IBOutlet weak var btnEye: UIButton!
     
-    var iotSessionKey:String?
+    var sessionKey:String?
     
     var selWifi: WifiInfo?
     private let SSID = ""
     var arrWifiList:[WifiInfo] = [WifiInfo]()
+    var timer:Timer?
+    var maxTiemCount: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,8 +54,23 @@ class WifiSearchViewController: BaseViewController, UITextFieldDelegate {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        
     }
-    
+    func startCheckStateTimer() {
+        self.stopTimer()
+        self.maxTiemCount = 0
+        AppDelegate.instance()?.startIndicator()
+        
+        self.timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(checkIotSate), userInfo: nil, repeats: true)
+    }
+    func stopTimer(){
+        AppDelegate.instance()?.stopIndicator()
+        if let timer = self.timer {
+            timer.invalidate()
+            timer.fire()
+            self.timer = nil
+        }
+    }
     @objc func tapGestureHandler(_ gesture: UITapGestureRecognizer) {
         if gesture.view == self.view {
             self.view.endEditing(true)
@@ -69,7 +86,7 @@ class WifiSearchViewController: BaseViewController, UITextFieldDelegate {
                 if let selData = selData as? WifiInfo {
                     self.selWifi = selData
                     self.tvWifiName.text = self.selWifi?.ssid
-                    self.tvWifiName.placeholderLabel?.isHidden = true
+                    
                 }
 
                 vcs.dismiss(animated: true, completion: nil)
@@ -102,46 +119,91 @@ class WifiSearchViewController: BaseViewController, UITextFieldDelegate {
         }
         else if sender == btnOk {
             self.view.endEditing(true)
-            var isOk = true
-            if selWifi?.ssid?.isEmpty == true {
-                isOk = false
-            }
-            if let password = tfWifiPassword.text, password.isEmpty == true {
-                isOk = false
-            }
             
-            if isOk == false {
-                AlertView.showWithOk(title: nil, message: "와이파이를 설정해주세요", completion: nil)
+            guard let ssid = tvWifiName.text, ssid.isEmpty == false else {
+                self.view.makeToast("Wifi를 선택해주세요.")
                 return
             }
-            
-            let ssid = self.selWifi?.bssid
-            let sessionKey = iotSessionKey!
-            let passwordKey = tfWifiPassword.text!
-            self.selWifi?.password = passwordKey
-    
-            let df = DateFormatter.init()
-            df.locale = Locale.init(identifier: "en_US_POSIX")
-            df.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZZZZ"
-            df.timeZone = TimeZone.init(secondsFromGMT: 60*60*9)
-            let timestamp = df.string(from: Date())
-            
-            let param:[String:Any] = ["sessionKey": sessionKey, "ssid": ssid!, "passwordKey":passwordKey, "timestamp":timestamp];
-            ApiManager.shared.requestIotStation(param: param) { (response) in
-                print("== iot station: \(String(describing: response))")
-                if let response = response as?[String:Any], let result = response["result"] as? Bool {
-                    if result == true {
-                        self.requestServiceStart()
-                    }
-                }
-            } failure: { (error) in
-                print("== iot station error: \(String(describing: error))")
+            guard let password = tfWifiPassword.text, password.isEmpty == false else {
+                self.view.makeToast("Wifi 비밀번호를 입력해주세요.")
+                return
             }
+            //연결 해제 할때도 wifi 비밀번호를 받지 않기 위해 저장해놓는다.
+            SharedData.setObjectForKey(key: kMyHomeWifiPassword, value: password)
+            self.selWifi?.password = password
+            
+            self.requestIotStation()
         }
     }
-   
+    
+    func requestIotStation() {
+        guard let ssid = self.selWifi?.ssid, let sessionKey = sessionKey, let passwordKey = selWifi?.password else {
+            return
+        }
+        
+        let df = CDateFormatter.init()
+        df.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let timestamp = df.string(from: Date())
+        
+        let param:[String:Any] = ["sessionKey": sessionKey, "ssid": ssid, "passwordKey":passwordKey, "timestamp":timestamp];
+        
+        ApiManager.shared.requestIotStation(param: param) { (response) in
+            print("== iot station: \(String(describing: response))")
+            self.startCheckStateTimer()
+            if let response = response as?[String:Any], let _ = response["result"] as? Bool {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3) {
+                    self.requestIotSetting()
+                }
+            }
+        } failure: { (error) in
+            print("== iot station error: \(String(describing: error))")
+        }
+    }
+    func requestIotSetting() {
+        guard let sessionKey = sessionKey, let loginType = SharedData.getLoginType(), let idx = SharedData.objectForKey(key: kUserIdx), let userId = SharedData.getUserId() else {
+            return
+        }
+        
+        let uid = "\(loginType)_\(userId)"
+        let url = SERVER_PREFIX
+        let param:[String:Any] = ["idx":idx, "sessionKey":sessionKey, "uid":uid, "url":url]
+        
+        ApiManager.shared.requestIotSetting(param: param) { (response) in
+            print("===iot setting success:\(String(describing: response))")
+            if let response = response as? [String :Any], let _ = response["result"] as? Bool {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
+                    self.requestServiceStart()
+                }
+            }
+        } failure: { (error) in
+            self.showErrorAlertView(error)
+        }
+    }
+    @objc func checkIotSate() {
+        ApiManager.shared.requestIotStatus { (response) in
+            print("=== iot status: \(String(describing: response))")
+//            server-status 의 경우 registered, disconnected , connected가있는데
+            if let  response = response as? [String:Any], let server_status = response["server-status"] as? String, server_status == "connected" {
+                self.stopTimer()
+                self.requestServiceStart()
+            }
+            else {
+                self.maxTiemCount += 1
+                //10초씩 3번 30초동안
+                if self.maxTiemCount > 3 {
+                    self.stopTimer()
+                    AlertView.showWithOk(title: "연결 실패", message: "IOT 장비 연결 실패하였습니다.", completion: nil)
+                }
+            }
+        } failure: { (error) in
+            print("=== iot status error: \(String(describing: error))")
+        }
+        
+    }
     func requestServiceStart() {
-        let sessionKey = iotSessionKey!
+        guard let sessionKey = sessionKey else {
+            return
+        }
         ApiManager.shared.requestIotServiceStart(sessionKey: sessionKey) { (response) in
             if let response = response as?[String:Any], let result = response["result"] as? Bool {
                 if result == true {

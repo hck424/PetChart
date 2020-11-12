@@ -66,10 +66,10 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             
         }
         else if identify == "privacy_policy" {
-            
+            self.requestTerms(type: "privacy")
         }
         else if identify == "terms" {
-            
+            self.requestTerms(type: "service")
         }
         else if identify == "withdraw" {
             let vc = WithdrawViewController.init()
@@ -80,7 +80,6 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                 if index == 1 {
                     //TODO:: 로그아웃 처리
                     self.logout()
-                    
                 }
             }
         }
@@ -90,5 +89,47 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         SharedData.removeObjectForKey(key: kPToken)
         SharedData.instance.pToken = nil
         self.navigationController?.popToRootViewController(animated: true)
+    }
+    
+    func requestTerms(type:String) {
+//        privacy|service|marketing
+        var param:[String:Any]? = nil
+        if type == "privacy" || type == "service" || type == "marketing" {
+            param = ["dtype": type]
+        }
+        
+        guard let body = param else {
+            return
+        }
+        
+        ApiManager.shared.requestTerms(param: body) { (response) in
+            if let response = response as? [String:Any], let data = response["data"] as?[String:Any] {
+                
+                let vc = CustomTextViewController.init()
+                if let dtype = data["dtype"] as? String {
+                    var vcTitie = ""
+                    if dtype == "privacy" {
+                        vcTitie = "개인정보 처리방침"
+                    }
+                    else if dtype == "service" {
+                        vcTitie = "이용약관 동의"
+                    }
+                    else {
+                        vcTitie = "마켓팅 수신 동의"
+                    }
+                    vc.vcTitle = vcTitie
+                }
+                if let contents = data["contents"] as? String {
+                    vc.content = contents
+                }
+                
+                self.navigationController?.pushViewController(vc, animated: true)
+            }
+            else {
+                self.showErrorAlertView(response)
+            }
+        } failure: { (error) in
+            self.showErrorAlertView(error)
+        }
     }
 }

@@ -53,9 +53,14 @@ class LoginViewController: BaseViewController {
         resultAttr.append(NSAttributedString.init(string: " 입니다"))
         
         lbTitle.attributedText = resultAttr
-        
-        tfEmail.text = SharedData.getUserId() ?? ""
         btnCheck.isSelected = true
+        
+        if let loginType = SharedData.getLoginType(), loginType == "none" {
+            tfEmail.text = SharedData.getUserId() ?? ""
+            if let passwrod = SharedData.objectForKey(key: kUserPassword) as? String {
+                tfPassword.text = passwrod
+            }
+        }
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -72,11 +77,61 @@ class LoginViewController: BaseViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-        
+    func reqeustSignUp(param:[String:Any]) {
+        ApiManager.shared.requestUserSignIn(param: param) { (response) in
+           
+            if let response = response as? [String:Any],
+               let success = response["success"] as? Bool,
+               let data = response["data"] as? [String: Any] {
+                
+                if success == false {
+                    self.showErrorAlertView(response)
+                    return
+                }
+                
+                if let token = data["token"] as? String {
+                    if self.btnCheck.isSelected {
+                        //로그인 유지 userdefault 쓴다.
+                        SharedData.setObjectForKey(key: kPToken, value: token)
+                        SharedData.instance.pToken = token
+                    }
+                    else {
+                        //메모리에 유지
+                        SharedData.instance.pToken = token
+                    }
+                }
+                if let idx = data["idx"] as? Int {
+                    SharedData.setObjectForKey(key: kUserIdx, value: idx)
+                    SharedData.instance.userIdx = idx
+                }
+                if let password = self.tfPassword.text {
+                    SharedData.setObjectForKey(key: kUserPassword, value: password)
+                }
+                
+                if let join_type = data["join_type"] as? String,
+                   let user_id = data["user_id"] as? String {
+                    
+                    let realUserId = user_id.deletingPrefix("\(join_type)_")
+                    
+                    SharedData.setObjectForKey(key: kLoginType, value: join_type)
+                    SharedData.setObjectForKey(key: kUserId, value: realUserId)
+                }
+                
+                self.navigationController?.popViewController(animated: false)
+            }
+            
+        } failure: { (error) in
+            self.showErrorAlertView(error)
+        }
+    }
     @IBAction func tapGestureHanlder(_ sender: UITapGestureRecognizer) {
         if sender.view == self.view {
             self.view.endEditing(true)
         }
+    }
+    
+    @IBAction func textFieldEdtingChanged(_ sender: UITextField) {
+        SharedData.setObjectForKey(key: kLoginType, value: "none")
     }
     @IBAction func onClickedButtonActions(_ sender: UIButton) {
         self.view.endEditing(true)
@@ -99,71 +154,57 @@ class LoginViewController: BaseViewController {
                 return
             }
             
-            
             var param:[String:Any] = [:]
             param["id"] = tfEmail.text!
             param["password"] = tfPassword.text!
             param["deviceUID"] = SharedData.objectForKey(key: kAPPLECATION_UUID)!
             param["login_type"] = SharedData.getLoginType() ?? "none"
-            param["p_token"] = SharedData.getToken() ?? "123....."
+            param["p_token"] = SharedData.instance.pToken ?? "123....."
             
-            ApiManager.shared.requestUserSignIn(param: param) { (response) in
-               
-                if let response = response as? [String:Any],
-                   let success = response["success"] as? Bool,
-                   let data = response["data"] as? [String: Any] {
-                    
-                    if success == false {
-                        self.showErrorAlertView(response)
-                        return
-                    }
-                    
-                    
-                    if let token = data["token"] as? String {
-                        if self.btnCheck.isSelected {
-                            //로그인 유지 userdefault 쓴다.
-                            SharedData.setObjectForKey(key: kPToken, value: token)
-                            SharedData.instance.pToken = token
-                        }
-                        else {
-                            //메모리에 유지
-                            SharedData.instance.pToken = token
-                        }
-                    }
-                    if let idx = data["idx"] as? Int {
-                        SharedData.setObjectForKey(key: kUserIdx, value: idx)
-                    }
-                    if let password = self.tfPassword.text {
-                        SharedData.setObjectForKey(key: kUserPassword, value: password)
-                    }
-                    
-                    if let join_type = data["join_type"] as? String,
-                       let user_id = data["user_id"] as? String {
-                        
-                        let realUserId = user_id.deletingPrefix("\(join_type)_")
-                        
-                        SharedData.setObjectForKey(key: kLoginType, value: join_type)
-                        SharedData.setObjectForKey(key: kUserId, value: realUserId)
-                    }
-                    
-                    self.navigationController?.popViewController(animated: false)
-                }
-                
-            } failure: { (error) in
-                self.showErrorAlertView(error)
-            }
+            self.reqeustSignUp(param: param)
+
         }
         else if sender == btnCheck {
             sender.isSelected = !sender.isSelected
         }
         else if sender == btnKakao {
-            KakaoController().login(viewcontorller: self) { (user: UserInfo?, error: Error?) in
-                print("kakao: \(String(describing: user?.accessToken!))")
+            if let loginType = SharedData.getLoginType(), let id = SharedData.getUserId(), loginType == "kakao" {
+                var param:[String:Any] = [:]
+                param["id"] = id
+                param["password"] = id
+                param["deviceUID"] = SharedData.objectForKey(key: kAPPLECATION_UUID)!
+                param["login_type"] = SharedData.getLoginType() ?? "none"
+                param["p_token"] = SharedData.instance.pToken ?? "123....."
+                self.reqeustSignUp(param: param)
+            }
+            else {
+                KakaoController().login(viewcontorller: self) { (user: UserInfo?, error: Error?) in
+                    guard let user = user, let userId = user.userId else {
+                        return
+                    }
+                    self.requestValiedSocialLogin(user: user)
+                }
             }
         }
         else if sender == btnNaver {
-            NaverController().login(viewcontorller: self) { (user: UserInfo?, error: Error?) in
-                print("naver: \(String(describing: user?.accessToken!))")
+            
+            if let loginType = SharedData.getLoginType(), let id = SharedData.getUserId(), loginType == "naver" {
+                var param:[String:Any] = [:]
+                param["id"] = id
+                param["password"] = id
+                param["deviceUID"] = SharedData.objectForKey(key: kAPPLECATION_UUID)!
+                param["login_type"] = SharedData.getLoginType() ?? "none"
+                param["p_token"] = SharedData.instance.pToken ?? "123....."
+                self.reqeustSignUp(param: param)
+            }
+            else {
+                NaverController().login(viewcontorller: self) { (user: UserInfo?, error: Error?) in
+                    print("naver: \(String(describing: user?.accessToken!))")
+                    guard let user = user, let _ = user.userId else {
+                        return
+                    }
+                    self.requestValiedSocialLogin(user: user)
+                }
             }
         }
         else if sender == btnFacebook {
@@ -184,11 +225,35 @@ class LoginViewController: BaseViewController {
             self.navigationController?.pushViewController(vc, animated: true)
         }
         else if sender == btnJoinEmail {
-            let vc = MrStep1ViewController.init(nibName: "MrStep1ViewController", bundle: nil)
+            let vc = MrTermsViewController.init(nibName: "MrTermsViewController", bundle: nil)
+            vc.user = UserInfo(JSON: ["join_type": "none"])
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }
-    
+    func requestValiedSocialLogin(user:UserInfo) {
+        guard  let joinType = user.joinType, let userId = user.userId else {
+            return
+        }
+        let param = ["join_type": joinType, "uid": userId]
+        
+        ApiManager.shared.requestValidSocialLogin(param: param) { (response) in
+            if let response = response as? [String: Any], let success = response["success"] as? Bool, let msg = response["msg"] as? String {
+                if success && msg == "가입이 되어있습니다." {
+                    var loginParam = ["id":userId, "login_type":joinType, "password":userId]
+                    loginParam["deviceUID"] = SharedData.objectForKey(key: kAPPLECATION_UUID) as! String
+                    loginParam["p_token"] = SharedData.instance.pToken ?? "123....."
+                    self.reqeustSignUp(param: loginParam)
+                }
+                else {
+                    let vc = MrTermsViewController.init()
+                    vc.user = user
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        } failure: { (error) in
+            self.showErrorAlertView(error)
+        }
+    }
     func createAppIdRequest() -> ASAuthorizationAppleIDRequest {
         let provider = ASAuthorizationAppleIDProvider()
         let request = provider.createRequest()
@@ -300,6 +365,8 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
                     self.user?.userId = authResult?.user.uid
                     self.user?.email = authResult?.user.email
                     self.user?.name = authResult?.user.displayName
+                    self.user?.joinType = "apple"
+                    self.requestValiedSocialLogin(user: self.user!)
                 }
             }
         }

@@ -21,6 +21,7 @@ class AddAnimalBirthDayViewController: BaseViewController {
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
     
     var animal: Animal?
+    var images:Array<UIImage>?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,7 +32,7 @@ class AddAnimalBirthDayViewController: BaseViewController {
             btnSafety.isHidden = false
         }
         tfBirthDay2.delegate = self
-        if let name = animal?.name {
+        if let name = animal?.petName {
             let result: String = String(format: "%@의 나이를 알려주세요.", name)
             let attr = NSMutableAttributedString.init(string: result, attributes: [.foregroundColor : RGB(136, 136, 136)])
             let nsRange = NSString(string: result).range(of: name, options: String.CompareOptions.caseInsensitive)
@@ -135,12 +136,13 @@ class AddAnimalBirthDayViewController: BaseViewController {
             }
             
             if (animal?.birthday) == nil || animal?.birthday?.length == 0 {
-                self.view.makeToast("\(animal?.name! ?? "")의 나이를 입력해주세요", position:.top)
+                self.view.makeToast("\(animal?.petName! ?? "")의 나이를 입력해주세요", position:.top)
                 return
             }
             
             let vc = AddAnimalInfoViewController.init()
             vc.animal = animal
+            vc.images = images
             self.navigationController?.pushViewController(vc, animated: false)
         }
     }

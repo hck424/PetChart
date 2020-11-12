@@ -68,21 +68,39 @@ class ChartRecordDrinkViewController: BaseViewController {
         }
         else if sender.tag == 1111 {
             
-            if self.selDate == nil {
+            guard let date = tfDay.text, date.isEmpty == false else {
                 self.view.makeToast("날짜를 입력해주세요.", position:.top)
                 return
             }
-            if tfDringAmount.text?.count == 0 {
+            guard let amount = tfDringAmount.text, amount.isEmpty == false else {
                 self.view.makeToast("하루 음수량을 입력해주세요.", position:.top)
                 return
             }
-            
-            if tfDrinkCount.text?.count == 0 {
+            guard let count = tfDrinkCount.text, count.isEmpty == false else {
                 self.view.makeToast("하루 음수횟수를 입력해주세요.", position:.top)
+                return
             }
-            
-            //음수 저장
-            
+            guard let petId = SharedData.objectForKey(key: kMainShowPetId) else {
+                self.view.makeToast("등록된 동물이 없습니다.", position:.top)
+                return
+            }
+        
+            //음수 기록
+            let param:[String:Any] = ["date_key":date, "drink_cnt":count, "drinking":amount, "pet_id":petId ]
+            ApiManager.shared.requestWriteChart(type: .drink, param: param) { (response) in
+                if let response = response as? [String:Any],
+                   let msg = response["msg"] as? String,
+                   let success = response["success"] as? Bool, success == true {
+                    AlertView.showWithCancelAndOk(title: "음수 기록", message: msg) { (index) in
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+                else {
+                    self.showErrorAlertView(response)
+                }
+            } failure: { (error) in
+                self.showErrorAlertView(error)
+            }
         }
     }
     

@@ -7,7 +7,7 @@
 
 import UIKit
 enum CategoryType:Int {
-    case favoriteHome
+    case graphHome
     case chartSmart
     case chartToal
 }
@@ -15,7 +15,7 @@ enum CategoryType:Int {
 class PetHealthFavoriteEdtingViewController: BaseViewController {
     
     @IBOutlet weak var tblView: UITableView!
-    var catergory: CategoryType = .favoriteHome
+    var catergory: CategoryType = .graphHome
     var data:Array<PetHealth>?
     var tblData: NSMutableArray = NSMutableArray()
     
@@ -23,7 +23,7 @@ class PetHealthFavoriteEdtingViewController: BaseViewController {
         super.viewDidLoad()
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
         var vcTitle = ""
-        if catergory == .favoriteHome {
+        if catergory == .graphHome {
             vcTitle = "즐겨찾기 편집"
         }
         else if catergory == .chartSmart {
@@ -53,7 +53,7 @@ class PetHealthFavoriteEdtingViewController: BaseViewController {
         for type in data {
             let item: NSMutableDictionary = NSMutableDictionary()
             item["type"] = type
-            if catergory == .favoriteHome {
+            if catergory == .graphHome {
                 if type == .drink {
                     item["key"] = kDrink
                     if dfs.object(forKey: kDrink) != nil {

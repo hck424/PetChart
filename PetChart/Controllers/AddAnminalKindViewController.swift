@@ -17,7 +17,8 @@ class AddAnminalKindViewController: BaseViewController {
     @IBOutlet weak var btnSafety: UIButton!
     
     var animal:Animal?
-    var selAnimal: AnimalType? = nil
+    var images:Array<UIImage>?
+    var selAnimal: String? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +30,7 @@ class AddAnminalKindViewController: BaseViewController {
             btnSafety.isHidden = false
         }
 
-        if let name = animal?.name {
+        if let name = animal?.petName {
             let result: String = String(format: "%@는 어떤 반려동물인가요?", name)
             let attr = NSMutableAttributedString.init(string: result, attributes: [.foregroundColor : RGB(136, 136, 136)])
             let nsRange = NSString(string: result).range(of: name, options: String.CompareOptions.caseInsensitive)
@@ -43,20 +44,20 @@ class AddAnminalKindViewController: BaseViewController {
             btnDog.isSelected = true
             btnCat.isSelected = false
             btnOther.isSelected = false
-            selAnimal = AnimalType(id: 1, dtype: "puppy", label: "강아지")
+            selAnimal = "puppy"
         }
         else if sender == btnCat {
             btnDog.isSelected = false
             btnCat.isSelected = true
             btnOther.isSelected = false
-            selAnimal = AnimalType(id: 1, dtype: "cat", label: "고양이")
+            selAnimal = "cat"
         }
         else if sender == btnOther {
             btnDog.isSelected = false
             btnCat.isSelected = false
             btnOther.isSelected = true
             
-            selAnimal = AnimalType(id: 1, dtype: "etc", label: "기타")
+            selAnimal = "etc"
         }
         else if sender == btnOk {
             if btnDog.isSelected == false && btnCat.isSelected == false && btnOther.isSelected == false {
@@ -64,10 +65,11 @@ class AddAnminalKindViewController: BaseViewController {
                 return
             }
             
-            animal?.animalType = selAnimal
+            animal?.dtype = selAnimal
             
             let vc = AddAnimalItemSelectViewController.init()
             vc.animal = animal
+            vc.images = images
             self.navigationController?.pushViewController(vc, animated: true)
         }
     }

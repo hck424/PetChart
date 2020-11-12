@@ -36,14 +36,17 @@ class NaverController: NSObject {
             request.httpMethod = "GET"
             request.setValue(authorization, forHTTPHeaderField: "Authorization")
             
+            AppDelegate.instance()?.startIndicator()
             URLSession.shared.dataTask(with: request) { (data, response, error) in
+                AppDelegate.instance()?.stopIndicator()
                 guard let data = data else { return }
                 
                 do {
                     guard let json = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject] else { return }
                     guard let response = json["response"] as? [String: AnyObject] else { return }
-
+                    
                     self.user = UserInfo.init(JSON: ["access_token": accessToken])
+                    self.user?.joinType = "naver"
                     if let id = response["id"]  as?String { self.user?.userId = id }
                     if let email = response["email"]  as?String { self.user?.email = email}
                     if let name = response["name"]  as?String { self.user?.name = name }
@@ -52,7 +55,8 @@ class NaverController: NSObject {
                     if let birthday = response["birthday"] as? String { self.user?.birthday = birthday}
                     if let gender = response["gender"] as? String { self.user?.gender = gender }
                     
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [self] in
+                        print("=== naver login: \(self.user?.description() ?? "")")
                         self.completion?(self.user, error)
                     }
                 } catch let error {

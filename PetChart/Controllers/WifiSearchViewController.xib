@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,11 +15,11 @@
                 <outlet property="btnEye" destination="ohx-Gl-HOg" id="7V7-oY-XEk"/>
                 <outlet property="btnOk" destination="rQo-qc-Q9G" id="6W7-Mi-25P"/>
                 <outlet property="btnSafety" destination="I7Z-G7-i2Y" id="YXz-kq-wM6"/>
-                <outlet property="btnWifiName" destination="14t-VJ-B4U" id="jMM-Jk-WE9"/>
+                <outlet property="btnWifiName" destination="GbW-ur-ddY" id="cME-5B-jBe"/>
                 <outlet property="cornerBgview" destination="66a-xH-ekK" id="rz3-Su-LkI"/>
                 <outlet property="lbHintPassword" destination="61S-Yz-cpY" id="RDC-vf-30N"/>
                 <outlet property="tfWifiPassword" destination="aaK-WD-EX0" id="eVW-5w-EHO"/>
-                <outlet property="tvWifiName" destination="mO6-Hs-2pg" id="1FJ-Fk-Bez"/>
+                <outlet property="tvWifiName" destination="hIL-fg-vG0" id="V6m-ew-fqN"/>
                 <outlet property="view" destination="ZpO-xh-8G4" id="rEw-Yc-tXq"/>
             </connections>
         </placeholder>
@@ -81,29 +81,20 @@
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="14t-VJ-B4U" customClass="UIButton">
                                                             <rect key="frame" x="0.0" y="22" width="374" height="60"/>
                                                             <subviews>
-                                                                <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ruY-Xp-Pth">
+                                                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="ruY-Xp-Pth">
                                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="60"/>
                                                                     <subviews>
-                                                                        <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tzb-Se-NCw">
+                                                                        <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="tzb-Se-NCw">
                                                                             <rect key="frame" x="0.0" y="0.0" width="374" height="59"/>
                                                                             <subviews>
-                                                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mO6-Hs-2pg" customClass="CTextView" customModule="PetChart" customModuleProvider="target">
-                                                                                    <rect key="frame" x="0.0" y="1.5" width="306" height="56"/>
-                                                                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="와이파이를 검색해주세요." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hIL-fg-vG0">
+                                                                                    <rect key="frame" x="0.0" y="7" width="306" height="45"/>
                                                                                     <constraints>
-                                                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="45" id="rsi-bq-apf"/>
+                                                                                        <constraint firstAttribute="height" constant="45" id="VZH-GM-L0O"/>
                                                                                     </constraints>
-                                                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                                                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                                                    <userDefinedRuntimeAttributes>
-                                                                                        <userDefinedRuntimeAttribute type="string" keyPath="placeHolderString" value="와이파이를 검색해주세요."/>
-                                                                                        <userDefinedRuntimeAttribute type="color" keyPath="placeHolderColor">
-                                                                                            <color key="value" systemColor="placeholderTextColor"/>
-                                                                                        </userDefinedRuntimeAttribute>
-                                                                                        <userDefinedRuntimeAttribute type="boolean" keyPath="isCenterTextAligment" value="YES"/>
-                                                                                    </userDefinedRuntimeAttributes>
-                                                                                </textView>
+                                                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                                    <textInputTraits key="textInputTraits"/>
+                                                                                </textField>
                                                                                 <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GbW-ur-ddY" customClass="CButton" customModule="PetChart" customModuleProvider="target">
                                                                                     <rect key="frame" x="314" y="14.5" width="60" height="30"/>
                                                                                     <color key="backgroundColor" red="0.91372549020000005" green="0.37254901959999998" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -296,9 +287,6 @@
     <resources>
         <image name="ico_eye_off" width="27" height="27"/>
         <image name="ico_eye_on" width="27" height="27"/>
-        <systemColor name="placeholderTextColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

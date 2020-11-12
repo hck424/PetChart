@@ -16,8 +16,8 @@ class MyPetCell: UITableViewCell {
     @IBOutlet weak var btnSetting: UIButton!
     @IBOutlet weak var bgView: UIView!
     
-    var data: Dictionary<String, Any>?
-    var didClickedActionClosure:((_ selData:Dictionary<String, Any>?, _ actionIndex:Int) -> ())? {
+    var animal: Animal?
+    var didClickedActionClosure:((_ selData:Animal?, _ actionIndex:Int) -> ())? {
         didSet {
         }
     }
@@ -28,7 +28,7 @@ class MyPetCell: UITableViewCell {
         bgView.backgroundColor = UIColor.white
         
         ivProfile.layer.cornerRadius = ivProfile.bounds.height/2
-        ivProfile.layer.borderWidth = 2
+        ivProfile.layer.borderWidth = 1.5
         ivProfile.layer.borderColor = RGB(239, 239, 239).cgColor
         
         let selBgView = UIView.init()
@@ -39,34 +39,57 @@ class MyPetCell: UITableViewCell {
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
-    func configurationData(_ data: Dictionary<String, Any>? ) {
-        self.data = data
+    func configurationData(_ animal: Animal? ) {
+        self.animal = animal
         lbUserName.text = ""
         lbPetInfo.text = ""
         
-        if let userName = data?["userName"] as? String {
-            lbUserName.text = userName
+        if let petName = animal?.petName {
+            lbUserName.text = petName
+        }
+        if let is_main = animal?.is_main, is_main == "Y" {
+            btnMain.isSelected = true
+        }
+        else {
+            btnMain.isSelected = false
         }
         
-        if let petName = (data?["petName"] as? String) ?? "", let animalGender = (data?["animalGender"] as? String) ?? "" {
+        if let sex = animal?.sex, let kind = animal?.kind, let size = animal?.size {
             var tmpStr = ""
-            if animalGender == "M" {
-                tmpStr = "숫컷"
+            if kind.isEmpty == false {
+                tmpStr.append("\(kind)")
             }
-            else if animalGender == "W"{
-                tmpStr = "암컷"
+            else if size.isEmpty == false {
+                tmpStr.append("\(size)")
             }
-            lbPetInfo.text = "\(petName)/\(tmpStr)"
+            
+            if sex == "M" {
+                tmpStr.append(" / 숫컷")
+            }
+            else {
+                tmpStr.append(" / 암컷")
+            }
+            
+            lbPetInfo.text = tmpStr
+        }
+        
+        if let images = animal?.images, let imgInfo = images.first, let original = imgInfo.original {
+            ivProfile.setImageCache(url: original, placeholderImgName: nil)
         }
     }
+    
     @IBAction func onClickedButtonActions(_ sender: UIButton) {
         if sender == btnMain {
-            sender.isSelected = !sender.isSelected
-            //TODO:: userdefault save
-            self.didClickedActionClosure?(data, 1)
+            if let is_main = animal?.is_main, is_main == "Y" {
+                animal?.is_main = "N"
+            }
+            else {
+                animal?.is_main = "Y"
+            }
+            self.didClickedActionClosure?(animal, 1)
         }
         else if sender == btnSetting {
-            self.didClickedActionClosure?(data, 2)
+            self.didClickedActionClosure?(animal, 2)
         }
     }
 }

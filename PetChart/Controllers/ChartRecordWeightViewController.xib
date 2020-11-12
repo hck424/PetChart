@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -12,7 +12,9 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChartRecordWeightViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
                 <outlet property="bottomContainer" destination="ZDn-ta-hYX" id="zUb-q7-CVa"/>
+                <outlet property="btnDay" destination="zXV-Wn-cEM" id="aGS-hw-LBb"/>
                 <outlet property="btnToday" destination="Pj6-Rn-lmH" id="220-Xd-mEe"/>
+                <outlet property="tfDay" destination="Jbn-4d-a2z" id="1a8-Pg-8gM"/>
                 <outlet property="tfWeight" destination="82c-8M-ULc" id="krS-ID-LYa"/>
                 <outlet property="view" destination="Q0u-3s-ERW" id="aPX-Y4-NpG"/>
             </connections>
@@ -72,6 +74,9 @@
                                                                 <constraint firstItem="hSe-R1-kxA" firstAttribute="top" secondItem="zXV-Wn-cEM" secondAttribute="top" id="fj7-OI-jzV"/>
                                                                 <constraint firstAttribute="trailing" secondItem="hSe-R1-kxA" secondAttribute="trailing" id="lVw-MY-UcA"/>
                                                             </constraints>
+                                                            <connections>
+                                                                <action selector="onClickedBtnActions:" destination="-1" eventType="touchUpInside" id="si2-XR-SgV"/>
+                                                            </connections>
                                                         </view>
                                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Unp-VF-qGf">
                                                             <rect key="frame" x="0.0" y="45" width="329" height="1"/>
@@ -91,6 +96,9 @@
                                                     <state key="normal" title="Today">
                                                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="onClickedBtnActions:" destination="-1" eventType="touchUpInside" id="cTo-2Z-f5v"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </stackView>
@@ -111,7 +119,7 @@
                                                 <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="0Cz-nZ-tz1">
                                                     <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                                     <subviews>
-                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="3 kg" placeholder="0.5 ml" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="82c-8M-ULc">
+                                                        <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="3.5 kg" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="82c-8M-ULc">
                                                             <rect key="frame" x="0.0" y="0.0" width="336" height="45"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="45" id="hJh-RQ-YKZ"/>

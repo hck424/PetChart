@@ -16,6 +16,7 @@ enum ContentType: String {
     case json = "application/json"
     case formdata = "multipart/form-data"
     case urlencoded = "application/x-www-form-urlencoded"
+    case text = "text/plain"
 }
 class NetworkManager: NSObject {
     static let shared = NetworkManager()
@@ -26,17 +27,18 @@ class NetworkManager: NSObject {
     
     func request(_ method: HTTPMethod, _ url: String, _ param:[String :Any]?, success:ResSuccess?, failure:ResFailure?) {
         let fulUrl = self.getFullUrl(url)
+        let encodedUrl:String = fulUrl.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         
         var headers: HTTPHeaders?
-        
         if let token = SharedData.getToken() {
-            let myHerder = HTTPHeader(name: "X-AUTH-TOKEN", value: token)
-            headers = [.accept(ContentType.json.rawValue), myHerder]
+            let auth = HTTPHeader(name: "X-AUTH-TOKEN", value: token)
+            headers = [.contentType(ContentType.json.rawValue), .accept(ContentType.json.rawValue), auth]
+//            print("X-AUTH-TOKEN: \(token)")
         } else {
-            headers = [.accept(ContentType.json.rawValue)]
+            headers = [.contentType(ContentType.json.rawValue), .accept(ContentType.json.rawValue)]
         }
         
-        let request = AF.request(fulUrl, method: method, parameters: param, encoding: JSONEncoding.default, headers: headers)
+        let request = AF.request(encodedUrl, method: method, parameters: param, encoding: JSONEncoding.default, headers: headers)
         
         AppDelegate.instance()?.startIndicator()
         let startTime = CACurrentMediaTime()
@@ -50,7 +52,7 @@ class NetworkManager: NSObject {
                 }
             }
             print("take time: \(endTime - startTime)")
-            print ("======= response ======= \n\(String(describing: response))")
+            print("======= response ======= \n\(response)")
             
             AppDelegate.instance()?.stopIndicator()
             switch response.result {
@@ -65,14 +67,14 @@ class NetworkManager: NSObject {
                     if let failure = failure {
                         failure(result)
                     }
-                    self.debugPrint(result)
+                    self.errorDebugPring(result)
                 }
                 
                 break
             case .failure(let error as NSError?):
                 if let failure = failure {
                     failure(error)
-                    self.debugPrint(error)
+                    self.errorDebugPring(error)
                 }
                 break
             }
@@ -80,30 +82,53 @@ class NetworkManager: NSObject {
     }
     
     func requestFormdataType(_ method: HTTPMethod, _ url: String, _ param:[String :Any]?, success:ResSuccess?, failure:ResFailure?) {
+        
+        guard let param = param else {
+            failure?(nil)
+            return
+        }
+        
         let fulUrl = self.getFullUrl(url)
         
         var headers: HTTPHeaders?
         
         if let token = SharedData.getToken() {
-            let myHerder = HTTPHeader(name: "X-AUTH-TOKEN", value: token)
-            headers = [.accept(ContentType.formdata.rawValue), myHerder]
+            let auth = HTTPHeader(name: "X-AUTH-TOKEN", value: token)
+            headers = [.contentType(ContentType.formdata.rawValue), .accept(ContentType.json.rawValue), auth]
+//            print("== X-AUTH-TOKEN: \(token)")
         } else {
-            headers = [.accept(ContentType.formdata.rawValue)]
+            headers = [.contentType(ContentType.formdata.rawValue), .accept(ContentType.json.rawValue)]
         }
-        
-        
-        let request = AF.request(fulUrl, method: method, parameters: param, encoding: JSONEncoding.default, headers: headers)
-        
         AppDelegate.instance()?.startIndicator()
         let startTime = CACurrentMediaTime()
-        
-        request.responseJSON { (response:AFDataResponse<Any>) in
+        AF.upload(multipartFormData: { (multipartFormData) in
+            for (key, value) in param {
+                if key == "images" {
+                    if let value = value as? Array<UIImage> {
+                        for img in value {
+                            let imgData = img.jpegData(compressionQuality: 1.0)
+                            
+                            if let imgData = imgData {
+                                multipartFormData.append(imgData, withName: "files", fileName: "\(Date().timeIntervalSince1970).png", mimeType: "image/png")
+                                print(" == imgData byte: \(ByteCountFormatter().string(fromByteCount: Int64(imgData.count)))")
+                            }
+                        }
+                    }
+                }
+                else {
+                    let data:Data? = "\(value)".data(using: .utf8)
+                    if let data = data {
+                        multipartFormData.append(data, withName: key)
+                    }
+                }
+            }
+            
+        }, to: fulUrl, method: method, headers: headers).responseJSON { (response) in
+            AppDelegate.instance()?.stopIndicator()
             let endTime = CACurrentMediaTime()
             if let url = response.request?.url?.absoluteString {
                 print("\n\n =======request ======= \nurl: \(String(describing: url))")
-                if let param = param {
-                    print(String(describing: param))
-                }
+                print(String(describing: param))
             }
             print("take time: \(endTime - startTime)")
             print ("======= response ======= \n\(String(describing: response))")
@@ -121,14 +146,14 @@ class NetworkManager: NSObject {
                     if let failure = failure {
                         failure(result)
                     }
-                    self.debugPrint(result)
+                    self.errorDebugPring(result)
                 }
                 
                 break
             case .failure(let error as NSError?):
                 if let failure = failure {
                     failure(error)
-                    self.debugPrint(error)
+                    self.errorDebugPring(error)
                 }
                 break
             }
@@ -137,11 +162,12 @@ class NetworkManager: NSObject {
     
     func requestIot(_ method: HTTPMethod, _ url: String, _ param:[String :Any]?, success:ResSuccess?, failure:ResFailure?) {
         
-        let headers: HTTPHeaders = [.accept(ContentType.json.rawValue)]
-        let request = AF.request(url, method: method, parameters: param, encoding: JSONEncoding.default, headers: headers)
+//        let headers: HTTPHeaders = [.accept(ContentType.json.rawValue)]
+        let encodedUrl:String = url.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let request = AF.request(encodedUrl, method: method, parameters: nil, encoding: JSONEncoding.default)
         let startTime = CACurrentMediaTime()
-        
         request.responseJSON { (response:AFDataResponse<Any>) in
+            
             let endTime = CACurrentMediaTime()
             if let url = response.request?.url?.absoluteString {
                 print("\n\n =======request ======= \nurl: \(String(describing: url))")
@@ -173,7 +199,7 @@ class NetworkManager: NSObject {
         }
     }
     
-    func debugPrint(_ data: Any?) {
+    func errorDebugPring(_ data: Any?) {
         if let data = data as? [String : Any] {
             
             var title = "Error :"

@@ -7,6 +7,7 @@
 
 import UIKit
 import SwiftyJSON
+import PhoneNumberKit
 
 class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
     @IBOutlet weak var tfName: CTextField!
@@ -23,9 +24,10 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
     @IBOutlet var accessoryView: UIToolbar!
     @IBOutlet weak var btnKeyboardDown: UIBarButtonItem!
+    let phoneNumberKit = PhoneNumberKit()
     
     var user: UserInfo? = nil
-    
+    var privacy_term = 0
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
@@ -49,6 +51,13 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        if tvAddress.text.isEmpty == false {
+            tvAddress.placeholderLabel?.isHidden = true
+        }
+        else {
+            tvAddress.placeholderLabel?.isHidden = false
+        }
+        tvAddress.delegate = self
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -84,7 +93,26 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
         tfEmail.text = user?.email
         tfPhoneNumber.text = user?.phone
         tvAddress.text = user?.addressLine1
+        self.textViewDidChange(tvAddress)
         tfAddressDetail.text = user?.addressLine2
+        
+        
+        guard let privacy_term = user?.privacy_term else {
+            return
+        }
+        for btn in arrBtnPrivacy {
+            if privacy_term == 0 {
+                arrBtnPrivacy.last?.isSelected = true
+                break
+            }
+            else {
+                let term = Int(privacy_term/365)
+                if term == btn.tag {
+                    btn.isSelected = true
+                    break
+                }
+            }
+        }
     }
     
     @IBAction func tapGestureHandler(_ sender: UITapGestureRecognizer) {
@@ -93,6 +121,18 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
         }
     }
     
+    @IBAction func textFiledViewEdtingChanged(_ sender: UITextField) {
+        guard let text = sender.text, text.isEmpty == false else {
+            return
+        }
+        do {
+            let phoneNumber = try phoneNumberKit.parse(text, ignoreType: true)
+            let newNum = self.phoneNumberKit.format(phoneNumber, toType: .national)
+            self.tfPhoneNumber.text = newNum
+        } catch {
+            self.tfPhoneNumber.text = text
+        }
+    }
     @IBAction func onClickedButtonActions(_ sender: Any) {
         self.view.endEditing(true)
         
@@ -102,7 +142,8 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
         else if sender as? NSObject == btnAddressSearch {
             let vc = WkWebViewController.init()
             vc.vcTitle = "주소 검색"
-            vc.type = .localHtmlAddressSearch
+            vc.strUrl = "https://crm.zayuroun.com/address.html"
+            vc.type = .normal
             self.navigationController?.pushViewController(vc, animated: true)
             vc.didFinishSelectedAddressClourse = ({(_ selData:[String:Any]?) -> () in
                 if let selData = selData {
@@ -137,9 +178,9 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
                 btn.isSelected = false
             }
             sender.isSelected = true
+            privacy_term = sender.tag * 365
         }
         else if sender as? NSObject == btnOk {
-            
             
             user?.name = tfName.text
             user?.nickname = tfNicName.text
@@ -148,9 +189,10 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
             user?.addressLine1 = tvAddress.text
             user?.addressLine2 = tfAddressDetail.text
             
+            var isTermSelected = false
             for btn in arrBtnPrivacy {
                 if (btn.isSelected) {
-                    user?.termsserviceAgree = true
+                    isTermSelected = true
                     break
                 }
             }
@@ -167,38 +209,32 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
                 self.view.makeToast("이메일은 필수 항목입니다.")
                 return
             }
-//            if user?.phone == nil {
-//                self.view.makeToast("연락처는 필수 항목입니다.")
-//                return
-//            }
-//            if user?.addressLine1 == nil {
-//                self.view.makeToast("이름은 필수 항목입니다.")
-//                return
-//            }
-//            if user?.addressLine2 == nil {
-//                self.view.makeToast("이름은 필수 항목입니다.")
-//                return
-//            }
-            if user?.termsserviceAgree == false {
+
+            if isTermSelected == false {
                 self.view.makeToast("개인정보 유효기간을 설정해주세요.")
                 return
             }
-            let dic:[String:Any]? = user?.toJSON() ?? nil
             
-            if let dic = dic {
-                ApiManager.shared.requestModifyUserInfo(param: dic) { (response) in
-                    if let response = response as? [String:Any], (response["success"] as! Bool) == true {
-                        AlertView.showWithOk(title: "회원정보 변경", message: "회원정보 변경이 완료되었습니다.") { (index) in
+            let dic:[String:Any]? = user?.toJSON() ?? nil
+            guard var param = dic else {
+                return
+            }
+            param["privacy_term"] = privacy_term
+            
+            AlertView.showWithCancelAndOk(title: "회원정보 변경", message: "회원정보 변경이 하시겠습니까?.") { (index) in
+                if (index == 1) {
+                    ApiManager.shared.requestModifyUserInfo(param: param) { (response) in
+                        if let response = response as? [String:Any], (response["success"] as! Bool) == true {
+                            self.view.makeToast("회원정보 변경이 완료되었습니다.")
                             self.navigationController?.popViewController(animated: true)
                         }
+                        else {
+                            self.showErrorAlertView(response)
+                        }
+                    } failure: { (error) in
+                        self.showErrorAlertView(error)
                     }
-                    else {
-                        self.showErrorAlertView(response)
-                    }
-                } failure: { (error) in
-                    self.showErrorAlertView(error)
                 }
-
             }
         }
     }

@@ -28,13 +28,15 @@ class PushViewController: BaseViewController {
             sender.isSelected = !sender.isSelected
             
             if sender.isSelected {
-                //TODO:: userdefault push key
                 UserDefaults.standard.setValue("Y", forKey: kPushSetting)
+                AppDelegate.instance()?.registApnsPushKey()
             }
             else {
                 UserDefaults.standard.removeObject(forKey: kPushSetting)
+                AppDelegate.instance()?.removeApnsPushKey()
             }
             UserDefaults.standard.synchronize()
+            
         }
     }
 }

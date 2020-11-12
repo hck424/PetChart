@@ -7,14 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		353D39E0FF33E17BCFC84F2A /* Pods_PetChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 43253CBBFD45190799B14C02 /* Pods_PetChart.framework */; };
+		966C005DEA7074D0F1D27698 /* Pods_PetChart.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 13A8F2FBDA3258DD3FA0A2AF /* Pods_PetChart.framework */; };
 		E901E57125343931000D499C /* WkWebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901E56F25343931000D499C /* WkWebViewController.swift */; };
 		E901E57225343931000D499C /* WkWebViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E901E57025343931000D499C /* WkWebViewController.xib */; };
 		E901E576253459BB000D499C /* index.html in Resources */ = {isa = PBXBuildFile; fileRef = E901E575253459BB000D499C /* index.html */; };
-		E901E59225354D1F000D499C /* AddressSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901E59025354D1F000D499C /* AddressSearchViewController.swift */; };
-		E901E59325354D1F000D499C /* AddressSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E901E59125354D1F000D499C /* AddressSearchViewController.xib */; };
-		E901E5C92535780B000D499C /* AddressSearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901E5C72535780B000D499C /* AddressSearchCell.swift */; };
-		E901E5CA2535780B000D499C /* AddressSearchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E901E5C82535780B000D499C /* AddressSearchCell.xib */; };
 		E901E61825369165000D499C /* NoticeCellView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901E61725369165000D499C /* NoticeCellView.swift */; };
 		E901E61B2536916C000D499C /* NoticeCellView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E901E61A2536916C000D499C /* NoticeCellView.xib */; };
 		E901E61F253697E8000D499C /* FindPassWordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E901E61D253697E8000D499C /* FindPassWordViewController.swift */; };
@@ -50,8 +46,8 @@
 		E94316AE252AD397009CF07E /* MyPetViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E94316AD252AD396009CF07E /* MyPetViewController.xib */; };
 		E953A37E252B01A2000F87D7 /* IotSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E953A37C252B01A1000F87D7 /* IotSearchViewController.swift */; };
 		E953A37F252B01A2000F87D7 /* IotSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E953A37D252B01A1000F87D7 /* IotSearchViewController.xib */; };
-		E9573CA72524CAD800583C6F /* MrStep3ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9573CA52524CAD800583C6F /* MrStep3ViewController.swift */; };
-		E9573CA82524CAD800583C6F /* MrStep3ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9573CA62524CAD800583C6F /* MrStep3ViewController.xib */; };
+		E9573CA72524CAD800583C6F /* MrUserInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9573CA52524CAD800583C6F /* MrUserInfoViewController.swift */; };
+		E9573CA82524CAD800583C6F /* MrUserInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9573CA62524CAD800583C6F /* MrUserInfoViewController.xib */; };
 		E95D09C7252AD84F00077EE4 /* IotManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D09C5252AD84F00077EE4 /* IotManagementViewController.swift */; };
 		E95D09C8252AD84F00077EE4 /* IotManagementViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95D09C6252AD84F00077EE4 /* IotManagementViewController.xib */; };
 		E95D09CC252AE32B00077EE4 /* NoticeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95D09CA252AE32B00077EE4 /* NoticeViewController.swift */; };
@@ -77,16 +73,19 @@
 		E95E142125261EC70073DC93 /* AnimalModifyInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E141F25261EC70073DC93 /* AnimalModifyInfoViewController.xib */; };
 		E95E6FB9252B510B00FAB6C6 /* ChattingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95E6FB7252B510B00FAB6C6 /* ChattingCell.swift */; };
 		E95E6FBA252B510B00FAB6C6 /* ChattingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95E6FB8252B510B00FAB6C6 /* ChattingCell.xib */; };
-		E95FB73E2523210E00BDC5FE /* MrStep1ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95FB73C2523210E00BDC5FE /* MrStep1ViewController.xib */; };
-		E95FB73F2523210E00BDC5FE /* MrStep1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FB73D2523210E00BDC5FE /* MrStep1ViewController.swift */; };
-		E95FB765252325A700BDC5FE /* MrStep2ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FB763252325A700BDC5FE /* MrStep2ViewController.swift */; };
-		E95FB766252325A700BDC5FE /* MrStep2ViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95FB764252325A700BDC5FE /* MrStep2ViewController.xib */; };
+		E95FB73E2523210E00BDC5FE /* MrNameInputViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95FB73C2523210E00BDC5FE /* MrNameInputViewController.xib */; };
+		E95FB73F2523210E00BDC5FE /* MrNameInputViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FB73D2523210E00BDC5FE /* MrNameInputViewController.swift */; };
+		E95FB765252325A700BDC5FE /* MrBirthdayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E95FB763252325A700BDC5FE /* MrBirthdayViewController.swift */; };
+		E95FB766252325A700BDC5FE /* MrBirthdayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E95FB764252325A700BDC5FE /* MrBirthdayViewController.xib */; };
 		E96039632529BB1200328932 /* TalkCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96039612529BB1200328932 /* TalkCell.swift */; };
 		E96039642529BB1200328932 /* TalkCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96039622529BB1200328932 /* TalkCell.xib */; };
+		E9612BF4255C6F9B00B321EE /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E9612BF3255C6F9B00B321EE /* Photos.framework */; };
 		E9615E4A2526CCFD000550FE /* MemberInfoModifyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9615E482526CCFD000550FE /* MemberInfoModifyViewController.swift */; };
 		E9615E4B2526CCFE000550FE /* MemberInfoModifyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9615E492526CCFD000550FE /* MemberInfoModifyViewController.xib */; };
 		E9640EEF2522D78100EEF156 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9640EEE2522D78100EEF156 /* NetworkManager.swift */; };
 		E9640EF22522D78B00EEF156 /* ApiManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9640EF12522D78B00EEF156 /* ApiManager.swift */; };
+		E9643901255B7D7200ECAB7C /* SearchAnimalKindCellTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96438FF255B7D7200ECAB7C /* SearchAnimalKindCellTableViewCell.swift */; };
+		E9643902255B7D7200ECAB7C /* SearchAnimalKindCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9643900255B7D7200ECAB7C /* SearchAnimalKindCellTableViewCell.xib */; };
 		E968793A2525EFB900D1DF1A /* AddAnimalInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E96879382525EFB900D1DF1A /* AddAnimalInfoViewController.swift */; };
 		E968793B2525EFB900D1DF1A /* AddAnimalInfoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E96879392525EFB900D1DF1A /* AddAnimalInfoViewController.xib */; };
 		E97C262025288353001FFC7F /* SharedData.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97C261F25288353001FFC7F /* SharedData.swift */; };
@@ -105,6 +104,7 @@
 		E97E91BE25373A0100BFE6B2 /* ExternalAccessory.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E97E91BD25373A0100BFE6B2 /* ExternalAccessory.framework */; };
 		E97F4B652528752E00EAD200 /* ChartDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E97F4B632528752E00EAD200 /* ChartDetailViewController.swift */; };
 		E97F4B662528752E00EAD200 /* ChartDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E97F4B642528752E00EAD200 /* ChartDetailViewController.xib */; };
+		E984CA43254D7CAA0010BDD8 /* ImageCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = E984CA42254D7CAA0010BDD8 /* ImageCache.swift */; };
 		E98963F42529FF0800A30D27 /* TalkDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E98963F32529FF0800A30D27 /* TalkDetailViewController.xib */; };
 		E98AF4AF25244220002C855B /* CDateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98AF4AC25244220002C855B /* CDateFormatter.swift */; };
 		E98AF4B625244465002C855B /* CDatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E98AF4AA25244220002C855B /* CDatePickerView.swift */; };
@@ -148,6 +148,13 @@
 		E9C4948525273B6A00F8C7AB /* PetHealthFavoriteEdtingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C4948325273B6A00F8C7AB /* PetHealthFavoriteEdtingViewController.xib */; };
 		E9C4948925273BCE00F8C7AB /* PetHealthFavoriteCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C4948725273BCE00F8C7AB /* PetHealthFavoriteCell.swift */; };
 		E9C4948A25273BCE00F8C7AB /* PetHealthFavoriteCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C4948825273BCE00F8C7AB /* PetHealthFavoriteCell.xib */; };
+		E9CEE28B255815C200FB0594 /* MrTermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CEE289255815C200FB0594 /* MrTermsViewController.swift */; };
+		E9CEE28C255815C200FB0594 /* MrTermsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9CEE28A255815C200FB0594 /* MrTermsViewController.xib */; };
+		E9CEE29025581F9C00FB0594 /* CustomTextViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CEE28E25581F9C00FB0594 /* CustomTextViewController.swift */; };
+		E9CEE29125581F9C00FB0594 /* CustomTextViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9CEE28F25581F9C00FB0594 /* CustomTextViewController.xib */; };
+		E9CEE2942558272300FB0594 /* TalkDetailHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CEE2932558272300FB0594 /* TalkDetailHeaderView.swift */; };
+		E9CEE2972558273100FB0594 /* TalkDetailHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9CEE2962558273100FB0594 /* TalkDetailHeaderView.xib */; };
+		E9CEE2A52558485100FB0594 /* AligmentImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9CEE2A42558485100FB0594 /* AligmentImageView.swift */; };
 		E9D5AB47251ED941005B7ECB /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5AB46251ED941005B7ECB /* Constants.swift */; };
 		E9D5AB4A251EE12A005B7ECB /* MainTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5AB49251EE12A005B7ECB /* MainTabBarController.swift */; };
 		E9D5AB50251EE177005B7ECB /* BaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9D5AB4F251EE177005B7ECB /* BaseViewController.swift */; };
@@ -177,16 +184,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		43253CBBFD45190799B14C02 /* Pods_PetChart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetChart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9D1289E7D5706541A0DEC79A /* Pods-PetChart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.debug.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.debug.xcconfig"; sourceTree = "<group>"; };
-		D56D95B30D28A1F007217B56 /* Pods-PetChart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.release.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.release.xcconfig"; sourceTree = "<group>"; };
+		13A8F2FBDA3258DD3FA0A2AF /* Pods_PetChart.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PetChart.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF291C96BE1C81B56994413E /* Pods-PetChart.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.debug.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.debug.xcconfig"; sourceTree = "<group>"; };
+		E8113FC50AD3D95BB87DDFDB /* Pods-PetChart.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PetChart.release.xcconfig"; path = "Target Support Files/Pods-PetChart/Pods-PetChart.release.xcconfig"; sourceTree = "<group>"; };
 		E901E56F25343931000D499C /* WkWebViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WkWebViewController.swift; sourceTree = "<group>"; };
 		E901E57025343931000D499C /* WkWebViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WkWebViewController.xib; sourceTree = "<group>"; };
 		E901E575253459BB000D499C /* index.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
-		E901E59025354D1F000D499C /* AddressSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchViewController.swift; sourceTree = "<group>"; };
-		E901E59125354D1F000D499C /* AddressSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressSearchViewController.xib; sourceTree = "<group>"; };
-		E901E5C72535780B000D499C /* AddressSearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressSearchCell.swift; sourceTree = "<group>"; };
-		E901E5C82535780B000D499C /* AddressSearchCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddressSearchCell.xib; sourceTree = "<group>"; };
 		E901E61725369165000D499C /* NoticeCellView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeCellView.swift; sourceTree = "<group>"; };
 		E901E61A2536916C000D499C /* NoticeCellView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NoticeCellView.xib; sourceTree = "<group>"; };
 		E901E61D253697E8000D499C /* FindPassWordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FindPassWordViewController.swift; sourceTree = "<group>"; };
@@ -223,8 +226,8 @@
 		E94316AD252AD396009CF07E /* MyPetViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyPetViewController.xib; sourceTree = "<group>"; };
 		E953A37C252B01A1000F87D7 /* IotSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IotSearchViewController.swift; sourceTree = "<group>"; };
 		E953A37D252B01A1000F87D7 /* IotSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IotSearchViewController.xib; sourceTree = "<group>"; };
-		E9573CA52524CAD800583C6F /* MrStep3ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrStep3ViewController.swift; sourceTree = "<group>"; };
-		E9573CA62524CAD800583C6F /* MrStep3ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MrStep3ViewController.xib; sourceTree = "<group>"; };
+		E9573CA52524CAD800583C6F /* MrUserInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrUserInfoViewController.swift; sourceTree = "<group>"; };
+		E9573CA62524CAD800583C6F /* MrUserInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MrUserInfoViewController.xib; sourceTree = "<group>"; };
 		E95D09C5252AD84F00077EE4 /* IotManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IotManagementViewController.swift; sourceTree = "<group>"; };
 		E95D09C6252AD84F00077EE4 /* IotManagementViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IotManagementViewController.xib; sourceTree = "<group>"; };
 		E95D09CA252AE32B00077EE4 /* NoticeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoticeViewController.swift; sourceTree = "<group>"; };
@@ -250,16 +253,19 @@
 		E95E141F25261EC70073DC93 /* AnimalModifyInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AnimalModifyInfoViewController.xib; sourceTree = "<group>"; };
 		E95E6FB7252B510B00FAB6C6 /* ChattingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChattingCell.swift; sourceTree = "<group>"; };
 		E95E6FB8252B510B00FAB6C6 /* ChattingCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChattingCell.xib; sourceTree = "<group>"; };
-		E95FB73C2523210E00BDC5FE /* MrStep1ViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MrStep1ViewController.xib; sourceTree = "<group>"; };
-		E95FB73D2523210E00BDC5FE /* MrStep1ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MrStep1ViewController.swift; sourceTree = "<group>"; };
-		E95FB763252325A700BDC5FE /* MrStep2ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrStep2ViewController.swift; sourceTree = "<group>"; };
-		E95FB764252325A700BDC5FE /* MrStep2ViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MrStep2ViewController.xib; sourceTree = "<group>"; };
+		E95FB73C2523210E00BDC5FE /* MrNameInputViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MrNameInputViewController.xib; sourceTree = "<group>"; };
+		E95FB73D2523210E00BDC5FE /* MrNameInputViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MrNameInputViewController.swift; sourceTree = "<group>"; };
+		E95FB763252325A700BDC5FE /* MrBirthdayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrBirthdayViewController.swift; sourceTree = "<group>"; };
+		E95FB764252325A700BDC5FE /* MrBirthdayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MrBirthdayViewController.xib; sourceTree = "<group>"; };
 		E96039612529BB1200328932 /* TalkCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkCell.swift; sourceTree = "<group>"; };
 		E96039622529BB1200328932 /* TalkCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkCell.xib; sourceTree = "<group>"; };
+		E9612BF3255C6F9B00B321EE /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
 		E9615E482526CCFD000550FE /* MemberInfoModifyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MemberInfoModifyViewController.swift; sourceTree = "<group>"; };
 		E9615E492526CCFD000550FE /* MemberInfoModifyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MemberInfoModifyViewController.xib; sourceTree = "<group>"; };
 		E9640EEE2522D78100EEF156 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
 		E9640EF12522D78B00EEF156 /* ApiManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiManager.swift; sourceTree = "<group>"; };
+		E96438FF255B7D7200ECAB7C /* SearchAnimalKindCellTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAnimalKindCellTableViewCell.swift; sourceTree = "<group>"; };
+		E9643900255B7D7200ECAB7C /* SearchAnimalKindCellTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SearchAnimalKindCellTableViewCell.xib; sourceTree = "<group>"; };
 		E96879382525EFB900D1DF1A /* AddAnimalInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnimalInfoViewController.swift; sourceTree = "<group>"; };
 		E96879392525EFB900D1DF1A /* AddAnimalInfoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AddAnimalInfoViewController.xib; sourceTree = "<group>"; };
 		E97C261F25288353001FFC7F /* SharedData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedData.swift; sourceTree = "<group>"; };
@@ -278,6 +284,7 @@
 		E97E91BD25373A0100BFE6B2 /* ExternalAccessory.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ExternalAccessory.framework; path = System/Library/Frameworks/ExternalAccessory.framework; sourceTree = SDKROOT; };
 		E97F4B632528752E00EAD200 /* ChartDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChartDetailViewController.swift; sourceTree = "<group>"; };
 		E97F4B642528752E00EAD200 /* ChartDetailViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ChartDetailViewController.xib; sourceTree = "<group>"; };
+		E984CA42254D7CAA0010BDD8 /* ImageCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCache.swift; sourceTree = "<group>"; };
 		E98963F32529FF0800A30D27 /* TalkDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TalkDetailViewController.xib; sourceTree = "<group>"; };
 		E98AF4AA25244220002C855B /* CDatePickerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDatePickerView.swift; sourceTree = "<group>"; };
 		E98AF4AC25244220002C855B /* CDateFormatter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CDateFormatter.swift; sourceTree = "<group>"; };
@@ -322,6 +329,13 @@
 		E9C4948325273B6A00F8C7AB /* PetHealthFavoriteEdtingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PetHealthFavoriteEdtingViewController.xib; sourceTree = "<group>"; };
 		E9C4948725273BCE00F8C7AB /* PetHealthFavoriteCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PetHealthFavoriteCell.swift; sourceTree = "<group>"; };
 		E9C4948825273BCE00F8C7AB /* PetHealthFavoriteCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PetHealthFavoriteCell.xib; sourceTree = "<group>"; };
+		E9CEE289255815C200FB0594 /* MrTermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MrTermsViewController.swift; sourceTree = "<group>"; };
+		E9CEE28A255815C200FB0594 /* MrTermsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MrTermsViewController.xib; sourceTree = "<group>"; };
+		E9CEE28E25581F9C00FB0594 /* CustomTextViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomTextViewController.swift; sourceTree = "<group>"; };
+		E9CEE28F25581F9C00FB0594 /* CustomTextViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomTextViewController.xib; sourceTree = "<group>"; };
+		E9CEE2932558272300FB0594 /* TalkDetailHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TalkDetailHeaderView.swift; sourceTree = "<group>"; };
+		E9CEE2962558273100FB0594 /* TalkDetailHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TalkDetailHeaderView.xib; sourceTree = "<group>"; };
+		E9CEE2A42558485100FB0594 /* AligmentImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AligmentImageView.swift; sourceTree = "<group>"; };
 		E9D5AB46251ED941005B7ECB /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E9D5AB49251EE12A005B7ECB /* MainTabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarController.swift; sourceTree = "<group>"; };
 		E9D5AB4F251EE177005B7ECB /* BaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseViewController.swift; sourceTree = "<group>"; };
@@ -358,8 +372,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				E97E91BE25373A0100BFE6B2 /* ExternalAccessory.framework in Frameworks */,
+				E9612BF4255C6F9B00B321EE /* Photos.framework in Frameworks */,
 				E92022FC253DDC2900308E9F /* NetworkExtension.framework in Frameworks */,
-				353D39E0FF33E17BCFC84F2A /* Pods_PetChart.framework in Frameworks */,
+				966C005DEA7074D0F1D27698 /* Pods_PetChart.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -369,10 +384,11 @@
 		71624BCF5D1874C7B5ABBA1B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E9612BF3255C6F9B00B321EE /* Photos.framework */,
 				E92022FB253DDC2900308E9F /* NetworkExtension.framework */,
 				E97E91BD25373A0100BFE6B2 /* ExternalAccessory.framework */,
 				E92022872536EFB500C35E77 /* CoreBluetooth.framework */,
-				43253CBBFD45190799B14C02 /* Pods_PetChart.framework */,
+				13A8F2FBDA3258DD3FA0A2AF /* Pods_PetChart.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -380,8 +396,8 @@
 		B298DAAF0E55AF5829076E7B /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				9D1289E7D5706541A0DEC79A /* Pods-PetChart.debug.xcconfig */,
-				D56D95B30D28A1F007217B56 /* Pods-PetChart.release.xcconfig */,
+				DF291C96BE1C81B56994413E /* Pods-PetChart.debug.xcconfig */,
+				E8113FC50AD3D95BB87DDFDB /* Pods-PetChart.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -434,6 +450,8 @@
 				E929CA5D2529CE8E00AB4F68 /* TalkWriteViewController.xib */,
 				E99AD4352529E16C00CBDE8F /* TalkDetailViewController.swift */,
 				E98963F32529FF0800A30D27 /* TalkDetailViewController.xib */,
+				E9CEE2932558272300FB0594 /* TalkDetailHeaderView.swift */,
+				E9CEE2962558273100FB0594 /* TalkDetailHeaderView.xib */,
 				E99AD43A2529ED3B00CBDE8F /* TalkDetailCell.swift */,
 				E99AD43B2529ED3B00CBDE8F /* TalkDetailCell.xib */,
 			);
@@ -483,6 +501,8 @@
 				E9EF79C52525B53400F2922F /* AddAnminalKindViewController.xib */,
 				E9EF79C92525BDF500F2922F /* AddAnimalItemSelectViewController.swift */,
 				E9EF79CA2525BDF500F2922F /* AddAnimalItemSelectViewController.xib */,
+				E96438FF255B7D7200ECAB7C /* SearchAnimalKindCellTableViewCell.swift */,
+				E9643900255B7D7200ECAB7C /* SearchAnimalKindCellTableViewCell.xib */,
 				E9EF79CE2525E23C00F2922F /* AddAnimalBirthDayViewController.swift */,
 				E9EF79CF2525E23C00F2922F /* AddAnimalBirthDayViewController.xib */,
 				E96879382525EFB900D1DF1A /* AddAnimalInfoViewController.swift */,
@@ -527,12 +547,12 @@
 		E999D5E625204A450087D8AE /* Logoin */ = {
 			isa = PBXGroup;
 			children = (
-				E95FB73D2523210E00BDC5FE /* MrStep1ViewController.swift */,
-				E95FB73C2523210E00BDC5FE /* MrStep1ViewController.xib */,
-				E95FB763252325A700BDC5FE /* MrStep2ViewController.swift */,
-				E95FB764252325A700BDC5FE /* MrStep2ViewController.xib */,
-				E9573CA52524CAD800583C6F /* MrStep3ViewController.swift */,
-				E9573CA62524CAD800583C6F /* MrStep3ViewController.xib */,
+				E95FB73D2523210E00BDC5FE /* MrNameInputViewController.swift */,
+				E95FB73C2523210E00BDC5FE /* MrNameInputViewController.xib */,
+				E95FB763252325A700BDC5FE /* MrBirthdayViewController.swift */,
+				E95FB764252325A700BDC5FE /* MrBirthdayViewController.xib */,
+				E9573CA52524CAD800583C6F /* MrUserInfoViewController.swift */,
+				E9573CA62524CAD800583C6F /* MrUserInfoViewController.xib */,
 				E9615E482526CCFD000550FE /* MemberInfoModifyViewController.swift */,
 				E9615E492526CCFD000550FE /* MemberInfoModifyViewController.xib */,
 				E999D5DF25204A110087D8AE /* LoginViewController.swift */,
@@ -544,6 +564,10 @@
 				E901E61E253697E8000D499C /* FindPassWordViewController.xib */,
 				E92022312536CD1500C35E77 /* NewPasswordViewController.swift */,
 				E92022322536CD1500C35E77 /* NewPasswordViewController.xib */,
+				E9CEE289255815C200FB0594 /* MrTermsViewController.swift */,
+				E9CEE28A255815C200FB0594 /* MrTermsViewController.xib */,
+				E9CEE28E25581F9C00FB0594 /* CustomTextViewController.swift */,
+				E9CEE28F25581F9C00FB0594 /* CustomTextViewController.xib */,
 			);
 			name = Logoin;
 			sourceTree = "<group>";
@@ -655,10 +679,8 @@
 				E97C261F25288353001FFC7F /* SharedData.swift */,
 				E901E56F25343931000D499C /* WkWebViewController.swift */,
 				E901E57025343931000D499C /* WkWebViewController.xib */,
-				E901E59025354D1F000D499C /* AddressSearchViewController.swift */,
-				E901E59125354D1F000D499C /* AddressSearchViewController.xib */,
-				E901E5C72535780B000D499C /* AddressSearchCell.swift */,
-				E901E5C82535780B000D499C /* AddressSearchCell.xib */,
+				E984CA42254D7CAA0010BDD8 /* ImageCache.swift */,
+				E9CEE2A42558485100FB0594 /* AligmentImageView.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -696,11 +718,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = E9D794F6251ECFF800D79E7E /* Build configuration list for PBXNativeTarget "PetChart" */;
 			buildPhases = (
-				BB311AA373430807E826EF18 /* [CP] Check Pods Manifest.lock */,
+				523B99C6AD9B680EF966A215 /* [CP] Check Pods Manifest.lock */,
 				E9D794DB251ECFF800D79E7E /* Sources */,
 				E9D794DC251ECFF800D79E7E /* Frameworks */,
 				E9D794DD251ECFF800D79E7E /* Resources */,
-				954F39FEC32F92EAFF74AECC /* [CP] Embed Pods Frameworks */,
+				D560673761AFE05C69F38F19 /* [CP] Embed Pods Frameworks */,
+				E965E245255D1000000A2F4C /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -749,6 +772,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E99AD43D2529ED3B00CBDE8F /* TalkDetailCell.xib in Resources */,
+				E9643902255B7D7200ECAB7C /* SearchAnimalKindCellTableViewCell.xib in Resources */,
 				E993C498251EEC09007E8C7E /* TalkViewController.xib in Resources */,
 				E95E6FBA252B510B00FAB6C6 /* ChattingCell.xib in Resources */,
 				E95D0A32252AFA9500077EE4 /* IotListViewController.xib in Resources */,
@@ -760,7 +784,7 @@
 				E97F4B662528752E00EAD200 /* ChartDetailViewController.xib in Resources */,
 				E95D09DE252AE40A00077EE4 /* SettingViewController.xib in Resources */,
 				E9D794F2251ECFF800D79E7E /* LaunchScreen.storyboard in Resources */,
-				E95FB766252325A700BDC5FE /* MrStep2ViewController.xib in Resources */,
+				E95FB766252325A700BDC5FE /* MrBirthdayViewController.xib in Resources */,
 				E95D09D9252AE3DD00077EE4 /* QuestionViewController.xib in Resources */,
 				E94316AA252ABD0F009CF07E /* MyPetEmptyCell.xib in Resources */,
 				E9C494592526EBD900F8C7AB /* PopupListCell.xib in Resources */,
@@ -768,6 +792,7 @@
 				E97C263E25288B2A001FFC7F /* ChartRecordFecesViewController.xib in Resources */,
 				E9C494362526E09200F8C7AB /* PopupListViewController.xib in Resources */,
 				E9086EDD252867AA006D7F1D /* GraphView.xib in Resources */,
+				E9CEE2972558273100FB0594 /* TalkDetailHeaderView.xib in Resources */,
 				E968793B2525EFB900D1DF1A /* AddAnimalInfoViewController.xib in Resources */,
 				E97C263925288AFB001FFC7F /* ChartRecordWeightViewController.xib in Resources */,
 				E97C262F25288ABF001FFC7F /* ChartRecordMedicalViewController.xib in Resources */,
@@ -782,8 +807,9 @@
 				E9431696252AB62E009CF07E /* MyInfoCell.xib in Resources */,
 				E9D794EF251ECFF800D79E7E /* Assets.xcassets in Resources */,
 				E95D0A27252AF21800077EE4 /* WithdrawViewController.xib in Resources */,
+				E9CEE29125581F9C00FB0594 /* CustomTextViewController.xib in Resources */,
 				E9EF79C72525B53400F2922F /* AddAnminalKindViewController.xib in Resources */,
-				E9573CA82524CAD800583C6F /* MrStep3ViewController.xib in Resources */,
+				E9573CA82524CAD800583C6F /* MrUserInfoViewController.xib in Resources */,
 				E993C493251EEBDE007E8C7E /* ChartViewController.xib in Resources */,
 				E9DFC6AB252B0D8C00167237 /* IotDeviceCell.xib in Resources */,
 				E9428F272527904600456A48 /* ChartCellView.xib in Resources */,
@@ -795,10 +821,10 @@
 				E95E13F725260A030073DC93 /* AnimalRegiNumberInfoViewController.xib in Resources */,
 				E97C262525288A75001FFC7F /* ChartRecordEatViewController.xib in Resources */,
 				E9D79508251ED15A00D79E7E /* TutorialViewController.xib in Resources */,
-				E95FB73E2523210E00BDC5FE /* MrStep1ViewController.xib in Resources */,
-				E901E5CA2535780B000D499C /* AddressSearchCell.xib in Resources */,
+				E95FB73E2523210E00BDC5FE /* MrNameInputViewController.xib in Resources */,
 				E92022852536DE4100C35E77 /* WifiSearchViewController.xib in Resources */,
 				E9EF79CC2525BDF500F2922F /* AddAnimalItemSelectViewController.xib in Resources */,
+				E9CEE28C255815C200FB0594 /* MrTermsViewController.xib in Resources */,
 				E929CA5F2529CE8E00AB4F68 /* TalkWriteViewController.xib in Resources */,
 				E95D0A39252AFBDE00077EE4 /* IotCell.xib in Resources */,
 				E9910A4B252AA14300BD877C /* MyInfoViewController.xib in Resources */,
@@ -818,31 +844,13 @@
 				E901E620253697E8000D499C /* FindPassWordViewController.xib in Resources */,
 				E98963F42529FF0800A30D27 /* TalkDetailViewController.xib in Resources */,
 				E9EF79882525927200F2922F /* AddAnimalNameViewController.xib in Resources */,
-				E901E59325354D1F000D499C /* AddressSearchViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		954F39FEC32F92EAFF74AECC /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		BB311AA373430807E826EF18 /* [CP] Check Pods Manifest.lock */ = {
+		523B99C6AD9B680EF966A215 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -863,6 +871,40 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		D560673761AFE05C69F38F19 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-PetChart/Pods-PetChart-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E965E245255D1000000A2F4C /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -886,6 +928,7 @@
 				E98AF4AF25244220002C855B /* CDateFormatter.swift in Sources */,
 				E9D79507251ED15A00D79E7E /* TutorialViewController.swift in Sources */,
 				E9EF79CB2525BDF500F2922F /* AddAnimalItemSelectViewController.swift in Sources */,
+				E9CEE2942558272300FB0594 /* TalkDetailHeaderView.swift in Sources */,
 				E97C262425288A75001FFC7F /* ChartRecordEatViewController.swift in Sources */,
 				E993C497251EEC09007E8C7E /* TalkViewController.swift in Sources */,
 				E9D5AB4A251EE12A005B7ECB /* MainTabBarController.swift in Sources */,
@@ -895,6 +938,7 @@
 				E97F4B652528752E00EAD200 /* ChartDetailViewController.swift in Sources */,
 				E92022332536CD1500C35E77 /* NewPasswordViewController.swift in Sources */,
 				E9C494352526E09200F8C7AB /* PopupListViewController.swift in Sources */,
+				E9CEE29025581F9C00FB0594 /* CustomTextViewController.swift in Sources */,
 				E9428F242527901100456A48 /* ChartCellView.swift in Sources */,
 				E9C09F12251EFB1D00D0120C /* Extension.swift in Sources */,
 				E92022842536DE4100C35E77 /* WifiSearchViewController.swift in Sources */,
@@ -902,10 +946,8 @@
 				E9EF79C62525B53400F2922F /* AddAnminalKindViewController.swift in Sources */,
 				E96039632529BB1200328932 /* TalkCell.swift in Sources */,
 				E9D5AB47251ED941005B7ECB /* Constants.swift in Sources */,
-				E901E59225354D1F000D499C /* AddressSearchViewController.swift in Sources */,
 				E9EF798F2525985000F2922F /* Animal.swift in Sources */,
 				E9EF79872525927200F2922F /* AddAnimalNameViewController.swift in Sources */,
-				E901E5C92535780B000D499C /* AddressSearchCell.swift in Sources */,
 				E95D0A31252AFA9500077EE4 /* IotListViewController.swift in Sources */,
 				E95E13F625260A030073DC93 /* AnimalRegiNumberInfoViewController.swift in Sources */,
 				E9428F0E25276BF100456A48 /* PetSelectPopupView.swift in Sources */,
@@ -931,20 +973,23 @@
 				E95D09C7252AD84F00077EE4 /* IotManagementViewController.swift in Sources */,
 				E943169F252ABAAD009CF07E /* IotViewController.swift in Sources */,
 				E999D5DC2520490F0087D8AE /* Clabel.swift in Sources */,
-				E95FB73F2523210E00BDC5FE /* MrStep1ViewController.swift in Sources */,
+				E95FB73F2523210E00BDC5FE /* MrNameInputViewController.swift in Sources */,
 				E97C262925288A8C001FFC7F /* ChartRecordDrinkViewController.swift in Sources */,
 				E901E61825369165000D499C /* NoticeCellView.swift in Sources */,
 				E999D5DB2520490F0087D8AE /* CButton.swift in Sources */,
+				E984CA43254D7CAA0010BDD8 /* ImageCache.swift in Sources */,
 				E9C09F23251F0B2A00D0120C /* BaseNavigationController.swift in Sources */,
 				E9AFA5EB2528CE26002CFEDE /* CTextView.swift in Sources */,
 				E95D0A38252AFBDE00077EE4 /* IotCell.swift in Sources */,
 				E9EF799C25259FFA00F2922F /* CameraOverlayView.swift in Sources */,
 				E95D09CC252AE32B00077EE4 /* NoticeViewController.swift in Sources */,
+				E9643901255B7D7200ECAB7C /* SearchAnimalKindCellTableViewCell.swift in Sources */,
 				E94316A9252ABD0F009CF07E /* MyPetEmptyCell.swift in Sources */,
+				E9CEE2A52558485100FB0594 /* AligmentImageView.swift in Sources */,
 				E9428F2B252834CF00456A48 /* ChartCategoryViewController.swift in Sources */,
 				E901E61F253697E8000D499C /* FindPassWordViewController.swift in Sources */,
 				E999D5DD2520490F0087D8AE /* ShadowView.swift in Sources */,
-				E9573CA72524CAD800583C6F /* MrStep3ViewController.swift in Sources */,
+				E9573CA72524CAD800583C6F /* MrUserInfoViewController.swift in Sources */,
 				E999D5E125204A110087D8AE /* LoginViewController.swift in Sources */,
 				E99AD43C2529ED3B00CBDE8F /* TalkDetailCell.swift in Sources */,
 				E95D0A26252AF21800077EE4 /* WithdrawViewController.swift in Sources */,
@@ -956,7 +1001,8 @@
 				E9D5AB50251EE177005B7ECB /* BaseViewController.swift in Sources */,
 				E9A9F2542521C0E40049E041 /* KakaoController.swift in Sources */,
 				E9431695252AB62E009CF07E /* MyInfoCell.swift in Sources */,
-				E95FB765252325A700BDC5FE /* MrStep2ViewController.swift in Sources */,
+				E95FB765252325A700BDC5FE /* MrBirthdayViewController.swift in Sources */,
+				E9CEE28B255815C200FB0594 /* MrTermsViewController.swift in Sources */,
 				E9C4948425273B6A00F8C7AB /* PetHealthFavoriteEdtingViewController.swift in Sources */,
 				E95E142025261EC70073DC93 /* AnimalModifyInfoViewController.swift in Sources */,
 				E94316A4252ABCF3009CF07E /* MyPetCell.swift in Sources */,
@@ -1107,14 +1153,14 @@
 		};
 		E9D794F7251ECFF800D79E7E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 9D1289E7D5706541A0DEC79A /* Pods-PetChart.debug.xcconfig */;
+			baseConfigurationReference = DF291C96BE1C81B56994413E /* Pods-PetChart.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PetChart/PetChart.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.0;
-				DEVELOPMENT_TEAM = 6QB33R9MCL;
+				DEVELOPMENT_TEAM = CH43LC8TT6;
 				INFOPLIST_FILE = PetChart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1122,7 +1168,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
-				PRODUCT_BUNDLE_IDENTIFIER = kr.gagamel.PetChart;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.petchart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1131,14 +1177,14 @@
 		};
 		E9D794F8251ECFF800D79E7E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D56D95B30D28A1F007217B56 /* Pods-PetChart.release.xcconfig */;
+			baseConfigurationReference = E8113FC50AD3D95BB87DDFDB /* Pods-PetChart.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = PetChart/PetChart.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1.0.0;
-				DEVELOPMENT_TEAM = 6QB33R9MCL;
+				DEVELOPMENT_TEAM = CH43LC8TT6;
 				INFOPLIST_FILE = PetChart/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1146,7 +1192,7 @@
 				);
 				MARKETING_VERSION = 1.0.0;
 				OTHER_SWIFT_FLAGS = "$(inherited) -D COCOAPODS";
-				PRODUCT_BUNDLE_IDENTIFIER = kr.gagamel.PetChart;
+				PRODUCT_BUNDLE_IDENTIFIER = com.app.petchart;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

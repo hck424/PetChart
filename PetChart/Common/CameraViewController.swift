@@ -8,8 +8,12 @@
 import UIKit
 import AVKit
 import Mantis
+import BSImagePicker
+import Photos
+
 protocol CameraViewControllerDelegate {
     func didFinishImagePicker(origin: UIImage?, crop: UIImage?)
+    func didFinishImagePickerAssets(_ assets: [PHAsset]?)
 }
 class CameraViewController: UIViewController {
     
@@ -17,7 +21,7 @@ class CameraViewController: UIViewController {
     var imagePicker: UIImagePickerController? = nil
     var overlayView: CameraOverlayView? = nil
     var delegate: CameraViewControllerDelegate?
-    
+
     var originImg: UIImage?
     var isFirst:Bool = false
     override func viewDidLoad() {
@@ -72,12 +76,14 @@ class CameraViewController: UIViewController {
     }
     
     func displayImagePicker() {
-        self.imagePicker = UIImagePickerController()
-        imagePicker?.delegate = self
-        imagePicker?.modalPresentationStyle = .fullScreen
-        imagePicker?.modalTransitionStyle = .crossDissolve
         
         if sourceType == UIImagePickerController.SourceType.camera {
+            self.imagePicker = UIImagePickerController()
+            
+            imagePicker?.modalPresentationStyle = .fullScreen
+            imagePicker?.modalTransitionStyle = .crossDissolve
+            
+            imagePicker?.delegate = self
             imagePicker?.sourceType = UIImagePickerController.SourceType.camera
             imagePicker?.navigationController?.navigationBar.isHidden = true
             imagePicker?.toolbar.isHidden = true
@@ -99,12 +105,39 @@ class CameraViewController: UIViewController {
             let final = translate.scaledBy(x: CGFloat(scale), y: CGFloat(scale))
             
             imagePicker?.cameraViewTransform = final
+            self.present(imagePicker!, animated: true, completion: nil)
         }
         else {
-            imagePicker?.allowsEditing = false
-            imagePicker?.sourceType = UIImagePickerController.SourceType.photoLibrary
+//            imagePicker?.allowsEditing = false
+//            imagePicker?.sourceType = UIImagePickerController.SourceType.photoLibrary
+            let imagePicker = ImagePickerController()
+            imagePicker.settings.selection.max = 5
+            imagePicker.settings.theme.selectionStyle = .numbered
+            imagePicker.settings.fetch.assets.supportedMediaTypes = [.image]
+            imagePicker.settings.selection.unselectOnReachingMax = true
+
+            let start = Date()
+            self.presentImagePicker(imagePicker, select: { (asset) in
+                print("Selected: \(asset)")
+            }, deselect: { (asset) in
+                print("Deselected: \(asset)")
+            }, cancel: { (assets) in
+                print("Canceled with selections: \(assets)")
+                imagePicker.dismiss(animated: true) {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }, finish: { (assets) in
+                print("Finished with selections: \(assets)")
+                self.delegate?.didFinishImagePickerAssets(assets)
+                imagePicker.dismiss(animated: true) {
+                    self.navigationController?.popViewController(animated: true)
+                }
+            }, completion: {
+                let finish = Date()
+                print(finish.timeIntervalSince(start))
+            })
         }
-        self.present(imagePicker!, animated: true, completion: nil)
+        
     }
 }
 extension CameraViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
@@ -145,7 +178,10 @@ extension CameraViewController: CameraOverlayViewDelegate {
 extension CameraViewController: CropViewControllerDelegate {
     func cropViewControllerDidCrop(_ cropViewController: CropViewController, cropped: UIImage, transformation: Transformation) {
         cropViewController.dismiss(animated: false) {
-            self.delegate?.didFinishImagePicker(origin: self.originImg, crop: cropped)
+            
+            if let resizeImg = cropped.resized(toWidth: 300) {
+                self.delegate?.didFinishImagePicker(origin: self.originImg, crop: resizeImg)
+            }
             self.navigationController?.popViewController(animated: false)
         }
     }

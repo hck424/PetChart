@@ -116,12 +116,14 @@ class FindPassWordViewController: BaseViewController {
                 loginType = type
             }
             
-//            let vc = NewPasswordViewController.init()
-//            self.navigationController?.pushViewController(vc, animated: true)
-            
             let param = ["id": tfUserId.text!, "join_type":loginType, "name":tfUserName.text!, "phone":tfPhoneNumber.text!];
             ApiManager.shared.requestFindUserPassword(param: param) { (response) in
-                print(param)
+                if let response = response as?[String:Any], let data = response["data"] as?[String:Any], let key = data["key"] as?String {
+                    let vc = NewPasswordViewController.init()
+                    let param = ["id": self.tfUserId.text!, "join_type":loginType, "key":key]
+                    vc.param = param
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
                 
             } failure: { (error) in
                 self.showErrorAlertView(error)

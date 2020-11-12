@@ -15,8 +15,8 @@ class QuestionViewController: BaseViewController {
     @IBOutlet weak var textView: CTextView!
     @IBOutlet weak var tblView: UITableView!
     
-    var arrData = NSMutableArray()
-    var tmpCount = 0
+    var arrData:Array<Any> = Array<Any>()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -30,6 +30,7 @@ class QuestionViewController: BaseViewController {
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapGestuerHandler(_ :)))
         self.view.addGestureRecognizer(tap)
         
+        self.requestContactChartList()
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -42,34 +43,45 @@ class QuestionViewController: BaseViewController {
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
+    
+    func requestContactChartList() {
+        ApiManager.shared.requestContactChartList { (response) in
+            if let response = response as? [String:Any], let data = response["data"] as?[String:Any], let chats = data["chats"] as?Array<Any> {
+                self.arrData = chats.reversed()
+                self.reloadTableView()
+            }
+        } failure: { (error) in
+            self.showErrorAlertView(error)
+        }
+    }
+    
     @objc func tapGestuerHandler(_ gesture: UITapGestureRecognizer) {
         if gesture.view == self.view {
             self.view.endEditing(true)
         }
     }
+    func reloadTableView() {
+        tblView.reloadData {
+            if self.tblView.contentSize.height > self.tblView.bounds.size.height {
+                self.tblView.contentOffset = CGPoint(x: 0, y: self.tblView.contentSize.height - self.tblView.frame.size.height)
+            }
+        }
+    }
     @IBAction func onClickedBtnAction(_ sender: UIButton) {
-        
+        self.view.endEditing(true)
         if sender == btnSend {
+            
             guard let text = textView.text else {
                 return
             }
-            let df = CDateFormatter.init()
-            df.dateFormat = "yyyyMMdd HH:mm:ss"
-            let dateStr = df.string(from: Date())
-            var type = "send"
-            if tmpCount % 2 == 0 {
-                type = "receive"
-            }
-            arrData.add(["content": text, "writeDate": dateStr, "type": type])
-            tblView.reloadData {
-                if self.tblView.contentSize.height > self.tblView.bounds.size.height {
-                    self.tblView.contentOffset = CGPoint(x: 0, y: self.tblView.contentSize.height - self.tblView.frame.size.height)
+            let param:[String:Any] = ["message":text]
+            ApiManager.shared.requestWriteContactChart(param: param) { (response) in
+                if let response = response as?[String:Any], let success = response["success"] as?Bool, success == true {
+                    self.requestContactChartList()
                 }
+            } failure: { (error) in
+                self.showErrorAlertView(error)
             }
-            tmpCount += 1
-            textView.text = ""
-            self.textViewDidChange(textView)
-            
         }
     }
     @objc func notificationHandler(_ notification: Notification) {
@@ -129,6 +141,5 @@ extension QuestionViewController: UITableViewDelegate, UITableViewDataSource {
         cell?.configurationData(data as? Dictionary<String, Any>)
         return cell!
     }
-    
     
 }

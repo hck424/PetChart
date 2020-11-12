@@ -73,7 +73,7 @@ import Foundation
         
         self.textContainer.lineFragmentPadding = 0.0
         self.textContainerInset = UIEdgeInsets.init(top: insetTop, left: insetLeft, bottom: insetBottom, right: insetRigth)
-        if placeHolderString != nil {
+        if let _ = placeHolderString {
             self.configurePlaceholderLabel()
         }
         

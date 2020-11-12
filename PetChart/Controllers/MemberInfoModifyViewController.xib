@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -169,7 +169,7 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="wff-2u-HpX">
                                             <rect key="frame" x="0.0" y="26" width="374" height="40"/>
                                             <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JiO-vq-grk" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
+                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JiO-vq-grk" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
                                                     <rect key="frame" x="0.0" y="0.0" width="87.5" height="40"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <state key="normal" title="1년">
@@ -179,7 +179,7 @@
                                                         <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="5d3-er-Oic"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQm-BN-xb9" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
+                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IQm-BN-xb9" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
                                                     <rect key="frame" x="95.5" y="0.0" width="87.5" height="40"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <state key="normal" title="3년">
@@ -189,7 +189,7 @@
                                                         <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="Wuu-Lx-oJu"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zsl-6U-2Eg" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
+                                                <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zsl-6U-2Eg" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
                                                     <rect key="frame" x="191" y="0.0" width="87.5" height="40"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <state key="normal" title="5년">
@@ -199,7 +199,7 @@
                                                         <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="a14-Lv-wpf"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfz-cb-2ts" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mfz-cb-2ts" customClass="SelectedButton" customModule="PetChart" customModuleProvider="target">
                                                     <rect key="frame" x="286.5" y="0.0" width="87.5" height="40"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                     <state key="normal" title="탈퇴시">
@@ -245,6 +245,7 @@
                                                         </userDefinedRuntimeAttribute>
                                                     </userDefinedRuntimeAttributes>
                                                     <connections>
+                                                        <action selector="textFiledViewEdtingChanged:" destination="-1" eventType="editingChanged" id="rft-GM-Y2Q"/>
                                                         <outlet property="delegate" destination="-1" id="a3A-x3-5W8"/>
                                                     </connections>
                                                 </textField>

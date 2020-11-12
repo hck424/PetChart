@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,10 +11,14 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TalkViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
+                <outlet property="accessoryView" destination="gkz-Kn-8wZ" id="HRE-LM-03h"/>
                 <outlet property="btnFooterMore" destination="56O-JX-DiB" id="sgy-ni-mmS"/>
+                <outlet property="btnSearch" destination="2UO-9D-kgh" id="Bj3-Go-KYI"/>
                 <outlet property="btnWrite" destination="hMQ-wc-26r" id="1CC-d2-maE"/>
                 <outlet property="cornerBgView" destination="V7y-d7-7of" id="YBR-GB-3Ma"/>
                 <outlet property="footerView" destination="vot-XN-a4e" id="MYt-TC-TyK"/>
+                <outlet property="keyBoardDown" destination="xsG-hz-xkC" id="hau-Of-V8d"/>
+                <outlet property="searchBgView" destination="Z0V-uQ-uHS" id="J03-ev-yra"/>
                 <outlet property="tblView" destination="Ky5-9j-x6u" id="fu6-K0-Viu"/>
                 <outlet property="tfSearch" destination="eaR-t6-OTw" id="8Xn-kE-VCK"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -38,25 +42,49 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="GbN-zE-aKN">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="146"/>
                                     <subviews>
-                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="내가 관심있는 주제를 검색해보세요!" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eaR-t6-OTw" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
+                                        <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Z0V-uQ-uHS">
                                             <rect key="frame" x="20" y="20" width="374" height="48"/>
-                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A3h-DM-6b5">
+                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="48"/>
+                                                    <subviews>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" placeholder="내가 관심있는 주제를 검색해보세요!" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="eaR-t6-OTw" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
+                                                            <rect key="frame" x="0.0" y="0.0" width="315" height="48"/>
+                                                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="48" id="Zad-te-ibD"/>
+                                                            </constraints>
+                                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
+                                                                    <real key="value" value="5"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
+                                                                    <real key="value" value="20"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </textField>
+                                                        <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2UO-9D-kgh">
+                                                            <rect key="frame" x="315" y="0.0" width="59" height="48"/>
+                                                            <inset key="contentEdgeInsets" minX="20" minY="0.0" maxX="20" maxY="0.0"/>
+                                                            <state key="normal" image="ico_search"/>
+                                                            <connections>
+                                                                <action selector="onclickedButtonActins:" destination="-1" eventType="touchUpInside" id="KD4-rM-KBt"/>
+                                                            </connections>
+                                                        </button>
+                                                    </subviews>
+                                                </stackView>
+                                            </subviews>
+                                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="48" id="Zad-te-ibD"/>
+                                                <constraint firstAttribute="bottom" secondItem="A3h-DM-6b5" secondAttribute="bottom" id="9D5-Fn-Mbb"/>
+                                                <constraint firstItem="A3h-DM-6b5" firstAttribute="top" secondItem="Z0V-uQ-uHS" secondAttribute="top" id="VrM-SS-Gee"/>
+                                                <constraint firstItem="A3h-DM-6b5" firstAttribute="leading" secondItem="Z0V-uQ-uHS" secondAttribute="leading" id="tC0-Me-WiR"/>
+                                                <constraint firstAttribute="trailing" secondItem="A3h-DM-6b5" secondAttribute="trailing" id="yu2-Co-Gu0"/>
                                             </constraints>
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                            <textInputTraits key="textInputTraits" returnKeyType="search"/>
-                                            <userDefinedRuntimeAttributes>
-                                                <userDefinedRuntimeAttribute type="boolean" keyPath="halfCornerRadius" value="YES"/>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
-                                                    <real key="value" value="5"/>
-                                                </userDefinedRuntimeAttribute>
-                                                <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
-                                                    <real key="value" value="20"/>
-                                                </userDefinedRuntimeAttribute>
-                                            </userDefinedRuntimeAttributes>
-                                        </textField>
+                                        </view>
                                         <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="xqw-Ob-js3">
                                             <rect key="frame" x="20" y="78" width="374" height="48"/>
                                             <subviews>
@@ -114,6 +142,12 @@
                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V7y-d7-7of">
                             <rect key="frame" x="0.0" y="126" width="414" height="692"/>
                             <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="리스트가 없습니다." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DuD-5x-xMc">
+                                    <rect key="frame" x="158.5" y="100" width="97.5" height="16"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <color key="textColor" red="0.49019607840000001" green="0.49019607840000001" blue="0.49019607840000001" alpha="1" colorSpace="calibratedRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                                 <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ky5-9j-x6u">
                                     <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -126,8 +160,10 @@
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
+                                <constraint firstItem="DuD-5x-xMc" firstAttribute="centerX" secondItem="V7y-d7-7of" secondAttribute="centerX" id="B4N-3D-j3X"/>
                                 <constraint firstItem="Ky5-9j-x6u" firstAttribute="leading" secondItem="V7y-d7-7of" secondAttribute="leading" id="J8I-de-B4Y"/>
                                 <constraint firstAttribute="trailing" secondItem="Ky5-9j-x6u" secondAttribute="trailing" id="Jki-Br-pOc"/>
+                                <constraint firstItem="DuD-5x-xMc" firstAttribute="top" secondItem="V7y-d7-7of" secondAttribute="top" constant="100" id="KYC-Dw-7ph"/>
                                 <constraint firstItem="Ky5-9j-x6u" firstAttribute="top" secondItem="V7y-d7-7of" secondAttribute="top" id="N2x-vc-eFS"/>
                                 <constraint firstAttribute="bottom" secondItem="Ky5-9j-x6u" secondAttribute="bottom" id="VGV-DM-eeF"/>
                             </constraints>
@@ -159,11 +195,14 @@
             <point key="canvasLocation" x="-197" y="83"/>
         </view>
         <view contentMode="scaleToFill" id="vot-XN-a4e">
-            <rect key="frame" x="0.0" y="0.0" width="494" height="35"/>
+            <rect key="frame" x="0.0" y="0.0" width="494" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="56O-JX-DiB">
-                    <rect key="frame" x="0.0" y="0.0" width="494" height="35"/>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="56O-JX-DiB">
+                    <rect key="frame" x="0.0" y="0.0" width="494" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="H8T-J0-jGL"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <state key="normal" title="+ 더보기">
                         <color key="titleColor" red="0.53333333333333333" green="0.53333333333333333" blue="0.53333333333333333" alpha="1" colorSpace="calibratedRGB"/>
@@ -187,12 +226,25 @@
                 <constraint firstItem="56O-JX-DiB" firstAttribute="top" secondItem="vot-XN-a4e" secondAttribute="top" id="OcK-9V-r7y"/>
                 <constraint firstItem="jAh-c1-2GC" firstAttribute="leading" secondItem="vot-XN-a4e" secondAttribute="leading" constant="20" id="cus-9i-qih"/>
                 <constraint firstAttribute="trailing" secondItem="jAh-c1-2GC" secondAttribute="trailing" constant="20" id="dUX-An-0rq"/>
-                <constraint firstAttribute="bottom" secondItem="56O-JX-DiB" secondAttribute="bottom" id="lrf-CJ-9Xv"/>
                 <constraint firstItem="56O-JX-DiB" firstAttribute="leading" secondItem="vot-XN-a4e" secondAttribute="leading" id="un3-Cm-apg"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="710.14492753623199" y="178.45982142857142"/>
+            <point key="canvasLocation" x="556.52173913043487" y="-60.267857142857139"/>
         </view>
+        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="gkz-Kn-8wZ">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+            <items>
+                <barButtonItem style="plain" systemItem="flexibleSpace" id="T2r-PP-Ily"/>
+                <barButtonItem image="keyboard.chevron.compact.down" catalog="system" id="xsG-hz-xkC">
+                    <color key="tintColor" red="0.91372549020000005" green="0.37254901959999998" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="onClickedKeyboardDown:" destination="-1" id="2f2-WP-Sk6"/>
+                    </connections>
+                </barButtonItem>
+            </items>
+            <point key="canvasLocation" x="504" y="-153"/>
+        </toolbar>
     </objects>
     <designables>
         <designable name="eaR-t6-OTw">
@@ -200,7 +252,9 @@
         </designable>
     </designables>
     <resources>
+        <image name="ico_search" width="19" height="19"/>
         <image name="ico_write" width="72" height="72"/>
+        <image name="keyboard.chevron.compact.down" catalog="system" width="128" height="102"/>
         <systemColor name="opaqueSeparatorColor">
             <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

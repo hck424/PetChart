@@ -10,7 +10,7 @@ import UIKit
 class ChartRecordWeightViewController: BaseViewController {
     @IBOutlet weak var btnDay: UIButton!
     @IBOutlet weak var tfDay: UITextField!
-    @IBOutlet weak var btnCalender: UIButton!
+    
     @IBOutlet weak var btnToday: SelectedButton!
     @IBOutlet weak var tfWeight: UITextField!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
@@ -46,9 +46,7 @@ class ChartRecordWeightViewController: BaseViewController {
     
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
         self.view.endEditing(true)
-        if sender == btnCalender
-            || sender == btnDay {
-            
+        if sender == btnDay {
             btnToday.isSelected = false
             
             let curDate = Date()
@@ -71,17 +69,35 @@ class ChartRecordWeightViewController: BaseViewController {
         }
         else if sender.tag == 1111 {
             
-            if self.selDate == nil {
+            guard let date = tfDay.text, date.isEmpty == false else {
                 self.view.makeToast("날짜를 입력해주세요.", position:.top)
                 return
             }
-            if tfWeight.text?.count == 0 {
+            guard let amount = tfWeight.text, amount.isEmpty == false else {
                 self.view.makeToast("체중을 입력해주세요.", position:.top)
                 return
             }
+            guard let petId = SharedData.objectForKey(key: kMainShowPetId) else {
+                self.view.makeToast("등록된 동물이 없습니다.", position:.top)
+                return
+            }
             
-            //체중 저장
-            
+            //체중 기록
+            let param:[String:Any] = ["date_key":date, "weight":amount, "pet_id":petId ]
+            ApiManager.shared.requestWriteChart(type: .weight, param: param) { (response) in
+                if let response = response as? [String:Any],
+                   let msg = response["msg"] as? String,
+                   let success = response["success"] as? Bool, success == true {
+                    AlertView.showWithCancelAndOk(title: "체중 기록", message: msg) { (index) in
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+                else {
+                    self.showErrorAlertView(response)
+                }
+            } failure: { (error) in
+                self.showErrorAlertView(error)
+            }
         }
     }
     

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Toast_Swift
 
 class MyPetViewController: BaseViewController {
 
@@ -13,8 +14,8 @@ class MyPetViewController: BaseViewController {
     @IBOutlet var footerView: UIView!
     @IBOutlet weak var btnAddPet: CButton!
     
-    var arrMyPet: NSMutableArray = NSMutableArray()
-    
+    var arrMyPet:Array<Animal>?
+    var selAnimal:Animal?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -25,27 +26,35 @@ class MyPetViewController: BaseViewController {
         tblView.tableHeaderView = headerView
         tblView.tableFooterView = footerView
         
-        self.makeTestData()
-        tblView.reloadData()
+        self.requestMypetList()
     }
     
     func requestMypetList() {
-        
+        ApiManager.shared.requestMyPetList { (response) in
+            if let response = response as?[String:Any],
+               let data = response["data"] as? [String:Any],
+               let pets = data["pets"] as? Array<[String:Any]> {
+                if pets.isEmpty == false {
+                    self.arrMyPet = Array<Animal>()
+                    for pet in pets {
+                        let animal:Animal = Animal.init(JSON: pet)!
+                        self.arrMyPet?.append(animal)
+                    }
+                }
+                else {
+                    self.arrMyPet = nil
+                }
+            }
+            else {
+                self.arrMyPet = nil
+                self.showErrorAlertView(response)
+            }
+            self.tblView.reloadData()
+        } failure: { (error) in
+            self.showErrorAlertView(error)
+        }
     }
     
-    func makeTestData() {
-        var itemDic = NSMutableDictionary()
-        itemDic["userName"] = "레오"
-        itemDic["petName"] = "비숑프리제"
-        itemDic["animalGender"] = "M"
-        arrMyPet.add(itemDic)
-
-        itemDic = NSMutableDictionary()
-        itemDic["userName"] = "우리"
-        itemDic["petName"] = "렉돌"
-        itemDic["animalGender"] = "W"
-        arrMyPet.add(itemDic)
-    }
     @IBAction func onClickedButtonActions(_ sender: UIButton) {
         if sender == btnAddPet {
             let vc = AddAnimalNameViewController.init()
@@ -57,42 +66,75 @@ class MyPetViewController: BaseViewController {
 extension MyPetViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if arrMyPet.count > 0 {
+        if let arrMyPet = arrMyPet, arrMyPet.isEmpty == false {
             return arrMyPet.count
         }
-        else {
-            return 1
-        }
+        return 1
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell: UITableViewCell?
-        if arrMyPet.count > 0 {
-            var myPetCell = tableView.dequeueReusableCell(withIdentifier: "MyPetCell") as? MyPetCell
-            if myPetCell == nil {
-                myPetCell = Bundle.main.loadNibNamed("MyPetCell", owner: self, options: nil)?.first as? MyPetCell
-            }
-            
-            let itemDic = arrMyPet[indexPath.row] as? Dictionary<String, Any>
-            myPetCell?.configurationData(itemDic)
-            myPetCell?.didClickedActionClosure = ({(selData, actionIndex) ->() in
-                if selData != nil {
-                    if actionIndex == 1 {
-                        //TODO:: 메인노출 액션
-                    }
-                    else if actionIndex == 2 {
-                        let vc = AnimalModifyInfoViewController.init()
-                        self.navigationController?.pushViewController(vc, animated: true)
-                    }
-                }
-            })
-            cell = myPetCell
-        }
-        else {
+        
+        guard let arrMypet = arrMyPet, arrMyPet?.isEmpty == false else {
             cell = tableView.dequeueReusableCell(withIdentifier: "MyPetEmptyCell") as? MyPetEmptyCell
             if cell == nil {
                 cell = Bundle.main.loadNibNamed("MyPetEmptyCell", owner: self, options: nil)?.first as? MyPetEmptyCell
             }
+            return cell!
         }
+        
+        var myPetCell = tableView.dequeueReusableCell(withIdentifier: "MyPetCell") as? MyPetCell
+        if myPetCell == nil {
+            myPetCell = Bundle.main.loadNibNamed("MyPetCell", owner: self, options: nil)?.first as? MyPetCell
+        }
+        
+        let itemDic = arrMypet[indexPath.row]
+        myPetCell?.configurationData(itemDic)
+        myPetCell?.didClickedActionClosure = ({(selData, actionIndex) ->() in
+            if let selData = selData {
+                self.selAnimal = selData
+                if actionIndex == 1 {
+                    //TODO:: 메인노출 액션
+                    let id = selData.id!
+                    
+                    var enable = "N"
+                    if let is_main = selData.is_main, is_main == "Y" {
+                        enable = "Y"
+                    }
+                    
+                    let param:[String : Any] = ["pet_id":id, "enable": enable]
+                    ApiManager.shared.requestPetMainEnable(param: param) { (response) in
+                        if let response = response as? [String:Any],
+                           let msg = response["msg"] as? String,
+                           let success = response["success"] as? Bool {
+                            if success {
+                                for animal in self.arrMyPet! {
+                                    if animal.id! == self.selAnimal?.id! {
+                                        animal.is_main = self.selAnimal?.is_main
+                                    }
+                                }
+                                self.tblView.reloadData()
+                                self.view.makeToast(msg)
+                            }
+                            else {
+                                AlertView.showWithOk(title: nil, message: msg) { (index) in
+                                    
+                                }
+                            }
+                        }
+                    } failure: { (error) in
+                        self.showErrorAlertView(error)
+                    }
+
+                }
+                else if actionIndex == 2 {
+                    let vc = AnimalModifyInfoViewController.init()
+                    vc.animal = self.selAnimal
+                    self.navigationController?.pushViewController(vc, animated: true)
+                }
+            }
+        })
+        cell = myPetCell
+        
         return cell!
     }
     

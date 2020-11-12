@@ -17,24 +17,26 @@ import UIKit
     @IBInspectable @IBOutlet weak var btnSearch: CButton!
     @IBInspectable @IBOutlet weak var tfItem: CTextField!
     
+    @IBOutlet weak var tblView: UITableView!
     @IBOutlet weak var btnSmall: SelectedButton!
     @IBOutlet weak var btnMiddle: SelectedButton!
     @IBOutlet weak var btnLarge: SelectedButton!
-    
     
     @IBOutlet weak var bgMsg: UIView!
     @IBOutlet weak var lbMsg: UILabel!
     @IBOutlet weak var svKnow: UIStackView!
     @IBOutlet weak var svUnknow: UIStackView!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
-    
-    var animalKindList:Array<String>?
+    @IBOutlet weak var btnKeyboardDown: UIBarButtonItem!
+    @IBOutlet var accessoryView: UIToolbar!
     
     var animal: Animal?
-    
+    var images:Array<UIImage>?
+    var arrOriginKind:Array<String> = Array<String>()
+    var arrKind:Array<String> = Array<String>()
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
         CNavigationBar.drawTitle(self, "반려동물 등록", nil)
         
@@ -46,7 +48,7 @@ import UIKit
         bgMsg.layer.cornerRadius = 4.0
         bgMsg.clipsToBounds = true
         
-        if let name = animal?.name {
+        if let name = animal?.petName {
             let result: String = String(format: "%@의 품종을 알려주세요.", name)
             let attr = NSMutableAttributedString.init(string: result, attributes: [.foregroundColor : RGB(136, 136, 136)])
             let nsRange = NSString(string: result).range(of: name, options: String.CompareOptions.caseInsensitive)
@@ -61,8 +63,11 @@ import UIKit
             attr2.addAttribute(.font, value: UIFont.systemFont(ofSize: 13, weight: .bold), range: nsRange2)
             lbMsg.attributedText = attr2
         }
-        
+        self.requestKindList()
         btnItemKnow.sendActions(for: .touchUpInside)
+        
+        self.tblView.tableFooterView = UIView.init()
+        tfItem.inputAccessoryView = accessoryView
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -75,10 +80,43 @@ import UIKit
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
-    @IBAction func tapGestureHandler(_ sender: UITapGestureRecognizer) {
-        if sender.view == self.view {
-            self.view.endEditing(true)
+    func requestKindList() {
+        guard let dtype = animal?.dtype else {
+            return
         }
+        
+        ApiManager.shared.requestAnimalKinds(dtype: dtype) { (response) in
+            if let response = response as? [String:Any], let success = response["success"] as? Bool , let list = response["list"] as? Array<String>  {
+                if success && list.isEmpty == false {
+                    self.arrOriginKind = list
+                    self.arrKind = self.arrOriginKind
+                }
+                self.tblView.reloadData()
+            }
+        } failure: { (error) in
+            
+        }
+
+    }
+    
+    @IBAction func textFieldEdtingChanged(_ sender: UITextField) {
+        
+        guard let text = sender.text, text.isEmpty == false else {
+            self.arrKind = self.arrOriginKind
+            self.tblView.reloadData()
+            return
+        }
+        
+        self.arrKind.removeAll()
+        for item in arrOriginKind {
+            if item.contains(text) {
+                arrKind.append(item)
+            }
+        }
+        self.tblView.reloadData()
+    }
+    @IBAction func onClickedKeyboardDown(_ sender: UIBarButtonItem) {
+        self.view.endEditing(true)
     }
     
     @IBAction func onClickedButtonActions(_ sender: CButton) {
@@ -90,8 +128,9 @@ import UIKit
             
             svKnow.isHidden = false
             svUnknow.isHidden = true
-            
             tfItem.text = ""
+            self.arrKind = self.arrOriginKind
+            self.tblView.reloadData()
         }
         else if sender == btnItemUnknow {
             btnItemKnow.isSelected = false
@@ -105,27 +144,8 @@ import UIKit
             btnLarge.isSelected = false
         }
         else if sender == btnSearch {
-            
-            let kind = (animal?.animalType?.dtype)!
-            ApiManager.shared.requestAnimalKinds(kind: kind) { (response) in
-                if let response = response as? [String:Any], let success = response["success"] as? Bool , let list = response["list"] as? Array<String>  {
-                    if success && list.isEmpty == false {
-                        self.animalKindList = list
-                        let vc = PopupListViewController.init(type: .normal, title: "품종을 선택해주세요.", data: list, keys: nil) { (vcs, selData:Any?, index) in
-                            if let selData = selData as?String {
-                                self.tfItem.text = selData
-                            }
-                            vcs.dismiss(animated: true, completion: nil)
-                        }
-                        vc.modalPresentationStyle = .overFullScreen
-                        vc.modalTransitionStyle = .crossDissolve
-                        self.present(vc, animated: true, completion: nil)
-                    }
-                }
-            } failure: { (error) in
-                
-            }
-
+            self.arrKind = self.arrOriginKind
+            self.tblView.reloadData()
         }
         else if sender == btnSmall {
             btnSmall.isSelected = true
@@ -144,16 +164,16 @@ import UIKit
         }
         else if sender == btnOk {
             if btnItemKnow.isSelected {
-                animal?.item = tfItem.text
+                animal?.kind = tfItem.text
                 animal?.size = nil
                 
-                if (animal?.item) == nil {
+                if (animal?.kind) == nil {
                     self.view.makeToast("품종을 알려주세요", position:.top)
                     return
                 }
             }
             else if btnItemUnknow.isSelected {
-                animal?.item = nil
+                animal?.kind = nil
                 if btnSmall.isSelected {
                     animal?.size = "S"
                 }
@@ -171,6 +191,7 @@ import UIKit
             
             let vc = AddAnimalBirthDayViewController.init(nibName: "AddAnimalBirthDayViewController", bundle: nil)
             vc.animal = animal
+            vc.images = images
             self.navigationController?.pushViewController(vc, animated: false)
         }
     }
@@ -178,10 +199,8 @@ import UIKit
     @objc func notificationHandler(_ notification: Notification) {
         let heightKeyboard = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue.size.height
         let duration = CGFloat((notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.floatValue ?? 0.0)
- 
         if notification.name == UIResponder.keyboardWillShowNotification {
-            
-            bottomContainer.constant = heightKeyboard - (AppDelegate.instance()?.window?.safeAreaInsets.bottom)!
+            bottomContainer.constant = heightKeyboard - (AppDelegate.instance()?.window?.safeAreaInsets.bottom)! - self.btnOk.bounds.height
             UIView.animate(withDuration: TimeInterval(duration), animations: { [self] in
                 self.view.layoutIfNeeded()
             })
@@ -194,9 +213,37 @@ import UIKit
         }
     }
 
-
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
     }
+}
+
+extension AddAnimalItemSelectViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrKind.count
+    }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        var cell = tableView.dequeueReusableCell(withIdentifier: "SearchAnimalKindCellTableViewCell") as? SearchAnimalKindCellTableViewCell
+        if cell == nil {
+            cell = Bundle.main.loadNibNamed("SearchAnimalKindCellTableViewCell", owner: self, options: nil)?.first as? SearchAnimalKindCellTableViewCell
+        }
+        
+        let item = arrKind[indexPath.row]
+        cell?.lbTitle.text = item
+        return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 45
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tblView.deselectRow(at: indexPath, animated: false)
+        self.view.endEditing(true)
+        guard let item = arrKind[indexPath.row] as?String else {
+            return
+        }
+        self.tfItem.text = item
+        
+    }
 }

@@ -11,12 +11,14 @@ class ChartRecordMedicalViewController: BaseViewController {
     @IBOutlet weak var btnDay: UIButton!
     @IBOutlet weak var tfDay: UITextField!
     @IBOutlet weak var btnToday: SelectedButton!
-    
     @IBOutlet var arrBtnCare: [SelectedButton]!
-    
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
+    @IBOutlet weak var textView: CTextView!
     
     var selDate:Date?
+    
+    var arrData:Array<Any>?
+    var selDtypeData: [String:Any]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +34,8 @@ class ChartRecordMedicalViewController: BaseViewController {
         for btn in arrBtnCare {
             btn.addTarget(self, action: #selector(onClickedBtnActions(_:)), for: .touchUpInside)
         }
+        
+        self.requestConfigInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,6 +47,48 @@ class ChartRecordMedicalViewController: BaseViewController {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    func requestConfigInfo() {
+        ApiManager.shared.requestAppConfig { (response) in
+            if let response = response as? [String:Any],
+               let data = response["data"] as? [String:Any],
+               let chart_types = data["chart_types"] as? Array<Any> {
+                self.arrData = chart_types
+            }
+            self.setData()
+        } failure: { (error) in
+            self.showErrorAlertView(error)
+        }
+    }
+    
+    func setData() {
+        
+        guard let arrData = arrData else {
+            for btn in arrBtnCare {
+                btn.setTitle("", for: .normal)
+            }
+            return
+        }
+//                dtype = Dental;
+//                id = 1;
+//                lable = "\Uce58\Uacfc\Uc9c4\Ub8cc";
+        var i = 0
+        for btn in arrBtnCare {
+            if i < arrData.count {
+                btn.isUserInteractionEnabled = true
+                if let item = arrData[i] as? [String:Any], let lable = item["lable"] as? String {
+                    btn.setTitle(lable, for: .normal)
+                    btn.data = item
+                }
+            }
+            else {
+                btn.setTitle("", for: .normal)
+                btn.layer.borderColor = UIColor.clear.cgColor
+                btn.isUserInteractionEnabled = false
+            }
+            i += 1
+        }
     }
     
     @objc func tapGestureHanlder(_ gesture:UITapGestureRecognizer) {
@@ -73,11 +119,47 @@ class ChartRecordMedicalViewController: BaseViewController {
             self.selDate = curDate
             tfDay.text = df.string(from: curDate)
         }
-        else if arrBtnCare.contains((sender as? SelectedButton)!) {
-            sender.isSelected = !sender.isSelected
+        else if let selectedBtn = sender as? SelectedButton, arrBtnCare.contains(selectedBtn) == true {
+            for btn in arrBtnCare {
+                btn.isSelected = false
+            }
+            selectedBtn.isSelected = true
+            self.selDtypeData = selectedBtn.data as? [String:Any]
         }
         else if sender.tag == 1111 {
+            guard let date = tfDay.text, date.isEmpty == false else {
+                self.view.makeToast("날짜를 입력해주세요.", position:.top)
+                return
+            }
             
+            guard let selDtypeData = selDtypeData, let dtype = selDtypeData["dtype"] as? String else {
+                self.view.makeToast("진료 종류를 선택해주세요.", position:.top)
+                return
+            }
+            guard let content = textView.text, content.isEmpty == false else {
+                self.view.makeToast("진료 내용을 입력해주세요.", position:.top)
+                return
+            }
+            guard let petId = SharedData.objectForKey(key: kMainShowPetId) else {
+                self.view.makeToast("등록된 동물이 없습니다.", position:.top)
+                return
+            }
+            
+            let param = ["contents": content, "date_key": date, "kind_code": dtype, "pet_id": petId]
+            ApiManager.shared.requestWriteChart(type: .medical, param: param) { (response) in
+                if let response = response as? [String:Any],
+                   let msg = response["msg"] as? String,
+                   let success = response["success"] as? Bool, success == true {
+                    AlertView.showWithCancelAndOk(title: "진료 기록", message: msg) { (index) in
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                }
+                else {
+                    self.showErrorAlertView(response)
+                }
+            } failure: { (error) in
+                self.showErrorAlertView(error)
+            }
         }
     }
     

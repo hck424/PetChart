@@ -3,17 +3,20 @@
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="AddAnimalItemSelectViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
+                <outlet property="accessoryView" destination="bvm-ij-uQX" id="byc-5u-sKm"/>
                 <outlet property="bgMsg" destination="a4L-aq-lbf" id="L8f-pE-edU"/>
-                <outlet property="bottomContainer" destination="hSb-QL-FLf" id="Pt1-mK-dng"/>
+                <outlet property="bottomContainer" destination="gbn-bF-S3a" id="8D6-D1-eHm"/>
                 <outlet property="btnItemKnow" destination="Uel-cZ-eYd" id="M8u-oh-ft0"/>
                 <outlet property="btnItemUnknow" destination="ote-sP-M25" id="cTC-fA-y20"/>
+                <outlet property="btnKeyboardDown" destination="y9A-Q8-9bX" id="DaN-n4-abK"/>
                 <outlet property="btnLarge" destination="u9s-aD-V2E" id="58o-l0-wHB"/>
                 <outlet property="btnMiddle" destination="xQN-Ka-oFd" id="rzy-9e-gra"/>
                 <outlet property="btnOk" destination="j8a-yO-ziK" id="XoU-4p-iH0"/>
@@ -24,6 +27,7 @@
                 <outlet property="lbTitle" destination="RWH-4g-swO" id="Daa-C4-LyP"/>
                 <outlet property="svKnow" destination="t1I-Ry-6gk" id="C6E-k9-neo"/>
                 <outlet property="svUnknow" destination="3u2-hK-Sc5" id="X0p-nE-UC2"/>
+                <outlet property="tblView" destination="iGs-aZ-ucR" id="WqH-xK-1Ht"/>
                 <outlet property="tfItem" destination="c8c-fO-eKr" id="Mx4-Qp-yTO"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -34,7 +38,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="547-lm-mkN">
-                    <rect key="frame" x="20" y="74" width="335" height="325"/>
+                    <rect key="frame" x="20" y="74" width="335" height="656"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="냥냥이의 품종을 알려주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RWH-4g-swO">
                             <rect key="frame" x="0.0" y="0.0" width="335" height="16"/>
@@ -90,7 +94,7 @@
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="t1I-Ry-6gk" userLabel="svKnow">
-                            <rect key="frame" x="0.0" y="81" width="335" height="46"/>
+                            <rect key="frame" x="0.0" y="81" width="335" height="435"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="GJe-PE-i0U">
                                     <rect key="frame" x="0.0" y="0.0" width="335" height="45"/>
@@ -112,6 +116,7 @@
                                                 </userDefinedRuntimeAttribute>
                                             </userDefinedRuntimeAttributes>
                                             <connections>
+                                                <action selector="textFieldEdtingChanged:" destination="-1" eventType="editingChanged" id="hzS-pI-oyy"/>
                                                 <outlet property="delegate" destination="-1" id="9NG-hN-GSA"/>
                                             </connections>
                                         </textField>
@@ -134,15 +139,24 @@
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ks5-5J-b32">
                                     <rect key="frame" x="0.0" y="45" width="335" height="1"/>
-                                    <color key="backgroundColor" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.89411764709999997" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="1" id="9pS-XW-AiZ"/>
                                     </constraints>
                                 </view>
+                                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="iGs-aZ-ucR">
+                                    <rect key="frame" x="0.0" y="46" width="335" height="389"/>
+                                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                    <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="c8E-OC-XgX"/>
+                                        <outlet property="delegate" destination="-1" id="f8X-ZW-T8n"/>
+                                    </connections>
+                                </tableView>
                             </subviews>
                         </stackView>
                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="3u2-hK-Sc5" userLabel="svUnknow">
-                            <rect key="frame" x="0.0" y="137" width="335" height="188"/>
+                            <rect key="frame" x="0.0" y="526" width="335" height="130"/>
                             <subviews>
                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="qdN-wh-tQo">
                                     <rect key="frame" x="0.0" y="0.0" width="335" height="40"/>
@@ -183,10 +197,10 @@
                                     </constraints>
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="a4L-aq-lbf">
-                                    <rect key="frame" x="0.0" y="60" width="335" height="128"/>
+                                    <rect key="frame" x="0.0" y="60" width="335" height="50"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXF-f5-Grz">
-                                            <rect key="frame" x="12" y="10" width="311" height="108"/>
+                                            <rect key="frame" x="12" y="10" width="311" height="30"/>
                                             <string key="text">냥냥이이가 성장기인가요?
 아직 성장기라면 다 자란 후의 예상 크기를 기준으로 해주세요.</string>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -202,6 +216,12 @@
                                         <constraint firstAttribute="bottom" secondItem="XXF-f5-Grz" secondAttribute="bottom" constant="10" id="vcN-h4-TMV"/>
                                     </constraints>
                                 </view>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIl-hf-Wvc">
+                                    <rect key="frame" x="0.0" y="130" width="335" height="0.0"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                         </stackView>
                     </subviews>
@@ -213,7 +233,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="48"/>
                             <color key="backgroundColor" red="0.91372549020000005" green="0.37254901959999998" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" priority="999" constant="48" id="pe2-MH-nNT"/>
+                                <constraint firstAttribute="height" constant="48" id="pe2-MH-nNT"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                             <state key="normal" title="다음">
@@ -240,28 +260,39 @@
                 <constraint firstAttribute="trailing" secondItem="zvc-iK-Nyr" secondAttribute="trailing" id="NIf-p4-B4A"/>
                 <constraint firstItem="547-lm-mkN" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="20" id="UiH-0f-I0a"/>
                 <constraint firstItem="zvc-iK-Nyr" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="YP2-ck-yjV"/>
+                <constraint firstItem="zvc-iK-Nyr" firstAttribute="top" secondItem="547-lm-mkN" secondAttribute="bottom" id="gbn-bF-S3a"/>
                 <constraint firstAttribute="bottom" secondItem="zvc-iK-Nyr" secondAttribute="bottom" id="hSb-QL-FLf"/>
                 <constraint firstAttribute="trailing" secondItem="547-lm-mkN" secondAttribute="trailing" constant="20" id="sLO-RA-bJ2"/>
                 <constraint firstItem="547-lm-mkN" firstAttribute="top" secondItem="0BH-Rp-c7E" secondAttribute="top" constant="30" id="uEC-AJ-hQE"/>
             </constraints>
-            <connections>
-                <outletCollection property="gestureRecognizers" destination="jfH-W3-YiK" appends="YES" id="kKb-iC-7bn"/>
-            </connections>
             <point key="canvasLocation" x="189.59999999999999" y="87.931034482758619"/>
         </view>
-        <tapGestureRecognizer id="jfH-W3-YiK">
-            <connections>
-                <action selector="tapGestureHandler:" destination="-1" id="O2I-L0-8mB"/>
-            </connections>
-        </tapGestureRecognizer>
+        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="bvm-ij-uQX">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+            <items>
+                <barButtonItem style="plain" systemItem="flexibleSpace" id="iIC-RU-mYa"/>
+                <barButtonItem image="keyboard.chevron.compact.down" catalog="system" id="y9A-Q8-9bX">
+                    <color key="tintColor" red="0.89411764709999997" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="onClickedKeyboardDown:" destination="-1" id="H49-Hv-HQv"/>
+                    </connections>
+                </barButtonItem>
+            </items>
+            <point key="canvasLocation" x="924" y="60"/>
+        </toolbar>
     </objects>
     <designables>
         <designable name="c8c-fO-eKr">
-            <size key="intrinsicContentSize" width="39" height="29.666666666666668"/>
+            <size key="intrinsicContentSize" width="39" height="19.666666666666668"/>
         </designable>
     </designables>
     <resources>
+        <image name="keyboard.chevron.compact.down" catalog="system" width="128" height="102"/>
         <image name="radio_off" width="16" height="16"/>
         <image name="radio_on" width="16" height="16"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
     </resources>
 </document>

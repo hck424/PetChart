@@ -12,25 +12,48 @@ class IotListViewController: BaseViewController {
     @IBOutlet var footerView: UIView!
     @IBOutlet weak var btnIotRegist: CButton!
     @IBOutlet var headerView: UIView!
+    @IBOutlet weak var btnFoceDisConnet: UIButton!
     
-    var arrData: NSMutableArray = NSMutableArray()
+    var arrData:Array<[String:Any]>? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
 
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
         CNavigationBar.drawTitle(self, "기기등록", nil)
         
+        tblView.tableHeaderView = headerView
         tblView.tableFooterView = footerView
         
-        self.makeSectionData()
-        self.tblView.reloadData()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.resuetDeviceList()
     }
     
-    func makeSectionData() {
-        
-        let secInfo = ["sec_name":"등록된 기기", "sec_list":[["deviceName":"레오의 식사시간", "deviceModel":"모델: abcdefg1234", "deviceStatus":"연결중"]]] as [String : Any]
-        
-        arrData.add(secInfo)
+    func resuetDeviceList() {
+        ApiManager.shared.requetDeviceList { (response) in
+            if let response = response as? [String:Any],
+               let data = response["data"] as?[String:Any] {
+                
+                if let devices = data["devices"] as? Array<[String:Any]> {
+                    self.arrData = devices
+                }
+                else {
+                    self.arrData = nil
+                }
+                self.tblView.reloadData()
+            }
+            else {
+                self.showErrorAlertView(response)
+            }
+        } failure: { (error) in
+            self.showErrorAlertView(error)
+        }
+    }
+    
+    func makeTestData() {
+        let item:[String:Any] = ["create_date": "2020-11-10", "id": 100, "mac": "4321554315", "model": "PetEat423423", "name": "식사시간", "state": "D", "update_date": "2020-11-10"]
+        self.arrData = [item]
     }
     
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
@@ -38,19 +61,20 @@ class IotListViewController: BaseViewController {
             let vc = IotSearchViewController.init()
             self.navigationController?.pushViewController(vc, animated: true)
         }
+        else if sender == btnFoceDisConnet {
+            let vc = IotManagementViewController.init()
+            self.navigationController?.pushViewController(vc, animated: true)
+        }
     }
 }
 
 extension IotListViewController: UITableViewDelegate, UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return arrData.count
-    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let secInfo = arrData[section] as? [String: Any], let arrSec = secInfo["sec_list"] as? [[String:Any]] {
-            return arrSec.count
+        guard let arrData = arrData else {
+            return 0
         }
-        return 0
+        return arrData.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -59,46 +83,31 @@ extension IotListViewController: UITableViewDelegate, UITableViewDataSource {
             cell = Bundle.main.loadNibNamed("IotCell", owner: self, options: nil)?.first as? IotCell
         }
         
-        if let secInfo = arrData[indexPath.section] as? [String: Any] {
-            if let arrSec = secInfo["sec_list"] as? [[String: Any]] {
-                let item = arrSec[indexPath.row]
-                cell?.configurationData(item)
-            }
-        }
-        
-        cell?.didClickedClosure = ({(selData, actionIndex) ->() in
-            if selData != nil {
+        if let item = arrData?[indexPath.row] {
+            cell?.configurationData(item)
+            
+            cell?.didClickedClosure = ({(selData, actionIndex) ->() in
+                guard let selData = selData else {
+                    return
+                }
+                
                 if actionIndex == 0 {
                     let vc = IotManagementViewController.init()
+                    vc.device = selData
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
-            }
-        })
-        return cell!
-    }
-    
-    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 58
-    }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let header = UIView.init(frame: CGRect.init(x: 0, y: 0, width: tableView.bounds.width, height: 60))
-        header.backgroundColor = UIColor.clear
-        
-        let lbSecTitle = UILabel.init(frame: CGRect.init(x: 20, y: 30, width: tblView.bounds.width - 40, height: 20))
-        lbSecTitle.backgroundColor = UIColor.clear
-        lbSecTitle.textColor = RGB(136, 136, 136)
-        lbSecTitle.font = UIFont.systemFont(ofSize: 13)
-        header.addSubview(lbSecTitle)
-        lbSecTitle.text = ""
-        if let secInfo = arrData[section] as? [String: Any], let name = secInfo["sec_name"] as? String {
-            lbSecTitle.text = name
+            })
         }
-        return header
+        return cell!
     }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
         return 0.1
     }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 0.1
+    }
+    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: false)
         

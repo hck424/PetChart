@@ -3,15 +3,17 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="IotListViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
+                <outlet property="btnFoceDisConnet" destination="a15-hn-VAV" id="U2F-qY-g2r"/>
                 <outlet property="btnIotRegist" destination="kx2-i0-eD3" id="85e-kO-VlP"/>
                 <outlet property="footerView" destination="oKj-fQ-YnR" id="xf5-MV-0YU"/>
+                <outlet property="headerView" destination="qq6-BO-urH" id="hpS-vq-DJl"/>
                 <outlet property="tblView" destination="lHK-fq-RsC" id="UMm-Nn-Pyu"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -40,7 +42,7 @@
             </constraints>
             <point key="canvasLocation" x="-162" y="88"/>
         </view>
-        <view contentMode="scaleToFill" id="oKj-fQ-YnR">
+        <view contentMode="scaleToFill" id="oKj-fQ-YnR" userLabel="footerView">
             <rect key="frame" x="0.0" y="0.0" width="348" height="85"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
@@ -71,6 +73,41 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="679.71014492753625" y="232.70089285714283"/>
+        </view>
+        <view contentMode="scaleToFill" id="qq6-BO-urH" userLabel="headerView">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="등록된 기기" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cmw-Bq-Ip4">
+                    <rect key="frame" x="20" y="20" width="244" height="20"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a15-hn-VAV">
+                    <rect key="frame" x="264" y="0.0" width="150" height="50"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="150" id="w8R-pw-gT1"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="10" maxY="0.0"/>
+                    <state key="normal" title="연결된 장비 강제종료">
+                        <color key="titleColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="a15-hn-VAV" firstAttribute="leading" secondItem="cmw-Bq-Ip4" secondAttribute="trailing" id="MoJ-gQ-gAW"/>
+                <constraint firstAttribute="bottom" secondItem="cmw-Bq-Ip4" secondAttribute="bottom" constant="10" id="TyE-Xz-GyA"/>
+                <constraint firstItem="a15-hn-VAV" firstAttribute="top" secondItem="qq6-BO-urH" secondAttribute="top" id="bZR-v0-A7m"/>
+                <constraint firstItem="cmw-Bq-Ip4" firstAttribute="leading" secondItem="qq6-BO-urH" secondAttribute="leading" constant="20" id="s7k-7u-zsg"/>
+                <constraint firstItem="cmw-Bq-Ip4" firstAttribute="top" secondItem="qq6-BO-urH" secondAttribute="top" constant="20" id="se7-K6-YZb"/>
+                <constraint firstAttribute="trailing" secondItem="a15-hn-VAV" secondAttribute="trailing" id="wfJ-j7-c3i"/>
+                <constraint firstAttribute="bottom" secondItem="a15-hn-VAV" secondAttribute="bottom" id="ylR-sy-mEe"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="637" y="16"/>
         </view>
     </objects>
 </document>

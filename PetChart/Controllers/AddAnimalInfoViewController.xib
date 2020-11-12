@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,11 +14,14 @@
                 <outlet property="btnOk" destination="vTc-jZ-3Dd" id="QTv-oA-5Rc"/>
                 <outlet property="btnQuestion" destination="2Hu-Dt-s1K" id="DDw-yQ-53r"/>
                 <outlet property="btnRegiUnKnow" destination="EBN-rS-cIm" id="gBT-qF-o1N"/>
+                <outlet property="btnSafety" destination="XPS-rK-0Lt" id="EHB-ec-gvM"/>
                 <outlet property="lbGenderTitle" destination="JIg-z7-A9p" id="XE1-1m-AdW"/>
                 <outlet property="lbNeutralTitle" destination="8fr-h7-z08" id="G6K-eG-20q"/>
                 <outlet property="lbPreventTitle" destination="UtH-3s-Gg4" id="Sel-yV-Xi3"/>
                 <outlet property="lbRegiTitle" destination="0mh-by-ycE" id="3rB-w7-szs"/>
+                <outlet property="lbWeightTitle" destination="Q4I-nW-zgP" id="KrT-lj-aZY"/>
                 <outlet property="tfRegiNumber" destination="DLa-gB-Fj1" id="rgW-fF-7PW"/>
+                <outlet property="tfWeight" destination="O3F-gB-v7f" id="Jwz-DT-H4F"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outletCollection property="arrBtnGender" destination="O4x-rH-0Xm" collectionClass="NSMutableArray" id="wF9-qC-3a6"/>
                 <outletCollection property="arrBtnGender" destination="deL-rp-nW4" collectionClass="NSMutableArray" id="ZWP-mB-Tc1"/>
@@ -179,8 +182,47 @@
                                         </stackView>
                                     </subviews>
                                 </stackView>
+                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Nyz-Tt-Nx7">
+                                    <rect key="frame" x="20" y="308" width="374" height="71"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="낭낭이의 몸무게를 알려주세요." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q4I-nW-zgP">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="16" id="mil-Q7-QJ8"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                            <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="몸무게를 입력해주세요.(단위 : kg)" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="O3F-gB-v7f" customClass="CTextField" customModule="PetChart" customModuleProvider="target">
+                                            <rect key="frame" x="0.0" y="26" width="374" height="45"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="45" id="lBu-M7-exf"/>
+                                            </constraints>
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="decimalPad" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
+                                            <userDefinedRuntimeAttributes>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="insetTB">
+                                                    <real key="value" value="5"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="insetLR">
+                                                    <real key="value" value="0.0"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="boolean" keyPath="borderBottom" value="YES"/>
+                                                <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                    <color key="value" red="0.86666666670000003" green="0.86666666670000003" blue="0.86666666670000003" alpha="1" colorSpace="calibratedRGB"/>
+                                                </userDefinedRuntimeAttribute>
+                                                <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                    <real key="value" value="1"/>
+                                                </userDefinedRuntimeAttribute>
+                                            </userDefinedRuntimeAttributes>
+                                        </textField>
+                                    </subviews>
+                                </stackView>
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="4Uf-LU-QvR">
-                                    <rect key="frame" x="20" y="308" width="374" height="66"/>
+                                    <rect key="frame" x="20" y="409" width="374" height="66"/>
                                     <subviews>
                                         <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hla-ge-UQn">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
@@ -262,7 +304,7 @@
                                     </subviews>
                                 </stackView>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eMg-RV-QS1">
-                                    <rect key="frame" x="20" y="404" width="374" height="346"/>
+                                    <rect key="frame" x="20" y="505" width="374" height="245"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
                                     <nil key="highlightedColor"/>
@@ -293,6 +335,9 @@
                             <state key="normal" title="등록완료">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </state>
+                            <connections>
+                                <action selector="onClickedButtonActions:" destination="-1" eventType="touchUpInside" id="s7j-yL-Wjl"/>
+                            </connections>
                         </button>
                         <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XPS-rK-0Lt">
                             <rect key="frame" x="0.0" y="48" width="414" height="34"/>
@@ -330,6 +375,9 @@
     <designables>
         <designable name="DLa-gB-Fj1">
             <size key="intrinsicContentSize" width="207" height="19.5"/>
+        </designable>
+        <designable name="O3F-gB-v7f">
+            <size key="intrinsicContentSize" width="204" height="19.5"/>
         </designable>
     </designables>
     <resources>

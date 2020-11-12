@@ -20,14 +20,28 @@
 
 #if !TARGET_OS_TV
 
-#import "FBSDKProfile.h"
+ #import "FBSDKCoreKit+Internal.h"
+ #import "FBSDKProfile.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface FBSDKProfile(Internal)
+typedef void (^FBSDKParseProfileBlock)(id result, FBSDKProfile *_Nonnull *_Nullable profileRef);
+
+@interface FBSDKProfile (Internal)
 
 + (void)cacheProfile:(nullable FBSDKProfile *)profile;
 + (nullable FBSDKProfile *)fetchCachedProfile;
+
++ (NSURL *)imageURLForProfileID:(NSString *)profileId
+                    PictureMode:(FBSDKProfilePictureMode)mode
+                           size:(CGSize)size;
+
++ (void)loadProfileWithToken:(FBSDKAccessToken *)token
+                  completion:(FBSDKProfileBlock)completion
+                graphRequest:(FBSDKGraphRequest *)request
+                  parseBlock:(FBSDKParseProfileBlock)parseBlock;
+
++ (void)loadProfileWithToken:(FBSDKAccessToken *)token completion:(_Nullable FBSDKProfileBlock)completion;
 
 @end
 

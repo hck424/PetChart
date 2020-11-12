@@ -14,6 +14,8 @@ class WithdrawViewController: BaseViewController {
     @IBOutlet weak var btnExit: UIButton!
     @IBOutlet weak var btnSafety: UIButton!
     @IBOutlet weak var bgConnerView: UIView!
+    
+    var user:UserInfo?
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
@@ -24,7 +26,29 @@ class WithdrawViewController: BaseViewController {
         
         bgConnerView.layer.cornerRadius = 20
         bgConnerView.layer.maskedCorners = CACornerMask(TL: true, TR: true, BL: false, BR: false)
+        self.requestUserInfo()
+    }
+    func requestUserInfo() {
+        ApiManager.shared.requestGetUserInfo { (response) in
+            if let response = response as?[String:Any], let data = response["data"] as? [String:Any], let user = data["user"] as? [String:Any] {
+                self.user = UserInfo.init(JSON: user)
+                self.configurationUI()
+            }
+        } failure: { (error) in
+            self.showErrorAlertView(error)
+        }
+
+    }
+    func configurationUI() {
+        guard let user = user else {
+            lbTitle.text = "정말 탈퇴하시겠어요?"
+            return
+        }
         
+        guard let name = user.name else {
+            return
+        }
+        lbTitle.text = "\(name)님,\n정말 탈퇴하시겠어요?"
     }
     
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
@@ -41,9 +65,11 @@ class WithdrawViewController: BaseViewController {
                         return
                     }
                     
-                    param["id"] = "\(login_type)_\(id)"
+                    param["id"] = "\(id)"
                     param["login_type"] = login_type
-                    param["password"] = password
+                    if login_type != "none" {
+                        param["password"] = id
+                    }
                     
                     ApiManager.shared.requestUserExit(param: param) { (response) in
                         if let response = response as? [String : Any], (response["success"] as! Bool) == true {
@@ -51,6 +77,8 @@ class WithdrawViewController: BaseViewController {
                             SharedData.removeObjectForKey(key: kUserPassword)
                             SharedData.removeObjectForKey(key: kPToken)
                             SharedData.removeObjectForKey(key: kLoginType)
+                            SharedData.instance.pToken = nil
+                            
                             self.navigationController?.popToRootViewController(animated: true)
                         }
                         else {

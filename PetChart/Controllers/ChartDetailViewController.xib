@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -14,6 +14,7 @@
                 <outlet property="btnOtherPet" destination="pTS-N6-YiV" id="iwQ-ir-SFl"/>
                 <outlet property="btnSafety" destination="43x-Bg-fUu" id="Kh3-Vu-iVN"/>
                 <outlet property="btnShare" destination="CFA-d1-yU3" id="Dld-6l-TWL"/>
+                <outlet property="lbAppropriate" destination="jAF-8S-qy1" id="2d4-aU-Vu9"/>
                 <outlet property="lbBottomMsg" destination="Ysj-zW-ZLw" id="cpI-3P-oBa"/>
                 <outlet property="lbBottomTitle" destination="d7K-Cg-y5b" id="Kgi-kl-2a6"/>
                 <outlet property="lbGraphTitle" destination="l3f-9y-mfi" id="L55-RV-exD"/>
@@ -84,20 +85,31 @@
                                         <constraint firstAttribute="height" constant="220" id="gFz-4Y-79n"/>
                                     </constraints>
                                 </stackView>
-                                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="5bg-Sx-ScJ">
+                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YI2-eg-3UD">
                                     <rect key="frame" x="0.0" y="336" width="374" height="311"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ljD-VA-VFg">
-                                            <rect key="frame" x="20" y="8" width="334" height="295"/>
-                                            <string key="text">레오의 음수량이
+                                        <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5bg-Sx-ScJ">
+                                            <rect key="frame" x="0.0" y="86.5" width="374" height="138.5"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ljD-VA-VFg">
+                                                    <rect key="frame" x="74.5" y="8" width="225.5" height="64.5"/>
+                                                    <string key="text">레오의 음수량이
 전일 대비 40% 증가했어요.
 평균 대비 적정량 유지 중이에요.</string>
-                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAF-8S-qy1">
+                                                    <rect key="frame" x="162" y="80.5" width="50" height="50"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
+                                        </stackView>
                                     </subviews>
-                                    <edgeInsets key="layoutMargins" top="8" left="20" bottom="8" right="20"/>
                                 </stackView>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gGG-gt-bIu">
                                     <rect key="frame" x="0.0" y="647" width="374" height="1"/>

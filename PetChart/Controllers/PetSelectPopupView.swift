@@ -22,6 +22,8 @@ class PetSelectPopupView: UIView {
         self.addShadow(offset: CGSize(width: 3, height: 3), color: RGBA(0, 0, 0, 0.3), raduius: 3, opacity: 0.3)
         bgView.layer.cornerRadius = 20
         bgView.clipsToBounds = true
+        bgView.layer.borderWidth = 1.0
+        bgView.layer.borderColor = RGB(244, 244, 244).cgColor
         
         self.data = data
         var index = 0
@@ -32,11 +34,16 @@ class PetSelectPopupView: UIView {
             rowView.btnFull.addTarget(self, action: #selector(onclickedBtnActions(_ :)), for: .touchUpInside)
             
             rowView.ivThumb.layer.cornerRadius = rowView.ivThumb.frame.size.height/2
-            rowView.ivThumb.layer.borderWidth = 2.0
-            rowView.ivThumb.layer.borderColor = RGB(239, 239, 239).cgColor
+            rowView.ivThumb.layer.borderWidth = 1.0
+            rowView.ivThumb.layer.borderColor = RGB(222, 222, 222).cgColor
             
-//            rowView.ivThumb.image =
-            rowView.lbPetName.text = animal.name
+            if let images = animal.images, images.isEmpty == false {
+                let image:ImageInfo = images.first!
+                if let original = image.original {
+                    rowView.ivThumb.setImageCache(url: original, placeholderImgName: nil)
+                }
+            }
+            rowView.lbPetName.text = animal.petName
             index += 1
 //            rowView.translatesAutoresizingMaskIntoConstraints = false
 //            rowView.heightAnchor.constraint(equalToConstant: 55).isActive = true

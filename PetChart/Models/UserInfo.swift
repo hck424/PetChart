@@ -24,16 +24,17 @@ class UserInfo: Mappable {
     var expiredAt: Date?
     var refreshToken: String?
     
+    var termsserviceAgree: Bool?
+    var privacyAgree: Bool?
+    var marketingAgree: Bool?
+    var privacy_term: Int = 0
     var addressLine1: String?
     var addressLine2: String?
     var city: String?
     var country: String?
-    var marketingAgree: Bool?
     var password: String?
     var phone: String?
-    var privacyAgree: Bool?
     var street: String?
-    var termsserviceAgree: Bool?
     var zipcode: Int?
 
     
@@ -61,5 +62,30 @@ class UserInfo: Mappable {
         termsserviceAgree  <- map["termsservice_agree"]
         zipcode <- map["zipcode"]
         accessToken <- map["access_token"]
+        privacy_term <- map["privacy_term"]
+    }
+    
+    func description() -> String {
+        var des = ""
+        des = "name: \(name ?? "")\n"
+        des.append("nickname: \(nickname ?? "")\n")
+        des.append("birthday: \(birthday ?? "")\n")
+        des.append("email: \(email ?? "")\n")
+        des.append("userId: \(userId ?? "")\n")
+        des.append("joinType: \(joinType ?? "")\n")
+        des.append("gender: \(gender ?? "")\n")
+        des.append("addressLine1: \(addressLine1 ?? "")\n")
+        des.append("addressLine2: \(addressLine2 ?? "")\n")
+        des.append("city: \(city ?? "")\n")
+        des.append("country: \(country ?? "")\n")
+        des.append("marketingAgree: \(marketingAgree ?? false)\n")
+        des.append("password: \(password ?? "")\n")
+        des.append("phone: \(phone ?? "")\n")
+        des.append("privacyAgree: \(privacyAgree ?? false)\n")
+        des.append("street: \(street ?? "")\n")
+        des.append("termsserviceAgree: \(termsserviceAgree ?? false)\n")
+        des.append("zipcode: \(zipcode ?? 0)\n")
+        des.append("accessToken: \(accessToken ?? "")\n")
+        return des
     }
 }

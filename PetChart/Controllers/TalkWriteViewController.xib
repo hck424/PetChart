@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -11,9 +11,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="TalkWriteViewController" customModule="PetChart" customModuleProvider="target">
             <connections>
+                <outlet property="accessoryView" destination="lad-Bi-8et" id="hOc-IZ-ujy"/>
                 <outlet property="bottomContainer" destination="yQd-3E-HDA" id="7CF-cu-2xJ"/>
                 <outlet property="btnCancel" destination="a21-wh-V5F" id="hI3-Ie-tgS"/>
                 <outlet property="btnCategory" destination="PMQ-Ha-nhD" id="Okv-Co-NFQ"/>
+                <outlet property="btnKeyboardDown" destination="6ys-Tt-M0a" id="DiE-ZG-rVd"/>
                 <outlet property="btnRegist" destination="3LX-n7-3z5" id="2Fk-Ab-UPT"/>
                 <outlet property="btnSafety" destination="ylk-Qy-Rlo" id="4C4-ej-pPs"/>
                 <outlet property="textView" destination="P22-nO-VZW" id="Y2K-eZ-8gH"/>
@@ -120,7 +122,7 @@
                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aCa-7Q-UzV">
                                     <rect key="frame" x="20" y="203" width="374" height="111"/>
                                     <subviews>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="제목" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzH-NW-lNb">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="사진" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EzH-NW-lNb">
                                             <rect key="frame" x="0.0" y="0.0" width="374" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="0.53333333329999999" green="0.53333333329999999" blue="0.53333333329999999" alpha="1" colorSpace="calibratedRGB"/>
@@ -402,6 +404,20 @@
             </constraints>
             <point key="canvasLocation" x="-145" y="83"/>
         </view>
+        <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="lad-Bi-8et">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+            <items>
+                <barButtonItem style="plain" systemItem="flexibleSpace" id="MSa-Bp-z2Q"/>
+                <barButtonItem image="keyboard.chevron.compact.down" catalog="system" id="6ys-Tt-M0a">
+                    <color key="tintColor" red="0.91372549020000005" green="0.37254901959999998" blue="0.36862745099999999" alpha="1" colorSpace="calibratedRGB"/>
+                    <connections>
+                        <action selector="onClickedKeyboardDown:" destination="-1" id="tgg-IU-dxG"/>
+                    </connections>
+                </barButtonItem>
+            </items>
+            <point key="canvasLocation" x="523" y="-131"/>
+        </toolbar>
     </objects>
     <designables>
         <designable name="a3P-IW-Wjt">
@@ -410,6 +426,7 @@
     </designables>
     <resources>
         <image name="btn_delete" width="12" height="12"/>
+        <image name="keyboard.chevron.compact.down" catalog="system" width="128" height="102"/>
         <image name="triangle" width="12" height="11"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

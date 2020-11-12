@@ -7,6 +7,9 @@
 
 import Foundation
 import UIKit
+import AlamofireImage
+import CoreGraphics
+
 //FIXME:: UITableView
 extension UITableView {
     func reloadData(completion:@escaping ()-> Void) {
@@ -51,8 +54,9 @@ extension UIViewController {
             
             AlertView.showWithOk(title: title, message: msg, completion: nil)
         }
-        else if let data = data as? Error {
-//            AlertView.showWithOk(title: "Error", message: "시스템에러", completion: nil)
+        else if let error = data as? Error {
+            let msg = "\(error)"
+            AlertView.showWithOk(title: "시스템 에러", message: msg, completion: nil)
         }
     }
 }
@@ -106,7 +110,29 @@ extension UIView {
             //        [indicator removeFromSuperview];
         }
     }
+    
+    var snapshot: UIImage {
+       return UIGraphicsImageRenderer(size: bounds.size).image { _ in
+            drawHierarchy(in: bounds, afterScreenUpdates: true)
+        }
+    }
 }
+
+//FIXME:: UIImageView
+extension UIImageView {
+    func setImageCache(url:String, placeholderImgName:String?) {
+        var placeholderImg: UIImage? = nil
+        if let placeholderImgName = placeholderImgName {
+            placeholderImg = UIImage(named: placeholderImgName)
+        }
+        
+        guard let requestUrl = URL.init(string: url)  else {
+            return
+        }
+        self.af.setImage(withURL: requestUrl, placeholderImage: placeholderImg)
+    }
+}
+ 
 //FIXME:: CACornerMask
 extension CACornerMask {
     init(TL: Bool = false, TR: Bool = false, BL: Bool = false, BR: Bool = false) {
@@ -138,6 +164,22 @@ extension UIImage {
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
         return image
+    }
+    func resized(withPercentage percentage: CGFloat, isOpaque: Bool = true) -> UIImage? {
+        let canvas = CGSize(width: size.width * percentage, height: size.height * percentage)
+        let format = imageRendererFormat
+        format.opaque = isOpaque
+        return UIGraphicsImageRenderer(size: canvas, format: format).image {
+            _ in draw(in: CGRect(origin: .zero, size: canvas))
+        }
+    }
+    func resized(toWidth width: CGFloat, isOpaque: Bool = true) -> UIImage? {
+        let canvas = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
+        let format = imageRendererFormat
+        format.opaque = isOpaque
+        return UIGraphicsImageRenderer(size: canvas, format: format).image {
+            _ in draw(in: CGRect(origin: .zero, size: canvas))
+        }
     }
 }
 //FIXME:: Error
@@ -213,5 +255,21 @@ extension String {
             result.append(item)
         }
         return result
+    }
+}
+
+extension NSAttributedString {
+    convenience init(htmlString html: String) throws {
+        try self.init(data: Data(html.utf8), options: [
+            .documentType: NSAttributedString.DocumentType.html,
+            .characterEncoding: String.Encoding.utf8.rawValue
+        ], documentAttributes: nil)
+    }
+}
+
+extension Data {
+    var hexString: String {
+        let hexString = map { String(format: "%02.2hhx", $0) }.joined()
+        return hexString
     }
 }

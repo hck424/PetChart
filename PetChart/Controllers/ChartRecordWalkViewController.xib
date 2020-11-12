@@ -3,7 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,9 +15,9 @@
                 <outlet property="btnDay" destination="ZdJ-D5-nC5" id="ROE-Pf-18M"/>
                 <outlet property="btnEndTime" destination="Ovq-kQ-73a" id="aoU-gT-i1v"/>
                 <outlet property="btnStartTime" destination="t8r-ai-S3S" id="4RA-OT-BYz"/>
-                <outlet property="btnTakeTime" destination="hAl-5C-xon" id="uTe-IE-kRY"/>
                 <outlet property="btnToday" destination="xzh-Bw-E0v" id="Lbj-1x-eYx"/>
                 <outlet property="tfDay" destination="BES-Vz-c4e" id="xiB-fm-aSV"/>
+                <outlet property="tfTakeTime" destination="Szx-XE-S7w" id="zgz-tZ-h4q"/>
                 <outlet property="view" destination="VIs-g1-EqJ" id="Z56-Ak-ESM"/>
             </connections>
         </placeholder>
@@ -148,24 +148,22 @@
                                                             </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="muh-If-9Zq">
-                                                            <rect key="frame" x="153.5" y="0.0" width="92.5" height="45"/>
+                                                            <rect key="frame" x="153.5" y="0.0" width="95.5" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="총" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x7n-2t-14h">
-                                                            <rect key="frame" x="266" y="0.0" width="13" height="45"/>
+                                                            <rect key="frame" x="269" y="0.0" width="13" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="255" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hAl-5C-xon">
-                                                            <rect key="frame" x="299" y="0.0" width="42" height="45"/>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                            <state key="normal" title="00:00">
-                                                                <color key="titleColor" red="0.79215686269999996" green="0.79215686269999996" blue="0.79215686269999996" alpha="1" colorSpace="calibratedRGB"/>
-                                                            </state>
-                                                        </button>
+                                                        <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="00:00" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Szx-XE-S7w">
+                                                            <rect key="frame" x="302" y="0.0" width="39" height="45"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                            <textInputTraits key="textInputTraits"/>
+                                                        </textField>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="분" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Mt-Ye-Sbq">
                                                             <rect key="frame" x="361" y="0.0" width="13" height="45"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>

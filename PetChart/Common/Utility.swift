@@ -7,7 +7,7 @@
 
 import UIKit
 import SwiftKeychainWrapper
-
+import AlamofireImage
 class Utility: NSObject {
     class func isIphoneX() ->Bool {
         return ((AppDelegate.instance()?.window?.safeAreaInsets.bottom)! > 0.0)

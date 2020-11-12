@@ -20,6 +20,7 @@ class NewPasswordViewController: BaseViewController {
     @IBOutlet weak var bgCornerView: UIView!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
     
+    var param:[String:Any] = [String:Any]()
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
@@ -91,15 +92,33 @@ class NewPasswordViewController: BaseViewController {
             if isOk == false {
                 return
             }
-            
+
 //            "id": "test@test.com",
 //             "join_type": "none",
 //             "key": "a+zAj00AnMu/SiFY5YTLwKoyq1J2Cku8pB2FjwHXFwY=",
 //             "password": 1234567
-            
+
+            param["password"] = password1
             AlertView.showWithOk(title: "비밀번호 변경", message: "비밀번호를 확인해주세요.") { (index) in
-                ApiManager.shared.requestModifyPassword(param: [:]) { (response) in
-                    
+                ApiManager.shared.requestModifyPassword(param: self.param) { (response) in
+                    if let response = response as?[String:Any], let success = response["success"] as?Bool, let msg = response["msg"] as? String {
+                        if (success) {
+                            self.view.makeToast("비밀번호 변경이 완료되었습니다.")
+                            if let viewcontrollers = self.navigationController?.viewControllers {
+                                for vc in viewcontrollers {
+                                    if let vc = vc as? LoginViewController {
+                                        self.navigationController?.popToViewController(vc, animated: true)
+                                    }
+                                }
+                            }
+                            else {
+                                self.navigationController?.popToRootViewController(animated: true)
+                            }
+                        }
+                        else {
+                            self.showErrorAlertView(response)
+                        }
+                    }
                 } failure: { (error) in
                     self.showErrorAlertView(error)
                 }
