@@ -17,15 +17,43 @@ class SettingViewController: BaseViewController {
                    ["title":"회원탈퇴", "identify": "withdraw"],
                    ["title":"로그아웃", "identify": "logout"]]
     
+    var data:[String:Any]?
+    var serverChageCnt = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
         CNavigationBar.drawTitle(self, "설정", nil)
-        
+        self.requestAppConfig()
         tblView.reloadData()
     }
     
+    func requestAppConfig() {
+        ApiManager.shared.requestAppConfig { (response) in
+            if let response = response as? [String:Any], let data = response["data"] as? [String:Any] {
+                self.data = data
+            }
+        } failure: { (error) in
+            
+        }
+    }
+    func changeServerDomain() {
+        guard let data = data, let serverUrl = data["serverUrl"] as? String, let testUrl = data["testUrl"] as? String else {
+            return
+        }
+        serverChageCnt += 1
+        if serverChageCnt%10 == 0 {
+            SERVER_PREFIX = serverUrl
+            UIPasteboard.general.string = SERVER_PREFIX
+            self.showToast("serverUrl: \(SERVER_PREFIX)")
+        }
+        else if serverChageCnt%5 == 0 {
+            SERVER_PREFIX = testUrl
+            UIPasteboard.general.string = SERVER_PREFIX
+            self.showToast("testUrl: \(SERVER_PREFIX)")
+        }
+    }
 }
 
 extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
@@ -47,6 +75,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
         
         if identify == "version" {
             cell?.lbSubTitle.isHidden = false
+            cell?.lbSubTitle.text = "v.\(Bundle.main.appVersion)"
         }
         
         return cell!
@@ -63,7 +92,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
             self.navigationController?.pushViewController(vc, animated: true)
         }
         else if identify == "version" {
-            
+            self.changeServerDomain()
         }
         else if identify == "privacy_policy" {
             self.requestTerms(type: "privacy")
@@ -86,9 +115,13 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func logout() {
+        SharedData.removeObjectForKey(key: kUserId)
+        SharedData.removeObjectForKey(key: kUserPassword)
         SharedData.removeObjectForKey(key: kPToken)
+        SharedData.removeObjectForKey(key: kLoginType)
         SharedData.instance.pToken = nil
-        self.navigationController?.popToRootViewController(animated: true)
+        
+        AppDelegate.instance()?.callLoginVc()
     }
     
     func requestTerms(type:String) {
@@ -112,10 +145,7 @@ extension SettingViewController: UITableViewDelegate, UITableViewDataSource {
                         vcTitie = "개인정보 처리방침"
                     }
                     else if dtype == "service" {
-                        vcTitie = "이용약관 동의"
-                    }
-                    else {
-                        vcTitie = "마켓팅 수신 동의"
+                        vcTitie = "이용약관"
                     }
                     vc.vcTitle = vcTitie
                 }

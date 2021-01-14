@@ -7,7 +7,7 @@
 
 import UIKit
 
-@IBDesignable class MrNameInputViewController: BaseViewController, UITextFieldDelegate {
+@IBDesignable class MrNameInputViewController: BaseViewController {
 
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
     @IBOutlet weak var bgCornerView: UIView!
@@ -77,15 +77,14 @@ import UIKit
             sender.isSelected = true
         }
         else if sender == btnOk {
-            
+            self.view.endEditing(true)
             if tfName.text?.count == 0 {
-                
-                self.view.makeToast("이름은 필수 항목입니다.", position:.top)
+                self.showToast("이름을 입력해주세요.")
                 return
             }
             
             if btnMale.isSelected == false && btnFemale.isSelected == false {
-                self.view.makeToast("성별을 선택해 주세요.", position:.top)
+                self.showToast("성별을 선택해주세요.")
                 return
             }
             
@@ -104,12 +103,6 @@ import UIKit
         }
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField.text?.count ?? 0 > 0 {
-            self.view.endEditing(true)
-        }
-        return true
-    }
     @objc func notificationHandler(_ notification: Notification) {
             
         let heightKeyboard = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue.size.height
@@ -128,5 +121,27 @@ import UIKit
                 self.view.layoutIfNeeded()
             }
         }
+    }
+}
+extension MrNameInputViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField.text?.count ?? 0 > 0 {
+            self.view.endEditing(true)
+        }
+        return true
+    }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorDefault
+            textField.setNeedsDisplay()
+        }
+        return true
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorBorder
+            textField.setNeedsDisplay()
+        }
+        return true
     }
 }

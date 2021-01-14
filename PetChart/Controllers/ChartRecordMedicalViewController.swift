@@ -150,9 +150,11 @@ class ChartRecordMedicalViewController: BaseViewController {
                 if let response = response as? [String:Any],
                    let msg = response["msg"] as? String,
                    let success = response["success"] as? Bool, success == true {
-                    AlertView.showWithCancelAndOk(title: "진료 기록", message: msg) { (index) in
-                        self.navigationController?.popViewController(animated: true)
-                    }
+                    self.showToast(msg)
+                    self.navigationController?.popViewController(animated: true)
+//                    AlertView.showWithCancelAndOk(title: "진료 기록", message: msg) { (index) in
+//                        self.navigationController?.popViewController(animated: true)
+//                    }
                 }
                 else {
                     self.showErrorAlertView(response)

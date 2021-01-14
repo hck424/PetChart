@@ -64,6 +64,11 @@ class TalkViewController: BaseViewController, UITableViewDataSource, UITableView
         self.tblView.delegate = self
         self.tblView.dataSource = self
         
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
         self.checkSession { (type) in
             if type == .valid {
                 let index = self.getSelectedCategoryIndex()
@@ -82,10 +87,6 @@ class TalkViewController: BaseViewController, UITableViewDataSource, UITableView
             }
         }
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-    }
     
     func getSelectedCategoryIndex() ->Int {
         if selCategory == "강아지" {
@@ -96,6 +97,9 @@ class TalkViewController: BaseViewController, UITableViewDataSource, UITableView
         }
         else if selCategory == "기타" {
             return 3
+        }
+        else if selCategory == "차트공유" {
+            return 4
         }
         else {
             return 0
@@ -142,7 +146,7 @@ class TalkViewController: BaseViewController, UITableViewDataSource, UITableView
         }
         param["page"] = page
         param["limit"] = limit
-        if let search = searchTxt {
+        if let search = searchTxt, search.isEmpty == false {
             param["search"] = search
         }
         
@@ -180,6 +184,18 @@ class TalkViewController: BaseViewController, UITableViewDataSource, UITableView
             self.showErrorAlertView(error)
         }
     }
+    func gotoTalkWriteVc(_ snapshot:UIImage) {
+        let vc = TalkWriteViewController.init()
+        vc.delegate = self
+        if let img = snapshot.resized(toWidth: imageScale) {
+            vc.snapshot = img
+        }
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+    @IBAction func textFieldEdtingValueChanged(_ sender: UITextField) {
+        
+        self.searchTxt = sender.text
+    }
     
     @IBAction func onClickedKeyboardDown(_ sender: UIBarButtonItem) {
         self.view.endEditing(true)
@@ -197,6 +213,7 @@ class TalkViewController: BaseViewController, UITableViewDataSource, UITableView
                     self.navigationController?.pushViewController(vc, animated: false)
                 }
                 else if sender == self.btnSearch {
+                    self.view.endEditing(true)
                     self.dataRest()
                 }
                 else if self.arrBtnPet.contains(sender) {
@@ -205,18 +222,21 @@ class TalkViewController: BaseViewController, UITableViewDataSource, UITableView
                     }
                     self.addUnderLine(sender)
                     self.searchTxt = nil
-                    
-                    if sender.tag == 1 {
+                    self.tfSearch.text = nil
+                    if sender.tag == 0 {
                         self.selCategory = ""
                     }
-                    else if sender.tag == 2 {
+                    else if sender.tag == 1 {
                         self.selCategory = "강아지"
                     }
-                    else if sender.tag == 3 {
+                    else if sender.tag == 2 {
                         self.selCategory = "고양이"
                     }
-                    else if sender.tag == 4 {
+                    else if sender.tag == 3 {
                         self.selCategory = "기타"
+                    }
+                    else if sender.tag == 4 {
+                        self.selCategory = "차트공유"
                     }
                     self.dataRest()
                 }
@@ -318,6 +338,13 @@ class TalkViewController: BaseViewController, UITableViewDataSource, UITableView
         }
     }
     
+    func changeTabMenuWithCategory() {
+        let index = self.getSelectedCategoryIndex()
+        guard let arrBtnPet = arrBtnPet, let btn = arrBtnPet[index] as? UIButton else {
+            return
+        }
+        btn.sendActions(for: .touchUpInside)
+    }
 }
 
 extension TalkViewController: UIScrollViewDelegate {
@@ -352,32 +379,32 @@ extension TalkViewController: UITextFieldDelegate {
 extension TalkViewController: TalkWriteViewControllerDelegate {
     func didfinishWrite(category: String, data: [String : Any]?) {
         self.selCategory = category
+//        self.changeTabMenuWithCategory()
     }
 }
 extension TalkViewController: TalkDetailViewControllerDelegate {
     func didChangeUserData(data: [String : Any]) {
-        guard let id = data["id"] as? Int, let my_like_state = data["my_like_state"] as? String else {
-            return
-        }
-        var i = 0
-        for var item in arrData {
-            guard let postId = item["id"] as? Int else {
-                return
-            }
-            
-            
-            if postId == id {
-                guard var oldLikeState = item["my_like_state"] as? String else {
-                    return
-                }
-                
-                oldLikeState = my_like_state
-                item["my_like_state"] = oldLikeState
-                arrData[i] = item
-                break
-            }
-            i += 1
-        }
-        self.tblView.reloadData()
+//        guard let id = data["id"] as? Int, let my_like_state = data["my_like_state"] as? String else {
+//            return
+//        }
+//        var i = 0
+//        for var item in arrData {
+//            guard let postId = item["id"] as? Int else {
+//                return
+//            }
+//
+//            if postId == id {
+//                guard var oldLikeState = item["my_like_state"] as? String else {
+//                    return
+//                }
+//
+//                oldLikeState = my_like_state
+//                item["my_like_state"] = oldLikeState
+//                arrData[i] = item
+//                break
+//            }
+//            i += 1
+//        }
+//        self.tblView.reloadData()
     }
 }

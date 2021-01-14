@@ -59,9 +59,7 @@ class WithdrawViewController: BaseViewController {
                     
                     var param = [String: Any]()
                     
-                    guard let id = SharedData.getUserId(),
-                          let login_type = SharedData.getLoginType(),
-                          let password = SharedData.objectForKey(key: kUserPassword) else {
+                    guard let id = SharedData.getUserId(), let login_type = SharedData.getLoginType(), let password = SharedData.objectForKey(key: kUserPassword) as? String else {
                         return
                     }
                     
@@ -70,7 +68,9 @@ class WithdrawViewController: BaseViewController {
                     if login_type != "none" {
                         param["password"] = id
                     }
-                    
+                    else {
+                        param["password"] = password
+                    }
                     ApiManager.shared.requestUserExit(param: param) { (response) in
                         if let response = response as? [String : Any], (response["success"] as! Bool) == true {
                             SharedData.removeObjectForKey(key: kUserId)
@@ -79,7 +79,8 @@ class WithdrawViewController: BaseViewController {
                             SharedData.removeObjectForKey(key: kLoginType)
                             SharedData.instance.pToken = nil
                             
-                            self.navigationController?.popToRootViewController(animated: true)
+                            AppDelegate.instance()?.callLoginVc()
+                            
                         }
                         else {
                             self.showErrorAlertView(response)

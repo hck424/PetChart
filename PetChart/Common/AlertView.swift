@@ -174,6 +174,7 @@ class AlertView: UIView {
             contentEdge = UIEdgeInsets(top: 30, left: 20, bottom: 30, right: 20)
             svContent.layoutMargins = contentEdge
         }
+        lbTitle.textColor = RGB(0, 0, 0)
         
         if let message = message {
             svContent.isHidden = false

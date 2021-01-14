@@ -19,9 +19,13 @@ class AddAnimalBirthDayViewController: BaseViewController {
     @IBOutlet weak var btnOk: UIButton!
     @IBOutlet weak var btnSafety: UIButton!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
-    
+    @IBOutlet weak var seperator1: UIView!
+    @IBOutlet weak var seperator2: UIView!
     var animal: Animal?
     var images:Array<UIImage>?
+    var arrMonthBirthday:[[String:Any]]?
+    var selMonthBirthday:[String:Any]?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -77,18 +81,18 @@ class AddAnimalBirthDayViewController: BaseViewController {
         else if sender == btnBirthDay1 {
             btnCheck1.isSelected = true
             btnCheck2.isSelected = false
+//            seperator1.backgroundColor = ColorDefault
+//            seperator2.backgroundColor = ColorBorder
             let maxDate = Date()
             let minDate = Date().getStartDate(withYear: -30)
             let apoint = Date()
             
             let picker = CDatePickerView.init(type: .yearMonthDay, minDate: minDate, maxDate: maxDate, apointDate: apoint) { (strDate, date) in
                 
-                if let date = date, let strDate = strDate {
-                    self.tfBirthDay2.text = ""
+                if let strDate = strDate {
                     self.tfBirthDay1.text = strDate
-                    let ageComponet = self.getAgeInfo(birthDay: date)
-                    self.animal?.age = ageComponet.year ?? 0
-                    self.animal?.birthday = strDate
+                    self.selMonthBirthday = nil
+                    self.tfBirthDay2.text = nil
                 }
             }
             picker?.local = Locale(identifier: "ko_KR")
@@ -97,54 +101,69 @@ class AddAnimalBirthDayViewController: BaseViewController {
         else if sender == btnBirthDay2 {
             btnCheck1.isSelected = false
             btnCheck2.isSelected = true
-            let maxDate = Date()
-            let minDate = Date().getStartDate(withYear: -30)
-            let apoint = Date()
-            
-            let picker = CDatePickerView.init(type: .yearMonth, minDate: minDate, maxDate: maxDate, apointDate: apoint) { (strDate, date) in
-                
-                if let strDate = strDate {
-                    self.tfBirthDay1.text = ""
-                    let df = CDateFormatter.init()
-                    df.dateFormat = "yyyy-MM-dd"
-                    let birthday = df.date(from: "\(strDate)-01")
-                    let ageComponet = self.getAgeInfo(birthDay: birthday!)
-                    let year = ageComponet.year ?? 0
-                    let month = ageComponet.month ?? 0
-                    if  year > 0 {
-                        let str = "\(year)세 \(month)개월"
-                        self.tfBirthDay2.text = str
+//            seperator1.backgroundColor = ColorBorder
+//            seperator2.backgroundColor = ColorDefault
+            if let _ = arrMonthBirthday {
+                self.showBirthdayMonthPopup()
+            }
+            else {
+                ApiManager.shared.requestAnimalBirthdayMonthList { (response) in
+                    if let response = response as? [String:Any], let data = response["data"] as? [String:Any], let items = data["itmes"] as? Array<[String:Any]> {
+                        self.arrMonthBirthday = items
+                        self.showBirthdayMonthPopup()
                     }
-                    else {
-                        let str = "\(month)개월"
-                        self.tfBirthDay2.text = str
-                    }
-                    self.animal?.age = ageComponet.year ?? 0
-                    self.animal?.birthday = "\(strDate)-01"
+                } failure: { (error) in
+                    self.showErrorAlertView(error)
                 }
             }
-            picker?.local = Locale(identifier: "ko_KR")
-            picker?.show()
         }
         else if sender == btnOk {
             
-            if btnCheck1.isSelected {
-                animal?.birthday = tfBirthDay1.text
-            }
-            else if btnCheck2.isSelected {
-                animal?.birthday = tfBirthDay2.text
-            }
-            
-            if (animal?.birthday) == nil || animal?.birthday?.length == 0 {
-                self.view.makeToast("\(animal?.petName! ?? "")의 나이를 입력해주세요", position:.top)
+            if self.selMonthBirthday == nil && tfBirthDay1.text?.isEmpty == true {
+                self.showToast("생년월일을 선택해주세요.")
                 return
             }
             
+            if let birthday = tfBirthDay1.text, birthday.isEmpty == false {
+                animal?.birthday = birthday
+                
+                let df = CDateFormatter.init()
+                df.dateFormat = "yyyy-MM-dd"
+                if let date = df.date(from: birthday) {
+                    let componet = self.getAgeInfo(birthDay: date)
+                    if let age = componet.year {
+                        animal?.age = age
+                    }
+                }
+            }
+            else if let birthMonth = selMonthBirthday?["id"] as? Int {
+                animal?.birthMonth = birthMonth
+                animal?.age = Int(birthMonth/12)
+            }
+          
             let vc = AddAnimalInfoViewController.init()
             vc.animal = animal
             vc.images = images
             self.navigationController?.pushViewController(vc, animated: false)
         }
+    }
+    func showBirthdayMonthPopup() {
+        guard let arrMonthBirthday = arrMonthBirthday else {
+            return
+        }
+        let vc = PopupListViewController.init(type: .normal, title: nil, data: arrMonthBirthday, keys: ["label"]) { (vcs, selData, index) in
+            vcs.dismiss(animated: false, completion: nil)
+            guard let selData = selData as? [String:Any] else {
+                return
+            }
+            
+            self.tfBirthDay1.text = nil
+            self.selMonthBirthday = selData
+            if let label = selData["label"] as? String {
+                self.tfBirthDay2.text = label
+            }
+        }
+        self.present(vc, animated: true, completion: nil)
     }
     
     func getAgeInfo(birthDay:Date) -> DateComponents {

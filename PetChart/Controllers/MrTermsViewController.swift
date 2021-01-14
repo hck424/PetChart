@@ -59,13 +59,14 @@ class MrTermsViewController: BaseViewController {
         }
         else if sender == btnOk {
             if btnTerm1.isSelected == false {
-                self.view.makeToast("이용약관 동의 필수 입니다.", duration:1.0, position:.top)
+                self.showToast("약관을 체크해주세요.")
                 return
             }
             if btnTerm2.isSelected == false {
-                self.view.makeToast("개인정보 처리방침 필수 입니다.", duration:1.0, position:.top)
+                self.showToast("약관을 체크해주세요.")
                 return
             }
+            
             let vc = MrNameInputViewController.init(nibName: "MrNameInputViewController", bundle: nil)
             vc.user = user
             self.navigationController?.pushViewController(vc, animated: true)
@@ -93,7 +94,7 @@ class MrTermsViewController: BaseViewController {
                         vcTitie = "개인정보 처리방침"
                     }
                     else if dtype == "service" {
-                        vcTitie = "이용약관 동의"
+                        vcTitie = "이용약관"
                     }
                     else {
                         vcTitie = "마켓팅 수신 동의"

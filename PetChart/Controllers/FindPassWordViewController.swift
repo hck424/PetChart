@@ -16,9 +16,6 @@ class FindPassWordViewController: BaseViewController {
     @IBOutlet weak var btnOk: UIButton!
     @IBOutlet weak var btnSafety: UIButton!
     @IBOutlet weak var cornerBgView: UIView!
-    @IBOutlet weak var lbHintUserId: UILabel!
-    @IBOutlet weak var lbHintUserName: UILabel!
-    @IBOutlet weak var lbHintPhoneNumber: UILabel!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
     
     let phoneNumberKit = PhoneNumberKit()
@@ -83,50 +80,40 @@ class FindPassWordViewController: BaseViewController {
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
         self.view.endEditing(true)
         if sender == btnOk {
-            lbHintUserId.isHidden = true
-            lbHintUserName.isHidden = true
-            lbHintPhoneNumber.isHidden = true
-            var isOk = true
-            if tfUserId.text?.isEmpty == true {
-                lbHintUserId.text = "회원가입시 이메일을 입력해주세요."
-                lbHintUserId.isHidden = false
-                isOk = false
-            }
-            else if tfUserId.text?.validateEmail() == false {
-                lbHintUserId.text = "이메일 형식이 아닙니다."
-                lbHintUserId.isHidden = false
-                isOk = false
-            }
-            
-            if tfUserName.text?.isEmpty == true {
-                lbHintUserName.isHidden = false
-                isOk = false
-            }
-            
-            if tfPhoneNumber.text?.isEmpty == true {
-                lbHintPhoneNumber.isHidden = false
-                isOk = false
-            }
-            
-            if isOk == false {
+            guard let email = tfUserId.text, email.isEmpty == false, email.validateEmail() == true else {
+                self.showToast("아이디를 입력해주세요.")
                 return
             }
+            
+            guard let name = tfUserName.text, name.isEmpty == false else {
+                self.showToast("이름을 입력해주세요.")
+                return
+            }
+            
+            guard let phone = tfPhoneNumber.text, phone.isEmpty == false else {
+                self.showToast("연락처를 입력해주세요.")
+                return
+            }
+            
             var loginType = "none"
             if let type = SharedData.getLoginType() {
                 loginType = type
             }
             
-            let param = ["id": tfUserId.text!, "join_type":loginType, "name":tfUserName.text!, "phone":tfPhoneNumber.text!];
+            let param = ["id": email, "join_type":loginType, "name":name, "phone":phone];
             ApiManager.shared.requestFindUserPassword(param: param) { (response) in
                 if let response = response as?[String:Any], let data = response["data"] as?[String:Any], let key = data["key"] as?String {
-                    let vc = NewPasswordViewController.init()
-                    let param = ["id": self.tfUserId.text!, "join_type":loginType, "key":key]
-                    vc.param = param
-                    self.navigationController?.pushViewController(vc, animated: true)
+                    AlertView.showWithOk(title: "알림", message: "정보가 일치합니다.") { (index) in
+                        let vc = NewPasswordViewController.init()
+                        let param = ["id": email, "join_type":loginType, "key":key]
+                        vc.param = param
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    }
                 }
                 
             } failure: { (error) in
-                self.showErrorAlertView(error)
+//                self.showErrorAlertView(error)
+                AlertView.showWithOk(title: "알림", message: "정보가 일치하지 않습니다.", completion: nil)
             }
         }
     }
@@ -161,6 +148,21 @@ extension FindPassWordViewController: UITextFieldDelegate {
         }
         else {
             self.view.endEditing(true)
+        }
+        return true
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorDefault
+            textField.setNeedsDisplay()
+        }
+        return true
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorBorder
+            textField.setNeedsDisplay()
         }
         return true
     }

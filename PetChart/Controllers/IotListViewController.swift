@@ -37,6 +37,7 @@ class IotListViewController: BaseViewController {
                 
                 if let devices = data["devices"] as? Array<[String:Any]> {
                     self.arrData = devices
+                    
                 }
                 else {
                     self.arrData = nil
@@ -49,11 +50,6 @@ class IotListViewController: BaseViewController {
         } failure: { (error) in
             self.showErrorAlertView(error)
         }
-    }
-    
-    func makeTestData() {
-        let item:[String:Any] = ["create_date": "2020-11-10", "id": 100, "mac": "4321554315", "model": "PetEat423423", "name": "식사시간", "state": "D", "update_date": "2020-11-10"]
-        self.arrData = [item]
     }
     
     @IBAction func onClickedBtnActions(_ sender: UIButton) {

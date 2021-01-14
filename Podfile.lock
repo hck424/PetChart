@@ -4,7 +4,7 @@ PODS:
     - Alamofire (~> 5.1)
   - BSImagePicker (3.3.1)
   - Cache (6.0.0)
-  - CryptoSwift (1.3.2)
+  - CryptoSwift (1.3.7)
   - FBSDKCoreKit (8.1.0):
     - FBSDKCoreKit/Basics (= 8.1.0)
     - FBSDKCoreKit/Core (= 8.1.0)
@@ -82,9 +82,6 @@ PODS:
     - GoogleUtilities/Reachability (~> 7.0)
     - GoogleUtilities/UserDefaults (~> 7.0)
   - FSPagerView (0.8.3)
-  - GCDWebServer (3.5.4):
-    - GCDWebServer/Core (= 3.5.4)
-  - GCDWebServer/Core (3.5.4)
   - GoogleAppMeasurement (7.0.0):
     - GoogleUtilities/AppDelegateSwizzler (~> 7.0)
     - GoogleUtilities/MethodSwizzler (~> 7.0)
@@ -125,7 +122,6 @@ PODS:
     - KakaoSDKCommon (= 2.0.4)
   - Lightbox (2.5.0):
     - Imaginary (~> 5.0.0)
-  - Mantis (1.4.5)
   - nanopb (2.30906.0):
     - nanopb/decode (= 2.30906.0)
     - nanopb/encode (= 2.30906.0)
@@ -140,7 +136,6 @@ PODS:
   - PhoneNumberKit/UIKit (3.3.1):
     - PhoneNumberKit/PhoneNumberKitCore
   - PromisesObjC (1.2.11)
-  - SwiftKeychainWrapper (4.0.1)
   - SwiftyJSON (4.3.0)
   - Toast-Swift (5.0.1)
 
@@ -157,17 +152,14 @@ DEPENDENCIES:
   - Firebase/Crashlytics
   - Firebase/Messaging
   - FSPagerView
-  - GCDWebServer (~> 3.0)
   - JWTDecode (~> 2.4)
   - KakaoSDKAuth
   - KakaoSDKCommon
   - KakaoSDKUser
   - Lightbox
-  - Mantis (~> 1.4.1)
   - naveridlogin-sdk-ios
   - ObjectMapper (~> 3.5)
   - PhoneNumberKit (~> 3.3)
-  - SwiftKeychainWrapper
   - SwiftyJSON (~> 4.0)
   - Toast-Swift (~> 5.0.1)
 
@@ -191,7 +183,6 @@ SPEC REPOS:
     - FirebaseInstanceID
     - FirebaseMessaging
     - FSPagerView
-    - GCDWebServer
     - GoogleAppMeasurement
     - GoogleDataTransport
     - GoogleUtilities
@@ -202,13 +193,11 @@ SPEC REPOS:
     - KakaoSDKCommon
     - KakaoSDKUser
     - Lightbox
-    - Mantis
     - nanopb
     - naveridlogin-sdk-ios
     - ObjectMapper
     - PhoneNumberKit
     - PromisesObjC
-    - SwiftKeychainWrapper
     - SwiftyJSON
     - Toast-Swift
 
@@ -217,7 +206,7 @@ SPEC CHECKSUMS:
   AlamofireImage: c4a2ba349885fb3064feb74d2e547bd42ce9be10
   BSImagePicker: 0fe04b574d4d6b81093785d2af6c26227efc8428
   Cache: 4ca7e00363fca5455f26534e5607634c820ffc2d
-  CryptoSwift: 093499be1a94b0cae36e6c26b70870668cb56060
+  CryptoSwift: b6faad405e69964740422daf121918b5b1870f2b
   FBSDKCoreKit: b3ca27e124dae67122d3bb47c8f96800b39986a6
   FBSDKLoginKit: a3a92ba9380759cd0c1aa8319465fb5f2857c602
   FBSDKShareKit: cb48f5b736946de0609c509dfb546b317bff832c
@@ -231,7 +220,6 @@ SPEC CHECKSUMS:
   FirebaseInstanceID: c03b49743725092f7eb9d4b96ff40efadd830426
   FirebaseMessaging: ecf9e04716b7ff1f1d92debab4d6f0e6bdb490aa
   FSPagerView: 670405b2f18e2a87fa37f20b00de783e562c25a8
-  GCDWebServer: 2c156a56c8226e2d5c0c3f208a3621ccffbe3ce4
   GoogleAppMeasurement: 7790ef975d1d463c8614cd949a847e612edf087a
   GoogleDataTransport: 6ce8004a961db1b905740d7be106c61ba7e89c21
   GoogleUtilities: ffb2f4159f2c897c6e8992bd7fbcdef8a300589c
@@ -242,16 +230,14 @@ SPEC CHECKSUMS:
   KakaoSDKCommon: 070472d0638ea6b28684a23c195e47015349e51b
   KakaoSDKUser: 7951e09f9e6de3908ae2d7f8486290c8607c217a
   Lightbox: cc3d5124f024fa8197fd23f913160db1c61a1852
-  Mantis: 294d1576cabdaacfc178c6586993abfa508f4de2
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   naveridlogin-sdk-ios: cf8afccdb1793d4ecfcd5d46aa8729d8b5058c70
   ObjectMapper: 97111c97e054a6ee25917662106689f0b4127b37
   PhoneNumberKit: ff153d5e299f6da566cb73c6aa71e354933b2932
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
-  SwiftKeychainWrapper: 807ba1d63c33a7d0613288512399cd1eda1e470c
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
   Toast-Swift: 9b6a70f28b3bf0b96c40d46c0c4b9d6639846711
 
-PODFILE CHECKSUM: 23c5e4f11c0c481b13b27fd27c5776f139c0e3b3
+PODFILE CHECKSUM: b5249d8d8260097a9923bfb60d0b064e10c28b32
 
 COCOAPODS: 1.9.3

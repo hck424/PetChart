@@ -10,6 +10,7 @@ import UIKit
 class IotViewController: BaseViewController {
 
     @IBOutlet weak var tblView: UITableView!
+    var data:[String:Any]?
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -22,6 +23,9 @@ class IotViewController: BaseViewController {
         footerView.addSubview(seperator)
         
         tblView.tableFooterView = footerView
+    }
+    func openUrl(url: String) {
+        AppDelegate.instance()?.openUrl(url, completion: nil)
     }
 }
 
@@ -50,7 +54,21 @@ extension IotViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tblView.deselectRow(at: indexPath, animated: false)
         if indexPath.row == 0 {
-            //TODO:: outling iot 기기 구매
+            if let data = data, let mallUrl = data["mallUrl"] as? String {
+                self.openUrl(url: mallUrl)
+            }
+            else {
+                ApiManager.shared.requestAppConfig { (response) in
+                    if let response = response as?[String:Any], let data = response["data"] as?[String:Any] {
+                        self.data = data
+                        if let mallUrl = data["mallUrl"] as? String {
+                            self.openUrl(url: mallUrl)
+                        }
+                    }
+                } failure: { (error) in
+                    self.showErrorAlertView(error)
+                }
+            }
         }
         else if indexPath.row == 1 {
             let vc = IotListViewController.init()

@@ -28,8 +28,6 @@ class LoginViewController: BaseViewController {
     @IBOutlet weak var btnApple: CButton!
     @IBOutlet weak var btnClose: UIButton!
     @IBOutlet weak var bottomScrollView: NSLayoutConstraint!
-    @IBOutlet weak var lbHitUserId: UILabel!
-    @IBOutlet weak var lbHitPassword: UILabel!
     
     var user: UserInfo? = nil
     var currentNonce: String? = nil
@@ -107,7 +105,9 @@ class LoginViewController: BaseViewController {
                 if let password = self.tfPassword.text {
                     SharedData.setObjectForKey(key: kUserPassword, value: password)
                 }
-                
+                if let nickname = data["nickname"] as? String {
+                    SharedData.setObjectForKey(key:kUserNickName, value: nickname)
+                }
                 if let join_type = data["join_type"] as? String,
                    let user_id = data["user_id"] as? String {
                     
@@ -117,7 +117,7 @@ class LoginViewController: BaseViewController {
                     SharedData.setObjectForKey(key: kUserId, value: realUserId)
                 }
                 
-                self.navigationController?.popViewController(animated: false)
+                AppDelegate.instance()?.callMainVc()
             }
             
         } failure: { (error) in
@@ -139,28 +139,24 @@ class LoginViewController: BaseViewController {
             self.navigationController?.popViewController(animated: false)
         }
         else if sender == btnLogin {
-            lbHitUserId.isHidden = true
-            lbHitPassword.isHidden = true
-            var isOk = true
-            if tfEmail.text?.count == 0 {
-                lbHitUserId.isHidden = false
-                isOk = false
-            }
-            if tfPassword.text?.count == 0 {
-                lbHitPassword.isHidden = false
-                isOk = false
-            }
-            if isOk == false {
+            
+            guard let email = tfEmail.text, email.isEmpty == false, email.validateEmail() == true else {
+                self.showToast("이메일 형식이 아닙니다.")
                 return
             }
-            
+
+            guard let pasword = tfPassword.text, pasword.isEmpty == false, pasword.validatePassword() == true else {
+                self.showToast("비밀번호(숫자,영문,특수문자 8자이상)를 입력해주세요.")
+                return
+            }
+
             var param:[String:Any] = [:]
-            param["id"] = tfEmail.text!
-            param["password"] = tfPassword.text!
+            param["id"] = email
+            param["password"] = pasword
             param["deviceUID"] = SharedData.objectForKey(key: kAPPLECATION_UUID)!
             param["login_type"] = SharedData.getLoginType() ?? "none"
-            param["p_token"] = SharedData.instance.pToken ?? "123....."
-            
+            param["p_token"] = Messaging.messaging().fcmToken
+            param["dtype"] = "ios"
             self.reqeustSignUp(param: param)
 
         }
@@ -199,17 +195,35 @@ class LoginViewController: BaseViewController {
             }
             else {
                 NaverController().login(viewcontorller: self) { (user: UserInfo?, error: Error?) in
-                    print("naver: \(String(describing: user?.accessToken!))")
+                    
                     guard let user = user, let _ = user.userId else {
                         return
                     }
+                    print("naver userId: \(user.userId ?? "")")
                     self.requestValiedSocialLogin(user: user)
                 }
             }
         }
         else if sender == btnFacebook {
-            FbController().login(viewcontorller: self) { (user: UserInfo?, error: Error?) in
-                print("facebook: \(String(describing: user?.accessToken))")
+            if let loginType = SharedData.getLoginType(), let id = SharedData.getUserId(), loginType == "facebook" {
+                var param:[String:Any] = [:]
+                param["id"] = id
+                param["password"] = id
+                param["deviceUID"] = SharedData.objectForKey(key: kAPPLECATION_UUID)!
+                param["login_type"] = SharedData.getLoginType() ?? "none"
+                param["p_token"] = SharedData.instance.pToken ?? "123....."
+                self.reqeustSignUp(param: param)
+            }
+            else {
+//                FbController().logout { (error) in
+//                }
+                FbController().login(viewcontorller: self) { (user: UserInfo?, error: Error?) in
+                    guard let user = user, let _ = user.userId else {
+                        return
+                    }
+                    print("facebook userId:  \(user.userId ?? "")")
+                    self.requestValiedSocialLogin(user: user)
+                }
             }
         }
         else if sender == btnApple {
@@ -375,6 +389,32 @@ extension LoginViewController: ASAuthorizationControllerDelegate {
 
     func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
         print(error)
+    }
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == tfEmail {
+            tfPassword.becomeFirstResponder()
+        }
+        else if textField == tfPassword {
+            self.view.endEditing(true)
+        }
+        return true
+    }
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorDefault
+            textField.setNeedsDisplay()
+        }
+        return true
+    }
+    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorBorder
+            textField.setNeedsDisplay()
+        }
+        return true
     }
 }
 extension LoginViewController: ASAuthorizationControllerPresentationContextProviding {

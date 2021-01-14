@@ -23,40 +23,16 @@ extension UITableView {
 
 //FIXME:: UIViewController
 extension UIViewController {
-    
     func showErrorAlertView(_ data: Any?) {
         if let data = data as? Dictionary<String, Any> {
-            
-            var title = "에러"
-            if let code = data["code"] as? Int {
-                title.append(":\(code)")
+            let title = "에러"
+            if let message = data["msg"] as? String {
+                AlertView.showWithOk(title: title, message: message, completion: nil)
             }
-            var msg:String = ""
-            if let errors = data["errors"] as? NSArray {
-                for error in errors {
-                    if let error = error as?[String:Any], let message = error["message"] {
-                        msg.append("\(message)\n")
-                    }
-                }
-                if msg.isEmpty == false {
-                    msg = String(msg.dropLast())
-                }
-            }
-            if msg.isEmpty == true {
-                if let message = data["msg"] as? String {
-                    msg = message
-                }
-            }
-            
-            if msg.isEmpty == true {
-                return
-            }
-            
-            AlertView.showWithOk(title: title, message: msg, completion: nil)
         }
         else if let error = data as? Error {
-            let msg = "\(error)"
-            AlertView.showWithOk(title: "시스템 에러", message: msg, completion: nil)
+            let msg = "시스템 에러:\(error.localizedDescription)"
+            AppDelegate.instance()?.window?.rootViewController?.view.makeToast(msg)
         }
     }
 }
@@ -112,9 +88,14 @@ extension UIView {
     }
     
     var snapshot: UIImage {
-       return UIGraphicsImageRenderer(size: bounds.size).image { _ in
-            drawHierarchy(in: bounds, afterScreenUpdates: true)
-        }
+        UIGraphicsBeginImageContext(self.frame.size)
+        self.layer.render(in:UIGraphicsGetCurrentContext()!)
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return UIImage(cgImage: image!.cgImage!)
+//       return UIGraphicsImageRenderer(size: bounds.size).image { _ in
+//            drawHierarchy(in: bounds, afterScreenUpdates: true)
+//        }
     }
 }
 
@@ -173,6 +154,14 @@ extension UIImage {
             _ in draw(in: CGRect(origin: .zero, size: canvas))
         }
     }
+    func scaled(to maxSize: CGFloat) -> UIImage? {
+        let aspectRatio: CGFloat = min(maxSize / size.width, maxSize / size.height)
+        let newSize = CGSize(width: size.width * aspectRatio, height: size.height * aspectRatio)
+        let renderer = UIGraphicsImageRenderer(size: newSize)
+        return renderer.image { context in
+            draw(in: CGRect(origin: CGPoint(x: 0, y: 0), size: newSize))
+        }
+    }
     func resized(toWidth width: CGFloat, isOpaque: Bool = true) -> UIImage? {
         let canvas = CGSize(width: width, height: CGFloat(ceil(width/size.width * size.height)))
         let format = imageRendererFormat
@@ -181,6 +170,34 @@ extension UIImage {
             _ in draw(in: CGRect(origin: .zero, size: canvas))
         }
     }
+    func resize(_ max_size: CGFloat) -> UIImage {
+            // adjust for device pixel density
+            let max_size_pixels = max_size / UIScreen.main.scale
+            // work out aspect ratio
+            let aspectRatio =  size.width/size.height
+            // variables for storing calculated data
+            var width: CGFloat
+            var height: CGFloat
+            var newImage: UIImage
+            if aspectRatio > 1 {
+                // landscape
+                width = max_size_pixels
+                height = max_size_pixels / aspectRatio
+            } else {
+                // portrait
+                height = max_size_pixels
+                width = max_size_pixels * aspectRatio
+            }
+            // create an image renderer of the correct size
+            let renderer = UIGraphicsImageRenderer(size: CGSize(width: width, height: height), format: UIGraphicsImageRendererFormat.default())
+            // render the image
+            newImage = renderer.image {
+                (context) in
+                self.draw(in: CGRect(x: 0, y: 0, width: width, height: height))
+            }
+            // return the image
+            return newImage
+        }
 }
 //FIXME:: Error
 public extension Error {
@@ -227,11 +244,27 @@ extension String {
     
     // Password validation
     public func validatePassword() -> Bool {
-        let passwordRegEx = "(?=.*[a-zA-Z])(?=.*[!@#$%^_*-])(?=.*[0-9]).{8,40}"
+//        let passwordRegEx = "(?=.*[a-zA-Z])(?=.*[!@#$%^_*-])(?=.*[0-9]).{8,40}"
             //"^(?=.*[A-Z])(?=.*[0-9])(?=.*[a-z]).{8,16}$"
-        
+        let passwordRegEx = "(?=.*[a-zA-Z0-9~!@#$%^&*()_+|<>?:{}]).{8,40}"
         let predicate = NSPredicate(format:"SELF MATCHES %@", passwordRegEx)
         return predicate.evaluate(with: self)
+    }
+    public func checkKorean() ->Bool {
+        let reg = "^[ㄱ-ㅎㅏ-ㅣ가-힣]"
+        return NSPredicate(format: "SELF MATCHES %@", reg).evaluate(with: self)
+    }
+    public func checkEnglish() ->Bool {
+        let reg = "^[a-zA-Z]"
+        return NSPredicate(format: "SELF MATCHES %@", reg).evaluate(with: self)
+    }
+    public func checkNum() ->Bool {
+        let reg = "^[0-9]"
+        return NSPredicate(format: "SELF MATCHES %@", reg).evaluate(with: self)
+    }
+    public func checkSpecialPw() ->Bool {
+        let reg = "^[~!@#$%^&*()_+ |.<>?:{}]"
+        return NSPredicate(format: "SELF MATCHES %@", reg).evaluate(with: self)
     }
     
     // String split return array
@@ -271,5 +304,34 @@ extension Data {
     var hexString: String {
         let hexString = map { String(format: "%02.2hhx", $0) }.joined()
         return hexString
+    }
+}
+extension Bundle {
+    /// 앱 이름
+    class var appName: String {
+        if let value = Bundle.main.infoDictionary?["CFBundleDisplayName"] as? String {
+            return value
+        }
+        return ""
+    }
+    /// 앱 버전 class
+    var appVersion: String {
+        if let value = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String { return value
+        }
+        return ""
+    }
+    ////// 앱 빌드 버전
+    class var appBuildVersion: String {
+        if let value = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
+            return value
+        }
+        return ""
+    }
+    /// 앱 번들 ID
+    class var bundleIdentifier: String {
+        if let value = Bundle.main.infoDictionary?["CFBundleIdentifier"] as? String {
+            return value
+        }
+        return ""
     }
 }

@@ -46,6 +46,8 @@ class PopupListViewController: UIViewController {
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        self.modalTransitionStyle = .crossDissolve
+        self.modalPresentationStyle = .overFullScreen
     }
     
     convenience init(type:PopupListType, title: String?, data:Array<Any>, keys:Array<String>?, completion:PopupListClosure?) {
@@ -62,7 +64,7 @@ class PopupListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        overrideUserInterfaceStyle = .light
         if let originData = originData {
             self.data.append(contentsOf: originData)
         }

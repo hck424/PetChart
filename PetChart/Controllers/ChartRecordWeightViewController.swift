@@ -83,14 +83,17 @@ class ChartRecordWeightViewController: BaseViewController {
             }
             
             //체중 기록
-            let param:[String:Any] = ["date_key":date, "weight":amount, "pet_id":petId ]
+            let weight = Float(amount)! * 1000.0
+            let param:[String:Any] = ["date_key":date, "weight":weight, "pet_id":petId ]
             ApiManager.shared.requestWriteChart(type: .weight, param: param) { (response) in
                 if let response = response as? [String:Any],
                    let msg = response["msg"] as? String,
                    let success = response["success"] as? Bool, success == true {
-                    AlertView.showWithCancelAndOk(title: "체중 기록", message: msg) { (index) in
-                        self.navigationController?.popViewController(animated: true)
-                    }
+                    self.showToast(msg)
+                    self.navigationController?.popViewController(animated: true)
+//                    AlertView.showWithCancelAndOk(title: "체중 기록", message: msg) { (index) in
+//                        self.navigationController?.popViewController(animated: true)
+//                    }
                 }
                 else {
                     self.showErrorAlertView(response)

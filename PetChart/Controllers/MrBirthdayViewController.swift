@@ -11,6 +11,7 @@ import UIKit
     var user: UserInfo?
     
     @IBOutlet weak var btnCanlendar: UIButton!
+    @IBOutlet weak var seperatorBirthday: UIView!
     
     @IBOutlet weak var btnOk: UIButton!
     @IBOutlet weak var btnSafety: UIButton!
@@ -20,6 +21,7 @@ import UIKit
     var selDate: Date? = nil
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
         CNavigationBar.drawTitle(self, "회원가입", nil)
         
@@ -41,7 +43,7 @@ import UIKit
             let minDate = todaysDate.getStartDate(withYear: -70)
             let maxDate = todaysDate
             let apoint = todaysDate.getStartDate(withYear: -30)
-            
+            seperatorBirthday.backgroundColor = ColorDefault
             let picker = CDatePickerView.init(type: .yearMonthDay, minDate: minDate, maxDate: maxDate, apointDate: apoint) { (strDate, date) in
                 if let date = date {
                     self.selDate = date
@@ -54,12 +56,12 @@ import UIKit
             return
         }
         else if sender == btnOk {
-            if tfBirthDay.text?.length  == 0 {
-                self.view.makeToast("생년월일을 입력해주세요.")
+            guard let birthday = tfBirthDay.text, birthday.isEmpty == false else {
+                self.showToast("생년월일을 입력해주세요.")
                 return
             }
-            self.user?.birthday = tfBirthDay.text
             
+            self.user?.birthday = birthday
             let vc = MrUserInfoViewController.init(nibName: "MrUserInfoViewController", bundle: nil)
             vc.user = self.user
             self.navigationController?.pushViewController(vc, animated: false)

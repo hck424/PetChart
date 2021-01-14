@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
-	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<string>en_US</string>
 	<key>CFBundleDisplayName</key>
 	<string>PETCHART</string>
 	<key>CFBundleExecutable</key>
@@ -52,10 +52,16 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>CaptureKeyboardInput</key>
+	<true/>
 	<key>FacebookAppID</key>
 	<string>864189104327540</string>
 	<key>FacebookDisplayName</key>
 	<string>PETCHART</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>FirebaseScreenReportingEnabled</key>
+	<true/>
 	<key>KAKAO_APP_KEY</key>
 	<string>495036</string>
 	<key>LSApplicationQueriesSchemes</key>

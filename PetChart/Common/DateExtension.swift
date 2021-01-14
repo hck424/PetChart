@@ -9,6 +9,14 @@ import Foundation
 import AVKit
 
 extension Date {
+    func startOfMonth() -> Date {
+       return Calendar.current.date(from: Calendar.current.dateComponents([.year, .month], from: Calendar.current.startOfDay(for: self)))!
+    }
+
+    func endOfMonth() -> Date {
+       return Calendar.current.date(byAdding: DateComponents(month: 1, day: -1), to: self.startOfMonth())!
+    }
+    
     func getStartDate(withYear year: Int) -> Date? {
         var calendar = Calendar(identifier: .gregorian)
         let local = Locale(identifier: "en_US_POSIX")
@@ -38,11 +46,11 @@ extension Date {
         let day: Int = Int(df.string(for: self)!) ?? 0
         return day
     }
-    func jumpingDay(jumping:Int)-> Date? {
+    func jumpingDay(jumping:Int)-> Date {
         var dayComponent = DateComponents()
         dayComponent.day = jumping
         let calendar = Calendar.init(identifier: .gregorian)
-        return calendar.date(byAdding: dayComponent, to: self)
+        return calendar.date(byAdding: dayComponent, to: self) ?? Date()
     }
     func stringDateWithFormat(_ formater: String) -> String {
         let df = CDateFormatter.init()

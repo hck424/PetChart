@@ -75,85 +75,97 @@ class HomeGraphCell: UIView {
             return
         }
         
-        let maxValue:Int = (data["maxValue"] as? Int) ?? 1
-        let today:Int = (data["today"] as? Int) ?? 0
-        let yesterday:Int  = (data["yesterday"] as? Int) ?? 0
+        
+        var maxValue:Float = 1.0
+        var today:Float = 0.0
+        var yesterday:Float = 0.0
+        
+        if let value = data["maxValue"] as? NSNumber {
+            maxValue = value.floatValue
+        }
+        if let value = data["today"] as? NSNumber {
+            today = value.floatValue
+        }
+        if let value = data["yesterday"] as? NSNumber {
+            yesterday = value.floatValue
+        }
+        print("graph type:\(type.koreanValue() ?? "")")
+        print("maxValue:\(maxValue)")
+        print("today:\(today)")
+        print("yesterday:\(yesterday)\n\n\n")
         
         sliderToday.maximumValue = Float(maxValue)
         sliderYesterday.maximumValue = Float(maxValue)
-        
         sliderToday.setValue(Float(today), animated: true)
         sliderYesterday.setValue(Float(yesterday), animated: true)
         
-//        yesterday:100 = today:%
-//        % = (today*100)/yesterday
-        let todayPercent:Float = Float(today * 100)/Float(yesterday)
-        var attr:NSMutableAttributedString?
-        let result:NSMutableString = NSMutableString.init()
+        let result = NSMutableString.init()
+        
         if type == .drink {
             result.setString("오늘 \(type.koreanValue()!)량이 어제")
-            lbTodayValue.text = "\(today)ml"
-            lbYesterdayValue.text = "\(yesterday)ml"
+            
+            lbTodayValue.text = "\(Utility.numberToString(num: today))ml"
+            lbYesterdayValue.text = "\(Utility.numberToString(num: yesterday))ml"
         }
-        else if type == .eat || type == .weight || type == .feces {
-            var gramp = "g"
-            if type == .weight {
-                gramp = "kg"
-            }
+        else if type == .eat {
+            let gramp = "g"
             result.setString("오늘 \(type.koreanValue()!)량이 어제")
-            lbTodayValue.text = "\(today)\(gramp)"
-            lbYesterdayValue.text = "\(yesterday)\(gramp)"
+            lbTodayValue.text = "\(Utility.numberToString(num: today))\(gramp)"
+            lbYesterdayValue.text = "\(Utility.numberToString(num: yesterday))\(gramp)"
+        }
+        else if type == .weight {
+            let gramp = "kg"
+            result.setString("오늘 \(type.koreanValue()!)량이 어제")
+            lbTodayValue.text = "\(Utility.numberToString(num: today))\(gramp)"
+            lbYesterdayValue.text = "\((Utility.numberToString(num: yesterday)))\(gramp)"
+        }
+        else if type == .feces {
+            let gramp = "회"
+            
+            result.setString("오늘 \(type.koreanValue()!) 횟수가 어제")
+            lbTodayValue.text = "\((Utility.numberToString(num: today)))\(gramp)"
+            lbYesterdayValue.text = "\((Utility.numberToString(num: yesterday)))\(gramp)"
         }
         else if type == .walk {
+            let gramp = "분"
             result.setString("오늘 \(type.koreanValue()!)시간이 어제")
-            lbTodayValue.text = "\(today)"
-            lbYesterdayValue.text = "\(yesterday)"
+            lbTodayValue.text = "\((Utility.numberToString(num: today)))\(gramp)"
+            lbYesterdayValue.text = "\((Utility.numberToString(num: yesterday)))\(gramp)"
         }
         else if type == .medical {
             result.setString("오늘 \(type.koreanValue()!)가 어제")
-            lbTodayValue.text = "\(today)"
-            lbYesterdayValue.text = "\(yesterday)"
+            lbTodayValue.text = "\((Utility.numberToString(num: today)))"
+            lbYesterdayValue.text = "\((Utility.numberToString(num: yesterday)))"
         }
         
-//        어제 : 100% = 오늘 : %
-//        % = (오늘*100)/어제
-//        if % > 100 {
-//            let value = Int(% - 100)
-//            // value 만큼 늘었어요
-//        }
-//        else if % < 100 {
-//            let value = 100 - %
-//            // value 만큼 즐었어요
-//        }
-//        else {
-//            같아요
-//        }
-        if todayPercent > 100 {
-            let value = Int(todayPercent - 100)
-            let valueStr = "\(value)%"
-            result.append("보다 \(valueStr) 늘었어요.")
+        if yesterday > 0 {
+            var valueStr = ""
+            let percent:Float = ((today - yesterday)/yesterday) * 100
+            if percent > 0 {
+                valueStr = "\(Utility.numberToString(num: percent))%"
+                result.append("보다 \(valueStr) 늘었어요.")
+            }
+            else if percent < 0 {
+                valueStr = "\((Utility.numberToString(num: abs(percent))))%"
+                result.append("보다 \(valueStr) 줄었어요.")
+            }
+            else {
+                result.append("와 같습니다.")
+            }
             
-            attr = NSMutableAttributedString.init(string: result as String)
-            attr?.addAttribute(.foregroundColor, value: ColorDefault , range:result.range(of: valueStr))
-            attr?.addAttribute(.font, value: UIFont.systemFont(ofSize: 16, weight: .bold) , range:result.range(of: valueStr))
-            
-        }
-        else if todayPercent < 100 {
-            let value = Int(100 - todayPercent)
-            let valueStr = "\(value)%"
-            result.append("보다 \(valueStr) 줄었어요.")
-            
-            attr = NSMutableAttributedString.init(string: result as String)
-            attr?.addAttribute(.foregroundColor, value: ColorDefault , range:result.range(of: valueStr))
-            attr?.addAttribute(.font, value: UIFont.systemFont(ofSize: 16, weight: .bold) , range:result.range(of: valueStr))
+            let attr = NSMutableAttributedString.init(string: result as String)
+            if valueStr.isEmpty == false {
+                attr.addAttribute(.foregroundColor, value: ColorDefault , range:result.range(of: valueStr))
+                attr.addAttribute(.font, value: UIFont.systemFont(ofSize: 16, weight: .bold) , range:result.range(of: valueStr))
+            }
+        
+            lbSubTitle.attributedText = attr
         }
         else {
-            result.append("와 같습니다.")
-            attr = NSMutableAttributedString.init(string: result as String)
+            result.setString("전일 데이터가 존재하지 않습니다.")
+            let attr = NSMutableAttributedString.init(string: result as String)
+            lbSubTitle.attributedText = attr
         }
-     
-        lbSubTitle.attributedText = attr!
-        
         
     }
     @IBAction func onClickedButtonActions(_ sender: Any) {

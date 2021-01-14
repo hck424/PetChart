@@ -42,7 +42,7 @@ class TalkDetailCell: UITableViewCell {
     
     func configurationData(_ data: Dictionary<String, Any>?) {
         self.data = data
-//        ["post_id": 0, "content": 테스, "update_date": 2020.10.31 01:33:16, "id": 7, "create_date": 2020.10.31 01:33:16, "user_id": 2, "nickname": 테스트식1]
+        //        ["post_id": 0, "content": 테스, "update_date": 2020.10.31 01:33:16, "id": 7, "create_date": 2020.10.31 01:33:16, "user_id": 2, "nickname": 테스트식1]
         
         lbNickName.text = ""
         lbTime.text = ""
@@ -70,26 +70,45 @@ class TalkDetailCell: UITableViewCell {
         if let icon_url = data["icon_url"] as? String {
             ivProfile.setImageCache(url: icon_url, placeholderImgName: nil)
         }
+        guard let create_date = data["create_date"] as? String else {
+            lbTime.text = ""
+            return
+        }
         
+        let df = CDateFormatter.init()
+        df.dateFormat = "yyyy.MM.dd HH:mm:ss"
+        guard let date = df.date(from: create_date) else {
+            return
+        }
+        let curDate = Date()
         
+        df.dateFormat = "yyyy.MM.dd"
+        let strDate = df.string(from: date)
+        let curDateStr = df.string(from: curDate)
+        guard let date2 =  df.date(from: strDate) else {
+            return
+        }
+        guard let curDate2 = df.date(from: curDateStr) else {
+            return
+        }
         
-        if let update_date = data["create_date"] as? String {
-            let df = CDateFormatter.init()
-            df.dateFormat = "yyyy.MM.dd HH:mm:ss"
-           
-            if let date = df.date(from: update_date) {
-                df.locale = NSLocale(localeIdentifier: "ko_KR") as Locale
-                let calendar = Calendar.init(identifier: .gregorian)
-                
-                if calendar.isDateInToday(date) {
-                    df.dateFormat = "a hh:mm"
-                }
-                else {
-                    df.dateFormat = "yy.MM.dd hh:mm"
-                }
-                
-                let str = df.string(from: date)
-                lbTime.text = str
+        let componet2 = curDate2 - date2
+        if let day = componet2.day, day > 0 {
+            lbTime.text = "\(day)일전"
+            if day > 3 {
+                lbTime.text = create_date
+            }
+        }
+        else {
+            let componet = curDate-date
+            if let hour = componet.hour, hour > 0 {
+                lbTime.text = "\(hour)시간전"
+            }
+            else if let minutue = componet.minute, minutue > 0 {
+                lbTime.text = "\(minutue)분전"
+            }
+            else if let second = componet.second, second >= 0 {
+                lbTime.text = "방금"
             }
         }
     }

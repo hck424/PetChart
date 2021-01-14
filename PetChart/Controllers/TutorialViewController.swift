@@ -29,6 +29,7 @@ class TutorialViewController: UIViewController {
         scrollView.delegate = self
         pageControl.numberOfPages = 5
         pageControl.currentPage = curPage
+        overrideUserInterfaceStyle = .light
     }
 
     @IBAction func pageControllerValueChange(_ sender: UIPageControl) {
@@ -43,7 +44,7 @@ class TutorialViewController: UIViewController {
          
             UserDefaults.standard .setValue("Y", forKey: IsShowTutorial)
             UserDefaults.standard.synchronize()
-            AppDelegate.instance()?.callMainVc()
+            AppDelegate.instance()?.callLoginVc()
         }
     }
 }

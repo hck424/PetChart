@@ -8,11 +8,13 @@
 import Foundation
 import UIKit
 
-let SERVER_PREFIX = "https://jayutest.best:5001"
+var SERVER_PREFIX = "https://jayutest.best:5001"
 let IOT_SERVER_PREFIX = "http://192.168.4.1:5001"
 
 typealias LoginClosure = (UserInfo?, Error?) -> Void
 let ColorDefault = RGB(233, 95, 94)
+let ColorBorder = RGB(221, 221, 221)
+
 public func RGB(_ r: CGFloat, _ g: CGFloat, _ b: CGFloat) -> UIColor {
     UIColor(red: r / 255.0, green: g / 255.0, blue: b / 255.0, alpha: 1.0)
 }
@@ -25,6 +27,7 @@ let NotiNameHitTestView = "HitTestView"
 let IsShowTutorial = "IsShowTutorial"
 let KAKAO_NATIVE_APP_KEY = "4945988ae0215607dd3e5c1add4b3dd3"
 let KAKAO_REST_API_KEY = "4bcddca6187aca7ae52e4a306b1cab88" //주소 써치
+
 let NAVER_URL_SCHEME = "com.app.petchart"
 let NAVER_CONSUMER_KEY = "pnwBsZc4aq8weaOwidr8"
 let NAVER_CONSUMER_TESTER_KEY = "wns7874"
@@ -47,21 +50,21 @@ let kTotalChartWeight = "TotalChartWeight"
 let kTotalChartFeces = "TotalChartFeces"
 let kTotalChartWalk = "TotalChartWalk"
 let kTotalChartMedical = "TotalChartMedical"
-
-let kPushSetting = "PushSetting"
-
 let kAPPLECATION_UUID = "APPLECATION_UUID"
 let kUserId = "UserId"
 let kPToken = "PToken"
 let kLoginType = "LoginType"
 let kUserIdx = "UserIdx"
 let kUserPassword = "UserPassword"
+let kUserNickName = "UserNickName"
 let TAG_LOADING_IMG = 99999
 let kMainShowPetId = "MainShowPetId"
 let kMainShowPetName = "MainShowPetName"
-
+let imageScale:CGFloat = 600
 let kMyHomeWifiPassword = "MyHomeWifiPassword"
 let kPushUserData = "PushUserData"
+let kIsConnectedDevice = "IsConnectedDevice"
+let kHasAnimal = "HasAnimal"
 enum Gender : String {
     case mail = "M"
     case femail = "F"
@@ -257,7 +260,7 @@ struct WifiInfo {
 
 let IOT_API_KEY = "QRpvmh2AgDeg0us4csAI9Kpb0Bn4CoPQ"
 let kIOT_SESSION_KEY = "IOT_SESSION_KEY"
-
+let kNotiNameIotState = "NotiNameIotState"
 struct MyError: Error {
     let message: String
 

@@ -78,6 +78,8 @@ class QuestionViewController: BaseViewController {
             ApiManager.shared.requestWriteContactChart(param: param) { (response) in
                 if let response = response as?[String:Any], let success = response["success"] as?Bool, success == true {
                     self.requestContactChartList()
+                    self.textView.text = nil
+                    self.textView.placeholderLabel?.isHidden = false
                 }
             } failure: { (error) in
                 self.showErrorAlertView(error)

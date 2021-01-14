@@ -97,7 +97,9 @@ import Foundation
 //        }
 //    }
     func configurePlaceholderLabel() {
-        
+        if let placeholderLabel = placeholderLabel {
+            placeholderLabel.removeFromSuperview()
+        }
         placeholderLabel = UILabel()
         placeholderLabel?.font = font
         placeholderLabel?.textColor? = placeHolderColor

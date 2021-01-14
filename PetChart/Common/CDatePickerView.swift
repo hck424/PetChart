@@ -334,7 +334,7 @@ extension CDatePickerView: UIPickerViewDelegate, UIPickerViewDataSource {
         else if type == .time {
             if let selDate = selDate {
                 let df = CDateFormatter()
-                df.dateFormat = "hh:mm a"
+                df.dateFormat = "HH:mm"
                 let strDate = df.string(from: selDate)
                 completion?(strDate, selDate)
             }

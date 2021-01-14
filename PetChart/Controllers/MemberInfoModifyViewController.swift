@@ -9,15 +9,16 @@ import UIKit
 import SwiftyJSON
 import PhoneNumberKit
 
-class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
+class MemberInfoModifyViewController: BaseViewController {
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var tfName: CTextField!
     @IBOutlet weak var tfNicName: CTextField!
     @IBOutlet weak var tfEmail: CTextField!
-    @IBOutlet weak var btnPhoneNumberChange: CButton!
     @IBOutlet weak var tfPhoneNumber: CTextField!
     @IBOutlet var arrBtnPrivacy: [SelectedButton]!
-    @IBOutlet weak var tvAddress: CTextView!
+    @IBOutlet weak var tfAddress: UITextField!
     @IBOutlet weak var btnAddressSearch: CButton!
+    @IBOutlet weak var btnAddress: UIButton!
     @IBOutlet weak var tfAddressDetail: CTextField!
     @IBOutlet weak var btnSafety: UIButton!
     @IBOutlet weak var btnOk: UIButton!
@@ -25,9 +26,12 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
     @IBOutlet var accessoryView: UIToolbar!
     @IBOutlet weak var btnKeyboardDown: UIBarButtonItem!
     let phoneNumberKit = PhoneNumberKit()
-    
+    @IBOutlet weak var seperatorNickName: UIView!
+    @IBOutlet weak var btnNickName: CButton!
     var user: UserInfo? = nil
     var privacy_term = 0
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
@@ -36,13 +40,17 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
         if Utility.isIphoneX() == false {
             btnSafety.isHidden = true
         }
-        tvAddress.delegate = self
+        
         tfName.inputAccessoryView = accessoryView
         tfNicName.inputAccessoryView = accessoryView
         tfEmail.inputAccessoryView = accessoryView
         tfEmail.inputAccessoryView = accessoryView
         tfPhoneNumber.inputAccessoryView = accessoryView
         tfAddressDetail.inputAccessoryView = accessoryView
+        btnNickName.setBackgroundImage(UIImage.image(from: RGB(229, 229, 229)), for: .normal)
+        btnNickName.setBackgroundImage(UIImage.image(from: ColorDefault), for: .selected)
+        btnNickName.setTitleColor(RGB(166, 166, 166), for: .normal)
+        btnNickName.setTitleColor(UIColor.white, for: .selected)
         
         self.requestMyInfo()
     }
@@ -51,13 +59,6 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
-        if tvAddress.text.isEmpty == false {
-            tvAddress.placeholderLabel?.isHidden = true
-        }
-        else {
-            tvAddress.placeholderLabel?.isHidden = false
-        }
-        tvAddress.delegate = self
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
@@ -92,16 +93,17 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
         tfNicName.text = user?.nickname
         tfEmail.text = user?.email
         tfPhoneNumber.text = user?.phone
-        tvAddress.text = user?.addressLine1
-        self.textViewDidChange(tvAddress)
+        
+        if let addressLine1 = user?.addressLine1, addressLine1.isEmpty == false {
+            tfAddress.text = addressLine1
+        }
         tfAddressDetail.text = user?.addressLine2
-        
-        
+        btnNickName.isSelected = true
         guard let privacy_term = user?.privacy_term else {
             return
         }
         for btn in arrBtnPrivacy {
-            if privacy_term == 0 {
+            if privacy_term == -1 {
                 arrBtnPrivacy.last?.isSelected = true
                 break
             }
@@ -133,13 +135,27 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
             self.tfPhoneNumber.text = text
         }
     }
-    @IBAction func onClickedButtonActions(_ sender: Any) {
+    @IBAction func onClickedKeybaordDown(_ sender: Any) {
         self.view.endEditing(true)
-        
-        if sender as? NSObject == btnPhoneNumberChange {
-            print("ph number change")
+    }
+    @IBAction func textFieldEdtingChanged(_ textField: UITextField) {
+        if textField == tfNicName {
+            guard let text = textField.text, text.isEmpty == false else {
+                return
+            }
+            if text == user?.nickname! {
+                btnNickName.isSelected = true
+            }
+            else {
+                btnNickName.isSelected = false
+            }
         }
-        else if sender as? NSObject == btnAddressSearch {
+    }
+    
+    @IBAction func onClickedButtonActions(_ sender: UIButton) {
+        
+        if sender == btnAddressSearch || sender == btnAddress {
+            self.view.endEditing(true)
             let vc = WkWebViewController.init()
             vc.vcTitle = "주소 검색"
             vc.strUrl = "https://crm.zayuroun.com/address.html"
@@ -149,45 +165,100 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
                 if let selData = selData {
                     print(String(describing: selData))
                     
-//                    ["roadAddress": 경기 하남시 아리수로 565, "bname1": , "postcode2": , "roadAddressEnglish": 565, Arisu-ro, Hanam-si, Gyeonggi-do, Korea, "jibunAddressEnglish": 949, Mangwol-dong, Hanam-si, Gyeonggi-do, Korea, "roadname": 아리수로, "userSelectedType": R, "autoRoadAddress": , "addressType": R, "query": 아리수로 565, "address": 경기 하남시 아리수로 565, "bname2": 망월동, "autoJibunAddressEnglish": , "buildingName": 미사강변도시13단지, "sido": 경기, "jibunAddress": 경기 하남시 망월동 949, "autoRoadAddressEnglish": , "bcode": 4145010900, "sigunguCode": 41450, "noSelected": N, "hname": , "postcode1": , "addressEnglish": 565, Arisu-ro, Hanam-si, Gyeonggi-do, Korea, "postcodeSeq": , "sigungu": 하남시, "autoJibunAddress": , "apartment": Y, "zonecode": 12910, "buildingCode": 4145010900101800003000001, "postcode": , "roadnameCode": 3000035, "bname": 망월동, "userLanguageType": K]
                     let data = JSON(selData)
                     if data["userSelectedType"] == "R" {
-                        if data["userLanguageType"] == "K" {
-                            self.tvAddress.text = data["roadAddress"].stringValue
-                        }
-                        else {
-                            self.tvAddress.text = data["roadAddressEnglish"].stringValue
-                        }
+                        self.tfAddress.text = data["roadAddress"].stringValue
                     }
                     else {
-                        if data["userLanguageType"] == "K" {
-                            self.tvAddress.text = data["jibunAddress"].stringValue
-                        }
-                        else {
-                            self.tvAddress.text = data["jibunAddressEnglish"].stringValue
-                        }
+                        self.tfAddress.text = data["jibunAddress"].stringValue
                     }
-                    self.textViewDidChange(self.tvAddress)
                 }
             })
                 
         }
-        else if let sender = (sender as? NSObject) as? SelectedButton {
+        else if let sender = sender  as? SelectedButton {
             print("privarsy")
             for btn in arrBtnPrivacy {
                 btn.isSelected = false
             }
             sender.isSelected = true
-            privacy_term = sender.tag * 365
+            if sender.tag == 0 {
+                privacy_term = -1
+            }
+            else {
+                privacy_term = sender.tag * 365
+            }
         }
-        else if sender as? NSObject == btnOk {
+        else if sender == btnNickName {
+            guard let nickName = tfNicName.text, nickName.isEmpty == false else {
+                self.scrollView.makeToast("닉네임을 입력해주세요.")
+                return
+            }
+            if nickName.length < 2 {
+                self.scrollView.makeToast("닉네임 2자리이상 입력해주세요.")
+                return
+            }
             
-            user?.name = tfName.text
-            user?.nickname = tfNicName.text
-            user?.email = tfEmail.text
-            user?.phone = tfPhoneNumber.text
-            user?.addressLine1 = tvAddress.text
-            user?.addressLine2 = tfAddressDetail.text
+            ApiManager.shared.requestFindUserNicNameCheck(nickName: nickName, success: { (response) in
+                if let response = response as? [String : Any],
+                   let code = response["code"] as? Int,
+                   let msg = response["msg"] as? String {
+                    if code == 0 {
+                        self.btnNickName.isSelected = true
+                        self.scrollView.makeToast(msg)
+                        return
+                    }
+                    else if code == 1 {
+                        self.btnNickName.isSelected = false
+                        self.scrollView.makeToast(msg)
+                        return
+                    }
+                }
+            }, failure: { (error) in
+                self.showErrorAlertView(error)
+            })
+        }
+        else if sender == btnOk {
+            self.view.endEditing(true)
+            guard let name = tfName.text, name.isEmpty == false else {
+                self.showToast("이름을 입력해주세요.")
+                return
+            }
+            guard let nickName = tfNicName.text, nickName.isEmpty == false else {
+                self.scrollView.makeToast("닉네임을 입력해주세요.")
+                return
+            }
+            if nickName.length < 2 {
+                self.scrollView.makeToast("닉네임 2자리이상 입력해주세요.")
+                return
+            }
+            else if btnNickName.isSelected == false {
+                self.scrollView.makeToast("닉네임을 체크해주세요")
+                return
+            }
+            guard let phone = tfPhoneNumber.text, phone.isEmpty == false else {
+                self.showToast("휴대폰 번호를 입력해주세요.")
+                return
+            }
+            guard let address = tfAddress.text, address.isEmpty == false else {
+                self.showToast("주소를 입력해주세요.")
+                return
+            }
+            guard let address2 = tfAddressDetail.text, address2.isEmpty == false else {
+                self.showToast("상세주소를 입력해주세요.")
+                return
+            }
+            
+            if let email = tfEmail.text, email.isEmpty == false {
+                user?.email = email
+            }
+            
+            user?.name = name
+            user?.nickname = nickName
+            user?.phone = phone
+            user?.addressLine1 = address
+            user?.addressLine2 = address2
+            
             
             var isTermSelected = false
             for btn in arrBtnPrivacy {
@@ -196,22 +267,9 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
                     break
                 }
             }
-            
-            if user?.name == nil {
-                self.view.makeToast("이름은 필수 항목입니다.")
-                return
-            }
-            if user?.nickname == nil {
-                self.view.makeToast("닉네임 필수 항목입니다.")
-                return
-            }
-            if user?.email == nil {
-                self.view.makeToast("이메일은 필수 항목입니다.")
-                return
-            }
 
             if isTermSelected == false {
-                self.view.makeToast("개인정보 유효기간을 설정해주세요.")
+                self.showToast("개인정보 유효기간을 설정해주세요.")
                 return
             }
             
@@ -221,11 +279,12 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
             }
             param["privacy_term"] = privacy_term
             
-            AlertView.showWithCancelAndOk(title: "회원정보 변경", message: "회원정보 변경이 하시겠습니까?.") { (index) in
-                if (index == 1) {
+//            AlertView.showWithCancelAndOk(title: "회원정보 변경", message: "회원정보 변경이 하시겠습니까?.") { (index) in
+//                if (index == 1) {
                     ApiManager.shared.requestModifyUserInfo(param: param) { (response) in
-                        if let response = response as? [String:Any], (response["success"] as! Bool) == true {
-                            self.view.makeToast("회원정보 변경이 완료되었습니다.")
+                        if let response = response as? [String:Any], let success = response["success"] as? Bool, success == true {
+                            SharedData.setObjectForKey(key: kUserNickName, value: nickName)
+                            self.showToast("회원정보가 변경되었습니다.")
                             self.navigationController?.popViewController(animated: true)
                         }
                         else {
@@ -234,8 +293,8 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
                     } failure: { (error) in
                         self.showErrorAlertView(error)
                     }
-                }
-            }
+//                }
+//            }
         }
     }
     
@@ -267,8 +326,8 @@ class MemberInfoModifyViewController: BaseViewController, UITextViewDelegate {
 }
 
 extension MemberInfoModifyViewController: UITextFieldDelegate {
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        
         if textField == tfName {
             tfNicName.becomeFirstResponder()
         }
@@ -278,15 +337,30 @@ extension MemberInfoModifyViewController: UITextFieldDelegate {
         else if textField == tfEmail {
             tfPhoneNumber.becomeFirstResponder()
         }
-        else if textField == tfPhoneNumber {
-            tvAddress.becomeFirstResponder()
-        }
-        else if textField == tvAddress {
-            tfAddressDetail.becomeFirstResponder()
-        }
         else {
             self.view.endEditing(true)
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == tfNicName {
+            seperatorNickName.backgroundColor = ColorDefault
+        }
+        else {
+            if let textField = textField as? CTextField {
+                textField.borderColor = ColorDefault
+            }
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == tfNicName {
+            seperatorNickName.backgroundColor = ColorBorder
+        }
+        else {
+            if let textField = textField as? CTextField {
+                textField.borderColor = ColorBorder
+            }
+        }
     }
 }

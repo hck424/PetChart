@@ -5,15 +5,14 @@
 //  Created by 김학철 on 2020/10/05.
 //
 
-///IOT중지 : connect -> servicestop -> reset -> disconnect
+///IOT중지 : connect -> servicestop -> reset -> disconnected
 
 import UIKit
 import CoreLocation
 
 class IotManagementViewController: BaseViewController {
-    @IBOutlet weak var lbPetNameTitle: UILabel!
     @IBOutlet weak var lbIotName: UILabel!
-    @IBOutlet weak var lbIotModel: UILabel!
+    @IBOutlet weak var lbModelName: UILabel!
     @IBOutlet weak var btnModify: UIButton!
     @IBOutlet weak var btnDisConnet: CButton!
     @IBOutlet weak var btnIotRemove: UIButton!
@@ -24,11 +23,12 @@ class IotManagementViewController: BaseViewController {
     var device:[String:Any]?
     var wifiList:Array<WifiInfo> = Array<WifiInfo>()
     var sessionKey:String?
+    var isChangeWifi = false
     override func viewDidLoad() {
         super.viewDidLoad()
 
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
-        CNavigationBar.drawTitle(self, "기기 설정", nil)
+        CNavigationBar.drawTitle(self, "기기설정", nil)
         if Utility.isIphoneX() == false {
             btnSafety.isHidden = true
         }
@@ -57,22 +57,24 @@ class IotManagementViewController: BaseViewController {
         }
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_ :)), name: Notification.Name(kNotiNameIotState), object: nil)
+    }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(kNotiNameIotState), object: nil)
         
-        guard var wifi = self.wifiList.first, let _ = wifi.ssid, let password = SharedData.objectForKey(key: kMyHomeWifiPassword) as? String else {
-            return
-        }
-        self.getAllWifiList { (list) in
-            guard let list = list else {
+        if isChangeWifi == false {
+            guard var wifi = self.wifiList.first, let _ = wifi.ssid, let password = SharedData.objectForKey(key: kMyHomeWifiPassword) as? String else {
                 return
             }
-            print(list)
-        }
-        wifi.password = password
-        self.connetedWifi(wifi: wifi) { (finish, error) in
-            if error != nil {
-                self.view.makeToast("와이파이 변경 오류가 발생했습니다.\n 설정에서 집 와이파이로 변경해주십시오.")
+            wifi.password = password
+            
+            self.connetedWifi(wifi: wifi) { (finish, error) in
+                if error != nil {
+                    self.view.makeToast("와이파이 변경 오류가 발생했습니다.\n 설정에서 집 와이파이로 변경해주십시오.")
+                }
             }
         }
     }
@@ -87,28 +89,19 @@ class IotManagementViewController: BaseViewController {
     }
     
     func decorationUI() {
+        lbIotName.text = ""
+        lbModelName.text = "펫차트 스마트 식기"
+        
         guard let device = device else {
-            lbPetNameTitle.text = ""
-            lbIotName.text = ""
-            lbIotModel.text = ""
             return
         }
-        
-        var result = ""
-        if let petName = SharedData.objectForKey(key: kMainShowPetName) {
-            result.append("\(petName)의 식사시간")
-        }
-        lbPetNameTitle.text = result
-        
-        lbIotName.text = "장비명:"
-        if let name = device["name"] as? String {
-            result.append("\(name)")
-            lbIotName.text = "장비명: \(name)"
+      
+        if let name = device["name"] as? String, name.isEmpty == false {
+            lbIotName.text = name
         }
         
-        lbIotModel.text = "모델명:"
-        if let model = device["model"] as? String {
-            lbIotModel.text = "모델명: \(model)"
+        if let model = device["model"] as? String, model.isEmpty == false {
+            lbModelName.text = model
         }
         
         if let state = device["state"] as? String, state == "run" {
@@ -126,14 +119,7 @@ class IotManagementViewController: BaseViewController {
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
         if sender == btnModify {
             
-            var msg = ""
-            if let name = device?["name"] as? String {
-                msg = "\(name)을 수정 하시겠습니까?"
-            }
-            else {
-                msg = "Iot 장비명 수정하시겠습니까?"
-            }
-            let alert = UIAlertController.init(title: "장비명 수정", message: msg, preferredStyle: .alert)
+            let alert = UIAlertController.init(title: "이름 변경", message: nil, preferredStyle: .alert)
             alert.addTextField { (textField) in
             }
             alert.addAction(UIAlertAction.init(title: "취소", style: .cancel, handler: { (action) in
@@ -148,26 +134,28 @@ class IotManagementViewController: BaseViewController {
             self.present(alert, animated: true, completion: nil)
         }
         else if sender == btnDisConnet {
+           
+        }
+        else if sender == btnIotRemove {
             // 장비와 통신하기 위해 wifi change 해야한다.
             let wifi = WifiInfo.init(interface:"PETCHART" , ssid: "PETCHART", bssid: nil, password:"petchart123!", model: "")
             self.connetedWifi(wifi: wifi) { (success, error) in
-                if error != nil {
-                    if let msg = error?.localizedDescription {
-                        AlertView.showWithOk(title: nil, message: msg, completion: nil)
+                if success {
+                    AlertView.showWithOk(title: wifi.ssid, message: "장비 Wifi 연결되었습니다.") { (index) in
+                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
+                            self.isChangeWifi = true
+                            self.requestIotConnetion()
+                        }
                     }
                 }
                 else {
-                    AlertView.showWithOk(title: wifi.ssid, message: "장비 Wifi 연결되었습니다.") { (index) in
-                        self.requestIotConnetion()
-                    }
+                    self.view.makeToast("장비 와이파이 연결 실패하였습니다.")
                 }
             }
         }
-        else if sender == btnIotRemove {
-            self.removeAppServerDeleteIotDevice()
-        }
     }
     
+    //앱서버에서 지우기
     func removeAppServerDeleteIotDevice() {
         guard let device = device, let id = device["id"] else {
             return
@@ -189,39 +177,34 @@ class IotManagementViewController: BaseViewController {
     func requestIotConnetion() {
         AppDelegate.instance()?.startIndicator()
         ApiManager.shared.requestIotConnet { (response) in
-            print("=== iot connetct success:\(String(describing: response))")
-            AppDelegate.instance()?.stopIndicator()
+            print("iot connect response: \(response ?? "")")
+            
             if let response = response as? [String:Any] {
                 if let sessionKey = response["session-key"] as? String, sessionKey.isEmpty == false {
                     self.sessionKey = sessionKey
-                    //1초후에
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
+                        AppDelegate.instance()?.startTimerIot()
                         self.requestIotServiceStop()
                     }
                 }
             }
-            else {
-                self.showErrorAlertView(response)
-            }
         } failure: { (error) in
-            AppDelegate.instance()?.stopIndicator()
-            self.showErrorAlertView(error)
+            self.view.makeToast("Iot conneted reqeust errror")
         }
     }
+    
     func requestIotServiceStop() {
         guard let sessionKey = self.sessionKey else {
             return
         }
         AppDelegate.instance()?.startIndicator()
         ApiManager.shared.requestIotServiceStop(sessionKey: sessionKey) { (response) in
-            //1초후에
+            print("iot service stop response: \(response ?? "")")
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3) {
-                AppDelegate.instance()?.stopIndicator()
                 self.requestIotReset()
             }
         } failure: { (error) in
-            AppDelegate.instance()?.stopIndicator()
-            self.showErrorAlertView(error)
+            self.view.makeToast("Iot Sevice Stop request error")
         }
     }
     func requestIotReset() {
@@ -230,15 +213,13 @@ class IotManagementViewController: BaseViewController {
         }
         AppDelegate.instance()?.startIndicator()
         ApiManager.shared.requestIotReset(sessionKey: sessionKey) { (response) in
-            //1초후에
+            print("iot reset response: \(response ?? "")")
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
-                AppDelegate.instance()?.stopIndicator()
                 self.requestIotDisconnect()
             }
         
         } failure: { (error) in
-            AppDelegate.instance()?.stopIndicator()
-            self.showErrorAlertView(error)
+            self.view.makeToast("Iot reset request errror")
         }
     }
     
@@ -248,41 +229,65 @@ class IotManagementViewController: BaseViewController {
         }
         AppDelegate.instance()?.startIndicator()
         ApiManager.shared.requestIotDisConnet(sessionKey: sessionKey) { (response) in
-            //1초후에
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
-                AppDelegate.instance()?.stopIndicator()
-                self.checkIotState()
-            }
+            print("iot disconet response: \(response ?? "")")
         } failure: { (error) in
+            self.view.makeToast("Iot disconnet request errro")
+        }
+    }
+    
+    //Notification Handler
+    @objc func notificationHandler(_ notification: Notification) {
+        guard let response = notification.object as? [String:Any] else {
+            return
+        }
+        
+        if let ap_status = response["ap-status"] as? String, ap_status == "disconnected" {
             AppDelegate.instance()?.stopIndicator()
-            self.showErrorAlertView(error)
+            AppDelegate.instance()?.stopIotTimer()
+         
+            self.disconectedProcess()
+        }
+    }
+    
+    func disconectedProcess() {
+        self.btnDisConnet.setTitle("연결이 되지 않았습니다.", for: .normal)
+        self.btnDisConnet.setTitleColor(RGB(136, 136, 136), for: .normal)
+        self.btnDisConnet.isSelected = false
+        //삭제되면 제거해줘야 한다. 그래야 차트 리스트에서 섹션이 해제된다.
+        SharedData.removeObjectForKey(key: kIsConnectedDevice)
+        SharedData.removeObjectForKey(key: kSmartChartDrink)
+        SharedData.removeObjectForKey(key: kSmartChartEat)
+
+        AlertView.showWithOk(title: "연결 상태", message: "Iot 장비에 해제되었습니다.") { (index) in
+            //와이파이 초기화
+            DispatchQueue.main.async {
+                guard var wifi = self.wifiList.first, let password = SharedData.objectForKey(key: kMyHomeWifiPassword) as? String else {
+                    return
+                }
+                wifi.password = password
+                self.connetedWifi(wifi: wifi) { (success, error) in
+                    if success {
+                        //집와이파이로 되돌려 놓는다.
+                        //만일 장비 와이파이에 붙었다가 취소하고 나갈 경우 데이터 못불러오는 문제가 있어 체크하고 있다.
+                        self.isChangeWifi = false
+                        self.removeAppServerDeleteIotDevice()
+                    }
+                    else {
+                        self.view.makeToast("와이파이 변경 오류가 발생했습니다.\n 설정에서 집 와이파이로 변경해주십시오.")
+                    }
+                }
+            }
         }
     }
     
     func checkIotState() {
+        
         AppDelegate.instance()?.startIndicator()
         ApiManager.shared.requestIotStatus { (response) in
             AppDelegate.instance()?.stopIndicator()
             if let response = response as? [String:Any], let ap_status = response["ap-status"] as? String, ap_status == "disconnected" {
               
-                self.btnDisConnet.setTitle("연결이 되지 않았습니다.", for: .normal)
-                self.btnDisConnet.setTitleColor(RGB(136, 136, 136), for: .normal)
-                self.btnDisConnet.isSelected = false
                 
-                AlertView.showWithOk(title: "연결 상태", message: "Iot 장비에 해제되었습니다.") { (index) in
-                    guard var wifi = self.wifiList.first, let password = SharedData.objectForKey(key: kMyHomeWifiPassword) as? String else {
-                        return
-                    }
-                    wifi.password = password
-                    self.connetedWifi(wifi: wifi) { (finish, error) in
-                        if error != nil {
-                            self.view.makeToast("와이파이 변경 오류가 발생했습니다.\n 설정에서 집 와이파이로 변경해주십시오.")
-                        }
-                        else {
-                            self.removeAppServerDeleteIotDevice()
-                        }
-                    }
-                }
             }
         } failure: { (error) in
             AppDelegate.instance()?.stopIndicator()
@@ -295,10 +300,9 @@ class IotManagementViewController: BaseViewController {
         }
         
         let param = ["devices_id": devices_id, "mac": mac, "name": name]
-        
         ApiManager.shared.requetModifyDeviceName(param: param) { (response) in
             if let response = response as? [String:Any], let success = response["success"] as? Bool, success == true {
-                
+                self.navigationController?.popViewController(animated: true)
             }
             else {
                 self.showErrorAlertView(response)

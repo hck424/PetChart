@@ -7,32 +7,31 @@
 
 import UIKit
 
-@IBDesignable class MrUserInfoViewController: BaseViewController, UITextFieldDelegate {
+@IBDesignable class MrUserInfoViewController: BaseViewController {
     
-    @IBOutlet weak var bgEmail: UIView!
-    @IBOutlet weak var bgNickName: UIView!
-    @IBOutlet weak var bgPassword: UIView!
-    @IBOutlet weak var bgPasswordConfirm: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var svEmail: UIStackView!
+    @IBOutlet weak var svNickName: UIStackView!
+    @IBOutlet weak var svPassword: UIStackView!
+    @IBOutlet weak var svPasswordConfirm: UIStackView!
     @IBOutlet weak var btnOk: UIButton!
     @IBOutlet weak var btnSafety: UIButton!
-    @IBInspectable @IBOutlet weak var tfEmail: CTextField!
-    @IBInspectable @IBOutlet weak var tfNickName: CTextField!
-    @IBOutlet weak var btnEye1: UIButton!
-    @IBOutlet weak var btnEye2: UIButton!
-    @IBInspectable @IBOutlet weak var tfPassword: UITextField!
-    @IBInspectable @IBOutlet weak var tfPasswordConfirm: UITextField!
+    @IBInspectable @IBOutlet weak var tfEmail: UITextField!
+    @IBInspectable @IBOutlet weak var tfNickName: UITextField!
+    @IBInspectable @IBOutlet weak var tfPassword: CTextField!
+    @IBInspectable @IBOutlet weak var tfPasswordConfirm: CTextField!
     @IBInspectable @IBOutlet weak var btnEmailCheck: CButton!
     @IBInspectable @IBOutlet weak var btnNickNameCheck: CButton!
     @IBOutlet weak var bgCornerView: UIView!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
-    
-    @IBOutlet weak var lbHintEmail: UILabel!
-    @IBOutlet weak var lbHitNickName: UILabel!
-    @IBOutlet weak var lbHintPassword: UILabel!
-    @IBOutlet weak var lbHintPasswordConfirm: UILabel!
+    @IBOutlet weak var seperatorEmail: UIView!
+    @IBOutlet weak var seperatorNickName: UIView!
     
     var user: UserInfo?
     var isSocial = false
+    var pw:String = ""
+    var pwComfirm:String = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,15 +53,19 @@ import UIKit
         btnNickNameCheck.setBackgroundImage(UIImage.image(from: ColorDefault), for: .selected)
         btnNickNameCheck.setTitleColor(RGB(166, 166, 166), for: .normal)
         btnNickNameCheck.setTitleColor(UIColor.white, for: .selected)
-    
+        
         if let joinType = user?.joinType, joinType != "none" {
             self.isSocial = true
             tfNickName.text = user?.nickname
-            bgEmail.isHidden = true
-            bgPassword.isHidden = true
-            bgPasswordConfirm.isHidden = true
+        }
+        
+        if isSocial {
+            svEmail.isHidden = true
+            svPassword.isHidden = true
+            svPasswordConfirm.isHidden = true
         }
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -75,7 +78,7 @@ import UIKit
     }
     
     @IBAction func tapGestureHandler(_ sender: UITapGestureRecognizer) {
-        if sender.view == self.view {
+        if sender.view == self.scrollView {
             self.view.endEditing(true)
         }
     }
@@ -83,24 +86,19 @@ import UIKit
     //FIXME:: button actions
     @IBAction func onclickedButtonActions(_ sender: UIButton) {
         if sender == btnEmailCheck {
-            guard let id = tfEmail.text, id.isEmpty == false else {
+            guard let email = tfEmail.text, email.isEmpty == false, email.validateEmail() == true else {
+                self.scrollView.makeToast("이메일 형식이 아닙니다.")
                 return
             }
-            
-            ApiManager.shared.requestFindUserIdCheck(id: id) { (response) in
-                if let response = response as? [String : Any], let _ = response["success"] as? Bool {
-                    
-                    if let msg = response["msg"] as? String {
-                        if msg == "사용할 수 있는 아이디 입니다." {
-                            AlertView.showWithOk(title: nil, message: msg) { (index) in
-                                self.btnEmailCheck.isSelected = true
-                                self.lbHintEmail.isHidden = true
-                            }
-                        }
-                        else {
-                            self.btnEmailCheck.isSelected = false
-                            self.showErrorAlertView(response)
-                        }
+            ApiManager.shared.requestFindUserIdCheck(id: email) { (response) in
+                if let response = response as? [String : Any], let code = response["code"] as? Int, let msg = response["msg"] as? String {
+                    if code == 0 {
+                        self.btnEmailCheck.isSelected = true
+                        self.scrollView.makeToast(msg)
+                    }
+                    else {
+                        self.btnEmailCheck.isSelected = false
+                        self.scrollView.makeToast(msg)
                     }
                 }
                 else {
@@ -112,61 +110,47 @@ import UIKit
             }
         }
         else if sender == btnNickNameCheck {
-            guard let nicName = tfNickName.text else {
+            guard let nickName = tfNickName.text, nickName.isEmpty == false else {
+                self.scrollView.makeToast("닉네임을 입력해주세요.")
                 return
             }
-            
-            ApiManager.shared.requestFindUserNicNameCheck(nickName: nicName, success: { (response) in
-                if let response = response as? [String : Any], let _ = response["success"] as? Bool {
-                    if let msg = response["msg"] as? String {
-                        if msg == "사용할 수 있는 닉네임 입니다." {
-                            AlertView.showWithOk(title: nil, message: msg) { (index) in
-                                self.btnNickNameCheck.isSelected = true
-                                self.lbHitNickName.isHidden = true
-                            }
-                        }
-                        else {
-                            self.btnNickNameCheck.isSelected = false
-                            self.showErrorAlertView(response)
-                        }
+            if nickName.length < 2 {
+                self.scrollView.makeToast("닉네임 2자리이상 입력해주세요.")
+                return
+            }
+            ApiManager.shared.requestFindUserNicNameCheck(nickName: nickName, success: { (response) in
+                if let response = response as? [String : Any], let code = response["code"] as? Int, let msg = response["msg"] as? String {
+                    if code == 0 {
+                        self.scrollView.makeToast(msg)
+                        self.btnNickNameCheck.isSelected = true
                     }
                     else {
-                        self.showErrorAlertView(response)
+                        self.btnNickNameCheck.isSelected = false
+                        self.scrollView.makeToast(msg)
                     }
+                }
+                else {
+                    self.showErrorAlertView(response)
                 }
             }, failure: { (error) in
                 self.showErrorAlertView(error)
             })
         }
-        else if sender == btnEye1 {
-            sender.isSelected = !sender.isSelected
-            tfPassword.isSecureTextEntry = !sender.isSelected
-        }
-        else if sender == btnEye2 {
-            sender.isSelected = !sender.isSelected
-            tfPasswordConfirm.isSecureTextEntry = !sender.isSelected
-        }
         else if sender == btnOk {
-            lbHintEmail.isHidden = true
-            lbHitNickName.isHidden = true
-            lbHintPassword.isHidden = true
-            lbHintPasswordConfirm.isHidden = true
-            
-            var isOk = true
+            self.view.endEditing(true)
             var param: Dictionary<String, Any> = [:]
             
             if isSocial {
-                if (tfNickName.text?.count == 0) {
-                    lbHitNickName.text = "닉네임을 입력해주세요."
-                    lbHitNickName.isHidden = false
-                    isOk = false
+                guard let nickName = tfNickName.text, nickName.isEmpty == false else {
+                    self.scrollView.makeToast("닉네임을 입력해주세요.")
+                    return
+                }
+                if nickName.length < 2 {
+                    self.scrollView.makeToast("닉네임 2자리이상 입력해주세요.")
+                    return
                 }
                 else if btnNickNameCheck.isSelected == false {
-                    lbHitNickName.text = "닉네임을 체크해주세요"
-                    lbHitNickName.isHidden = false
-                    isOk = false
-                }
-                if isOk == false {
+                    self.scrollView.makeToast("닉네임을 체크해주세요")
                     return
                 }
                 
@@ -189,54 +173,50 @@ import UIKit
                 param["marketing_agree"] = user.marketingAgree
             }
             else {
-                if (tfEmail.text?.count == 0 || tfEmail.text?.validateEmail() == false) {
-                    lbHintEmail.text = "이메일 형식이 아닙니다."
-                    lbHintEmail.isHidden = false
-                    isOk = false
-                }
-                else if btnEmailCheck.isSelected == false {
-                    lbHintEmail.text = "이메일 중복 체크를 해주세요."
-                    lbHintEmail.isHidden = false
-                    isOk = false
-                }
-                
-                if (tfNickName.text?.count == 0) {
-                    lbHitNickName.text = "닉네임을 입력해주세요."
-                    lbHitNickName.isHidden = false
-                    isOk = false
-                }
-                else if btnNickNameCheck.isSelected == false {
-                    lbHitNickName.text = "닉네임을 체크해주세요"
-                    lbHitNickName.isHidden = false
-                    isOk = false
-                }
-                
-                if (tfPassword.text?.count == 0) || (tfPassword.text?.validatePassword() == false) {
-                    lbHintPassword.text = "숫자, 영문, 특수문자 조합 8자 이상"
-                    lbHintPassword.isHidden = false
-                    isOk = false
-                }
-                
-                if tfPassword.text != tfPasswordConfirm.text {
-                    lbHintPasswordConfirm.text = "비밀번호가 일치하지 않습니다."
-                    lbHintPasswordConfirm.isHidden = false
-                    isOk = false
-                }
-                
-                if isOk == false {
+                guard let email = tfEmail.text, email.isEmpty == false, email.validateEmail() == true else {
+                    self.scrollView.makeToast("이메일 형식이 아닙니다.")
                     return
                 }
+                if btnEmailCheck.isSelected == false {
+                    self.scrollView.makeToast("아이디 중복체크를 해주세요.")
+                    return
+                }
+                
+                guard let nickName = tfNickName.text, nickName.isEmpty == false else {
+                    self.scrollView.makeToast("닉네임을 입력해주세요.")
+                    return
+                }
+                if nickName.length < 2 {
+                    self.scrollView.makeToast("닉네임 2자리이상 입력해주세요.")
+                    return
+                }
+                else if btnNickNameCheck.isSelected == false {
+                    self.scrollView.makeToast("닉네임을 체크해주세요")
+                    return
+                }
+                
+                if pw.isEmpty == true ||  pw.validatePassword() == false {
+                    self.scrollView.makeToast("비밀번호(숫자,영문,특수문자 8자이상)를 입력해주세요.")
+                    return
+                }
+                
+                if pwComfirm.isEmpty == true || pwComfirm.validatePassword() == false {
+                    self.scrollView.makeToast("비밀번호(숫자,영문,특수문자 8자이상)를 입력해주세요.")
+                    return
+                }
+                
+                if pw != pwComfirm {
+                    self.scrollView.makeToast("비밀번호가 일치하지 않습니다.")
+                    return
+                }
+                
                 guard let user = user else {
                     return
                 }
                 
-                guard let email = tfEmail.text else  {
-                    return
-                }
                 guard let jonin_type = user.joinType,
                       let name = user.name,
                       let nickname = tfNickName.text,
-                      let password = tfPassword.text,
                       let birthday = user.birthday,
                       let sex = user.gender else {
                     
@@ -249,7 +229,7 @@ import UIKit
                 param["name"] = name
                 param["nickname"] = nickname
                 param["sex"] = sex
-                param["password"] = password
+                param["password"] = pw
                 param["birthday"] = birthday
                 param["privacy_agree"] = user.privacyAgree
                 param["termsservice_agree"] = user.termsserviceAgree
@@ -279,7 +259,7 @@ import UIKit
                     if let password = param["password"] {
                         SharedData.setObjectForKey(key: kUserPassword, value: password)
                     }
-                    
+                    SharedData.setObjectForKey(key: kUserNickName, value: param["nickname"])
                     if let join_type = data["join_type"] as? String,
                        let user_id = data["user_id"] as? String {
                         
@@ -301,7 +281,7 @@ import UIKit
                         SharedData.setObjectForKey(key: kUserId, value: realUserId)
                     }
                     
-                    self.navigationController?.popToRootViewController(animated: true)
+                    AppDelegate.instance()?.callMainVc()
                 }
                 else {
                     self.showErrorAlertView(response)
@@ -336,7 +316,7 @@ import UIKit
                     }
                 }
                 else if (error as? Error) != nil {
-                    AlertView.showWithOk(title: "에러", message: "시스템 에러", completion: nil)
+                    
                 }
             }
         }
@@ -361,24 +341,48 @@ import UIKit
             }
         }
     }
-    
-    //MARK:: textfiled actions
-    @IBAction func textFeildEdtingChange(_ textField: UITextField) {
+}
+
+extension MrUserInfoViewController: UITextFieldDelegate {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        if textField == tfEmail {
-            
+        if textField == tfPassword || textField == tfPasswordConfirm {
+            if string.isEmpty == false {
+                if string.checkEnglish() || string.checkNum() || string.checkSpecialPw() {
+                    var txt = textField.text
+                    txt?.append("●")
+                    textField.text = txt
+                    if textField == tfPassword {
+                        pw.append(string)
+                        print(pw)
+                    }
+                    else {
+                        pwComfirm.append(string)
+                        print(pwComfirm)
+                    }
+                }
+                return false
+            }
+            else {
+                if textField == tfPassword {
+                    pw = String(pw.dropLast())
+                    print(pw)
+                }
+                else {
+                    pwComfirm = String(pwComfirm.dropLast())
+                    print(pwComfirm)
+                }
+                return true
+            }
+        }
+        else if textField == tfEmail {
+            btnEmailCheck.isSelected = false
         }
         else if textField == tfNickName {
-            
+            btnNickNameCheck.isSelected = false
         }
-        else if textField == tfPassword {
-            
-        }
-        else if textField == tfPasswordConfirm {
-            
-        }
+        return true
     }
-    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == tfEmail {
             tfNickName.becomeFirstResponder()
@@ -389,10 +393,40 @@ import UIKit
         else if textField == tfPassword {
             tfPasswordConfirm.becomeFirstResponder()
         }
-        else if textField == tfPasswordConfirm {
-            self.view.endEditing(true)
+        else {
+            textField.resignFirstResponder()
         }
         return true
     }
-    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        if textField == tfPassword {
+            pw = ""
+        }
+        else if textField == tfPasswordConfirm {
+            pwComfirm = ""
+        }
+        return true
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if textField == tfEmail {
+            seperatorEmail.backgroundColor = ColorDefault
+        }
+        else if textField == tfNickName {
+            seperatorNickName.backgroundColor = ColorDefault
+        }
+        else if let textField = textField as? CTextField {
+            textField.borderColor = ColorDefault
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == tfEmail {
+            seperatorEmail.backgroundColor = ColorBorder
+        }
+        else if textField == tfNickName {
+            seperatorNickName.backgroundColor = ColorBorder
+        }
+        else if let textField = textField as? CTextField {
+            textField.borderColor = ColorBorder
+        }
+    }
 }

@@ -11,26 +11,26 @@ enum NoticeCellType {
 }
 class NoticeCellView: UIView {
 
+    @IBOutlet weak var heightContent: NSLayoutConstraint!
     @IBOutlet weak var btnTop: UIButton!
     @IBOutlet weak var lbTitle: UILabel!
     @IBOutlet weak var lbDate: UILabel!
     @IBOutlet weak var btnExpand: CButton!
-    @IBOutlet weak var lbContent: UILabel!
+    @IBOutlet weak var tvContent: UITextView!
     @IBOutlet weak var svContent: UIStackView!
     var type:NoticeCellType = .notice
     
     override func draw(_ rect: CGRect) {
         super.draw(rect)
-        
     }
     func configurationData(_ data:[String:Any]?) {
         btnExpand.data = data
         btnExpand.isSelected = false
         svContent.isHidden = true
         lbTitle.text = ""
-        lbContent.text = ""
+        tvContent.text = ""
         lbDate.text = ""
-        lbContent.attributedText = nil
+        tvContent.attributedText = nil
         
         guard let data = data else {
             return
@@ -64,8 +64,10 @@ class NoticeCellView: UIView {
         }
         
         if let content = data["content"] as? String {
-            lbContent.attributedText = try? NSAttributedString.init(htmlString: content)
+            tvContent.attributedText = try? NSAttributedString.init(htmlString: content)
         }
+        let height = tvContent.sizeThatFits(CGSize(width: tvContent.frame.size.width, height: CGFloat.greatestFiniteMagnitude)).height
+        heightContent.constant = height
     }
     
     @IBAction func onClickedButtonAction(_ sender: UIButton) {

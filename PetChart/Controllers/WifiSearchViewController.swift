@@ -24,12 +24,11 @@ class WifiSearchViewController: BaseViewController, UITextFieldDelegate {
     @IBOutlet weak var btnEye: UIButton!
     
     var sessionKey:String?
+    var isChangeWifi = false
     
     var selWifi: WifiInfo?
     private let SSID = ""
     var arrWifiList:[WifiInfo] = [WifiInfo]()
-    var timer:Timer?
-    var maxTiemCount: Int = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,28 +48,26 @@ class WifiSearchViewController: BaseViewController, UITextFieldDelegate {
         super.viewWillAppear(animated)
         NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_:)), name: Notification.Name(kNotiNameIotState), object: nil)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(kNotiNameIotState), object: nil)
         
-    }
-    func startCheckStateTimer() {
-        self.stopTimer()
-        self.maxTiemCount = 0
-        AppDelegate.instance()?.startIndicator()
+        guard let selWifi = selWifi else {
+            return
+        }
         
-        self.timer = Timer.scheduledTimer(timeInterval: 10, target: self, selector: #selector(checkIotSate), userInfo: nil, repeats: true)
-    }
-    func stopTimer(){
-        AppDelegate.instance()?.stopIndicator()
-        if let timer = self.timer {
-            timer.invalidate()
-            timer.fire()
-            self.timer = nil
+        if isChangeWifi == false && selWifi.password?.isEmpty == false {
+            self.connetedWifi(wifi: selWifi) { (success, error) in
+                
+            }
         }
     }
+    
     @objc func tapGestureHandler(_ gesture: UITapGestureRecognizer) {
         if gesture.view == self.view {
             self.view.endEditing(true)
@@ -86,7 +83,6 @@ class WifiSearchViewController: BaseViewController, UITextFieldDelegate {
                 if let selData = selData as? WifiInfo {
                     self.selWifi = selData
                     self.tvWifiName.text = self.selWifi?.ssid
-                    
                 }
 
                 vcs.dismiss(animated: true, completion: nil)
@@ -146,17 +142,17 @@ class WifiSearchViewController: BaseViewController, UITextFieldDelegate {
         let timestamp = df.string(from: Date())
         
         let param:[String:Any] = ["sessionKey": sessionKey, "ssid": ssid, "passwordKey":passwordKey, "timestamp":timestamp];
-        
+        AppDelegate.instance()?.startIndicator()
+        AppDelegate.instance()?.startTimerIot()
         ApiManager.shared.requestIotStation(param: param) { (response) in
             print("== iot station: \(String(describing: response))")
-            self.startCheckStateTimer()
             if let response = response as?[String:Any], let _ = response["result"] as? Bool {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+3) {
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
                     self.requestIotSetting()
                 }
             }
         } failure: { (error) in
-            print("== iot station error: \(String(describing: error))")
+            self.view.makeToast("Iot request stattion error")
         }
     }
     func requestIotSetting() {
@@ -167,94 +163,26 @@ class WifiSearchViewController: BaseViewController, UITextFieldDelegate {
         let uid = "\(loginType)_\(userId)"
         let url = SERVER_PREFIX
         let param:[String:Any] = ["idx":idx, "sessionKey":sessionKey, "uid":uid, "url":url]
-        
+        AppDelegate.instance()?.startIndicator()
         ApiManager.shared.requestIotSetting(param: param) { (response) in
             print("===iot setting success:\(String(describing: response))")
-            if let response = response as? [String :Any], let _ = response["result"] as? Bool {
-                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
-                    self.requestServiceStart()
-                }
-            }
-        } failure: { (error) in
-            self.showErrorAlertView(error)
-        }
-    }
-    @objc func checkIotSate() {
-        ApiManager.shared.requestIotStatus { (response) in
-            print("=== iot status: \(String(describing: response))")
-//            server-status 의 경우 registered, disconnected , connected가있는데
-            if let  response = response as? [String:Any], let server_status = response["server-status"] as? String, server_status == "connected" {
-                self.stopTimer()
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
                 self.requestServiceStart()
             }
-            else {
-                self.maxTiemCount += 1
-                //10초씩 3번 30초동안
-                if self.maxTiemCount > 3 {
-                    self.stopTimer()
-                    AlertView.showWithOk(title: "연결 실패", message: "IOT 장비 연결 실패하였습니다.", completion: nil)
-                }
-            }
         } failure: { (error) in
-            print("=== iot status error: \(String(describing: error))")
+            self.view.makeToast("Iot Setting Request Error")
         }
-        
     }
+    
     func requestServiceStart() {
         guard let sessionKey = sessionKey else {
             return
         }
+        AppDelegate.instance()?.startIndicator()
         ApiManager.shared.requestIotServiceStart(sessionKey: sessionKey) { (response) in
-            if let response = response as?[String:Any], let result = response["result"] as? Bool {
-                if result == true {
-                    AlertView.showWithOk(title: nil, message: "기기 연결이 완료 되었습니다.") { (index) in
-                        
-                        self.connetedWifi(wifi: self.selWifi!) { (success, error) in
-                            if (success) {
-                                self.navigationController?.popToRootViewController(animated: false)
-                            }
-                        }
-                    }
-                }
-                else {
-                    ApiManager.shared.requestIotStatus { (response) in
-                        print("=== iot status:\(String(describing: response))")
-                
-                    } failure: { (error) in
-                        print("=== iot status error:\(String(describing: error))")
-                    }
-
-                    self.showErrorAlertView(response)
-                }
-            }
-            else {
-                self.showErrorAlertView(response)
-            }
+            print("iot service start response:\(response ?? "")")
         } failure: { (error) in
-            self.showErrorAlertView(error)
-        }
-    }
-    func scaneWifi() {
-        let manager = NEHotspotConfigurationManager.shared
-        
-        let ssid = "PETCHART-D6F9F1"
-        let pwd = "petchart123!"
-        manager.getConfiguredSSIDs { (list) in
-            print("==== list:\(list)")
-        }
-        
-        let hotspot = NEHotspotConfiguration(ssid: ssid, passphrase: pwd, isWEP: false)
-        hotspot.joinOnce = true
-        manager.apply(hotspot) { (error) in
-            if let error = error {
-                print("== error: \(error)")
-            }
-            else {
-                print("success")
-            }
-        }
-        manager.getConfiguredSSIDs { (list) in
-            print("==== list:\(list)")
+            self.view.makeToast("Iot Sevice start request error")
         }
     }
     func getWifiInfo() -> Array<WifiInfo> {
@@ -280,23 +208,53 @@ class WifiSearchViewController: BaseViewController, UITextFieldDelegate {
         self.view.endEditing(true)
         return true
     }
+    
     @objc func notificationHandler(_ notification: Notification) {
-        let heightKeyboard = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue.size.height
-        let duration = CGFloat((notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.floatValue ?? 0.0)
-        
-        if notification.name == UIResponder.keyboardWillShowNotification {
-            let safeBottom = AppDelegate.instance()?.window?.safeAreaInsets.bottom ?? 0
-            bottomContainer.constant = heightKeyboard - safeBottom
-            UIView.animate(withDuration: TimeInterval(duration), animations: { [self] in
-                self.view.layoutIfNeeded()
-            })
-        }
-        else if notification.name == UIResponder.keyboardWillHideNotification {
-            bottomContainer.constant = 0
-            UIView.animate(withDuration: TimeInterval(duration)) {
-                self.view.layoutIfNeeded()
+        if notification.name == Notification.Name(kNotiNameIotState) {
+            guard let response = notification.object as? [String:Any] else {
+                return
+            }
+            if let server_status = response["server-status"] as? String, server_status == "registered" {
+                AppDelegate.instance()?.stopIndicator()
+                AppDelegate.instance()?.stopIotTimer()
+                AlertView.showWithOk(title: "IOT 연결", message: "기기 연결이 완료 되었습니다.") { (index) in
+                    self.connetedWifi(wifi: self.selWifi!) { (success, error) in
+                        if (success) {
+                            self.isChangeWifi = true
+                            self.navigationController?.popToRootViewController(animated: false)
+                            UserDefaults.standard.setValue(PetHealth.drink.rawValue, forKey: kSmartChartDrink)
+                            UserDefaults.standard.setValue(PetHealth.eat.rawValue, forKey: kSmartChartEat)
+                            UserDefaults.standard.synchronize()
+                        }
+                    }
+                }
+            }
+            if let timeout = response["timeout"] as? Bool, timeout == true {
+                AppDelegate.instance()?.stopIndicator()
+                AppDelegate.instance()?.stopIotTimer()
+                AlertView.showWithOk(title: "타임 아웃", message: "연결시간 초과되었습니다.\n다시시도해주세요", completion: nil)
             }
             
+        }
+        else if notification.name == UIResponder.keyboardWillShowNotification
+            || notification.name == UIResponder.keyboardWillHideNotification{
+          
+            let heightKeyboard = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue.size.height
+            let duration = CGFloat((notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber)?.floatValue ?? 0.0)
+     
+            if notification.name == UIResponder.keyboardWillShowNotification {
+                let safeBottom = AppDelegate.instance()?.window?.safeAreaInsets.bottom ?? 0
+                bottomContainer.constant = heightKeyboard - safeBottom
+                UIView.animate(withDuration: TimeInterval(duration), animations: { [self] in
+                    self.view.layoutIfNeeded()
+                })
+            }
+            else if notification.name == UIResponder.keyboardWillHideNotification {
+                bottomContainer.constant = 0
+                UIView.animate(withDuration: TimeInterval(duration)) {
+                    self.view.layoutIfNeeded()
+                }
+            }
         }
     }
 }

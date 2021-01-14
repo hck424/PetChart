@@ -71,22 +71,21 @@ class ChartRecordEatViewController: BaseViewController {
             tfDay.text = df.string(from: curDate)
         }
         else if sender.tag == 1111 {
-            
+            self.view.endEditing(true)
             guard let date = tfDay.text, date.isEmpty == false else {
-                self.view.makeToast("날짜를 입력해주세요.", position:.top)
+                self.showToast("날짜를 선택해주세요.")
                 return
             }
             guard let amount = tfEatAmount.text, amount.isEmpty == false else {
-                self.view.makeToast("하루 식사량을 입력해주세요.", position:.top)
+                self.showToast("식사량을 적어주세요.")
                 return
             }
             
             guard let count = tfEatCount.text, count.isEmpty == false else {
-                self.view.makeToast("하루 식사횟수를 입력해주세요.", position:.top)
+                self.showToast("식사 횟수를 적어주세요.")
                 return
             }
             guard let petId = SharedData.objectForKey(key: kMainShowPetId) else {
-                self.view.makeToast("등록된 동물이 없습니다.", position:.top)
                 return
             }
             
@@ -96,9 +95,11 @@ class ChartRecordEatViewController: BaseViewController {
                 if let response = response as? [String:Any],
                    let msg = response["msg"] as? String,
                    let success = response["success"] as? Bool, success == true {
-                    AlertView.showWithCancelAndOk(title: "식사 기록", message: msg) { (index) in
-                        self.navigationController?.popViewController(animated: true)
-                    }
+                    self.showToast(msg)
+                    self.navigationController?.popViewController(animated: true)
+//                    AlertView.showWithCancelAndOk(title: "식사 기록", message: msg) { (index) in
+//                        self.navigationController?.popViewController(animated: true)
+//                    }
                 }
                 else {
                     self.showErrorAlertView(response)

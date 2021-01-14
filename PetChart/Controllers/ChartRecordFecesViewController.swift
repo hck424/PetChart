@@ -103,23 +103,17 @@ class ChartRecordFecesViewController: BaseViewController {
             
         }
         else if sender.tag == 1111 {
+            self.view.endEditing(true)
             guard let petId = SharedData.objectForKey(key: kMainShowPetId) else {
-                self.view.makeToast("등록된 동물이 없습니다.", position:.top)
                 return
             }
             guard let date = tfDay.text, date.isEmpty == false else {
-                self.view.makeToast("날짜를 입력해주세요.", position:.top)
+                self.showToast("날짜를 선택해주세요.")
                 return
             }
             
-            guard let sCount = tfCountS.text, sCount.isEmpty == false else {
-                self.view.makeToast("소변 횟수 입력해주세요.", position:.top)
-                return
-            }
-            guard let pCount = tfCountS.text, pCount.isEmpty == false else {
-                self.view.makeToast("대변 횟수 입력해주세요.", position:.top)
-                return
-            }
+            var isOks = false
+            var isOkp = false
             
             var colorS = 0
             var isSelectedS = false
@@ -132,14 +126,10 @@ class ChartRecordFecesViewController: BaseViewController {
                     break
                 }
             }
-            if isSelectedS == false {
-                self.view.makeToast("소변 색갈을 선택해주세요.", position:.top)
-                return
-            }
             
             var colorP = 0
             var isSelectedP = false
-            for btn in arrBtnColor {
+            for btn in arrBtnFeces {
                 if btn.isSelected {
                     isSelectedP = true
                     if btn.tag < 6 {
@@ -149,53 +139,90 @@ class ChartRecordFecesViewController: BaseViewController {
                 }
             }
             
-            if isSelectedP == false {
-                self.view.makeToast("대변 종류를 선택해주세요.", position:.top)
+            if let sCount = tfCountS.text, sCount.isEmpty == false, let pCount = tfCountP.text, pCount.isEmpty == false, isSelectedS == true, isSelectedP == true {
+                isOks = true
+                isOkp = true
+            }
+            else if let sCount = tfCountS.text, sCount.isEmpty == false, isSelectedS == true {
+                isOks = true
+            }
+            else if let pCount = tfCountP.text, pCount.isEmpty == false, isSelectedP == true {
+                isOkp = true
+            }
+            else {
+                self.showToast("대소변 필드값을 채워주세요.")
                 return
             }
             
-            let param1 = ["dtype":"S", "pet_id": petId, "cnt":sCount, "color": colorS, "date_key": date]
-            let param2 = ["dtype":"P", "pet_id": petId, "cnt":pCount, "color": colorP, "date_key": date]
-            //소변기록
-            ApiManager.shared.requestWriteChart(type: .feces, param: param1) { (response) in
-                if let response = response as? [String:Any],
-                   let msg = response["msg"] as? String,
-                   let success = response["success"] as? Bool, success == true {
-                    
-                    self.isCompletionS = true
-                    if self.isCompletionS && self.isCompletionP {
-                        AlertView.showWithCancelAndOk(title: "배변 기록", message: msg) { (index) in
+            if isOks == true {
+                let param1 = ["dtype":"S", "pet_id": petId, "cnt":Int(tfCountS.text!)!, "color": colorS, "date_key": date]
+                //소변기록
+                ApiManager.shared.requestWriteChart(type: .feces, param: param1) { (response) in
+                    if let response = response as? [String:Any],
+                       let msg = response["msg"] as? String,
+                       let success = response["success"] as? Bool, success == true {
+    
+                        self.isCompletionS = true
+                        if isOks && isOkp {
+                            if self.isCompletionS && self.isCompletionP {
+                                self.showToast(msg)
+                                self.navigationController?.popViewController(animated: true)
+//                                AlertView.showWithCancelAndOk(title: "대소변 기록", message: msg) { (index) in
+//                                    self.navigationController?.popViewController(animated: true)
+//                                }
+                            }
+                        }
+                        else if isOks && self.isCompletionS {
+                            self.showToast(msg)
                             self.navigationController?.popViewController(animated: true)
+//                            AlertView.showWithCancelAndOk(title: "소변 기록", message: msg) { (index) in
+//                                self.navigationController?.popViewController(animated: true)
+//                            }
                         }
                     }
+                    else {
+                        self.showErrorAlertView(response)
+                    }
+    
+                } failure: { (error) in
+                    self.showErrorAlertView(error)
                 }
-                else {
-                    self.showErrorAlertView(response)
-                }
-
-            } failure: { (error) in
-                self.showErrorAlertView(error)
             }
             
-            //대변 기록
-            ApiManager.shared.requestWriteChart(type: .feces, param: param2) { (response) in
-                if let response = response as? [String:Any],
-                   let msg = response["msg"] as? String,
-                   let success = response["success"] as? Bool, success == true {
-                    
-                    self.isCompletionP = true
-                    if self.isCompletionS && self.isCompletionP {
-                        AlertView.showWithCancelAndOk(title: "배변 기록", message: msg) { (index) in
+            if isOkp == true {
+                let param2 = ["dtype":"P", "pet_id": petId, "cnt":Int(tfCountP.text!)!, "color": colorP, "date_key": date]
+                
+                //대변 기록
+                ApiManager.shared.requestWriteChart(type: .feces, param: param2) { (response) in
+                    if let response = response as? [String:Any],
+                       let msg = response["msg"] as? String,
+                       let success = response["success"] as? Bool, success == true {
+                        
+                        self.isCompletionP = true
+                        if isOks && isOkp {
+                            if self.isCompletionS && self.isCompletionP {
+                                self.showToast(msg)
+                                self.navigationController?.popViewController(animated: true)
+//                                AlertView.showWithCancelAndOk(title: "대소변 기록", message: msg) { (index) in
+//                                    self.navigationController?.popViewController(animated: true)
+//                                }
+                            }
+                        }
+                        else if isOkp && self.isCompletionP {
+                            self.showToast(msg)
                             self.navigationController?.popViewController(animated: true)
+//                            AlertView.showWithCancelAndOk(title: "배변 기록", message: msg) { (index) in
+//                                self.navigationController?.popViewController(animated: true)
+//                            }
                         }
                     }
+                    else {
+                        self.showErrorAlertView(response)
+                    }
+                    
+                } failure: { (error) in
+                    self.showErrorAlertView(error)
                 }
-                else {
-                    self.showErrorAlertView(response)
-                }
-
-            } failure: { (error) in
-                self.showErrorAlertView(error)
             }
         }
     }

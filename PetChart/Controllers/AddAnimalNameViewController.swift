@@ -26,7 +26,7 @@ class AddAnimalNameViewController: BaseViewController {
         super.viewDidLoad()
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
         CNavigationBar.drawTitle(self, "반려동물 등록", nil)
-        btnProfile.imageView?.contentMode = .scaleAspectFit
+        btnProfile.imageView?.contentMode = .scaleAspectFill
         btnSafety.isHidden = true
         if Utility.isIphoneX() {
             btnSafety.isHidden = false
@@ -70,8 +70,9 @@ class AddAnimalNameViewController: BaseViewController {
             present(alert, animated: false, completion: nil)
         }
         else if sender == btnOk {
+            self.view.endEditing(true)
             if tfPetName.text?.count == 0 {
-                self.view.makeToast("반려동물 이름을 알려주세요.", position:.top)
+                self.showToast("이름을 입력해주세요.")
                 return
             }
             
@@ -89,6 +90,7 @@ class AddAnimalNameViewController: BaseViewController {
     }
     func showCamera(_ sourceType: UIImagePickerController.SourceType) {
         let vc = CameraViewController.init()
+        vc.maxCount = 1
         vc.delegate = self
         vc.sourceType = sourceType
         self.navigationController?.pushViewController(vc, animated: false)
@@ -120,16 +122,13 @@ extension AddAnimalNameViewController: CameraViewControllerDelegate {
             return
         }
         guard let asset = assets.first else { return }
-        PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: 300, height: 300), contentMode: .aspectFit, options: PHImageRequestOptions()) { (result, _) in
+        PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: imageScale, height: imageScale), contentMode: .aspectFit, options: PHImageRequestOptions()) { (result, _) in
             guard let result = result else {
                 return
             }
             self.profileImg = result
     //        self.profileImgOrigin = origin
             self.btnProfile.setImage(self.profileImg, for: .normal)
-            self.btnProfile.borderColor = RGB(217, 217, 217)
-            self.btnProfile.borderWidth = 2.0
-            self.btnProfile.setNeedsDisplay()
         }
     }
     
@@ -137,9 +136,18 @@ extension AddAnimalNameViewController: CameraViewControllerDelegate {
         self.profileImg = crop
 //        self.profileImgOrigin = origin
         self.btnProfile.setImage(self.profileImg, for: .normal)
-        self.btnProfile.borderColor = RGB(217, 217, 217)
-        self.btnProfile.borderWidth = 2.0
-        self.btnProfile.setNeedsDisplay()
     }
 }
 
+extension AddAnimalNameViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorDefault
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorBorder
+        }
+    }
+}

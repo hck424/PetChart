@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,6 +19,8 @@
                 <outlet property="btnOk" destination="Hpu-bK-k1F" id="wkq-sN-AEI"/>
                 <outlet property="btnSafety" destination="Ptp-GI-QZA" id="g8r-Jv-EMD"/>
                 <outlet property="lbTitle" destination="CCa-68-qy9" id="gUy-LW-rQZ"/>
+                <outlet property="seperator1" destination="AeF-DE-S7q" id="aJt-RZ-ReH"/>
+                <outlet property="seperator2" destination="Y6w-Sr-Gok" id="5WJ-fu-W1E"/>
                 <outlet property="tfBirthDay1" destination="gwH-Go-yhz" id="N2G-Nt-2X3"/>
                 <outlet property="tfBirthDay2" destination="Yug-No-LMG" id="awf-jX-y6s"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -72,7 +74,7 @@
                                                         <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="eST-Eg-jmw">
                                                             <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                                             <subviews>
-                                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="yyyy-MM-dd" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gwH-Go-yhz">
+                                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="생년월일을 선택해주세요." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gwH-Go-yhz">
                                                                     <rect key="frame" x="0.0" y="0.0" width="348" height="45"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="45" id="t27-sF-gg7"/>
@@ -135,16 +137,16 @@
                                                         <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Nw4-CG-EPZ">
                                                             <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                                             <subviews>
-                                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="0세0개월" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Yug-No-LMG">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="348" height="45"/>
+                                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="나이를 선택해주세요." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Yug-No-LMG">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="45" id="m4y-9y-SDB"/>
                                                                     </constraints>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                                     <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" returnKeyType="done" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no"/>
                                                                 </textField>
-                                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fill_1" translatesAutoresizingMaskIntoConstraints="NO" id="H98-WQ-7iu">
-                                                                    <rect key="frame" x="356" y="0.0" width="18" height="45"/>
+                                                                <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="triangle" translatesAutoresizingMaskIntoConstraints="NO" id="H98-WQ-7iu">
+                                                                    <rect key="frame" x="0.0" y="0.0" width="0.0" height="45"/>
                                                                 </imageView>
                                                             </subviews>
                                                         </stackView>
@@ -232,7 +234,7 @@
             <connections>
                 <outletCollection property="gestureRecognizers" destination="rVX-cM-Pbq" appends="YES" id="1I9-Px-Cff"/>
             </connections>
-            <point key="canvasLocation" x="139" y="105"/>
+            <point key="canvasLocation" x="137.68115942028987" y="104.46428571428571"/>
         </view>
         <tapGestureRecognizer id="rVX-cM-Pbq">
             <connections>
@@ -244,6 +246,7 @@
         <image name="fill_1" width="18" height="18"/>
         <image name="radio_off" width="16" height="16"/>
         <image name="radio_on" width="16" height="16"/>
+        <image name="triangle" width="12" height="11"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

@@ -9,20 +9,16 @@ import UIKit
 
 class ChartViewController: BaseViewController {
 
-    @IBOutlet weak var svSmart: UIStackView!
     @IBOutlet weak var svSmartContainer: UIStackView!
     @IBOutlet weak var vwSmartBg: UIView!
     @IBOutlet weak var btnSettingSmart: UIButton!
     @IBOutlet weak var btnSmartDevice: CButton!
     
-    @IBOutlet weak var svTotal: UIStackView!
     @IBOutlet weak var vwTotalBg: UIView!
     @IBOutlet weak var svTotalContainer: UIStackView!
     @IBOutlet weak var btnSettingTotal: UIButton!
     
-    let arrHealth:[PetHealth] = [.drink, .eat, .weight, .feces, .walk]
-    var isConnectedIot = false
-    
+    var arrDevice:Array<Any>?
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawTitle(self, "차트", nil)
@@ -40,29 +36,52 @@ class ChartViewController: BaseViewController {
         super.viewWillAppear(animated)
         self.checkSession { (type) in
             if type == .valid {
-                self.configuraitonUi()
+                self.resuetDeviceList()
             }
             else if type == .expire {
                 self.showAlertWithLogin(isExpire: true)
-                self.svSmart.isHidden = true
-                self.svTotal.isHidden = true
             }
             else {
                 self.showAlertWithLogin(isExpire: false)
-                self.svSmart.isHidden = true
-                self.svTotal.isHidden = true
             }
         }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
     }
+    func resuetDeviceList() {
+        ApiManager.shared.requetDeviceList { (response) in
+            if let response = response as? [String:Any],
+               let data = response["data"] as?[String:Any] {
+
+                if let devices = data["devices"] as? Array<[String:Any]> {
+                    self.arrDevice = devices
+                }
+                else {
+                    self.arrDevice = nil
+                }
+            }
+            self.configuraitonUi()
+        } failure: { (error) in
+            self.configuraitonUi()
+        }
+    }
     
     func configuraitonUi() {
+        
+        if let arrDevice = arrDevice, arrDevice.isEmpty == false {
+            btnSmartDevice.setTitle("기기연결 ON", for: .normal)
+        }
+        else {
+            btnSmartDevice.setTitle("기기연결 OFF", for: .normal)
+        }
         
         let dfs = UserDefaults.standard
         
         var arrSmart: [PetHealth] = [PetHealth]()
+        
+        vwSmartBg.isHidden = true
+        vwTotalBg.isHidden = true
         if dfs.object(forKey: kSmartChartDrink) != nil {
             arrSmart.append(.drink)
         }
@@ -70,74 +89,58 @@ class ChartViewController: BaseViewController {
             arrSmart.append(.eat)
         }
         
-        var arrTotal:[PetHealth] = [PetHealth]()
-        for type in arrHealth {
-            let key = type.udfTotalChartKey()
-            if dfs.object(forKey: key) != nil {
-                arrTotal.append(type)
+        if arrSmart.isEmpty == false {
+            vwSmartBg.isHidden = false
+            
+            for subView in svSmartContainer.subviews {
+                subView.removeFromSuperview()
             }
-        }
-    
-        if isConnectedIot && arrSmart.isEmpty == false {
-            //스마트 차트가 설정된거 있으면
+            
             for type in arrSmart {
-                for i in 0..<arrTotal.count {
-                    let totalType = arrTotal[i]
-                    if type == totalType {
-                        arrTotal.remove(at: i)
-                    }
-                }
+                let cell = Bundle.main.loadNibNamed("ChartCellView", owner: self, options: nil)?.first as! ChartCellView
+                cell.configurationData(category: "스마트 차트", type: type)
+                cell.layer.borderWidth = 1.0
+                cell.layer.borderColor = RGB(238, 238, 238).cgColor
+                svSmartContainer.addArrangedSubview(cell)
+                
+                cell.didClickedClosure = ({(selData:Any?, category:String?, type: PetHealth, index:Int) ->() in
+                    self.showChartDetailVC(categroy: category, type: type, selData:selData as? Dictionary<String, Any>)
+                    print(type.koreanValue()!)
+                })
             }
         }
         
-        
-        if arrSmart.isEmpty == true {
-            svSmart.isHidden = true
-        } else {
-            svSmart.isHidden = false
+        var arrTotal:[PetHealth] = [PetHealth]()
+        if dfs.object(forKey: kTotalChartWeight) != nil {
+            arrTotal.append(.weight)
         }
-
-        if arrTotal.isEmpty == true {
-            //만일 다 OFF 이면 다 켠다
-            arrTotal.append(contentsOf: arrHealth)
+        if dfs.object(forKey: kTotalChartFeces) != nil {
+            arrTotal.append(.feces)
         }
-        
-        for subView in svSmartContainer.subviews {
-            subView.removeFromSuperview()
+        if dfs.object(forKey: kTotalChartWalk) != nil {
+            arrTotal.append(.walk)
         }
         
-        for type in arrSmart {
-            let cell = Bundle.main.loadNibNamed("ChartCellView", owner: self, options: nil)?.first as! ChartCellView
-            cell.configurationData(category: "스마트 차트", type: type)
-            cell.layer.borderWidth = 1.0
-            cell.layer.borderColor = RGB(238, 238, 238).cgColor
-            svSmartContainer.addArrangedSubview(cell)
-            
-            cell.didClickedClosure = ({(selData:Any?, category:String?, type: PetHealth, index:Int) ->() in
-                self.showChartDetailVC(categroy: category, type: type, selData:selData as? Dictionary<String, Any>)
-                print(type.koreanValue()!)
-            })
-        }
-        
-        for subView in svTotalContainer.subviews {
-            subView.removeFromSuperview()
-        }
         if arrTotal.isEmpty == false {
-            svTotal.isHidden = false
-        }
-        for type in arrTotal {
-            let cell = Bundle.main.loadNibNamed("ChartCellView", owner: self, options: nil)?.first as! ChartCellView
-            cell.configurationData(category: "전체 차트", type: type)
-            cell.layer.borderWidth = 1.0
-            cell.layer.borderColor = RGB(238, 238, 238).cgColor
-            svTotalContainer.addArrangedSubview(cell)
+            vwTotalBg.isHidden = false
             
-            cell.didClickedClosure = ({(selData:Any?, category:String?, type: PetHealth, index:Int) ->() in
-                print(type.koreanValue()!)
-                self.showChartDetailVC(categroy: category, type: type, selData:selData as? Dictionary<String, Any>)
-            })
+            for subView in svTotalContainer.subviews {
+                subView.removeFromSuperview()
+            }
+            
+            for type in arrTotal {
+                let cell = Bundle.main.loadNibNamed("ChartCellView", owner: self, options: nil)?.first as! ChartCellView
+                cell.configurationData(category: "전체 차트", type: type)
+                cell.layer.borderWidth = 1.0
+                cell.layer.borderColor = RGB(238, 238, 238).cgColor
+                svTotalContainer.addArrangedSubview(cell)
+                
+                cell.didClickedClosure = ({(selData:Any?, category:String?, type: PetHealth, index:Int) ->() in
+                    print(type.koreanValue()!)
+                    self.showChartDetailVC(categroy: category, type: type, selData:selData as? Dictionary<String, Any>)
+                })
+            }
         }
-        
         self.view.layoutIfNeeded()
     }
     
@@ -171,8 +174,12 @@ class ChartViewController: BaseViewController {
         else if sender == btnSettingTotal {
             let vc = PetHealthFavoriteEdtingViewController.init()
             vc.catergory = .chartToal
-            vc.data = arrHealth
+            vc.data = [.weight, .feces, .walk]
             self.navigationController?.pushViewController(vc, animated: false)
+        }
+        else if sender == btnSmartDevice {
+//            let vc = IotListViewController.init()
+//            self.navigationController?.pushViewController(vc, animated: true)
         }
     }
 }

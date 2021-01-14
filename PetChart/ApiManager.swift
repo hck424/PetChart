@@ -465,7 +465,7 @@ class ApiManager: NSObject {
     }
     //Iot 장비 이름 변경
     func requetModifyDeviceName(param:[String:Any], success:ResSuccess?, failure:ResFailure?) {
-        NetworkManager.shared.request(.patch, "/api/v1/device", param) { (response) in
+        NetworkManager.shared.requestFormdataType(.patch, "/api/v1/device", param) { (response) in
             success?(response)
         } failure: { (error) in
             failure?(error)
@@ -490,6 +490,38 @@ class ApiManager: NSObject {
     ///FCM 갱신 /api/v1/app/updateFcmToken
     func requestUpdateFcmToken(param:[String:Any] ,success:ResSuccess?, failure:ResFailure?) {
         NetworkManager.shared.request(.patch, "/api/v1/app/updateFcmToken", param) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
+    /// 개월수 리스트
+    func requestAnimalBirthdayMonthList(success:ResSuccess?, failure:ResFailure?) {
+        NetworkManager.shared.request(.get, "/api/v1/animal/birthMonth", nil) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
+    /// 푸쉬 알림 상태 조회
+    func requestPushState(success:ResSuccess?, failure:ResFailure?) {
+        NetworkManager.shared.request(.get, "/api/v1/user/notification", nil) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
+    /// 푸쉬 알림 설정 등록삭제
+    func requestPushSetting(param:[String:Any], success:ResSuccess?, failure:ResFailure?) {
+        NetworkManager.shared.requestFormdataType(.post, "/api/v1/user/notification", param) { (response) in
+            success?(response)
+        } failure: { (error) in
+            failure?(error)
+        }
+    }
+    /// 앱 버전 정보
+    func requestAppVersionInfo(param:[String:Any], success:ResSuccess?, failure:ResFailure?) {
+        NetworkManager.shared.request(.post, "/api/v1/app/ver", param) { (response) in
             success?(response)
         } failure: { (error) in
             failure?(error)

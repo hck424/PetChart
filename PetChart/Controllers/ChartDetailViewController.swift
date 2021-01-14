@@ -29,12 +29,13 @@ class ChartDetailViewController: BaseViewController {
     var type: PetHealth = .eat
     var arrChart:[[String:Any]] = [[String:Any]]()
     var arrPickupGraph:[[String:Any]] = [[String:Any]]()
-    var maxValue: Int = 0
+    var maxValue: Float = 1.0
+    var average: Float = 0.0
     var graph: GraphView?
     
-    let endDate:Date = Date()
+    var endDate:Date = Date()
     let healths:[PetHealth] = [.drink, .eat, .weight, .feces, .walk]
-    var roopIndex: Int = 0
+//    var roopIndex: Int = 0
     var dataDic:[String:Any] = [:]
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -72,9 +73,41 @@ class ChartDetailViewController: BaseViewController {
         graph?.configurationGraph(type: graphType, colorGraph: RGB(87, 97, 125))
         
         self.view.layoutIfNeeded()
-        btnOtherChart.sendActions(for: .touchUpInside)
+        self.requestData()
     }
-    
+    func requestData() {
+        if graphType == .day {
+            //서버에서 30개씩 내려준다.
+            let startDate = endDate.jumpingDay(jumping: -5)
+            let from = startDate.stringDateWithFormat("yyyy-MM-dd")
+            let to = endDate.stringDateWithFormat("yyyy-MM-dd")
+            self.requestChartData(from: from, to: to)
+        }
+        else if graphType == .week {
+            graphType = .week
+            let stDate = endDate.jumpingDay(jumping: -35)
+            let from = stDate.stringDateWithFormat("yyyy-MM-dd")
+            let to = endDate.stringDateWithFormat("yyyy-MM-dd")
+            self.requestChartData(from: from, to: to)
+        }
+        else if graphType == .month {
+            graphType = .month
+            var year = endDate.getYear()
+            var month = endDate.getMonth()
+            let day = endDate.getDay()
+            let minusMonth = 4
+            if (month - minusMonth) < 1 {
+                year = year - 1
+                month = 12-abs(month-minusMonth)
+            }
+            else {
+                month = month - minusMonth
+            }
+            let from = String.init(format: "%04d-%02d-%02d", year, month, day)
+            let to = endDate.stringDateWithFormat("yyyy-MM-dd")
+            self.requestChartData(from: from, to: to)
+        }
+    }
     func requestChartData(from: String, to: String) {
         
         guard let savePetId = UserDefaults.standard.object(forKey: kMainShowPetId) as? Int  else {
@@ -85,7 +118,15 @@ class ChartDetailViewController: BaseViewController {
             if let response = response as? [String:Any],
                let data = response["data"] as? [String:Any] {
                 self.dataDic = data
-                self.maxValue = (data["maxValue"] as? Int) ?? 0
+                if let maxValue = data["maxValue"] as? NSNumber {
+                    self.maxValue = maxValue.floatValue
+                }
+                if let average = data["average"] as? NSNumber {
+                    self.average =  average.floatValue
+                }
+                print("maxvalue: \(self.maxValue)")
+                print("average: \(self.average)")
+                
                 if let charts = data["charts"] as? Array<[String:Any]> {
                     self.arrChart.removeAll()
                     self.arrChart = charts
@@ -101,43 +142,43 @@ class ChartDetailViewController: BaseViewController {
         if arrChart.isEmpty == true {
             return
         }
-        let curDate = Date()
+//        let curDate = Date()
+        graph?.healthType = type
+        graph?.showAverage = true
+        
         if graphType == .day {
             if let graphData = self.pickupDayGraphDates(count: 5, selDate: endDate, arrData: arrChart) {
                 self.arrPickupGraph = graphData
                 self.graph?.maxValue = maxValue
                 self.graph?.data = graphData
+                self.graph?.edDate = endDate
+                self.graph?.average = average
                 self.graph?.reloadData()
             }
         }
         else if graphType == .week {
             var index = 0
             self.arrPickupGraph.removeAll()
-            var tmpArray:[[String:Any]] = [[String:Any]]()
-            for item in arrChart.reversed() {
-                if let key = item["key"] as? String {
-                    df.dateFormat = "yyyy-MM-dd"
-                    if let date = df.date(from: key) {
-                        if date < curDate {
-                            tmpArray.append(item)
-                            index += 1
-                        }
-                    }
-                }
-                
+//            var tmpArray:[[String:Any]] = [[String:Any]]()
+            for item in arrChart {
+                self.arrPickupGraph.append(item)
+                index += 1
                 if index > 4 {
                     break;
                 }
             }
-            self.arrPickupGraph = tmpArray.reversed()
             self.graph?.maxValue = maxValue
             self.graph?.data = arrPickupGraph
+            self.graph?.edDate = endDate
+            self.graph?.average = average
             self.graph?.reloadData()
         }
         else if graphType == .month {
             self.arrPickupGraph = arrChart
             self.graph?.maxValue = maxValue
             self.graph?.data = arrPickupGraph
+            self.graph?.average = average
+            self.graph?.edDate = endDate
             self.graph?.reloadData()
         }
         
@@ -150,24 +191,24 @@ class ChartDetailViewController: BaseViewController {
         guard let petName = SharedData.objectForKey(key: kMainShowPetName) as? String else {
             return
         }
-        guard let comparedToPreviousDay = self.dataDic["comparedToPreviousDay"] as? Int else {
-            return
-        }
-//        guard let average = self.dataDic["average"] as? Int else {
+//        guard var comparedToPreviousDay:Float = self.dataDic["comparedToPreviousDay"] as? Float else {
 //            return
 //        }
-        guard let appropriate_msg = self.dataDic["appropriate_msg"] as? String else {
-            return
-        }
+//        guard let appropriate_msg = self.dataDic["appropriate_msg"] as? String else {
+//            return
+//        }
         //바탐 메세지
-        guard let future_msg = self.dataDic["future_msg"] as? String else {
-            lbBottomMsg.text = ""
-            return
-        }
+//        guard let future_msg = self.dataDic["future_msg"] as? String else {
+//            lbBottomMsg.text = ""
+//            return
+//        }
         
         var tmpStr = "량이"
         if type == .walk {
             tmpStr = "시간이"
+        }
+        else if type == .feces {
+            tmpStr = "횟수가"
         }
         else if type == .medical {
             tmpStr = "가"
@@ -181,41 +222,88 @@ class ChartDetailViewController: BaseViewController {
             tmpStr2 = "월"
         }
         
-        var result = "\(petName)의 \(type.koreanValue()!)\(tmpStr)\n전\(tmpStr2) 대비"
-        var markStr = ""
-        if comparedToPreviousDay > 0 {
-            markStr = "\(abs(comparedToPreviousDay))%"
-            result.append(" \(markStr) 증가했어요.")
+        var todayValue: Float = 0.0
+        var preValue : Float = 0.0
+        if graphType == .day || graphType == .month {
+            if let todayDic = arrPickupGraph.last, let value = todayDic["value1"] as? NSNumber  {
+                todayValue = value.floatValue
+            }
+            if let preDic = arrPickupGraph[arrPickupGraph.count-2] as? [String:Any], let value1 = preDic["value1"] as? NSNumber {
+                preValue = value1.floatValue
+            }
         }
-        else if comparedToPreviousDay < 0 {
-            markStr = "\(abs(comparedToPreviousDay))%"
-            result.append(" \(markStr) 감소했어요.")
+        else if graphType == .week {
+            var calendar = Calendar.init(identifier: .gregorian)
+            calendar.locale = Locale.init(identifier: "ko_KR")
+            let componets = calendar.dateComponents([.month, .weekdayOrdinal, .weekOfYear, .weekOfMonth], from: endDate)
+            let week:Int = componets.weekdayOrdinal ?? 1
+            if let todayDic = arrPickupGraph[week-1] as? [String:Any], let value = todayDic["value1"] as? NSNumber  {
+                todayValue = value.floatValue
+            }
+            if week > 1 {
+                if let preDic = arrPickupGraph[week-2] as? [String:Any], let value1 = preDic["value1"] as? NSNumber {
+                    preValue = value1.floatValue
+                }
+            }
+        }
+  
+//        오늘-전일 / 전일 * 100
+        var result = "\(petName)의 \(type.koreanValue()!)\(tmpStr)\n"
+        
+        var markStr = ""
+        if preValue > 0 {
+            result.append("전\(tmpStr2) 대비")
+            let percent = ((todayValue - preValue)/preValue) * 100
+            
+            if percent > 0 {
+                markStr = "\(Utility.numberToString(num: percent))%"
+                result.append(" \(markStr) 증가했어요.")
+            }
+            else if percent < 0 {
+                markStr = "\(Utility.numberToString(num: abs(percent)))%"
+                result.append(" \(markStr) 감소했어요.")
+            }
+            else {
+                result.append(" 같습니다.")
+            }
+            
+            let nsResult = NSString.init(string: result)
+            let attr = NSMutableAttributedString.init(string: result)
+            attr.addAttribute(.foregroundColor, value: RGB(51, 150, 254), range: NSMakeRange(0, petName.length))
+            attr.addAttribute(.font, value: UIFont.systemFont(ofSize: 18.0, weight: .bold), range: NSMakeRange(0, petName.length))
+            
+            if markStr.isEmpty == false {
+                attr.addAttribute(.foregroundColor, value: ColorDefault, range: nsResult.range(of: markStr))
+                attr.addAttribute(.font, value: UIFont.systemFont(ofSize: 18.0, weight: .bold), range: nsResult.range(of: markStr))
+            }
+            lbMsg.attributedText = attr
         }
         else {
-            result.append(" 같습니다.")
+            markStr = "전\(tmpStr2) 데이터가 존재하지 않습니다."
+            result.append(markStr)
+            
+            let attr = NSMutableAttributedString.init(string: result)
+            attr.addAttribute(.foregroundColor, value: RGB(51, 150, 254), range: NSMakeRange(0, petName.length))
+            attr.addAttribute(.font, value: UIFont.systemFont(ofSize: 18.0, weight: .bold), range: NSMakeRange(0, petName.length))
+            lbMsg.attributedText = attr
         }
-        let nsResult = NSString.init(string: result)
-        let attr = NSMutableAttributedString.init(string: result)
-        attr.addAttribute(.foregroundColor, value: RGB(51, 150, 254), range: NSMakeRange(0, petName.length))
-        attr.addAttribute(.font, value: UIFont.systemFont(ofSize: 18.0, weight: .bold), range: NSMakeRange(0, petName.length))
-        
-        if markStr.isEmpty == false {
-            attr.addAttribute(.foregroundColor, value: ColorDefault, range: nsResult.range(of: markStr))
-            attr.addAttribute(.font, value: UIFont.systemFont(ofSize: 18.0, weight: .bold), range: nsResult.range(of: markStr))
+        if let appropriate_msg = self.dataDic["appropriate_msg"] as? String {
+            print("\(appropriate_msg)")
+            let attr1 = try? NSMutableAttributedString.init(htmlString: appropriate_msg)
+            if let attr1 = attr1 {
+                attr1.addAttribute(.font, value: lbAppropriate.font!, range: NSRange(location: 0, length: attr1.string.length))
+                lbAppropriate.attributedText = attr1
+            }
         }
-        
-        lbMsg.attributedText = attr
-//        let html = "<b>Hello World!</b>"
-        let attr1 = try? NSAttributedString.init(htmlString: appropriate_msg)
-        lbAppropriate.attributedText = attr1
-        
-        lbBottomMsg.text = future_msg
+        if let future_msg = self.dataDic["future_msg"] as? String {
+            lbBottomMsg.text = future_msg
+        }
     }
     
     func pickupDayGraphDates(count:Int, selDate:Date, arrData:Array<[String:Any]>) -> Array<[String:Any]>? {
         df.dateFormat = "yyyy-MM-dd"
     
-        let stDay = selDate.jumpingDay(jumping: -(count-1))!
+        let stDay = selDate.jumpingDay(jumping: -(count-1))
         let days = datesRange(unit: .day, from: stDay, to: selDate)
         var result:Array<[String:Any]> = Array<[String:Any]>()
         
@@ -238,70 +326,26 @@ class ChartDetailViewController: BaseViewController {
     }
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
         if sender == btnShare {
-            let snapshot:UIImage? = vwBgContainer.snapshot
-            let vc = TalkWriteViewController.init()
-            vc.snapshot = snapshot
-            vc.delegate = self
-            self.navigationController?.pushViewController(vc, animated: true)
+            self.view.layoutIfNeeded()
+            DispatchQueue.main.async {
+                guard let mainTabCtrl = AppDelegate.instance()?.mainTabbarCtrl() else {
+                    return
+                }
+                mainTabCtrl.selectedIndex = 2
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.1) { [self] in
+                    let snapshot:UIImage = self.vwBgContainer.snapshot
+                    mainTabCtrl.communityVc.gotoTalkWriteVc(snapshot)
+                }
+            }
+            self.navigationController?.popToRootViewController(animated: false)
         }
         else if sender == btnOtherPet {
-            self.navigationController?.popToRootViewController(animated: true)
-            if let mainTabVc: MainTabBarController =  AppDelegate.instance()?.mainTabbarCtrl() {
-                mainTabVc.selectedIndex = 2
-            }
+            self.navigationController?.popToRootViewController(animated: false)
+            AppDelegate.instance()?.mainTabbarCtrl()?.changeTabMenuIndex(2, 4)
+            
         }
         else if sender == btnOtherChart {
-            
-            
-            if graphType == .day {
-                //서버에서 30개씩 내려준다.
-                if let startDate = Date().jumpingDay(jumping: -29) {
-                    let from = startDate.stringDateWithFormat("yyyy-MM-dd")
-                    let to = endDate.stringDateWithFormat("yyyy-MM-dd")
-                    self.requestChartData(from: from, to: to)
-                }
-            }
-            else if graphType == .week {
-                graphType = .week
-                
-                if let stDate = Date().jumpingDay(jumping: -42) {
-                    let from = stDate.stringDateWithFormat("yyyy-MM-dd")
-                    let to = endDate.stringDateWithFormat("yyyy-MM-dd")
-                    self.requestChartData(from: from, to: to)
-                }
-            }
-            else if graphType == .month {
-                graphType = .month
-                
-                //5개월전 .jumpingDay(jumping: -240)!
-                var year = endDate.getYear()
-                var month = endDate.getMonth()
-                let day = endDate.getDay()
-                let minusMonth = 4
-                if (month - minusMonth) < 1 {
-                    year = year - 1
-                    month = 12-abs(month-minusMonth)
-                }
-                else {
-                    month = month - minusMonth
-                }
-                let from = String.init(format: "%04d-%02d-%02d", year, month, day)
-                let to = endDate.stringDateWithFormat("yyyy-MM-dd")
-                self.requestChartData(from: from, to: to)
-            }
-            
-            roopIndex = healths.firstIndex(of: type)!
-            roopIndex += 1
-            if roopIndex >= healths.count {
-                roopIndex = 0
-            }
-            self.type = healths[roopIndex]
+            self.navigationController?.popViewController(animated: true)
         }
-    }
-}
-
-extension ChartDetailViewController: TalkWriteViewControllerDelegate {
-    func didfinishWrite(category: String, data: [String : Any]?) {
-        print("write ok")
     }
 }

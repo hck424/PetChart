@@ -12,6 +12,7 @@ import FSPagerView
 @IBDesignable
 class HomeViewController: BaseViewController {
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var cornerBgView: UIView!
     @IBOutlet weak var btnMypetName: UIButton!
     @IBOutlet weak var btnProfile: UIButton!
@@ -32,21 +33,22 @@ class HomeViewController: BaseViewController {
     var petPopupView: PetSelectPopupView?
     var arrMyPet: Array<Animal>?
     var selAnimal: Animal?
-    let arrGraph:Array<PetHealth> = [.drink, .eat, .weight, .feces, .walk, .medical]
+    let arrGraph:Array<PetHealth> = [.drink, .eat, .weight, .feces, .walk]
     var arrGraphData: [String:Any] = [String:Any]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        CNavigationBar.drawTitle(self, UIImage(named: "header_logo")!, nil)
+//        CNavigationBar.drawTitle(self, UIImage(named: "header_logo")!, nil)
+        CNavigationBar.drawTitle(self, UIImage(named: "icon_logo")!, nil)
         CNavigationBar.drawProfile(self, #selector(onclickedButtonActins(_:)))
     
-        cornerBgView.layer.cornerRadius = 20.0
-        cornerBgView.layer.maskedCorners = [CACornerMask.layerMinXMinYCorner, CACornerMask.layerMaxXMinYCorner]
+        scrollView.layer.cornerRadius = 20.0
+        scrollView.layer.maskedCorners = CACornerMask.init(TL: true, TR: true, BL: false, BR: false)
         
         btnProfile.layer.cornerRadius = btnProfile.bounds.height/2
         btnProfile.layer.borderWidth = 1.5
         btnProfile.layer.borderColor = RGB(222, 222, 222).cgColor
-        btnProfile.imageView?.contentMode = .scaleAspectFit
+        btnProfile.imageView?.contentMode = .scaleAspectFill
         
         self.requestBannerList()
     }
@@ -79,6 +81,9 @@ class HomeViewController: BaseViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: NotiNameHitTestView), object: nil)
+        if let petPopupView = petPopupView {
+            petPopupView.isHidden = true
+        }
     }
     
     func requestBannerList() {
@@ -105,53 +110,40 @@ class HomeViewController: BaseViewController {
     }
     
     func requestMyPetList() {
+        
         ApiManager.shared.requestMyPetList { (response) in
             if let response = response as?[String:Any],
                let data = response["data"] as? [String:Any],
                let pets = data["pets"] as? Array<[String:Any]> {
                 if pets.isEmpty == false {
                     
-                    var petList = Array<Animal>()
+                    SharedData.setObjectForKey(key: kHasAnimal, value: "Y")
+                    
+                    self.arrMyPet = Array<Animal>()
                     for pet in pets {
                         let animal:Animal = Animal.init(JSON: pet)!
-                        petList.append(animal)
+                        self.arrMyPet?.append(animal)
                     }
-                    self.arrMyPet = Array<Animal>()
                     
-                    if petList.isEmpty == false {
-                        //메인 설정된 놈을 찾는다
-                        for animal in petList {
-                            if let is_main = animal.is_main {
-                                if is_main == "Y" {
-                                    self.arrMyPet?.append(animal)
-                                }
-                            }
-                        }
+                    if let arrMyPet = self.arrMyPet, arrMyPet.isEmpty == false {
                         
-                        if let arrMyPet = self.arrMyPet {
-                            //1순위 저장된 펫을 찾는다.
-                            if let saveMainPetId = UserDefaults.standard.object(forKey: kMainShowPetId) as? Int  {
-                                for animal in arrMyPet {
-                                    if animal.id! == saveMainPetId {
-                                        self.selAnimal = animal
-                                        break
-                                    }
+                        if let saveMainPetId = UserDefaults.standard.object(forKey: kMainShowPetId) as? Int  {
+                            for animal in arrMyPet {
+                                if animal.id! == saveMainPetId {
+                                    self.selAnimal = animal
+                                    break
                                 }
                             }
-                            
-                            //저장된 펫 아이디가 못찾았다면
-                            if self.selAnimal == nil {
-                                self.selAnimal = petList.last
-                            }
                         }
-                        else { //메인설정된 놈이 없으면 마지막거 노출한다.
-                            self.arrMyPet?.append(petList.last!)
-                            self.selAnimal = petList.last
+                        //저장된 펫 아이디가 못찾았다면 메인펫 설정된 놈 중 첫번째거
+                        if self.selAnimal == nil {
+                            self.selAnimal = arrMyPet.first
                         }
                     }
                 }
                 else {
                     self.arrMyPet = nil
+                    SharedData.removeObjectForKey(key: kHasAnimal)
                 }
                 self.configurationUI()
             }
@@ -196,9 +188,17 @@ class HomeViewController: BaseViewController {
             return
         }
         
-        
         btnEdting.isHidden = false
         btnMypetName.isHidden = false
+        
+        var arrMainShow = [Animal]()
+        for animal in arrMyPet {
+            if let is_main = animal.is_main {
+                if is_main == "Y" {
+                    arrMainShow.append(animal)
+                }
+            }
+        }
         
         if let selAnimal = selAnimal {
             UserDefaults.standard.setValue(selAnimal.petName, forKey: kMainShowPetName)
@@ -238,35 +238,47 @@ class HomeViewController: BaseViewController {
                 lbKind.text = tmpStr
             }
             
-            if let ivArrow: UIImageView = btnMypetName.viewWithTag(102) as? UIImageView {
-                
-            }
             
+            if let ivArrow: UIImageView = btnMypetName.viewWithTag(102) as? UIImageView {
+                if arrMainShow.isEmpty == false {
+                    ivArrow.isHidden = false
+                }
+                else {
+                    ivArrow.isHidden = true
+                }
+            }
             self.requestTodayMainData()
         }
         else {
             btnMypetName.isHidden = true
         }
         
-        petPopupView = Bundle.main.loadNibNamed("PetSelectPopupView", owner: self, options: nil)?.first as? PetSelectPopupView
-        if let petPopupView = petPopupView {
-            self.view.addSubview(petPopupView)
-            petPopupView.translatesAutoresizingMaskIntoConstraints = false
-
-            petPopupView.topAnchor.constraint(equalTo: cornerBgView.topAnchor, constant: 75).isActive = true
-            petPopupView.widthAnchor.constraint(equalToConstant: 160).isActive = true
-            petPopupView.centerXAnchor.constraint(equalTo: cornerBgView.centerXAnchor, constant: 60).isActive = true
-
-            petPopupView.configurationData(arrMyPet)
-            petPopupView.didClickedClosure = ({(selData:Animal?, index) -> () in
+        if arrMainShow.isEmpty == false {
+            if let petPopupView = petPopupView {
+                petPopupView.removeFromSuperview()
+            }
+            self.petPopupView = Bundle.main.loadNibNamed("PetSelectPopupView", owner: self, options: nil)?.first as? PetSelectPopupView
+            
+            self.view.addSubview(petPopupView!)
+            petPopupView?.translatesAutoresizingMaskIntoConstraints = false
+            petPopupView?.topAnchor.constraint(equalTo: cornerBgView.topAnchor, constant: 75).isActive = true
+            petPopupView?.widthAnchor.constraint(equalToConstant: 160).isActive = true
+            petPopupView?.centerXAnchor.constraint(equalTo: cornerBgView.centerXAnchor, constant: 60).isActive = true
+            petPopupView?.configurationData(arrMainShow)
+            petPopupView?.didClickedClosure = ({(selData:Animal?, index) -> () in
                 if let selData = selData {
                     self.selAnimal = selData
                     self.configurationUI()
                     print(selData.petName as Any)
                 }
-                petPopupView.isHidden = true
+                self.petPopupView?.isHidden = true
             })
-            petPopupView.isHidden = true
+            petPopupView?.isHidden = true
+        }
+        else {
+            if let petPopupView = petPopupView {
+                petPopupView.removeFromSuperview()
+            }
         }
     }
     
@@ -305,43 +317,34 @@ class HomeViewController: BaseViewController {
         if dfs.object(forKey: kWalk) != nil {
             arrType.append(.walk)
         }
-        if dfs.object(forKey: kMedical) != nil {
-            arrType.append(.medical)
-        }
+//        if dfs.object(forKey: kMedical) != nil {
+//            arrType.append(.medical)
+//        }
         
         //그래프 노출 다 off 했을시 다 보여준다.
-        if arrType.isEmpty == true {
-            arrType.append(contentsOf: arrGraph)
+        if arrType.isEmpty == false {
             for type in arrType {
-                dfs.setValue(type.rawValue, forKey: type.udfHomeGraphKey())
+                let cell = Bundle.main.loadNibNamed("HomeGraphCell", owner: self, options: nil)?.first as! HomeGraphCell
+                svContaner.addArrangedSubview(cell)
+                var item: [String:Any]?
+                if type == .drink {
+                    item = arrGraphData["drink"] as? [String : Any]
+                }
+                else if type == .eat {
+                    item = arrGraphData["eat"] as? [String : Any]
+                }
+                else if type == .weight {
+                    item = arrGraphData["weight"] as? [String : Any]
+                }
+                else if type == .feces {
+                    item = arrGraphData["catharsis"] as? [String : Any]
+                }
+                else if type == .walk {
+                    item = arrGraphData["walk"] as? [String : Any]
+                }
+                
+                cell.configurationData(item, type: type)
             }
-            dfs.synchronize()
-        }
-        
-        for type in arrType {
-            let cell = Bundle.main.loadNibNamed("HomeGraphCell", owner: self, options: nil)?.first as! HomeGraphCell
-            svContaner.addArrangedSubview(cell)
-            var item: [String:Any]?
-            if type == .drink {
-                item = arrGraphData["drink"] as? [String : Any]
-            }
-            else if type == .eat {
-                item = arrGraphData["eat"] as? [String : Any]
-            }
-            else if type == .weight {
-                item = arrGraphData["weight"] as? [String : Any]
-            }
-            else if type == .feces {
-                item = arrGraphData["catharsis"] as? [String : Any]
-            }
-            else if type == .walk {
-                item = arrGraphData["walk"] as? [String : Any]
-            }
-            else if type == .medical {
-                item = arrGraphData["diagnosis"] as? [String : Any]
-            }
-            
-            cell.configurationData(item, type: type)
         }
         
         let lbTmp = UILabel()
@@ -354,28 +357,7 @@ class HomeViewController: BaseViewController {
     //FIXME:: custom btn actions
     @objc @IBAction func onclickedButtonActins(_ sender: UIButton) {
         if sender.tag == TAG_NAVI_USER {
-            
-//            let vc = PetHealthFavoriteEdtingViewController.init()
-//            vc.catergory = .favoriteHome
-//            vc.data = [.drink, .eat, .weight, .feces, .walk, .medical]
-//            self.navigationController?.pushViewController(vc, animated: true)
-//            return
-            
 
-//            let data = ["포메라니안", "미니어처 핀셔", "파피용", "미니어쳐 닥스훈트", "요크셔테리어", "말티즈", "비숑 프리제", "미니어쳐 슈나우저", "포메라니안", "미니어처 핀셔", "파피용", "미니어쳐 닥스훈트", "요크셔테리어", "말티즈", "비숑 프리제", "미니어쳐 슈나우저", "포메라니안", "미니어처 핀셔", "파피용", "미니어쳐 닥스훈트", "요크셔테리어", "말티즈", "비숑 프리제", "미니어쳐 슈나우저"]
-//            let vc = PopupListViewController.init(type: .normal, title: "반려동물을 선택해주세요.", data: data, keys: nil) { (vcs, selData, index) in
-//                if let selData = selData {
-//                    print(selData)
-//                }
-//                vcs.dismiss(animated: true, completion: nil)
-//            }
-//            vc.showSearchBar = true
-//            vc.modalPresentationStyle = .overFullScreen
-//            vc.modalTransitionStyle = .crossDissolve
-//            self.present(vc, animated: false, completion: nil)
-//
-//            return
-            
             self.checkSession { (session) in
                 if session == .valid {
                     self.gotoMyinfoVc()

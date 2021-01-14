@@ -15,15 +15,16 @@ class AnimalModifyInfoViewController: BaseViewController {
     @IBOutlet weak var btnBirthDay: UIButton!
     @IBOutlet weak var btnMale: SelectedButton!
     @IBOutlet weak var btnFemale: SelectedButton!
+    @IBOutlet weak var cornerBgView: UIView!
     
     @IBOutlet weak var btnDog: SelectedButton!
     @IBOutlet weak var btnCat: SelectedButton!
     @IBOutlet weak var btnOther: SelectedButton!
-    @IBOutlet weak var tfItem: CTextField!
-    @IBOutlet weak var btnArrowItem: UIButton!
-    @IBOutlet weak var btnPreventionBefore: SelectedButton!
-    @IBOutlet weak var btnPreventionAfter: SelectedButton!
-    @IBOutlet weak var btnPreventionNone: SelectedButton!
+    @IBOutlet weak var tfItem: UITextField!
+    @IBOutlet weak var btnItem: UIButton!
+    
+    @IBOutlet weak var btnPrevent: UIButton!
+    @IBOutlet weak var tfPrevent: UITextField!
     @IBOutlet weak var btnPreNeutral: SelectedButton!
     @IBOutlet weak var btnAfeterNeutral: SelectedButton!
     @IBOutlet weak var tfRegiNumber: CTextField!
@@ -33,6 +34,7 @@ class AnimalModifyInfoViewController: BaseViewController {
     @IBOutlet weak var btnSafety: UIButton!
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
     @IBOutlet var accessoryView: UIToolbar!
+    @IBOutlet weak var tfWeight: CTextField!
     
     var profileImg: UIImage?
     var animal: Animal?
@@ -50,12 +52,14 @@ class AnimalModifyInfoViewController: BaseViewController {
         
         tfName.inputAccessoryView = accessoryView
         tfRegiNumber.inputAccessoryView = accessoryView
+        tfWeight.inputAccessoryView = accessoryView
         
         btnProfile.layer.cornerRadius = btnProfile.bounds.height/2
-        btnProfile.imageView?.contentMode = .scaleAspectFit
-        btnProfile.layer.borderWidth = 2
-        btnProfile.layer.borderColor = RGB(222, 222, 222).cgColor
+        btnProfile.imageView?.contentMode = .scaleAspectFill
+        
         btnAnswerRegiNum.imageView?.contentMode = .scaleAspectFit
+        cornerBgView.layer.cornerRadius = 20
+        cornerBgView.layer.maskedCorners = CACornerMask(TL: true, TR: true, BL: false, BR: false)
         self.requestPetDetailInfo()
     }
     
@@ -123,13 +127,13 @@ class AnimalModifyInfoViewController: BaseViewController {
         
         if let prevention = animal.prevention {
             if prevention == "Y" {
-                btnPreventionAfter.isSelected = true
+                tfPrevent.text = "접종 후"
             }
             else if prevention == "N" {
-                btnPreventionBefore.isSelected = true
+                tfPrevent.text = "접종 전"
             }
             else {
-                btnPreventionNone.isSelected = true
+                tfPrevent.text = "모름"
             }
         }
         
@@ -140,6 +144,16 @@ class AnimalModifyInfoViewController: BaseViewController {
             else {
                 btnPreNeutral.isSelected = true
             }
+        }
+        
+        if let weight = animal.weight {
+            let w = CGFloat(Double(weight)/1000)
+            let formatter = NumberFormatter()
+            formatter.minimumFractionDigits = 0
+            formatter.maximumFractionDigits = 1
+            formatter.numberStyle = .decimal
+            formatter.roundingMode = .halfEven
+            tfWeight.text = formatter.string(from: w as NSNumber)
         }
         
         if let regist_id = animal.regist_id {
@@ -165,7 +179,7 @@ class AnimalModifyInfoViewController: BaseViewController {
             picker?.local = Locale(identifier: "ko_KR")
             picker?.show()
         }
-        else if sender == btnArrowItem {
+        else if sender == btnItem {
             guard let dtype = dtype else {
                 return
             }
@@ -173,9 +187,10 @@ class AnimalModifyInfoViewController: BaseViewController {
             ApiManager.shared.requestAnimalKinds(dtype: dtype) { (response) in
                 if let response = response as? [String:Any],
                    let success = response["success"] as? Bool,
-                   let list = response["list"] as? Array<String>  {
+                   var list = response["list"] as? Array<String>  {
                     
                     if success && list.isEmpty == false {
+                        list.insert("모름", at: 0)
                         let vc = PopupListViewController.init(type: .normal, title: "품종을 선택해주세요.", data: list, keys: nil) { (vcs, selData:Any?, index) in
                             if let selData = selData as?String {
                                 self.tfItem.text = selData
@@ -191,20 +206,16 @@ class AnimalModifyInfoViewController: BaseViewController {
                 self.showErrorAlertView(error)
             }
         }
-        else if sender == btnPreventionBefore {
-            btnPreventionBefore.isSelected = true
-            btnPreventionAfter.isSelected = false
-            btnPreventionNone.isSelected = false
-        }
-        else if sender == btnPreventionAfter {
-            btnPreventionBefore.isSelected = false
-            btnPreventionAfter.isSelected = true
-            btnPreventionNone.isSelected = false
-        }
-        else if sender == btnPreventionNone {
-            btnPreventionBefore.isSelected = false
-            btnPreventionAfter.isSelected = false
-            btnPreventionNone.isSelected = true
+        else if sender == btnPrevent {
+            let list = ["접종 전", "접종 후", "모름"]
+            let vc = PopupListViewController.init(type: .normal, title: nil, data: list, keys: nil) { (vcs, selData, index) in
+                vcs.dismiss(animated: false, completion: nil)
+                guard let selData = selData as? String else {
+                    return
+                }
+                self.tfPrevent.text = selData
+            }
+            self.present(vc, animated: true, completion: nil)
         }
         else if sender == btnMale {
             btnMale.isSelected = true
@@ -270,37 +281,57 @@ class AnimalModifyInfoViewController: BaseViewController {
             present(alert, animated: false, completion: nil)
         }
         else if sender == btnOk {
+            self.view.endEditing(true)
+            
             guard let petId = animal?.id else {
                 return
             }
             
-            if tfBirthDay.text?.isEmpty == true {
-                self.view.makeToast("생년월일을 입력해주세요.")
+            guard let name = tfName.text, name.isEmpty == false else {
+                self.showToast("이름을 입력해주세요.")
                 return
             }
-            if tfItem.text?.isEmpty == true {
-                self.view.makeToast("품종을 입력해주세요")
+            guard let birthday = tfBirthDay.text, birthday.isEmpty == false else {
+                self.showToast("생년월일을 선택해주세요.")
+                return
             }
             
-         
+            guard let item = tfItem.text, item.isEmpty == false else {
+                self.showToast("품종을 선택해주세요.")
+                return
+            }
+            
+            guard let weight = tfWeight.text, weight.isEmpty == false else {
+                self.showToast("몸무게를 입력해주세요.")
+                return
+            }
+            if Float(weight)! > 200 {
+                self.view.makeToast("몸무게는 최대 200kg까지 입력가능합니다.")
+                return
+            }
             var param:[String:Any] = [String:Any]()
             if let profileImg = profileImg {
                 param["images"] = [profileImg]
             }
-            
+            param["id"] = petId
             param["name"] = tfName.text!
-            param["birthday"] = tfBirthDay.text!
+            param["birthday"] = birthday
+            param["kind"] = item
+            param["weight"] =  Int(Float(weight)!*1000)
+            
             if btnPreNeutral.isSelected {
                 param["neutral"] = "N"
             }
             else if btnAfeterNeutral.isSelected {
                 param["neutral"] = "Y"
             }
-            
-            if btnPreventionBefore.isSelected {
+            guard let prevent = tfPrevent.text else {
+                return
+            }
+            if prevent == "접종 전"  {
                 param["prevention"] = "N"
             }
-            else if btnPreventionAfter.isSelected {
+            else if prevent == "접종 후" {
                 param["prevention"] = "Y"
             }
             else {
@@ -319,29 +350,20 @@ class AnimalModifyInfoViewController: BaseViewController {
                 param["sex"] = "F"
             }
             
-            if tfItem.text?.isEmpty == false {
-                param["kind"] = tfItem.text!
-            }
-            
             let df = CDateFormatter.init()
             df.dateFormat = "yyyy-MM-dd"
-            let birthday = df.date(from: tfBirthDay.text!)
-            let ageInfo = self.getAgeInfo(birthDay: birthday!)
-            param["age"] = ageInfo.year
-            param["id"] = petId
+            
+            if let date = df.date(from: birthday) {
+                let ageInfo = self.getAgeInfo(birthDay: date)
+                param["age"] = ageInfo.year
+            }
             ApiManager.shared.requestPetInfoModify(param: param) { (response) in
-                if let response = response as? [String:Any],
-                   let success = response["success"] as? Bool,
-                   let data = response["data"] as? [String:Any],
-                   let petName = data["petName"] as? String {
-                    if success && data.isEmpty == false {
-                        AlertView.showWithOk(title: petName, message: "수정이 완료되었습니다.") { (idex) in
-                            self.navigationController?.popToRootViewController(animated: true)
-                        }
-                    }
-                    else {
-                        self.showErrorAlertView(response)
-                    }
+                if let response = response as? [String:Any], let success = response["success"] as? Bool, success == true {
+                    self.showToast("동물이 수정되었습니다.")
+                    self.navigationController?.popToRootViewController(animated: true)
+                }
+                else {
+                    self.showErrorAlertView(response)
                 }
             } failure: { (error) in
                 self.showErrorAlertView(error)
@@ -388,6 +410,16 @@ extension AnimalModifyInfoViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
     }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorDefault
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorBorder
+        }
+    }
 }
 
 extension AnimalModifyInfoViewController: CameraViewControllerDelegate {
@@ -396,23 +428,17 @@ extension AnimalModifyInfoViewController: CameraViewControllerDelegate {
             return
         }
         guard let asset = assets.first else { return }
-        PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: 300, height: 300), contentMode: .aspectFit, options: PHImageRequestOptions()) { (result, _) in
+        PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: imageScale, height: imageScale), contentMode: .aspectFit, options: PHImageRequestOptions()) { (result, _) in
             guard let result = result else {
                 return
             }
             self.profileImg = result
             self.btnProfile.setImage(self.profileImg, for: .normal)
-            self.btnProfile.borderColor = RGB(217, 217, 217)
-            self.btnProfile.borderWidth = 2.0
-            self.btnProfile.setNeedsDisplay()
         }
     }
     
     func didFinishImagePicker(origin: UIImage?, crop: UIImage?) {
         self.profileImg = crop
         self.btnProfile.setImage(self.profileImg, for: .normal)
-        self.btnProfile.borderColor = RGB(217, 217, 217)
-        self.btnProfile.borderWidth = 2.0
-        self.btnProfile.setNeedsDisplay()
     }
 }

@@ -13,7 +13,6 @@ enum HearderActionType {
 class TalkDetailHeaderView: UIView {
 
     @IBOutlet weak var ivTopThumb: AligmentImageView!
-    @IBOutlet weak var btnBack: UIButton!
     @IBOutlet weak var ivProfile: UIImageView!
     @IBOutlet weak var cornerBgView: UIView!
     @IBOutlet weak var lbNickName: UILabel!
@@ -71,26 +70,42 @@ class TalkDetailHeaderView: UIView {
         if let icon_url = dataDic["icon_url"] as? String {
             ivProfile.setImageCache(url: icon_url, placeholderImgName: nil)
         }
+        
         btnLike.isSelected = false
         if let my_like_state = dataDic["my_like_state"] as? String {
             if my_like_state == "like" {
                 btnLike.isSelected = true
             }
         }
-        if let nickname = dataDic["nickname"] as? String {
-            lbNickName.text = nickname
-        }
+        
+//        {
+//            animalAge = 0;
+//            animalSex = M;
+//            dtype = puppy;
+//            isMain = Y;
+//            kind = "\Uc9c4\Ub3c5\Uac1c";
+//            original = "https://jayutest.best:5001/images/pets/1f37af06-cab1-4bb4-a6e6-3f0abe9d0daa.jpg";
+//            petName = "1\Ubc88";
+//        }
+        
         if let tag = dataDic["tag"] as? String {
             lbCategory.text = tag
         }
         if let title = dataDic["title"] as? String {
             lbTalkTitle.text = title
         }
+        lbNickName.text = ""
         lbAnimalInfo.text = ""
         if let mainPet = dataDic["main_pet"] as? [String:Any] {
-            var result = ""
+            
             if let petName = mainPet["petName"] as? String {
-                result.append(petName)
+                lbNickName.text = petName
+            }
+//            동물사진 밑에 동물이름
+            //품종,나이,성별 순으로 보기
+            var result = ""
+            if let kind = mainPet["kind"] as? String {
+                result.append(kind)
             }
             if let animalAge = mainPet["animalAge"] as? Int {
                 result.append(" / \(animalAge)세")
@@ -112,9 +127,10 @@ class TalkDetailHeaderView: UIView {
                 for i in 0..<images.count {
                     if let item = images[i] as? [String:Any], let original = item["original"] as? String {
                         
-                        let ivThumnail = AligmentImageView.init()
-                        ivThumnail.horizontalAlignment = .center
-                        ivThumnail.verticalAlignment = .top
+//                        let ivThumnail = AligmentImageView.init()
+                        let ivThumnail = UIImageView.init()
+//                        ivThumnail.horizontalAlignment = .center
+//                        ivThumnail.verticalAlignment = .top
                         
                         ivThumnail.clipsToBounds = true
                         
@@ -166,10 +182,7 @@ class TalkDetailHeaderView: UIView {
         }
     }
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
-        if sender == btnBack {
-            didCloureActions?(.back)
-        }
-        else if sender == btnLike {
+        if sender == btnLike {
             didCloureActions?(.like)
         }
         else if sender == btnReport {

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class AddAnimalInfoViewController: BaseViewController, UITextFieldDelegate {
+class AddAnimalInfoViewController: BaseViewController {
     
     @IBOutlet weak var bottomContainer: NSLayoutConstraint!
     
@@ -41,7 +41,8 @@ class AddAnimalInfoViewController: BaseViewController, UITextFieldDelegate {
 
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
         CNavigationBar.drawTitle(self, "반려동물 등록", nil)
-
+        btnQuestion.imageView?.contentMode = .scaleAspectFit
+        
         if let name = animal?.petName {
             var result = String(format: "%@의 성별은 무엇인가요?", name)
             self.decorationTitle(label: lbGenderTitle, result: result, name: name)
@@ -148,17 +149,37 @@ class AddAnimalInfoViewController: BaseViewController, UITextFieldDelegate {
             self.navigationController?.pushViewController(vc, animated: false)
         }
         else if sender == btnOk {
-            animal?.sex = selGender
-            animal?.neutral = selNeutral
-            animal?.prevention = selPrevent
-            
-            if tfRegiNumber.text!.count > 0 {
-                animal?.regist_id = tfRegiNumber.text
+            self.view.endEditing(true)
+            guard let gender = selGender else {
+                self.showToast("성별을 선택해주세요.")
+                return
             }
+            guard let neutral = selNeutral else {
+                self.showToast("중성화 여부를 선택해주세요.")
+                return
+            }
+            guard let prevent = selPrevent else {
+                self.showToast("예방접종 여부를 선택해주세요.")
+                return
+            }
+            
             guard let weight = tfWeight.text, weight.isEmpty == false else {
                 self.view.makeToast("몸무게를 입력해주세요.")
                 return
             }
+            
+            if Float(weight)! > 200 {
+                self.view.makeToast("몸무게는 최대 200kg까지 입력가능합니다.")
+                return
+            }
+            animal?.sex = gender
+            animal?.neutral = neutral
+            animal?.prevention = prevent
+            
+            if tfRegiNumber.text!.count > 0 {
+                animal?.regist_id = tfRegiNumber.text
+            }
+            
             
             guard let animal = animal else {
                 return;
@@ -170,6 +191,7 @@ class AddAnimalInfoViewController: BaseViewController, UITextFieldDelegate {
             if let petName = animal.petName { param["name"] = petName }
             if let is_main = animal.is_main { param["is_main"] = is_main }
             if let birthday = animal.birthday { param["birthday"] = birthday }
+            if let birthMonth = animal.birthMonth { param["birthMonth"] = birthMonth }
             if let neutral = animal.neutral { param["neutral"] = neutral }
             if let size = animal.size { param["size"] = size }
             if let dtype = animal.dtype { param["dtype"] = dtype }
@@ -180,21 +202,31 @@ class AddAnimalInfoViewController: BaseViewController, UITextFieldDelegate {
             if let images = animal.images { param["images"] = images }
             if let id = animal.id { param["id"] = id }
             if let prevention = animal.prevention { param["prevention"] = prevention }
+    
             param["weight"] =  Int(Float(weight)!*1000)
             
             ApiManager.shared.requestRegistAnimal(param:param) { (response) in
-                if let response = response as? [String:Any], let data = response["data"] as? [String:Any], let success = response["success"] as? Bool {
-                    if success {
-                        let title = data["petName"]
-//                        let msg = response["msg"]
-                        let msg = "등록 성공하였습니다."
-                        AlertView.showWithOk(title: title, message: msg) { (index) in
-                            self.navigationController?.popToRootViewController(animated: false)
-                        }
-                    }
-                    else {
-                        self.showErrorAlertView(response)
-                    }
+                if let response = response as? [String:Any], let data = response["data"] as? [String:Any], let success = response["success"] as? Bool, success == true {
+                    
+                    self.showToast("동물이 등록되었습니다.")
+                    
+                    SharedData.setObjectForKey(key: "Y", value: kHasAnimal)
+                    self.requestRegistMainShow(data)
+                    
+//                    guard let viewcontrollers = self.navigationController?.viewControllers else {
+//                        self.navigationController?.popToRootViewController(animated: true)
+//                        return
+//                    }
+//                    var isFindVc = false
+//                    for vc in  viewcontrollers {
+//                        if let vc = vc as? MyPetViewController {
+//                            isFindVc = true
+//                            self.navigationController?.popToViewController(vc, animated: true)
+//                        }
+//                    }
+//                    if isFindVc == false {
+                        self.navigationController?.popToRootViewController(animated: true)
+//                    }
                 }
                 else {
                     self.showErrorAlertView(response)
@@ -204,7 +236,17 @@ class AddAnimalInfoViewController: BaseViewController, UITextFieldDelegate {
             }
         }
     }
-   
+    func requestRegistMainShow(_ data:[String:Any]) {
+        guard let id = data["id"] as? Int else {
+            return
+        }
+        let param:[String : Any] = ["pet_id":id, "enable": "Y"]
+        ApiManager.shared.requestPetMainEnable(param: param) { (response) in
+            
+        } failure: { (error) in
+            
+        }
+    }
     @objc func notificationHandler(_ notification: Notification) {
             
         let heightKeyboard = (notification.userInfo![UIResponder.keyboardFrameEndUserInfoKey] as AnyObject).cgRectValue.size.height
@@ -224,9 +266,21 @@ class AddAnimalInfoViewController: BaseViewController, UITextFieldDelegate {
             }
         }
     }
-    
+}
+
+extension AddAnimalInfoViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.view.endEditing(true)
     }
-    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+          if let textField = textField as? CTextField {
+              textField.borderColor = ColorDefault
+          }
+      }
+      func textFieldDidEndEditing(_ textField: UITextField) {
+          if let textField = textField as? CTextField {
+              textField.borderColor = ColorBorder
+          }
+      }
+
 }

@@ -29,6 +29,7 @@ class TalkDetailViewController: BaseViewController {
     var listData:Array<Any> = Array<Any>()
     var delegate:TalkDetailViewControllerDelegate?
     var isChangeUserData:Bool = false
+    var saveContentOffset: CGPoint = CGPoint.zero
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -174,6 +175,7 @@ class TalkDetailViewController: BaseViewController {
             if let response = response as? [String:Any],
                let success = response["success"] as? Bool, success == true {
                 self.navigationController?.popViewController(animated: true)
+                self.isChangeUserData = true
             }
             else {
                 self.showErrorAlertView(response)
@@ -190,12 +192,17 @@ class TalkDetailViewController: BaseViewController {
             return
         }
         let param: [String:Any] = ["post_id": post_id, "content": content]
+        self.saveContentOffset = tblView.contentOffset
         ApiManager.shared.requestWritePostComment(param: param) { (response) in
             if let response = response as? [String:Any], let data = response["data"] as? [String:Any], let comments = data["comments"] as? [String:Any] {
 //                self.listData.insert(comments, at: 0)
 //                self.tblView.reloadData()
                 self.lbEmpty.isHidden = true
                 self.requestTalkDetailInfo()
+                self.isChangeUserData = true
+                DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+0.3) {
+                    self.tblView.contentOffset = self.saveContentOffset
+                }
             }
             else {
                 self.showErrorAlertView(response)
@@ -242,7 +249,7 @@ class TalkDetailViewController: BaseViewController {
         param["dtype"] = likeState
         ApiManager.shared.requestChangeTalkLikeSate(param: param) { (response) in
             if let response = response as?[String:Any], let success = response["success"] as? Bool, let msg = response["msg"] as? String {
-                self.view.makeToast(msg)
+//                self.view.makeToast(msg)
                 
                 if success {
                     dataDic["my_like_state"] = likeState

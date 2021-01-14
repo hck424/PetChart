@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -427,18 +427,39 @@
                         </view>
                     </subviews>
                 </stackView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="평균음수량" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bqB-FR-ueF">
+                    <rect key="frame" x="27" y="173.5" width="48" height="13.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" red="0.20000000000000001" green="0.58823529409999997" blue="0.99607843139999996" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XPo-q1-Y17">
+                    <rect key="frame" x="27" y="187" width="351" height="1"/>
+                    <color key="backgroundColor" red="0.20000000000000001" green="0.58823529411764708" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="1" id="Yn4-bM-4UV"/>
+                    </constraints>
+                </view>
             </subviews>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstAttribute="trailing" secondItem="XPo-q1-Y17" secondAttribute="trailing" id="GhQ-7c-KWt"/>
                 <constraint firstAttribute="bottom" secondItem="Ptt-9r-YjY" secondAttribute="bottom" id="HLj-2N-jsf"/>
                 <constraint firstAttribute="trailing" secondItem="Ptt-9r-YjY" secondAttribute="trailing" id="P7s-RD-ncC"/>
+                <constraint firstItem="AKc-AX-lVV" firstAttribute="bottom" secondItem="XPo-q1-Y17" secondAttribute="bottom" constant="1" id="UhI-N7-1Ys"/>
+                <constraint firstItem="bqB-FR-ueF" firstAttribute="leading" secondItem="XPo-q1-Y17" secondAttribute="leading" id="Xfo-v3-N8p"/>
                 <constraint firstItem="Ptt-9r-YjY" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="bU8-RA-djc"/>
+                <constraint firstItem="XPo-q1-Y17" firstAttribute="top" secondItem="bqB-FR-ueF" secondAttribute="bottom" id="iqV-dv-9kx"/>
+                <constraint firstItem="XPo-q1-Y17" firstAttribute="leading" secondItem="AKc-AX-lVV" secondAttribute="leading" id="vVe-BP-Jfh"/>
                 <constraint firstItem="Ptt-9r-YjY" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="x7u-hg-BEz"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="firstSeperator" destination="AKc-AX-lVV" id="sdf-uP-gdI"/>
+                <outlet property="heightAverageSeperator" destination="UhI-N7-1Ys" id="OXv-DW-PgV"/>
+                <outlet property="lbAverage" destination="bqB-FR-ueF" id="zHi-gh-zaf"/>
                 <outlet property="lbCurTitle" destination="IQN-Rb-fiX" id="wkv-fe-L4Z"/>
+                <outlet property="seperatorAverage" destination="XPo-q1-Y17" id="DZs-XZ-OJx"/>
                 <outletCollection property="arrGraphView" destination="gtT-5v-2dy" collectionClass="NSMutableArray" id="LfB-kp-Huy"/>
                 <outletCollection property="arrGraphView" destination="fih-qJ-3oh" collectionClass="NSMutableArray" id="4Og-sW-6bR"/>
                 <outletCollection property="arrGraphView" destination="2b9-Nv-gDY" collectionClass="NSMutableArray" id="l8d-oa-GSE"/>

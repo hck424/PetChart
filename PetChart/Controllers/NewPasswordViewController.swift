@@ -8,13 +8,8 @@
 import UIKit
 
 class NewPasswordViewController: BaseViewController {
-
-    @IBOutlet weak var btnEye1: UIButton!
-    @IBOutlet weak var btnEye2: UIButton!
-    @IBOutlet weak var tfPassword: UITextField!
-    @IBOutlet weak var lbHintPasword: UILabel!
-    @IBOutlet weak var tfPasswordConfirm: UITextField!
-    @IBOutlet weak var lbHitPasswordConfirm: UILabel!
+@IBOutlet weak var tfPassword: CTextField!
+    @IBOutlet weak var tfPasswordConfirm: CTextField!
     @IBOutlet weak var btnOk: UIButton!
     @IBOutlet weak var btnSafety: UIButton!
     @IBOutlet weak var bgCornerView: UIView!
@@ -54,69 +49,43 @@ class NewPasswordViewController: BaseViewController {
     
     @IBAction func onClickedBtnActions(_ sender: UIButton) {
         
-        if sender == btnEye1 {
-            sender.isSelected = !sender.isSelected
-            tfPassword.isSecureTextEntry = !sender.isSelected
-        }
-        else if sender == btnEye2 {
-            sender.isSelected = !sender.isSelected
-            tfPasswordConfirm.isSecureTextEntry = !sender.isSelected
-        }
-        else if sender == btnOk {
+        if sender == btnOk {
             self.view.endEditing(true)
-            var isOk = true
-            lbHintPasword.isHidden = true
-            lbHitPasswordConfirm.isHidden = true
             
-            let password1:String = tfPassword.text ?? ""
-            let password2:String = tfPasswordConfirm.text ?? ""
-            
-            if password1.isEmpty == true {
-                lbHintPasword.isHidden = false
-                isOk = false
-            }
-            else if password1.validatePassword() == false {
-                lbHintPasword.isHidden = false
-                isOk = false
-            }
-            
-            if password2.isEmpty == true {
-                lbHitPasswordConfirm.isHidden = false
-                isOk = false
-            }
-            else if password1 != password2 {
-                lbHitPasswordConfirm.isHidden = false
-                isOk = false
-            }
-            
-            if isOk == false {
+            guard let password = tfPassword.text, password.isEmpty == false, password.validatePassword() else {
+                self.showToast("비밀번호(숫자,영문,특수문자 8자이상)를 입력해주세요.")
                 return
             }
-
+            
+            guard let password2 = tfPasswordConfirm.text, password2.isEmpty == false else {
+                self.showToast("비밀번호를 확인해주세요.")
+                return
+            }
+            
+            if password != password2 {
+                self.showToast("비밀번호가 일치하지 않습니다.")
+                return
+            }
+            
 //            "id": "test@test.com",
 //             "join_type": "none",
 //             "key": "a+zAj00AnMu/SiFY5YTLwKoyq1J2Cku8pB2FjwHXFwY=",
 //             "password": 1234567
 
-            param["password"] = password1
+            param["password"] = password2
             AlertView.showWithOk(title: "비밀번호 변경", message: "비밀번호를 확인해주세요.") { (index) in
                 ApiManager.shared.requestModifyPassword(param: self.param) { (response) in
-                    if let response = response as?[String:Any], let success = response["success"] as?Bool, let msg = response["msg"] as? String {
-                        if (success) {
-                            self.view.makeToast("비밀번호 변경이 완료되었습니다.")
-                            if let viewcontrollers = self.navigationController?.viewControllers {
-                                for vc in viewcontrollers {
-                                    if let vc = vc as? LoginViewController {
-                                        self.navigationController?.popToViewController(vc, animated: true)
-                                    }
+                    if let _ = response as?[String:Any] {
+                        SharedData.setObjectForKey(key: kUserPassword, value: password2)
+                        if let viewcontrollers = self.navigationController?.viewControllers {
+                            for vc in viewcontrollers {
+                                if let vc = vc as? LoginViewController {
+                                    self.navigationController?.popToViewController(vc, animated: true)
                                 }
-                            }
-                            else {
-                                self.navigationController?.popToRootViewController(animated: true)
                             }
                         }
                         else {
-                            self.showErrorAlertView(response)
+                            self.navigationController?.popToRootViewController(animated: true)
                         }
                     }
                 } failure: { (error) in
@@ -157,5 +126,16 @@ extension NewPasswordViewController: UITextFieldDelegate {
             self.view.endEditing(true)
         }
         return true
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorDefault
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorBorder
+        }
     }
 }

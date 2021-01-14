@@ -26,6 +26,9 @@ class MyPetViewController: BaseViewController {
         tblView.tableHeaderView = headerView
         tblView.tableFooterView = footerView
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         self.requestMypetList()
     }
     

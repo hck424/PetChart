@@ -16,23 +16,27 @@ class FbController: NSObject {
     
     func login(viewcontorller: UIViewController, completion:LoginClosure?) {
         self.completion = completion;
-        let loginManager = LoginManager()
         
-        if let token = AccessToken.current, !token.isExpired {
-            self.fetchFacebookMe()
-        }
-        else {
-            let readPermission:[Permission] = [.publicProfile, .email]
-            loginManager.logIn(permissions: readPermission, viewController: viewcontorller) { (result: LoginResult) in
-                switch result {
-                case .success(granted: _, declined: _, token: _):
-                    self.signInFirebase()
-                case .cancelled:
-                    print("facebook login cancel")
-                    completion?(nil, nil);
-                case .failed(let err):
-                    print(err)
-                    completion?(nil, err);
+        let loginManager = LoginManager()
+        //Auth token 항상 살아 있어 다른계정으로 페이스북 로그인 할려니 안되 싹 날리고 로그인 한다.
+        self.logout { (error) in
+            if let token = AccessToken.current, !token.isExpired {
+                self.user = UserInfo.init(JSON: ["access_token": token])
+                self.fetchFacebookMe()
+            }
+            else {
+                let readPermission:[Permission] = [.publicProfile]
+                loginManager.logIn(permissions: readPermission, viewController: viewcontorller) { (result: LoginResult) in
+                    switch result {
+                    case .success(granted: _, declined: _, token: _):
+                        self.signInFirebase()
+                    case .cancelled:
+                        print("facebook login cancel")
+                        completion?(nil, nil);
+                    case .failed(let err):
+                        print(err)
+                        completion?(nil, err);
+                    }
                 }
             }
         }
@@ -43,6 +47,8 @@ class FbController: NSObject {
             self.completion?(nil, nil)
             return
         }
+        
+        self.user = UserInfo.init(JSON: ["access_token": token])
         
         let credential = FacebookAuthProvider.credential(withAccessToken: token)
         Auth.auth().signIn(with: credential) { (user: AuthDataResult?, error: Error?) in
@@ -56,8 +62,9 @@ class FbController: NSObject {
         }
     }
     func fetchFacebookMe() {
+        
         let connection = GraphRequestConnection()
-        let request = GraphRequest(graphPath: "me", parameters: ["fields": "id, name, email, birthday, gender, age_range, picture.type(large)"], tokenString: AccessToken.current?.tokenString, version: nil, httpMethod: .get)
+        let request = GraphRequest(graphPath: "me", parameters: ["fields": "id"], tokenString: AccessToken.current?.tokenString, version: nil, httpMethod: .get)
         
         connection.add(request) { (httpResponse, result, error: Error?) in
             if nil != error {
@@ -68,25 +75,11 @@ class FbController: NSObject {
                 return
             }
             
-            if let dic:Dictionary = result as? Dictionary<String, AnyObject> {
-//                self.user = UserInfo()
-//                self.user?.accessToken = AccessToken.current?.tokenString
-//                self.user?.name = dic["name"] as? String
-//                self.user?.email = dic["email"] as? String
-//                self.user?.userId = dic["id"] as? String
-//                self.user?.birthday = dic["birthday"] as? String
-//                self.user?.profileImageUrl = nil
-//                if let picture: Dictionary = dic["picture"] as? Dictionary<String, AnyObject> {
-//                    if let data: Dictionary =  picture["data"] as? Dictionary<String, AnyObject> {
-//                        guard let url = data["url"] else {
-//                            return
-//                        }
-//                        self.user?.profileImageUrl = url as? String
-//                    }
-//                }
-//                if let completion = self.completion {
-//                    completion(self.user, nil)
-//                }
+            if let dic:Dictionary = result as? Dictionary<String, AnyObject>, let id = dic["id"] {
+                self.user?.userId = "\(id)"
+                self.user?.password = "\(id)"
+                self.user?.joinType = "facebook"
+                self.completion?(self.user, nil)
             }
         }
         connection.start()
@@ -94,10 +87,13 @@ class FbController: NSObject {
     
     func logout(completion: @escaping (_ error: Error?) -> Void) {
         let loginManager = LoginManager()
+        
         loginManager.logOut()
+        
         let auth = Auth.auth()
         do {
             try auth.signOut()
+            
             print("fb logout success")
             completion(nil)
         } catch let error {

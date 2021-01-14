@@ -8,17 +8,17 @@
 import UIKit
 
 class MainTabBarController: UITabBarController {
+    let homeVc = HomeViewController.init(nibName: "HomeViewController", bundle: nil)
+    let chartVc = ChartViewController.init(nibName: "ChartViewController", bundle: nil)
+    let communityVc = TalkViewController.init(nibName: "TalkViewController", bundle: nil)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let homeVc = HomeViewController.init(nibName: "HomeViewController", bundle: nil)
-        let chartVc = ChartViewController.init(nibName: "ChartViewController", bundle: nil)
-        let communityVc = TalkViewController.init(nibName: "TalkViewController", bundle: nil)
         
         let homeNaviCtrl = BaseNavigationController.init(rootViewController: homeVc)
         let chartNaviCtrl = BaseNavigationController.init(rootViewController: chartVc)
         let communityNaviCtrl = BaseNavigationController.init(rootViewController: communityVc)
-        
+        self.delegate = self
         self.viewControllers = [homeNaviCtrl, chartNaviCtrl, communityNaviCtrl]
 
         let imgHome = UIImage(named: "tab_home")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
@@ -46,9 +46,35 @@ class MainTabBarController: UITabBarController {
         
         self.hidesBottomBarWhenPushed = true
     }
+    func changeTabMenuIndex(_ tabIndex:Int, _ subMenuIndex:Int = 0) {
+        if tabIndex == 2 && subMenuIndex == 4 {
+            communityVc.selCategory = "차트공유"
+            communityVc.changeTabMenuWithCategory()
+        }
+        self.selectedIndex = tabIndex
+    }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("== maintabar viewwillappear")
     }
-    
+}
+extension MainTabBarController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        let index = self.viewControllers?.firstIndex(of: viewController)
+        print("==== will sected tab index: \(String(describing: index))")
+        if index == 1 {
+            if let hasAnimal = SharedData.objectForKey(key: kHasAnimal) as? String, hasAnimal == "Y" {
+                return true
+            }
+            else {
+                AppDelegate.instance()?.window?.rootViewController?.view.makeToast("동물 등록 후 이용가능합니다.")
+                return false
+            }
+        }
+        return true
+    }
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        let index = self.viewControllers?.firstIndex(of: viewController)
+        print("==== selected tab index: \(String(describing: index))")
+    }
 }

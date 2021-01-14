@@ -102,34 +102,29 @@ class ChartRecordWalkViewController: BaseViewController {
             picker?.show()
         }
         else if sender.tag == 1111 {
+            self.view.endEditing(true)
             guard let date = tfDay.text, date.isEmpty == false else {
-                self.view.makeToast("날짜를 입력해주세요.", position:.top)
+                self.showToast("날짜를 선택해주세요.")
                 return
             }
             
-            guard stDate != nil else {
-                self.view.makeToast("산책 시작시간을 입력해주세요", position:.top)
+            guard let stDate = stDate, let edDate = edDate else {
+                self.showToast("산책시간을 입력해주세요.")
                 return
             }
             
-            guard edDate != nil else {
-                self.view.makeToast("산책 종료시간을 입력해주세요", position:.top)
+            if walkTime <= 0 {
+                self.showToast("산책시간을 입력해주세요.")
                 return
             }
             
-            guard walkTime > 0 else {
-                self.view.makeToast("산책 시간을 계산할수 없습니다.", position:.top)
-                return
-            }
             guard let petId = SharedData.objectForKey(key: kMainShowPetId) else {
-                self.view.makeToast("등록된 동물이 없습니다.", position:.top)
                 return
             }
             
             let df = CDateFormatter.init()
             df.dateFormat = "yyyy-MM-dd HH:MM"
-            guard let walkStDate = df.string(from: stDate!) as? String, let walkEdDate = df.string(from: edDate!) as? String else {
-                self.view.makeToast("데이트 포멧 에러", position:.top)
+            guard let walkStDate = df.string(from: stDate) as? String, let walkEdDate = df.string(from: edDate) as? String else {
                 return
             }
             
@@ -139,9 +134,11 @@ class ChartRecordWalkViewController: BaseViewController {
                 if let response = response as? [String:Any],
                    let msg = response["msg"] as? String,
                    let success = response["success"] as? Bool, success == true {
-                    AlertView.showWithCancelAndOk(title: "산책 기록", message: msg) { (index) in
-                        self.navigationController?.popViewController(animated: true)
-                    }
+                    self.showToast(msg)
+                    self.navigationController?.popViewController(animated: true)
+//                    AlertView.showWithCancelAndOk(title: "산책 기록", message: msg) { (index) in
+//                        self.navigationController?.popViewController(animated: true)
+//                    }
                 }
                 else {
                     self.showErrorAlertView(response)
@@ -149,8 +146,6 @@ class ChartRecordWalkViewController: BaseViewController {
             } failure: { (error) in
                 self.showErrorAlertView(error)
             }
-            
-            
         }
     }
     
@@ -163,23 +158,23 @@ class ChartRecordWalkViewController: BaseViewController {
             && (self.stDate! < self.edDate!) {
             
             let interval = self.edDate! - self.stDate!
-            var result = ""
+//            var result = ""
             if let hour = interval.hour, hour > 0 {
-                result.append(String(format: "%02d:", hour))
+//                result.append(String(format: "%02d:", hour))
                 walkTime = hour*60
             }
-            else {
-                result = "00:"
-            }
+//            else {
+//                result = "00:"
+//            }
             
             if let minute = interval.minute {
-                result.append(String(format: "%02d", minute))
+//                result.append(String(format: "%02d", minute))
                 walkTime += minute
             }
             print("=== walk time: \(walkTime)")
-            if result.length > 0 {
-                tfTakeTime.text = result
-            }
+//            if result.length > 0 {
+                tfTakeTime.text = "\(walkTime)"
+//            }
         }
     }
     

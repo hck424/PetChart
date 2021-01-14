@@ -13,7 +13,7 @@ class NoticeViewController: BaseViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
-        CNavigationBar.drawTitle(self, "공지 사항", nil)
+        CNavigationBar.drawTitle(self, "공지사항", nil)
         
         requestNoticeList()
     }

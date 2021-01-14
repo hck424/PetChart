@@ -32,7 +32,7 @@ class ChartCategoryViewController: BaseViewController {
     var graphType: GraphType = .day
     
     var arrChart:[[String:Any]] = [[String:Any]]()
-    var maxValue:Int = 0
+    var maxValue:Float = 0
     let df = CDateFormatter.init()
     var calendar = Calendar.init(identifier: .gregorian)
     var saveMonth:Int = -1
@@ -40,6 +40,8 @@ class ChartCategoryViewController: BaseViewController {
     var seledButton:CButton? = nil
     var arrPickupGraph:[[String:Any]] = [[String:Any]]()
     var graph: GraphView?
+    var selDate:Date = Date()
+    var arrDate:[Date] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -51,6 +53,12 @@ class ChartCategoryViewController: BaseViewController {
         if let tt = vcTitle {
             title = tt
         }
+        let curDate = Date()
+        //3달로 하자
+        let fromDate:Date = curDate.jumpingDay(jumping: -150).startOfMonth()
+        let toDate:Date = curDate
+        
+        self.arrDate = datesRange(unit: .day, from: fromDate, to: toDate)
         
         CNavigationBar.drawTitle(self, title, nil)
         CNavigationBar.drawBackButton(self, nil, #selector(actionPopViewCtrl))
@@ -64,11 +72,15 @@ class ChartCategoryViewController: BaseViewController {
             btnSafety.isHidden = true
         }
         
+        self.view.layoutIfNeeded()
+        self.drawTopCalendar()
         self.underLineSelected(btnDay)
         
-        self.view.layoutIfNeeded()
-        
-        self.btnDay.sendActions(for: .touchUpInside)
+        let index = self.findIndexWithDate(date: curDate)
+        self.changeSeledButton(index: index)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+            self.scrollView.setContentOffset(CGPoint(x: self.scrollView.contentSize.width - self.scrollView.bounds.width, y: 0), animated: true)
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -77,6 +89,13 @@ class ChartCategoryViewController: BaseViewController {
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+    }
+    
+    func drawTopCalendar() {
+        for i in 0..<arrDate.count {
+            let date = arrDate[i]
+            self.makeTopDayButton(date:date, index:i)
+        }
     }
     
     func requestChartData(from: String, to: String) {
@@ -88,17 +107,17 @@ class ChartCategoryViewController: BaseViewController {
         ApiManager.shared.requestChartData(health: type, petId: savePetId, type: graphType, stDate:from , edDate: to) { (response) in
             if let response = response as? [String:Any],
                let date = response["data"] as? [String:Any],
-               let charts = date["charts"] as? Array<[String:Any]> {
+               let charts = date["charts"] as? Array<[String:Any]>,
+               let maxValue = date["maxValue"] as? NSNumber {
                 self.arrChart.removeAll()
                 self.arrChart = charts
-                self.maxValue = (date["maxValue"] as? Int) ?? 0
+                self.maxValue = maxValue.floatValue
                 self.configurationUI()
             }
         } failure: { (error) in
-            self.showErrorAlertView(error)
+            self.showToast("해당일을 선택불가입니다.")
         }
     }
-    
     
     func configurationUI() {
         if arrChart.isEmpty == true {
@@ -107,9 +126,7 @@ class ChartCategoryViewController: BaseViewController {
     
         btnMark.setImage(type.markImage(), for: .normal)
         btnMark.setTitle(type.koreanValue(), for: .normal)
-        
-        let curDate = Date()
-        
+    
         var graphColor = type.colorType()
         if graphColor == nil {
             graphColor = UIColor.black
@@ -133,86 +150,50 @@ class ChartCategoryViewController: BaseViewController {
         }
         
         if graphType == .day {
-            //top DayView 그리기
-            for subView in svTopDay.subviews {
-                subView.removeFromSuperview()
+            guard let pickData = self.pickupDayGraphDates(count: 5, selDate: selDate, arrData: arrChart) else {
+                return
             }
-            arrBtnTopDay.removeAll()
-            
-            for i in 0..<arrChart.count {
-                let item = arrChart[i]
-                self.makeTopDayButton(item:item, index:i)
-            }
-            
-            self.view.layoutIfNeeded()
-            df.dateFormat = "yyyy-MM-dd"
-            let todayStr = df.string(for: curDate)!
-            var findIndex = 0
-            
-            //그린후 오늘 날짜로 이동
-            for btn in arrBtnTopDay {
-                if let item = btn.data as? [String:Any] {
-                    if let key = item["key"] as? String {
-                        if key == todayStr {
-                            findIndex = btn.tag
-                            break
-                        }
-                    }
-                }
-            }
-            
-            self.changeSeledButton(index: findIndex)
-            scrollView.setContentOffset(CGPoint(x: scrollView.contentSize.width-scrollView.frame.size.width, y: 0), animated: true)
+            self.arrPickupGraph = pickData
+            self.graph?.maxValue = maxValue
+            self.graph?.data = arrPickupGraph
+            self.graph?.edDate = selDate
+            self.graph?.reloadData()
         }
         else if graphType == .week {
             var index = 0
             self.arrPickupGraph.removeAll()
-            var tmpArray:[[String:Any]] = [[String:Any]]()
-            for item in arrChart.reversed() {
-                if let key = item["key"] as? String {
-                    df.dateFormat = "yyyy-MM-dd"
-                    if let date = df.date(from: key) {
-                        if date < curDate {
-                            tmpArray.append(item)
-                            index += 1
-                        }
-                    }
-                }
-                
+            for item in arrChart {
+                self.arrPickupGraph.append(item)
+                index += 1
                 if index > 4 {
                     break;
                 }
             }
-            self.arrPickupGraph = tmpArray.reversed()
+            
             self.graph?.maxValue = maxValue
             self.graph?.data = arrPickupGraph
+            self.graph?.edDate = selDate
             self.graph?.reloadData()
         }
         else if graphType == .month {
             self.arrPickupGraph = arrChart
             self.graph?.maxValue = maxValue
             self.graph?.data = arrPickupGraph
+            self.graph?.edDate = selDate
             self.graph?.reloadData()
         }
     }
     
-    func makeTopDayButton(item:[String:Any], index:Int) {
+    func makeTopDayButton(date:Date, index:Int) {
         self.widthTopDay = CGFloat((scrollView.bounds.width - 40.0)/5)
         let btn:CButton = CButton.init()
         btn.translatesAutoresizingMaskIntoConstraints = true
         btn.widthAnchor.constraint(equalToConstant: widthTopDay).isActive = true
         
         svTopDay.addArrangedSubview(btn)
-        btn.data = item
+        btn.data = date
         btn.tag = index
         
-        guard let key = item["key"] as? String else {
-            return
-        }
-        df.dateFormat = "yyyy-MM-dd"
-        guard let date = df.date(from: key) else {
-            return
-        }
         let index = calendar.component(.weekday, from: date)
         let simbol = calendar.shortWeekdaySymbols[index-1]
         
@@ -277,26 +258,19 @@ class ChartCategoryViewController: BaseViewController {
             graphType = .day
             
             //서버에서 30개씩 내려준다.
-            let stDate = Date().jumpingDay(jumping: -29)
-            let edDate = Date()
+            let stDate = selDate.jumpingDay(jumping: -5)
+            let from = stDate.stringDateWithFormat("yyyy-MM-dd")
+            let to = selDate.stringDateWithFormat("yyyy-MM-dd")
+            self.requestChartData(from: from, to: to)
             
-            if let stDate = stDate {
-                let from = stDate.stringDateWithFormat("yyyy-MM-dd")
-                let to = edDate.stringDateWithFormat("yyyy-MM-dd")
-                self.requestChartData(from: from, to: to)
-            }
             self.underLineSelected(sender)
         }
         else if sender == btnWeek {
             graphType = .week
-            let edDate = Date()
-            let stDate = Date().jumpingDay(jumping: -42)
-            
-            if let stDate = stDate {
-                let from = stDate.stringDateWithFormat("yyyy-MM-dd")
-                let to = edDate.stringDateWithFormat("yyyy-MM-dd")
-                self.requestChartData(from: from, to: to)
-            }
+            let stDate = selDate.jumpingDay(jumping: -35)
+            let from = stDate.stringDateWithFormat("yyyy-MM-dd")
+            let to = selDate.stringDateWithFormat("yyyy-MM-dd")
+            self.requestChartData(from: from, to: to)
             
             self.configurationUI()
             self.underLineSelected(sender)
@@ -304,11 +278,10 @@ class ChartCategoryViewController: BaseViewController {
         else if sender == btnMonth {
             graphType = .month
             
-            let edDate = Date()
             //5개월전 .jumpingDay(jumping: -240)!
-            var year = edDate.getYear()
-            var month = edDate.getMonth()
-            let day = edDate.getDay()
+            var year = selDate.getYear()
+            var month = selDate.getMonth()
+            let day = selDate.getDay()
             let beforeMonth = 4
             if (month - beforeMonth) < 1 {
                 year = year - 1
@@ -318,13 +291,14 @@ class ChartCategoryViewController: BaseViewController {
                 month = month - beforeMonth
             }
             let from = String.init(format: "%04d-%02d-%02d", year, month, day)
-            let to = edDate.stringDateWithFormat("yyyy-MM-dd")
+            let to = selDate.stringDateWithFormat("yyyy-MM-dd")
             self.requestChartData(from: from, to: to)
             
             self.underLineSelected(sender)
         }
         else if sender == btnDetail {
             let vc = ChartDetailViewController.init(nibName: "ChartDetailViewController", bundle: nil)
+            vc.endDate = selDate
             vc.graphType = graphType
             vc.type = type
             self.navigationController?.pushViewController(vc, animated: true)
@@ -381,65 +355,70 @@ class ChartCategoryViewController: BaseViewController {
         sender.setTitleColor(UIColor.black, for: .normal)
     }
     
+    func findIndexWithDate(date:Date) -> Int {
+        let dateStr = date.stringDateWithFormat("yyyy-MM-dd")
+        var findIndex = arrDate.count-1
+        for i in 0..<arrDate.count {
+            let tmpDate = arrDate[i]
+            let tmpDateStr = tmpDate.stringDateWithFormat("yyyy-MM-dd")
+            if tmpDateStr == dateStr {
+                findIndex = i
+                break
+            }
+        }
+        return findIndex
+    }
     func changeSeledButton(index:Int) {
+        if let seledButton = seledButton {
+            if let lbDate = seledButton.viewWithTag(200) as? UILabel {
+                lbDate.font = UIFont.systemFont(ofSize: 13)
+                lbDate.textColor = UIColor.black
+                lbDate.layer.borderColor = UIColor.clear.cgColor
+            }
+        }
+        
+        self.seledButton = arrBtnTopDay[index]
+        if let lbDate = self.seledButton!.viewWithTag(200) as? UILabel {
+            lbDate.font = UIFont.systemFont(ofSize: 13, weight: .bold)
+            lbDate.textColor = ColorDefault
+            lbDate.layer.borderColor = ColorDefault.cgColor
+        }
+        
+        let widthCenter = CGFloat(2*widthTopDay)
+        let offsetX = CGFloat(CGFloat(index)*widthTopDay - widthCenter)
+        
+        if (offsetX <= scrollView.contentSize.width - scrollView.bounds.width)
+            && (offsetX >= 0) {
+            scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
+        }
+        
+        self.arrPickupGraph.removeAll()
+        
+        guard let selData = seledButton?.data as? Date else {
+            return
+        }
+
+        self.selDate = selData
+        
+        df.dateFormat = "yyyy.MM"
+        let strYearMonth = df.string(from: selDate)
+        lbYearMonth.text = strYearMonth
+        
         if graphType == .day {
-            print("=== index: \(index)")
-            
-            if let seledButton = seledButton {
-                if let lbDate = seledButton.viewWithTag(200) as? UILabel {
-                    lbDate.font = UIFont.systemFont(ofSize: 13)
-                    lbDate.textColor = UIColor.black
-                    lbDate.layer.borderColor = UIColor.clear.cgColor
-                }
-            }
-            self.seledButton = arrBtnTopDay[index]
-            if let lbDate = self.seledButton!.viewWithTag(200) as? UILabel {
-                lbDate.font = UIFont.systemFont(ofSize: 13, weight: .bold)
-                lbDate.textColor = ColorDefault
-                lbDate.layer.borderColor = ColorDefault.cgColor
-            }
-            
-            let widthCenter = CGFloat(2*widthTopDay)
-            let offsetX = CGFloat(CGFloat(index)*widthTopDay - widthCenter)
-            
-            //        print("offset oringx: \(CGFloat(CGFloat(index)*widthTopDay)), centerx:\(offsetX), consize:\(scrollView.contentSize.width)")
-            
-            if (offsetX <= scrollView.contentSize.width - scrollView.bounds.width)
-                && (offsetX >= 0) {
-                scrollView.setContentOffset(CGPoint(x: offsetX, y: 0), animated: true)
-            }
-            
-            self.arrPickupGraph.removeAll()
-            
-            guard let selData = seledButton?.data as? [String:Any] else {
-                return
-            }
-            guard let key = selData["key"] as? String else {
-                return
-            }
-            df.dateFormat = "yyyy-MM-dd"
-            guard let selDate:Date = df.date(from: key) else {
-                return
-            }
-            
-            df.dateFormat = "yyyy.MM"
-            let strYearMonth = df.string(from: selDate)
-            lbYearMonth.text = strYearMonth
-            
-            guard let pickData = self.pickupDayGraphDates(count: 5, selDate: selDate, arrData: arrChart) else {
-                return
-            }
-            
-            self.graph?.maxValue = maxValue
-            self.graph?.data = pickData
-            self.graph?.reloadData()
+            btnDay.sendActions(for: .touchUpInside)
+        }
+        else if graphType == .week {
+            btnWeek.sendActions(for: .touchUpInside)
+        }
+        else if graphType == .month {
+            btnMonth.sendActions(for: .touchUpInside)
         }
     }
     
     func pickupDayGraphDates(count:Int, selDate:Date, arrData:Array<[String:Any]>) -> Array<[String:Any]>? {
         df.dateFormat = "yyyy-MM-dd"
         
-        let stDay = selDate.jumpingDay(jumping: -(count-1))!
+        let stDay = selDate.jumpingDay(jumping: -(count-1))
         let days = datesRange(unit: .day, from: stDay, to: selDate)
         var result:Array<[String:Any]> = Array<[String:Any]>()
         

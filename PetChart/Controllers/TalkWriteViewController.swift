@@ -28,9 +28,8 @@ class TalkWriteViewController: BaseViewController {
     @IBOutlet weak var btnKeyboardDown: UIBarButtonItem!
     
     var delegate: TalkWriteViewControllerDelegate?
-    var selBtnImg: UIButton? = nil
     
-    var arrCategory = ["강아지", "고양이", "기타"]
+    var arrCategory = ["강아지", "고양이", "기타", "차트공유해요"]
     var type:TalkWriteVCType = .write
     var modifyData:[String:Any]?
     var snapshot: UIImage?
@@ -55,7 +54,6 @@ class TalkWriteViewController: BaseViewController {
             
             if let imgView = btn.viewWithTag(200) as? UIImageView {
                 imgView.backgroundColor = UIColor.clear
-                imgView.contentMode = .scaleAspectFit
             }
             
             btn.setImage(UIImage(named: "ico_pic_add"), for: .normal)
@@ -73,8 +71,7 @@ class TalkWriteViewController: BaseViewController {
             self.configurationUi()
         }
         if let snapshot = snapshot {
-            arrCategory.insert("차트 공유해요", at: 0)
-            tfCategory.text = arrCategory.first
+            tfCategory.text = arrCategory.last
             let btn = arrBtnImage[0]
             if let imageView = btn.viewWithTag(200) as? UIImageView {
                 imageView.image = snapshot
@@ -87,12 +84,8 @@ class TalkWriteViewController: BaseViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_ :)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_ :)), name: UIResponder.keyboardWillHideNotification, object: nil)
         
-        if textView.text.isEmpty == false {
-            textView.placeholderLabel?.isHidden = true
-        }
-        else {
-            textView.placeholderLabel?.isHidden = false
-        }
+        textView.placeholderLabel?.isHidden = !textView.text.isEmpty
+        textView.delegate = self
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -162,23 +155,16 @@ class TalkWriteViewController: BaseViewController {
             }
         }
         else if sender == btnRegist {
-            
-            guard let tag = tfCategory.text, tag.isEmpty == false else {
-                self.view.makeToast("카테고리를 선정해 주세요.", duration:1.0, position:.top)
+            self.view.endEditing(true)
+            guard var tag = tfCategory.text, tag.isEmpty == false else {
+                self.showToast("카테고리를 선택해주세요.")
                 return
             }
-            
             
             guard let title = tfTitle.text, title.isEmpty == false else {
-                self.view.makeToast("타이틀을 입력해주세요.", duration:1.0, position:.top)
+                self.showToast("제목을 입력해주세요.")
                 return
             }
-            
-            guard let content = textView.text, content.isEmpty == false else {
-                self.view.makeToast("컨텐즈 내용을 입력해주세요.", duration:1.0, position:.top)
-                return
-            }
-            
             var arrImg:Array<UIImage> = Array<UIImage>()
             for btn in arrBtnImage {
                 if let ivImage = btn.viewWithTag(200) as? UIImageView, let img = ivImage.image {
@@ -186,12 +172,17 @@ class TalkWriteViewController: BaseViewController {
                 }
             }
             guard arrImg.isEmpty == false else {
-                self.view.makeToast("이미지 한장을 필수 입니다.", duration:1.0, position:.top)
+                self.showToast("이미지 한장을 필수 입니다.")
                 return
             }
+            guard let content = textView.text, content.isEmpty == false else {
+                self.showToast("내용을 입력해주세요.")
+                return
+            }
+            if tag == "차트공유해요" {
+                tag = "차트공유"
+            }
             
-            
-//            한국토지주택공사(LH)는 신종 코로나바이러스 감염증(코로나19) 장기화로 어려움을 겪는 산업단지 입주 중소기업 및 소상공인을 지원하기 위해 임대료 인하기간을 연장한다고 2일 밝혔다.LH는 지난 상반기 전국의 임대산업단지 및 판교제2테크노밸리 내 공공지원건축물 등 LH가 관리하는 산업단지에 입주한 중소기업 및 소상공인을 대상으로 임대료를 6개월 동안 25% 인하한 바 있다.
             if type == .modify {
                 guard let modifyData = modifyData, let board_id = modifyData["id"] as? Int else {
                     return
@@ -213,7 +204,6 @@ class TalkWriteViewController: BaseViewController {
             }
         }
         else if sender.tag > 0 {
-            selBtnImg = sender
             if sender.tag <= 5 {
                 let alert = UIAlertController.init(title: nil, message: nil, preferredStyle:.actionSheet)
                 alert.addAction(UIAlertAction.init(title: "카메라", style: .default, handler: { (action) in
@@ -293,7 +283,19 @@ class TalkWriteViewController: BaseViewController {
         let vc = CameraViewController.init()
         vc.delegate = self
         vc.sourceType = sourceType
+        vc.maxCount = 5
         self.navigationController?.pushViewController(vc, animated: false)
+    }
+    
+    func clearBtnImage() {
+        for btn in arrBtnImage {
+            if let imgView = btn.viewWithTag(200) as? UIImageView {
+                imgView.image = nil
+            }
+            if let btnDel = btn.viewWithTag(100) as? UIButton {
+                btnDel.isHidden = true
+            }
+        }
     }
 }
 
@@ -302,11 +304,12 @@ extension TalkWriteViewController: CameraViewControllerDelegate {
         guard let assets = assets else {
             return
         }
+        self.clearBtnImage()
         
         var i = 0
         for asset in assets {
             let btn = arrBtnImage[i]
-            PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: 300, height: 300), contentMode: .aspectFit, options: PHImageRequestOptions()) { (result, _) in
+            PHImageManager.default().requestImage(for: asset, targetSize: CGSize(width: imageScale, height: imageScale), contentMode: .aspectFit, options: PHImageRequestOptions()) { (result, _) in
                 guard let result = result else {
                     return
                 }
@@ -321,17 +324,31 @@ extension TalkWriteViewController: CameraViewControllerDelegate {
         }
     }
     func didFinishImagePicker(origin: UIImage?, crop: UIImage?) {
-        if let selBtnImg = selBtnImg {
-            if let imgView = selBtnImg.viewWithTag(200) as? UIImageView {
-                imgView.image = crop
-            }
-            if let btnDel = selBtnImg.viewWithTag(100) as? UIButton {
-                btnDel.isHidden = false
-            }
+        self.clearBtnImage()
+        guard let btn = arrBtnImage[0] as? UIButton else {
+            return
+        }
+        
+        if let imgView = btn.viewWithTag(200) as? UIImageView {
+            imgView.image = crop
+        }
+        if let btnDel = btn.viewWithTag(100) as? UIButton {
+            btnDel.isHidden = false
         }
     }
 }
-
+extension TalkWriteViewController: UITextFieldDelegate {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorDefault
+        }
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if let textField = textField as? CTextField {
+            textField.borderColor = ColorBorder
+        }
+    }
+}
 extension TalkWriteViewController: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
         if let textView = textView as? CTextView {

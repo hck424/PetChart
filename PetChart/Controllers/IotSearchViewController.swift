@@ -10,6 +10,7 @@ import CoreLocation
 
 class IotSearchViewController: BaseViewController {
     
+    @IBOutlet weak var ivDeviceSearch: UIImageView!
     @IBOutlet weak var lbIotSearchStatus: UILabel!
     @IBOutlet weak var tblView: UITableView!
     
@@ -18,6 +19,7 @@ class IotSearchViewController: BaseViewController {
     
     var arrTblData:Array<WifiInfo> = Array<WifiInfo>()
     var sessionKey:String?
+    var isChangeWifi = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,21 +51,22 @@ class IotSearchViewController: BaseViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        if self.wifiList.isEmpty == false {
-            //iot 장비의 wifi로 체인지 후 다 연결되면 현재 와이파이로 자동으로 변경된다.
-            //그러나 도중에 iot 장비로 붙은 진행하지 않고 나갈때는 집 wifi 로 변경 해주어야 홈데이터를 불러올수있다.
-            if var wifi = wifiList.first, let passowrd = SharedData.objectForKey(key: kMyHomeWifiPassword) as? String {
-                wifi.password = passowrd
-                self.connetedWifi(wifi: wifi) { (sate, error) in
-    
-                }
-            }
-        }
+        NotificationCenter.default.addObserver(self, selector: #selector(notificationHandler(_ :)), name: Notification.Name(kNotiNameIotState), object: nil)
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        AppDelegate.instance()?.stopIndicator()
+        NotificationCenter.default.removeObserver(self, name: Notification.Name(kNotiNameIotState), object: nil)
+        guard var wifi = self.wifiList.first, let passowrd = SharedData.objectForKey(key: kMyHomeWifiPassword) as? String else {
+            return
+        }
         
+        if isChangeWifi == false {
+            wifi.password = passowrd
+            self.connetedWifi(wifi: wifi) { (success, error) in
+                
+            }
+        }
     }
     func makeTableData() {
         //장비 ssid, password 고정 리스트에
@@ -88,37 +91,43 @@ class IotSearchViewController: BaseViewController {
         AppDelegate.instance()?.startIndicator()
         ApiManager.shared.requestIotConnet { (response) in
             print("=== iot connetct success:\(String(describing: response))")
-            AppDelegate.instance()?.stopIndicator()
             if let response = response as? [String:Any] {
                 if let sessionKey = response["session-key"] as? String, sessionKey.isEmpty == false {
                     self.sessionKey = sessionKey
-                    self.checkIotState()
+                    //state check background 돌림
+                    AppDelegate.instance()?.startTimerIot()
                 }
             }
-            else {
-                self.showErrorAlertView(response)
-            }
         } failure: { (error) in
-            AppDelegate.instance()?.stopIndicator()
-            self.showErrorAlertView(error)
+            
         }
     }
-
-    func checkIotState() {
-        ApiManager.shared.requestIotStatus { (response) in
-            print("=== iot status: \(String(describing: response))")
-            if let response = response as? [String:Any], let ap_status = response["ap-status"] as? String, ap_status == "connected" {
-                let vc = WifiSearchViewController.init()
-                vc.arrWifiList = self.wifiList
-                vc.sessionKey = self.sessionKey
-                self.navigationController?.pushViewController(vc, animated: false)
+    
+    @objc func notificationHandler(_ notification: Notification) {
+        if notification.name == Notification.Name(kNotiNameIotState) {
+            guard let response = notification.object as? [String:Any] else {
+                return
             }
-            else {
-                AlertView.showWithOk(title: "연결 상태", message: "Iot 장비에 연결 실패하였습니다.", completion: nil)
+            
+            if let ap_status = response["ap-status"] as? String, ap_status == "connected" {
+                AppDelegate.instance()?.stopIndicator()
+                AppDelegate.instance()?.stopIotTimer()
+                self.gotoWifiSearchVC()
+                return
             }
-        } failure: { (error) in
-            print("=== iot status error: \(String(describing: error))")
+            if let timeout = response["timeout"] as? Bool, timeout == true {
+                AppDelegate.instance()?.stopIndicator()
+                AppDelegate.instance()?.stopIotTimer()
+                AlertView.showWithOk(title: "타임 아웃", message: "연결시간 초과되었습니다.\n다시시도해주세요", completion: nil)
+            }
         }
+    }
+    
+    func gotoWifiSearchVC() {
+        let vc = WifiSearchViewController.init()
+        vc.arrWifiList = self.wifiList
+        vc.sessionKey = self.sessionKey
+        self.navigationController?.pushViewController(vc, animated: false)
     }
 }
 
@@ -147,15 +156,16 @@ extension IotSearchViewController: UITableViewDelegate, UITableViewDataSource {
         let wifi = arrTblData[indexPath.row]
         //iot Device wifi change 한다.
         self.connetedWifi(wifi: wifi) { (success, error) in
-            if error != nil {
-                if let msg = error?.localizedDescription {
-                    AlertView.showWithOk(title: nil, message: msg, completion: nil)
+            if success {
+                self.isChangeWifi = true
+                AlertView.showWithOk(title: wifi.ssid, message: "장비 Wifi 연결되었습니다.") { (index) in
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+1) {
+                        self.requestIotConnetion()
+                    }
                 }
             }
             else {
-                AlertView.showWithOk(title: wifi.ssid, message: "장비 Wifi 연결되었습니다.") { (index) in
-                    self.requestIotConnetion()
-                }
+                self.view.makeToast("장비 와이파이 연결 실패하였습니다.")
             }
         }
     }

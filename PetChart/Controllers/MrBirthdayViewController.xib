@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -15,6 +15,7 @@
                 <outlet property="btnCanlendar" destination="c5h-0y-ECA" id="ANr-ld-jsa"/>
                 <outlet property="btnOk" destination="7dR-AP-rLg" id="hw3-5K-arg"/>
                 <outlet property="btnSafety" destination="M6V-hL-to6" id="Sby-je-wYw"/>
+                <outlet property="seperatorBirthday" destination="QYG-O3-gf9" id="qpD-Oe-Ik6"/>
                 <outlet property="tfBirthDay" destination="qcJ-m9-BEX" id="67t-nG-T0f"/>
                 <outlet property="view" destination="vgy-cN-WQ3" id="vgU-dS-hZh"/>
             </connections>
@@ -51,7 +52,7 @@
                                                         <stackView opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="zAe-we-jh5">
                                                             <rect key="frame" x="0.0" y="0.0" width="374" height="45"/>
                                                             <subviews>
-                                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="yyyy-MM-dd" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qcJ-m9-BEX">
+                                                                <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="생년월일을 선택해주세요." textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qcJ-m9-BEX">
                                                                     <rect key="frame" x="0.0" y="0.0" width="348" height="45"/>
                                                                     <constraints>
                                                                         <constraint firstAttribute="height" constant="45" id="fuj-Rl-Wvu"/>

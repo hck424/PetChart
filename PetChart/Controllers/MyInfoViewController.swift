@@ -19,7 +19,7 @@ class MyInfoViewController: BaseViewController {
     @IBOutlet weak var tblView: UITableView!
     
     var heightHeaderView: NSLayoutConstraint?
-    var userName = "신소민"
+    var userName = ""
     let arrData = [["title":"로그인 정보 수정", "identify": "member_modify"],
                    ["title":"공지사항", "identify":"notice"],
                    ["title":"자주묻는 질문", "identify":"faq"],
@@ -36,6 +36,10 @@ class MyInfoViewController: BaseViewController {
         tblView.estimatedRowHeight = 58
         tblView.rowHeight = UITableView.automaticDimension
         self.tblView.reloadData()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.refreshNickName()
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -55,11 +59,14 @@ class MyInfoViewController: BaseViewController {
         heightHeaderView?.isActive = true
     }
     
-    func configurationUI() {
-        self.tblView.tableHeaderView = headerView
-        headerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        let str1: String = "\(userName) 님,\n오늘도 "
+    func refreshNickName() {
+        var str1:String = ""
+        if let name = SharedData.objectForKey(key: kUserNickName) {
+            str1 = "\(name) 님,\n오늘도 "
+        }
+        else {
+            str1 = "오늘도 "
+        }
         
         let img = UIImage(named: "logo_red")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         let attchment = NSTextAttachment.init(image: img!)
@@ -72,7 +79,11 @@ class MyInfoViewController: BaseViewController {
         resultAttr.append(attr)
         resultAttr.append(NSAttributedString.init(string: " 하세요!"))
         lbHeaderTitle.attributedText = resultAttr
-        
+    }
+    func configurationUI() {
+        self.tblView.tableHeaderView = headerView
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        self.refreshNickName()
         btnMyPet.layer.cornerRadius = 20
         btnMyPet.layer.maskedCorners = CACornerMask(TL: true, TR: false, BL: false, BR: false)
         btnIot.layer.cornerRadius = 20

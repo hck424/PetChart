@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -16,6 +16,7 @@
                 <outlet property="btnMypetName" destination="GmM-Ac-uxd" id="4z0-QP-cgQ"/>
                 <outlet property="btnProfile" destination="js6-eP-eAM" id="sGP-qC-1Fb"/>
                 <outlet property="cornerBgView" destination="Xiy-QQ-5Xi" id="OUk-U8-qvu"/>
+                <outlet property="scrollView" destination="drg-9T-2bZ" id="UZS-X7-Uop"/>
                 <outlet property="svContaner" destination="5o2-Nx-de6" id="KMe-1s-xpb"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -25,27 +26,27 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="YAz-bd-u9Q">
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="-20" translatesAutoresizingMaskIntoConstraints="NO" id="YAz-bd-u9Q">
                     <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="InM-vp-FMA" customClass="FSPagerView" customModule="FSPagerView">
-                            <rect key="frame" x="0.0" y="0.0" width="414" height="84"/>
+                            <rect key="frame" x="0.0" y="0.0" width="414" height="124"/>
                             <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
-                                <constraint firstAttribute="height" constant="84" id="vr8-GC-zfy"/>
+                                <constraint firstAttribute="height" constant="124" id="vr8-GC-zfy"/>
                             </constraints>
                             <userDefinedRuntimeAttributes>
                                 <userDefinedRuntimeAttribute type="boolean" keyPath="isInfinite" value="YES"/>
                             </userDefinedRuntimeAttributes>
                         </view>
-                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="drg-9T-2bZ">
-                            <rect key="frame" x="0.0" y="84" width="414" height="734"/>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drg-9T-2bZ">
+                            <rect key="frame" x="0.0" y="104" width="414" height="714"/>
                             <subviews>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKR-zD-YRv">
-                                    <rect key="frame" x="0.0" y="0.0" width="414" height="734"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="414" height="714"/>
                                     <subviews>
                                         <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Xiy-QQ-5Xi" userLabel="cornerBgView">
-                                            <rect key="frame" x="0.0" y="89" width="414" height="645"/>
+                                            <rect key="frame" x="0.0" y="79" width="414" height="635"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GmM-Ac-uxd" userLabel="btnMypetName" customClass="UIButton">
                                                     <rect key="frame" x="144" y="45" width="126.5" height="30"/>
@@ -104,7 +105,7 @@
                                                     </constraints>
                                                 </stackView>
                                                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5o2-Nx-de6" userLabel="svContaner">
-                                                    <rect key="frame" x="0.0" y="105" width="414" height="540"/>
+                                                    <rect key="frame" x="0.0" y="105" width="414" height="530"/>
                                                     <edgeInsets key="layoutMargins" top="0.0" left="20" bottom="20" right="20"/>
                                                 </stackView>
                                             </subviews>
@@ -122,7 +123,7 @@
                                             </constraints>
                                         </view>
                                         <button opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="js6-eP-eAM" userLabel="Profile">
-                                            <rect key="frame" x="157" y="30" width="100" height="100"/>
+                                            <rect key="frame" x="157" y="20" width="100" height="100"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="js6-eP-eAM" secondAttribute="height" multiplier="1:1" id="Bu7-6e-jJp"/>
                                                 <constraint firstAttribute="width" constant="100" id="TLY-wy-Bvl"/>
@@ -133,18 +134,18 @@
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstItem="Xiy-QQ-5Xi" firstAttribute="top" secondItem="js6-eP-eAM" secondAttribute="bottom" constant="-41" id="DO0-uA-5Ap"/>
                                         <constraint firstItem="js6-eP-eAM" firstAttribute="centerX" secondItem="jKR-zD-YRv" secondAttribute="centerX" id="U0j-FE-55S"/>
                                         <constraint firstItem="Xiy-QQ-5Xi" firstAttribute="leading" secondItem="jKR-zD-YRv" secondAttribute="leading" id="YVe-HD-fZl"/>
                                         <constraint firstAttribute="trailing" secondItem="Xiy-QQ-5Xi" secondAttribute="trailing" id="YoK-2f-dKK"/>
                                         <constraint firstAttribute="bottom" secondItem="Xiy-QQ-5Xi" secondAttribute="bottom" id="ZEV-cp-ddZ"/>
-                                        <constraint firstItem="js6-eP-eAM" firstAttribute="top" secondItem="jKR-zD-YRv" secondAttribute="top" constant="30" id="cKw-Ck-QLm"/>
+                                        <constraint firstItem="js6-eP-eAM" firstAttribute="top" secondItem="jKR-zD-YRv" secondAttribute="top" constant="20" id="cKw-Ck-QLm"/>
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" red="0.95294117649999999" green="0.95294117649999999" blue="0.95294117649999999" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="jKR-zD-YRv" firstAttribute="width" secondItem="drg-9T-2bZ" secondAttribute="width" id="120-Gb-YAU"/>
                                 <constraint firstItem="jKR-zD-YRv" firstAttribute="leading" secondItem="drg-9T-2bZ" secondAttribute="leading" id="3Hd-PG-ZxS"/>

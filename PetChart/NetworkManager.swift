@@ -106,10 +106,10 @@ class NetworkManager: NSObject {
                 if key == "images" {
                     if let value = value as? Array<UIImage> {
                         for img in value {
-                            let imgData = img.jpegData(compressionQuality: 1.0)
+                            let imgData = img.jpegData(compressionQuality: 0.9)
                             
                             if let imgData = imgData {
-                                multipartFormData.append(imgData, withName: "files", fileName: "\(Date().timeIntervalSince1970).png", mimeType: "image/png")
+                                multipartFormData.append(imgData, withName: "files", fileName: "\(Date().timeIntervalSince1970).jpeg", mimeType: "image/jpeg")
                                 print(" == imgData byte: \(ByteCountFormatter().string(fromByteCount: Int64(imgData.count)))")
                             }
                         }
@@ -167,7 +167,6 @@ class NetworkManager: NSObject {
         let request = AF.request(encodedUrl, method: method, parameters: nil, encoding: JSONEncoding.default)
         let startTime = CACurrentMediaTime()
         request.responseJSON { (response:AFDataResponse<Any>) in
-            
             let endTime = CACurrentMediaTime()
             if let url = response.request?.url?.absoluteString {
                 print("\n\n =======request ======= \nurl: \(String(describing: url))")

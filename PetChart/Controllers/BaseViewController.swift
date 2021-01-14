@@ -22,8 +22,16 @@ class BaseViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.navigationController?.interactivePopGestureRecognizer!.delegate = self
+        overrideUserInterfaceStyle = .light
     }
  
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+    }
+    
     @objc func actionPopViewCtrl() {
         self.navigationController?.popViewController(animated: true)
     }
@@ -66,7 +74,13 @@ class BaseViewController: UIViewController {
             }
         }
     }
-    
+    func showToast(_ msg:String?) {
+        guard let msg = msg else {
+            return
+        }
+        AppDelegate.instance()?.window?.rootViewController?.view.makeToast(msg)
+//        self.view.makeToast(msg, position:.bottom)
+    }
     func gotoLoginVc() {
         let vc = LoginViewController.init(nibName: "LoginViewController", bundle: nil)
         self.navigationController?.pushViewController(vc, animated: false)
@@ -82,16 +96,24 @@ class BaseViewController: UIViewController {
         let configuration = NEHotspotConfiguration.init(ssid: wifi.ssid!, passphrase: wifi.password!, isWEP: false)
         configuration.joinOnce = true
         AppDelegate.instance()?.startIndicator()
-    
         NEHotspotConfigurationManager.shared.apply(configuration) { (error) in
             AppDelegate.instance()?.stopIndicator()
             if let error = error {
                 completion(false, error)
-                return
             }
-            
-            completion(true, nil)
-            
+            else {
+                if let curwifi = self.fetchWifi().first {
+                    if curwifi.ssid == wifi.ssid {
+                        completion(true, nil)
+                    }
+                    else {
+                        completion(false, nil)
+                    }
+                }
+                else {
+                    completion(false, nil)
+                }
+            }
         }
     }
     func getAllWifiList(completion:@escaping(_ list:[Any]?)->Void) {
@@ -118,6 +140,7 @@ class BaseViewController: UIViewController {
         guard let interfaceNames = CNCopySupportedInterfaces() as? [String] else {
             return []
         }
+        
         let wifiInfo:[WifiInfo] = interfaceNames.compactMap { name in
             guard let info = CNCopyCurrentNetworkInfo(name as CFString) as? [String:AnyObject] else {
                 return nil

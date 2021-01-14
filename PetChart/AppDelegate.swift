@@ -13,13 +13,14 @@ import FBSDKCoreKit
 import KakaoSDKAuth
 import KakaoSDKCommon
 import NaverThirdPartyLogin
-import SwiftKeychainWrapper
 import FirebaseMessaging
 @main
 
 class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     var loadingView: UIView? = nil
+    var timerIot:Timer? = nil;
+    var iotStatusRequestCount = 0
     class func instance() -> AppDelegate? {
         return UIApplication.shared.delegate as? AppDelegate
     }
@@ -34,9 +35,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FirebaseApp.configure()
         
         KakaoSDKCommon.initSDK(appKey: KAKAO_NATIVE_APP_KEY)
-        
+        if #available(iOS 13, *) {
+            window?.overrideUserInterfaceStyle = .light
+        }
         SharedData.instance.pToken = SharedData.getToken()
-        self.requestUpdateToken()
         
         //네이버
         let naverThirdPartyLoginInstance = NaverThirdPartyLoginConnection.getSharedInstance()
@@ -61,37 +63,66 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if showTutorial == nil {
             self.callTutorialVc()
             dfs.setValue("Y", forKey: IsShowTutorial)
-            //최초 푸시 온상태 만든다.
-            dfs.setValue("Y", forKey: kPushSetting)
+            
             //차트 디폴트 세팅
-            let arrHealth:[PetHealth] = [.drink, .eat, .weight, .feces, .walk, .medical]
+            let arrHealth:[PetHealth] = [.drink, .eat, .weight, .feces, .walk]
             for type in arrHealth {
                 let keyHomeGraph = type.udfHomeGraphKey()
                 dfs.setValue(type.rawValue, forKey: keyHomeGraph)
                 let keyTotalChart = type.udfTotalChartKey()
                 dfs.setValue(type.rawValue, forKey: keyTotalChart)
             }
+            dfs.setValue(PetHealth.drink.rawValue, forKey: kSmartChartDrink)
+            dfs.setValue(PetHealth.eat.rawValue, forKey: kSmartChartEat)
             dfs.synchronize()
         }
         else {
-            self.callMainVc()
+            if let _ = SharedData.objectForKey(key: kUserId), let _ = SharedData.objectForKey(key: kPToken) {
+                self.requestUpdateToken()
+                self.callMainVc()
+            }
+            else {
+                self.callLoginVc()
+            }
         }
         
         if (SharedData.objectForKey(key: kAPPLECATION_UUID) as? String) == nil {
-            let newUUID = Utility.getUUID()
-            SharedData.setObjectForKey(key: kAPPLECATION_UUID, value: newUUID)
-            dfs.synchronize()
+//            let newUUID = Utility.getUUID()
+            if let newUUID = UIDevice.current.identifierForVendor?.uuidString {
+                SharedData.setObjectForKey(key: kAPPLECATION_UUID, value: newUUID)
+                dfs.synchronize()
+            }
         }
+        
+        self.requestAppVersionInfo()
+        
         print("=== uuid : \(SharedData.objectForKey(key: kAPPLECATION_UUID)!)")
         SharedData.instance.userIdx = SharedData.objectForKey(key: kUserIdx) as? Int ?? -1
-        
-        let pushFlag = SharedData.objectForKey(key: kPushSetting)
-        if let _ = pushFlag {
-            self.registApnsPushKey()
-        }
+        self.registApnsPushKey()
         return true
     }
-    
+    func requestAppVersionInfo() {
+        guard let uuid = SharedData.objectForKey(key: kAPPLECATION_UUID) else {
+            return
+        }
+        let param = ["uuid":uuid, "taget":"iOS"];
+        ApiManager.shared.requestAppVersionInfo(param: param) { (response) in
+            guard let response = response as? [String:Any], let data = response["data"] as? [String:Any] else {
+                return
+            }
+            if let c_ver = data["c_ver"] {
+                
+            }
+            if let m_ver = data["m_ver"] {
+                
+            }
+            if let taget = data["taget"] {
+                
+            }
+        } failure: { (error) in
+            print(error)
+        }
+    }
     func requestUpdateToken() {
         if let token = SharedData.getToken(),
            let userId = SharedData.getUserId(),
@@ -132,6 +163,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
+    func callLoginVc() {
+        let vc = LoginViewController.init()
+        let navi = BaseNavigationController.init(rootViewController: vc)
+        window?.rootViewController = navi
+        window?.makeKeyAndVisible()
+    }
     func callTutorialVc() {
         let vc: TutorialViewController = TutorialViewController.init()
         window?.rootViewController = vc;
@@ -142,7 +179,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.rootViewController = mainTabVc
         window?.makeKeyAndVisible()
     }
+    func stopIotTimer() {
+        self.iotStatusRequestCount = 0
+        if let timerIot = timerIot {
+            timerIot.invalidate()
+            timerIot.fire()
+        }
+    }
+    func startTimerIot() {
+        self.stopIotTimer()
+        self.timerIot = Timer.scheduledTimer(timeInterval: 7, target: self, selector: #selector(checkIotState), userInfo: nil, repeats: true)
+    }
     
+    @objc func checkIotState() {
+        //백그라운드
+        DispatchQueue.global(qos: .userInitiated).async {
+            ApiManager.shared.requestIotStatus { (response) in
+                print("iot status check background : \(response ?? "")")
+                if var result = response as? [String:Any] {
+                    self.iotStatusRequestCount += 1
+                    if self.iotStatusRequestCount > 4 {
+                        result["timeout"] = true    //4*7=28초 이후면 타임아웃  //10초 너무 긴것 같다.
+                        self.stopIotTimer()
+                        NotificationCenter.default.post(name: Notification.Name(kNotiNameIotState), object: result)
+                    }
+                    else {
+                        result["timeout"] = false
+                        NotificationCenter.default.post(name: Notification.Name(kNotiNameIotState), object: result)
+                    }
+                }
+            } failure: { (error) in
+                print("error check status background error: \(error ?? "")")
+            }
+        }
+    }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         
@@ -172,11 +242,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             self.loadingView?.startAnimation(raduis: 25.0)
             
             //혹시라라도 indicator 계속 돌고 있으면 강제로 제거 해준다. 10초후에
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+10) {
-                if let loadingView = AppDelegate.instance()?.window?.viewWithTag(1234321) {
-                    loadingView.removeFromSuperview()
-                }
-            }
+//            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+60) {
+//                if let loadingView = AppDelegate.instance()?.window?.viewWithTag(1234321) {
+//                    loadingView.removeFromSuperview()
+//                }
+//            }
         })
     }
     
@@ -199,9 +269,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func removeApnsPushKey() {
-        Messaging.messaging().delegate = nil
-    }
     func registApnsPushKey() {
         Messaging.messaging().delegate = self
         self.registerForRemoteNoti()
@@ -210,7 +277,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().delegate = self
         let authOptions: UNAuthorizationOptions = [.alert, .badge, .sound]
         UNUserNotificationCenter.current().requestAuthorization(options: authOptions) { (granted: Bool, error:Error?) in
-            if error == nil {
+            if granted == true {
                 DispatchQueue.main.async {
                     UIApplication.shared.registerForRemoteNotifications()
                 }
@@ -238,26 +305,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     // MARK: - Core Data stack
     lazy var persistentContainer: NSPersistentContainer = {
-        /*
-         The persistent container for the application. This implementation
-         creates and returns a container, having loaded the store for the
-         application to it. This property is optional since there are legitimate
-         error conditions that could cause the creation of the store to fail.
-        */
         let container = NSPersistentContainer(name: "PetChart")
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                 
-                /*
-                 Typical reasons for an error here include:
-                 * The parent directory does not exist, cannot be created, or disallows writing.
-                 * The persistent store is not accessible, due to permissions or data protection when the device is locked.
-                 * The device is out of space.
-                 * The store could not be migrated to the current model version.
-                 Check the error message to determine what the actual problem was.
-                 */
                 fatalError("Unresolved error \(error), \(error.userInfo)")
             }
         })
@@ -265,15 +315,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }()
 
     // MARK: - Core Data Saving support
-
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
             do {
                 try context.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nserror = error as NSError
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
@@ -337,6 +384,7 @@ extension AppDelegate: MessagingDelegate {
         //앱서버에 fcmkey 올려준다.
         
         let param = ["deviceUID":udid, "p_token":fcmToken]
+        print("=== uuid: \(udid), fcmtoken:\(fcmToken)")
         ApiManager.shared.requestUpdateFcmToken(param: param) { (response) in
             if let response = response as? [String:Any], let success = response["success"] as? Bool, success == true {
                 print("===== success: fcm token app server upload")

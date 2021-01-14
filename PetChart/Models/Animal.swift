@@ -34,6 +34,7 @@ class Animal: Mappable {
     var petName: String?
     var is_main: String? //Y/N
     var birthday: String?
+    var birthMonth: Int?
     var neutral: String?  //중성화 여부 중성화 여부 (Y|N|D) Y: 예, N: 아니오, D: 모름
     var size: String? //펫크기 (S|M|B)
     var dtype: String?

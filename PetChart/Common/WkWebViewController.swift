@@ -7,7 +7,6 @@
 
 import UIKit
 import WebKit
-import GCDWebServer
 
 enum WebViewType {
     case normal, localHtmlAddressSearch
@@ -22,7 +21,7 @@ class WkWebViewController: UIViewController {
     
     var webView: WKWebView?
     var popupWebView: WKWebView?
-    var webServer:GCDWebServer?
+//    var webServer:GCDWebServer?
     
     var didFinishSelectedAddressClourse:((_ selData: [String:Any]?) ->())? {
         didSet {
@@ -79,44 +78,45 @@ class WkWebViewController: UIViewController {
             self.webView?.customUserAgent = newAgent
         })
         
-        if type == .localHtmlAddressSearch {
-            webServer = GCDWebServer()
-            //로컬 웹서버를 만든다.
-            webServer?.addDefaultHandler(forMethod: "GET", request: GCDWebServerRequest.classForCoder(), processBlock: { (reqeust) -> GCDWebServerResponse? in
-                let filePath = Bundle.main.path(forResource: "index", ofType: "html")
-                let htmlString = try? String(contentsOfFile: filePath!, encoding: .utf8)
-                if let html = htmlString {
-                    return GCDWebServerDataResponse(html: html)
-                }
-                else {
-                    return GCDWebServerDataResponse(html: "<html><body><p>Hello World</p></body></html>")
-                }
-            })
-        }
-        else if strUrl.isEmpty == false {
+//        if type == .localHtmlAddressSearch {
+//            webServer = GCDWebServer()
+//            //로컬 웹서버를 만든다.
+//            webServer?.addDefaultHandler(forMethod: "GET", request: GCDWebServerRequest.classForCoder(), processBlock: { (reqeust) -> GCDWebServerResponse? in
+//                let filePath = Bundle.main.path(forResource: "index", ofType: "html")
+//                let htmlString = try? String(contentsOfFile: filePath!, encoding: .utf8)
+//                if let html = htmlString {
+//                    return GCDWebServerDataResponse(html: html)
+//                }
+//                else {
+//                    return GCDWebServerDataResponse(html: "<html><body><p>Hello World</p></body></html>")
+//                }
+//            })
+//        }
+//        else
+        if strUrl.isEmpty == false {
             let req = NSMutableURLRequest(url: URL(string: strUrl)!)
             self.webView?.load(req as URLRequest)
         }
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if type == .localHtmlAddressSearch {
-            webServer?.start(withPort: 8080, bonjourName: "GCD Web Server")
-            print("server url visit \(String(describing: webServer?.serverURL))")
-            let urlStr = webServer?.serverURL?.absoluteString
-            if var urlStr = urlStr {
-                urlStr.append("index.html")
-                let req = NSMutableURLRequest(url: URL(string: urlStr)!)
-                print("===== url: \(String(describing: req.url))")
-                self.webView?.load(req as URLRequest)
-            }
-        }
+//        if type == .localHtmlAddressSearch {
+//            webServer?.start(withPort: 8080, bonjourName: "GCD Web Server")
+//            print("server url visit \(String(describing: webServer?.serverURL))")
+//            let urlStr = webServer?.serverURL?.absoluteString
+//            if var urlStr = urlStr {
+//                urlStr.append("index.html")
+//                let req = NSMutableURLRequest(url: URL(string: urlStr)!)
+//                print("===== url: \(String(describing: req.url))")
+//                self.webView?.load(req as URLRequest)
+//            }
+//        }
     }
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        if let webServer = webServer {
-            webServer.stop()
-        }
+//        if let webServer = webServer {
+//            webServer.stop()
+//        }
     }
     func getZoomDisableScript() ->String {
         return "var meta = document.createElement('meta');meta.setAttribute('name', 'viewport');meta.setAttribute('content', 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable= 0');document.getElementsByTagName('head')[0].appendChild(meta);"

@@ -35,33 +35,25 @@ class IotCell: UITableViewCell {
     
     func configurationData(_ data:[String:Any]?) {
         self.data = data
+        
+        lbIotName.text = ""
+        lbIotModel.text = "펫차트 스마트 식기"
+        lbIotState.text = ""
+        
         guard let data = data else {
-            lbIotName.text = ""
-            lbIotModel.text = ""
-            lbIotState.text = ""
             return
         }
-//        ["create_date": "2020-11-10", "id": 100, "mac": "4321554315", "model": "PetEat423423", "name": "식사시간", "state": "Y", "update_date": "2020-11-10"]
-        var result = ""
-        if let petName = SharedData.objectForKey(key: kMainShowPetName) {
-            result.append("\(petName)의 식사시간")
+        
+        if let name = data["name"] as? String, name.isEmpty == false {
+            lbIotName.text = name
         }
-//        if let name = data["name"] as? String, name.isEmpty == false {
-//            result.append(" \(name)")
-//        }
-//        else {
-//            result.append(" 식사시간")
-//        }
         
-        lbIotName.text = result
-        
-        lbIotModel.text = "모델명:"
-        if let model = data["model"] as? String {
-            lbIotModel.text = "모델명: \(model)"
+        if let model = data["model"] as? String, model.isEmpty == false {
+            lbIotModel.text = "\(model)"
         }
         
         if let state = data["state"] as? String, state == "run" {
-            lbIotState.text = "연결됨"
+            lbIotState.text = "연결 중"
             lbIotState.textColor = RGB(51, 150, 254)
         }
         else {

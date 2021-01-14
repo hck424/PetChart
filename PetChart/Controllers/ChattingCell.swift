@@ -9,7 +9,7 @@ import UIKit
 
 class ChattingCell: UITableViewCell {
 
-    @IBOutlet weak var bgView: UIView!
+    @IBOutlet weak var bgView: UIImageView!
     @IBOutlet weak var lbContent: UILabel!
     @IBOutlet weak var svContent: UIStackView!
     
@@ -20,7 +20,8 @@ class ChattingCell: UITableViewCell {
         let view = UIView.init()
         view.backgroundColor = UIColor.clear
         self.selectedBackgroundView = view
-        bgView.layer.cornerRadius = 4
+//        bgView.layer.cornerRadius = 4
+        bgView.contentMode = .scaleToFill
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -36,9 +37,12 @@ class ChattingCell: UITableViewCell {
         if let message = data["message"] as? String {
             lbContent.text = message
         }
+        self.layoutIfNeeded()
         if let dtype = data["dtype"] as? String {
             if dtype == "user" {
-                bgView.backgroundColor = ColorDefault
+                let img = UIImage(named: "comment_red")
+                bgView.image = img?.resizableImage(withCapInsets: UIEdgeInsets(top: 3, left: 3, bottom: 20, right: 10), resizingMode: .stretch)
+                bgView.backgroundColor = UIColor.clear
                 lbContent.textColor = UIColor.white
                 
                 if let lbTime = self.getTimeLabel() {   //내가 쓴글
@@ -46,9 +50,10 @@ class ChattingCell: UITableViewCell {
                 }
             }
             else {
-                bgView.backgroundColor = UIColor.white
+                bgView.image = UIImage(named: "comment_white")?.resizableImage(withCapInsets: UIEdgeInsets(top: 3, left: 10, bottom: 20, right: 3), resizingMode: .stretch)
+//                bgView.backgroundColor = UIColor.white
+                bgView.backgroundColor = UIColor.clear
                 lbContent.textColor = UIColor.black
-                
                 if let lbTime = self.getTimeLabel() {
                     svContent.addArrangedSubview(lbTime)
                 }
